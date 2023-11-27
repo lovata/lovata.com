@@ -1,0 +1,60 @@
+/.ci
+/app/bootstrap/compiled.php
+
+# Composer ignores
+/app/vendor
+composer.phar
+.DS_Store
+.idea
+.htaccess
+.htpasswd
+/.vscode/
+
+# Project ignores
+/app
+/app/public/*
+/app/sitemap*
+/app/robots.txt
+/app/yandex*
+/app/google*
+docker-compose*
+
+# Framework ignores
+.env
+.env.*.php
+.env.php
+selenium.php
+.phpunit.result.cache
+auth.json
+build.sh
+
+# Hosting ignores
+php_errors.log
+nginx-error.log
+nginx-access.log
+nginx-ssl.access.log
+nginx-ssl.error.log
+php-errors.log
+sftp-config.json
+package-lock.json
+.ftpconfig
+
+# for netbeans
+# Editor ignores
+nbproject
+.vscode
+
+# Other ignores
+/node_modules
+.php_cs.cache
+.vault-password*
+
+#site
+pdf/
+_backup/
+cgi-bin/
+
+*.log
+*.bin
+*.komodoproject
+/.komodotools/

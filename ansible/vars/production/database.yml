@@ -1,0 +1,5 @@
+DB_HOST: mysql
+DB_PORT: 3306
+DB_DATABASE: app_db
+DB_USERNAME: user
+DB_PASSWORD: password

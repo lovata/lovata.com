@@ -1,0 +1,50 @@
+server {
+    listen 80;
+
+    # For https
+    # listen 443 ssl;
+    # listen [::]:443 ssl default_server ipv6only=on;
+    # ssl_certificate /etc/nginx/ssl/default.crt;
+    # ssl_certificate_key /etc/nginx/ssl/default.key;
+
+    server_name localhost;
+
+    # Redirect /foobar/ and /foobar/index.html to /foobar
+    rewrite ^(.+)/+$ $1 permanent;
+
+    rewrite ^(.*/)index\.(php|html?)$ $1 permanent;
+    if ($request_uri ~* "^(.*)/index\.php(.*)") {
+       return 301 $1$2;
+    }
+
+    # Redirect to https
+    #if ($scheme = http) {
+    #    return 301 https://$server_name$request_uri;
+    #}
+
+    root /var/www/html/public;
+    index index.php index.html index.htm;
+
+    location / {
+         rewrite ^/.*$ /index.php last;
+    }
+
+    error_log  /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    error_page 404 /index.php;
+
+    include snippets/gzip.conf;
+    include snippets/static.conf;
+    include snippets/php.conf;
+    include snippets/whitelist.conf;
+
+    include snippets/mailpit.conf;
+
+    location ~ /\.ht {
+        deny all;
+    }
+}

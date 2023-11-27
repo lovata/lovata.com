@@ -1,0 +1,15 @@
+APP_ENV: local
+APP_DEBUG: true
+APP_URL: 'http://lovata.loc'
+BROADCAST_DRIVER: log
+CACHE_DRIVER: file
+QUEUE_CONNECTION: sync
+SESSION_DRIVER: file
+
+RESTART_POLICY: "no"
+
+ENABLE_REDIS: false
+ENABLE_QUEUE: false
+ENABLE_MAILPIT: true
+
+SAIL_XDEBUG_MODE: develop,debug

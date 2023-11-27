@@ -1,0 +1,5 @@
+all:
+  hosts:
+    localhost:
+      env: staging
+      ansible_connection: local

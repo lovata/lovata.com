@@ -1,0 +1,241 @@
+version: '3.9'
+services:
+    nginx:
+        build:
+            context: ./docker/nginx
+        restart: "{{ RESTART_POLICY }}"
+        ports:
+            - '${APP_HTTP_PORT:-80}:80'
+            - '${APP_HTTPS_PORT:-443}:443'
+        volumes:
+            - ./docker/nginx/config/domain.conf:/etc/nginx/conf.d/default.conf:ro
+            - ./docker/nginx/config/snippets:/etc/nginx/snippets/:ro
+            - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}:ro
+            - ./docker/nginx/logs:/var/log/nginx
+            - ./docker/nginx/ssl:/etc/nginx/ssl
+        networks:
+            - frontend
+            - backend
+        depends_on:
+            - backend_app
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+    backend_app:
+        restart: "{{ RESTART_POLICY }}"
+        build:
+            context: ./docker/php/${PHP_VERSION}
+            dockerfile: Dockerfile
+            args:
+                MODE: app
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        image: app/php:${PHP_VERSION}
+        environment:
+            CONTAINER_ROLE: 'app'
+            COMPOSE_INTERACTIVE_NO_CLI: 1
+            LARAVEL_SAIL: 1
+            WWWUSER: '${WWWUSER}'
+            WWWGROUP: '${WWWGROUP}'
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            NODE_VERSION: '${NODE_VERSION}'
+            POSTGRES_VERSION: '${PGSQL_VERSION}'
+        volumes:
+            - '${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}'
+            - './temp:/home/sail/temp'
+        networks:
+            - frontend
+            - backend
+        ports:
+            - '${VITE_PORT:-5173}:5173'
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+        depends_on:
+{% if ENABLE_REDIS %}
+            - redis
+{% endif %}
+{%if DATABASE_TYPE == 'mysql' %}
+            - mysql
+{% endif %}
+{%if DATABASE_TYPE == 'mariadb' %}
+            - mariadb
+{% endif %}
+{%if DATABASE_TYPE == 'postgres' %}
+            - pgsql
+{% endif %}
+    schedule:
+        restart: "{{ RESTART_POLICY }}"
+        build:
+            context: ./docker/php/${PHP_VERSION}
+            dockerfile: Dockerfile
+            args:
+                MODE: main
+        image: main/php:${PHP_VERSION}
+        environment:
+            CONTAINER_ROLE: 'schedule'
+            COMPOSE_INTERACTIVE_NO_CLI: 1
+            LARAVEL_SAIL: 1
+            WWWUSER: '${WWWUSER}'
+            WWWGROUP: '${WWWGROUP}'
+        volumes:
+            - '${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}'
+        networks:
+            - backend
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+{% if ENABLE_QUEUE %}
+    queue:
+        restart: "no"
+        build:
+            context: ./docker/php/${PHP_VERSION}
+            dockerfile: Dockerfile
+            args:
+                MODE: main
+        image: main/php:${PHP_VERSION}
+        environment:
+            CONTAINER_ROLE: 'queue'
+            COMPOSE_INTERACTIVE_NO_CLI: 1
+            LARAVEL_SAIL: 1
+            WWWUSER: '${WWWUSER}'
+            WWWGROUP: '${WWWGROUP}'
+        volumes:
+            - '${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}'
+        networks:
+            - backend
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+{% endif %}
+{%if DATABASE_TYPE == 'postgres' %}
+    pgsql:
+        restart: "{{ RESTART_POLICY }}"
+        image: postgres:${PGSQL_VERSION}
+        ports:
+            - '${FORWARD_DB_PORT:-5432}:5432'
+        environment:
+            PGPASSWORD: '${DB_PASSWORD}'
+            POSTGRES_DB: '${DB_DATABASE}'
+            POSTGRES_USER: '${DB_USERNAME}'
+            POSTGRES_PASSWORD: '${DB_PASSWORD}'
+        volumes:
+            -  ${DATA_PATH_HOST}/postgres:/var/lib/postgresql/data
+        networks:
+            - backend
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+{% endif %}
+{%if DATABASE_TYPE == 'mysql' %}
+    mysql:
+        image: 'mysql/mysql-server:${MYSQL_VERSION}'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - ${DATA_PATH_HOST}/mysql:/var/lib/mysql'
+        networks:
+            - backend
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+{% endif %}
+{%if DATABASE_TYPE == 'mariadb' %}
+    mariadb:
+        image: 'mariadb:${MARIADB_VERSION}'
+        ports:
+            - '${FORWARD_DB_PORT:-3306}:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ROOT_HOST: "%"
+            MYSQL_DATABASE: '${DB_DATABASE}'
+            MYSQL_USER: '${DB_USERNAME}'
+            MYSQL_PASSWORD: '${DB_PASSWORD}'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql'
+        networks:
+            - backend
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+{% endif %}
+{% if ENABLE_REDIS %}
+    redis:
+        restart: "{{ RESTART_POLICY }}"
+        build:
+            context: ./docker/redis
+            args:
+              - REDIS_PASSWORD=${REDIS_PASSWORD}
+        volumes:
+          - ${DATA_PATH_HOST}/redis:/data
+        networks:
+            - backend
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            retries: 3
+            timeout: 5s
+{% endif %}
+{% if ENABLE_MAILPIT %}
+    mailpit:
+        image: 'axllent/mailpit:latest'
+        ports:
+            - '${FORWARD_MAILPIT_PORT:-1025}:1025'
+            - '${FORWARD_MAILPIT_DASHBOARD_PORT:-8025}:8025'
+        networks:
+            - backend
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+{% endif %}
+networks:
+    frontend:
+        driver: bridge
+    backend:
+        driver: bridge
+volumes:
+{%if DATABASE_TYPE == 'mysql' %}
+    mysql:
+        driver: local
+{% endif %}
+{%if DATABASE_TYPE == 'mariadb' %}
+    mariadb:
+        driver: local
+{% endif %}
+{%if DATABASE_TYPE == 'postgres' %}
+    pgsql:
+        driver: local
+{% endif %}
+{% if ENABLE_REDIS %}
+    redis:
+        driver: local
+{% endif %}

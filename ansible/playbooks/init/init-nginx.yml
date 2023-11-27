@@ -1,0 +1,20 @@
+- name: 'Create nginx config'
+  hosts: localhost
+  tasks:
+    - name: 'Get user ID'
+      when: ansible_os_family != "Windows"
+      command: id -u
+      register: CURRENT_USER_ID
+    # Gather facts
+    - name: 'Include global vars'
+      include_vars:
+        dir: ./../../vars/global
+    - name: 'Include environment vars'
+      include_vars:
+        dir: ./../../vars/{{ env }}
+
+    - name: 'Create domain.conf file'
+      template:
+        src: ./../../templates/nginx/{{ env }}-domain.conf.j2
+        dest: ./../../../docker/nginx/config/domain.conf
+        force: true
