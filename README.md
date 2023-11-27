@@ -69,6 +69,11 @@ Connect to backend_app container and create app_db database
 make app-create-database
 ```
 
+Connect to backend_app container and apply dump file. You should copy the dump file to **temp/db/dump.sql**
+```bash
+make app-apply-dump
+```
+
 ## xDebug configuration
 
 * Open **/app** folder with app code in PHPStorm
