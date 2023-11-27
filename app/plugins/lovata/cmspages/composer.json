@@ -1,0 +1,9 @@
+{
+    "name": "lovata/cmspages-plugin",
+    "type": "october-plugin",
+    "description": "CMS Pages extensions",
+    "require": {
+        "composer/installers": "~1.0",
+        "october/cms": "^3.0"
+    }
+}

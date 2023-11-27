@@ -1,0 +1,206 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 102;
+  height: 70px;
+  transition: all .4s;
+  &._open {
+    opacity: 0;
+    visibility: hidden;
+  }
+  &._black-logo {
+    .header__nav-logo-img {
+      path, polygon {
+        fill: #000;
+      }
+    }
+    .header__request {
+      color: #443d50;
+      &:before {
+        background: rgba(68, 61, 80, .5);
+      }
+    }
+  }
+  &._burger-white {
+    .header__navicon-dash {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+  &._bar {
+    background: rgba(13, 7, 25, .9);
+    .header__nav-logo-img {
+      path, polygon {
+        fill: #fff;
+      }
+    }
+    .header__request {
+      color: #ffffff;
+      &:before {
+        background: rgba(255, 255, 255, 0.2);
+      }
+    }
+    .header__navicon-dash {
+      background: #554f64;
+    }
+    .header__back {
+      color: #ffffff;
+      &:hover {
+        color: rgba(255, 255, 255, .6);
+      }
+    }
+  }
+  &__navicon {
+    position: absolute;
+    left: 20px;
+    top: 19px;
+    display: inline-block;
+    width: 33px;
+    height: 34px;
+    border: none;
+    transition: all .4s;
+    background: transparent;
+    @media (max-width: 768px) {
+      left: 35px;
+      &._open {
+        left: 20px;
+      }
+    }
+    @media (max-width: 540px) {
+      left: 15px;
+      top: 23px;
+      height: 20px;
+    }
+    &-dash {
+      height: 3px;
+      margin-top: 8px;
+      width: 31px;
+      left: 1px;
+      top: 1px;
+      position: relative;
+      box-sizing: border-box;
+      display: block;
+      background-color: #554f64;
+      transition: transform .4s;
+      will-change: transform;
+      &:first-child {
+        margin-top: 0;
+      }
+      @media (max-width: 540px) {
+        margin-top: 5px;
+      }
+    }
+    &._open:hover {
+      transform: rotate(-90deg);
+      @media (max-width: 540px) {
+        transform: none;
+      }
+    }
+    &._open .header__navicon-dash {
+      background: #ffffff;
+    }
+    &._open .header__navicon-dash._1 {
+      transform: rotate(45deg) translateX(7.7px) translateY(7.5px) scale(.7);
+    }
+    &._open .header__navicon-dash._2 {
+      opacity: 0;
+      transform: scale(.7);
+    }
+    &._open .header__navicon-dash._3 {
+      transform: rotate(-45deg) translateX(8px) translateY(-8px) scale(.7);
+    }
+
+    /* MIN-WIDTH */
+    @media (min-width: 960px) {
+      &:not(._open):hover .header__navicon-dash._2 {
+        transform: translateY(2px);
+        transition: all .4s cubic-bezier(.17, .67, .4, 1.92);
+      }
+      &:not(._open):hover .header__navicon-dash._3 {
+        transform: translateY(5px);
+        transition: all .4s cubic-bezier(.17, .67, .4, 1.92);
+      }
+    }
+
+  }
+  &__nav-logo-link {
+    position: absolute;
+    top: 22px;
+    left: 70px;
+    width: 160px;
+    height: 30px;
+    transition: all .4s;
+    cursor: default;
+    &:link {
+      cursor: pointer;
+    }
+    &._hide {
+      opacity: 0;
+    }
+    @media (max-width: 768px) {
+      left: 85px;
+    }
+    @media (max-width: 540px) {
+      left: 60px;
+      top: 24px;
+      width: 120px;
+      height: 20px;
+    }
+  }
+  &__nav-logo-img {
+    width: 100%;
+    height: 100%;
+  }
+  &__request {
+    position: absolute;
+    right: 40px;
+    top: 18px;
+    display: inline-block;
+    font-size: 27px;
+    font-weight: 300;
+    text-decoration: none;
+    color: #ffffff;
+    &._hide {
+      display: none;
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all .2s;
+    }
+    &:hover:before {
+      bottom: 0;
+      opacity: 1;
+      visibility: visible;
+    }
+    @media (max-width: 540px) {
+      display: none;
+    }
+  }
+  &__back {
+    position: absolute;
+    right: 40px;
+    top: 18px;
+    display: none;
+    font-size: 67px;
+    line-height: 50px;
+    text-decoration: none;
+    color: #000;
+    transition: color 0.25s;
+    @media (max-width: 540px) {
+      right: 20px;
+      font-size: 55px;
+      line-height: 40px;
+    }
+    &:hover {
+      color: rgba(0, 0, 0, .6);
+    }
+  }
+}

@@ -1,0 +1,38 @@
+handle: MyGlobal
+type: global
+name: Settings Example
+
+primaryNavigation:
+    label: Settings
+    icon: icon-magic
+    order: 150
+
+navigation:
+    parent: MyGlobal
+    icon: icon-magic
+    order: 10
+
+fields:
+    website_name:
+        label: Company Name
+        tab: General
+
+    facebook_url:
+        label: Facebook URL
+        placeholder: "https://..."
+        tab: General
+
+    twitter_url:
+        label: Twitter URL
+        placeholder: "https://..."
+        tab: General
+
+    github_url:
+        label: GitHub URL
+        placeholder: "https://..."
+        tab: General
+
+    linkedin_url:
+        label: LinkedIn URL
+        placeholder: "https://..."
+        tab: General

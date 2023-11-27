@@ -1,0 +1,24 @@
+1.0.0:
+    - 'Initialize plugin.'
+    - table_create_seo_template.php
+    - table_create_seo_param.php
+1.1.0:
+    - 'Update license file'
+1.1.1:
+    - 'Fixed result of SeoToolbox::getPageDescription() method.'
+1.1.2:
+    - 'Added raw filter in default.htm template.'
+1.1.3:
+    - 'Fixed integration with models without TraitCached trait.'
+1.1.4:
+    - 'Fixed seo_param attribute that custom model integrated plugin.'
+1.1.5:
+    - 'Fixed query in SeoParamItem class.'
+1.2.0:
+    - 'Added composer.json to plugin'
+1.2.1:
+    - 'Change lists method to pluck method. Thanks for contribution Nick Khaetsky.'
+1.2.2:
+    - 'Fix errors for integration with v3. Thanks for contribution Nick Khaetsky.'
+1.2.3:
+    - 'Fix errors for integration with v3.'

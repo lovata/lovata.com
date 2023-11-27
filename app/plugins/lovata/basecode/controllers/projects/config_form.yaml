@@ -1,0 +1,15 @@
+name: 'lovata.basecode::lang.project.name'
+modelClass: Lovata\BaseCode\Models\Project
+form: $/lovata/basecode/models/project/fields.yaml
+defaultRedirect: lovata/basecode/projects
+create:
+    title: 'backend::lang.form.create_title'
+    redirect: 'lovata/basecode/projects/update/:id'
+    redirectClose: lovata/basecode/projects
+    flashSave: 'lovata.toolbox::lang.message.create_success'
+update:
+    title: 'backend::lang.form.update_title'
+    redirect: lovata/basecode/projects
+    redirectClose: lovata/basecode/projects
+    flashSave: 'lovata.toolbox::lang.message.update_success'
+    flashDelete: 'lovata.toolbox::lang.message.delete_success'

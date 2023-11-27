@@ -1,0 +1,107 @@
+fields:
+    active:
+        label: 'lovata.toolbox::lang.field.active'
+        type: switch
+        span: left
+        required: false
+    title:
+        label: 'lovata.toolbox::lang.field.title'
+        span: left
+        required: 1
+        type: text
+    slug:
+        label: 'lovata.toolbox::lang.field.slug'
+        span: right
+        required: 1
+        preset:
+            field: title
+            type: slug
+        type: text
+tabs:
+    fields:
+        ### Settings ###
+        category_id:
+            label: 'lovata.toolbox::lang.field.category'
+            type: dropdown
+            span: left
+            showSearch: true
+            required: true
+            options: getCategoryIdListOptions
+            tab: 'lovata.toolbox::lang.tab.settings'
+        date:
+            label: 'lovata.basecode::lang.field.date'
+            type: datepicker
+            span: left
+            mode: date
+            required: true
+            tab: 'lovata.toolbox::lang.tab.settings'
+        project_url:
+            label: 'lovata.basecode::lang.field.project_url'
+            type: text
+            span: left
+            required: false
+            tab: 'lovata.toolbox::lang.tab.settings'
+        project_name:
+            label: 'lovata.basecode::lang.field.project_name'
+            type: text
+            span: left
+            required: false
+            tab: 'lovata.toolbox::lang.tab.settings'
+        ### Images ###
+        preview_image:
+            label: 'lovata.toolbox::lang.field.preview_image'
+            oc.commentPosition: ''
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: left
+            type: fileupload
+            tab: 'lovata.toolbox::lang.tab.images'
+        ### Description ###
+        preview_title:
+            label: 'lovata.basecode::lang.field.preview_title'
+            type: text
+            span: full
+            required: false
+            size: small
+            tab: 'lovata.toolbox::lang.tab.description'
+        preview_text:
+            label: 'lovata.toolbox::lang.field.preview_text'
+            type: textarea
+            span: full
+            required: false
+            size: small
+            tab: 'lovata.toolbox::lang.tab.description'
+        preview_text_inner_page:
+            label: 'lovata.basecode::lang.field.preview_text_inner_page'
+            type: textarea
+            span: full
+            required: false
+            size: small
+            tab: 'lovata.toolbox::lang.tab.description'
+        content:
+            label: 'lovata.basecode::lang.field.content'
+            type: repeater
+            groups: $/lovata/basecode/models/project/_content_fields.yaml
+            tab: 'lovata.toolbox::lang.tab.description'
+        ### Tags ###
+        tags:
+            label: 'lovata.basecode::lang.field.tags'
+            type: repeater
+            span: full
+            required: false
+            tab: 'lovata.basecode::lang.tab.tags'
+            form:
+                fields:
+                    name:
+                        label: 'lovata.toolbox::lang.field.name'
+                        type: text
+                        span: left
+                        required: true
+                    url:
+                        label: 'lovata.toolbox::lang.field.slug'
+                        type: text
+                        span: right
+                        required: false

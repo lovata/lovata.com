@@ -1,0 +1,17 @@
+.backend-icon-sprite(@offsetX, @offsetY) {
+    background-image: url('./backend-icons.png');
+    background-size: 300px 300px;
+    background-position: -(@offsetX) -(@offsetY);
+
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        background-image: url('./backend-icons@2x.png');
+    }
+}
+
+.backend-icon-sprite-pseudo(@width, @height, @offsetX: 0, @offsetY: 0) {
+    content: '';
+    width: @width;
+    height: @height;
+    display: inline-block;
+    .backend-icon-sprite(@offsetX, @offsetY);
+}

@@ -1,0 +1,11 @@
+<svg width="100" height="150" viewBox="0 0 160 160" class="portfolio-svg retail" version="1.1" id="Слой_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	  enable-background="new 0 0 100 150" xml:space="preserve">
+    <path fill="none" stroke="#00CCFF" stroke-width="4" stroke-miterlimit="10"
+          d="M145 149.18c0 5.42-4.39 9.82-9.82 9.82H26.82C21.39 159 17 154.61 17 149.18V46.82C17 41.39 21.39 37 26.82 37h108.37C140.61 37 145 41.39 145 46.82V149.18z"/>
+    <path fill="none" stroke="#00CCFF" stroke-width="4" stroke-linecap="round"
+          stroke-miterlimit="10"
+          d="M51 62V31.87C51 15.12 64.25 1.54 81 1.54l0 0c16.75 0 30 13.58 30 30.33V62"/>
+    <path fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="round"
+          stroke-miterlimit="10"
+          d="M110.99 89.82l-8.44-8.44c-1.17-1.17-3.05-1.17-4.22 0l-23.2 23.2L64.58 94.04c-1.17-1.17-3.05-1.17-4.22 0l-8.43 8.44c-1.17 1.17-1.17 3.05 0 4.22l21.1 21.1c1.17 1.17 3.05 1.17 4.22 0l33.75-33.75C112.15 92.88 112.15 90.99 110.99 89.82z"/>
+</svg>

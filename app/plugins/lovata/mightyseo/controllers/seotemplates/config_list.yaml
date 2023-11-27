@@ -1,0 +1,16 @@
+title: 'lovata.mightyseo::lang.template.list_title'
+modelClass: Lovata\mightyseo\Models\SeoTemplate
+list: $/lovata/mightyseo/models/seotemplate/columns.yaml
+recordUrl: 'lovata/mightyseo/seotemplates/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: '25'
+showSetup: true
+showCheckboxes: true
+showSorting: 1
+defaultSort:
+    column: id
+    direction: desc
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

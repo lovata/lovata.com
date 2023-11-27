@@ -13,8 +13,14 @@
       include_vars:
         dir: ./../../vars/{{ env }}
 
-    - name: 'Create domain.conf file'
+    - name: 'Create .env file for application'
       template:
         src: ./../../templates/app/{{ env }}.env.j2
         dest: ./../../../app/.env
+        force: true
+
+    - name: 'Create auth.json file for application'
+      template:
+        src: ./../../templates/app/auth.json.j2
+        dest: ./../../../app/auth.json
         force: true

@@ -1,0 +1,38 @@
+uuid: unittest-post-edcd102e
+handle: UnitTest\Post
+type: stream
+name: Post
+drafts: true
+
+primaryNavigation:
+    label: Blog
+    icon: octo-icon-file
+    iconSvg: modules/tailor/assets/images/blog-icon.svg
+    order: 95
+
+navigation:
+    icon: octo-icon-pencil
+    order: 100
+
+groups:
+    regular_post:
+        name: Regular Post
+        fields:
+            content:
+                label: Content
+                type: richeditor
+
+            _blog_post_content:
+                type: mixin
+                source: UnitTest\PostContent
+
+    markdown_post:
+        name: Markdown Post
+        fields:
+            content:
+                label: Content
+                type: markdown
+
+            _blog_post_content:
+                type: mixin
+                source: UnitTest\PostContent

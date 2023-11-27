@@ -1,0 +1,33 @@
+<section class="request-form js-requestPage" data-logo="black">
+    <div class="request-form__inner">
+        <h1 class="request-form__title">CONTACT US</h1>
+        {{
+            form_ajax('genericForm::onFormSubmit', {
+                flash: true,
+                class: 'request-form__form',
+                onSubmit: "yaCounter25474646.reachGoal('contact_us'); ga('send','event','Knopka','contact_us'); return true;"
+            })
+        }}
+            {{ form_text('name', null, {
+                    class: "request-form__area",
+                    placeholder: "Name",
+                    minlength: 2,
+                    maxlength: 60,
+                    required: true
+                })
+            }}
+            {{ form_input('tel', 'phone', null, {
+                    class: "request-form__area",
+                    placeholder: "Phone",
+                    required: true
+                })
+            }}
+            {{ form_email('email', null, { class: "request-form__area", placeholder: "Email", required: true}) }}
+            {{ form_textarea('comment', null, { class: "request-form__area", cols: 30, rows: 5, placeholder: "Message", minlength: 10, maxlength: 100000, required: true}) }}
+            <div class="request-form__captcha">
+                {% partial genericForm ~ '::recaptcha' %}
+            </div>
+            {{ form_submit('Submit', {id: 'simpleContactSubmitButton', class: 'request-form__submit'}) }}
+        {{ form_close() }}
+    </div>
+</section>

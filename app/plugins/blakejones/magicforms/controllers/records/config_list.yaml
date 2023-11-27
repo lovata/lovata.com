@@ -1,0 +1,19 @@
+list            : $/blakejones/magicforms/models/record/columns.yaml
+modelClass      : BlakeJones\MagicForms\Models\Record
+title           : blakejones.magicforms::lang.controllers.records.title
+recordUrl       : blakejones/magicforms/records/view/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage  : 20
+showSetup       : true
+showSorting     : true
+showCheckboxes  : true
+filter          : config_filter.yaml
+
+defaultSort:
+    column   : created_at
+    direction: desc
+
+toolbar:
+    buttons: partials/list_toolbar
+    search :
+        prompt: backend::lang.list.search_prompt

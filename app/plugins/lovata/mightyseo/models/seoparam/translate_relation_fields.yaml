@@ -1,0 +1,63 @@
+fields:
+    seo_title:
+        label: 'lovata.mightyseo::lang.field.seo_title'
+        tab: 'lovata.mightyseo::lang.field.seo_title'
+        span: left
+        type: codeeditor
+        size: huge
+        language: twig
+    page_h1:
+        label: 'lovata.mightyseo::lang.field.page_h1'
+        tab: 'lovata.mightyseo::lang.field.page_h1'
+        span: left
+        type: codeeditor
+        size: huge
+        language: twig
+    seo_description:
+        label: 'lovata.mightyseo::lang.field.seo_description'
+        tab: 'lovata.mightyseo::lang.field.seo_description'
+        span: left
+        type: codeeditor
+        size: huge
+        language: twig
+    seo_keywords:
+        label: 'lovata.mightyseo::lang.field.seo_keywords'
+        tab: 'lovata.mightyseo::lang.field.seo_keywords'
+        span: left
+        type: codeeditor
+        size: huge
+        language: twig
+    page_description:
+        label: 'lovata.mightyseo::lang.field.page_description'
+        tab: 'lovata.mightyseo::lang.field.page_description'
+        span: left
+        size: huge
+        type: richeditor
+    canonical_url:
+        label: 'lovata.mightyseo::lang.field.canonical_url'
+        tab: 'lovata.mightyseo::lang.tab.seo_settings'
+        span: left
+        type: text
+    robots_follow:
+        label: 'lovata.mightyseo::lang.field.robots_follow'
+        tab: 'lovata.mightyseo::lang.tab.seo_settings'
+        span: left
+        type: dropdown
+        emptyOption: 'lovata.toolbox::lang.field.empty'
+        options:
+            follow: follow
+            nofollow: nofollow
+    robots_index:
+        label: 'lovata.mightyseo::lang.field.robots_index'
+        tab: 'lovata.mightyseo::lang.tab.seo_settings'
+        span: left
+        type: dropdown
+        emptyOption: 'lovata.toolbox::lang.field.empty'
+        options:
+            index: index
+            noindex: noindex
+    robots_index_addition:
+        label: 'lovata.mightyseo::lang.field.robots_index_addition'
+        tab: 'lovata.mightyseo::lang.tab.seo_settings'
+        span: left
+        type: text

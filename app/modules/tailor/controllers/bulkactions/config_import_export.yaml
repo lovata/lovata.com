@@ -1,0 +1,26 @@
+# ===================================
+#  Import/Export Behavior Config
+# ===================================
+
+import:
+    # Page title
+    title: Import Entries
+
+    # Columns supplied dynamically
+    list: []
+
+    # Fields supplied dynamically
+    form: []
+
+    # Import Model class
+    modelClass: Tailor\Models\EntryRecordImport
+
+export:
+    # Page title
+    title: Export Entries
+
+    # Columns supplied dynamically
+    list: []
+
+    # Export Model class
+    modelClass: Tailor\Models\EntryRecordExport

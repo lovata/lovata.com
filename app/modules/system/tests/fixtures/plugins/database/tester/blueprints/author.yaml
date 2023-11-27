@@ -1,0 +1,20 @@
+uuid: unittest-author-f28b6604
+handle: UnitTest\Author
+type: entry
+name: Author
+drafts: false
+
+navigation:
+    parent: UnitTest\Post
+    icon: octo-icon-user
+    order: 200
+
+fields:
+    avatar:
+        label: Avatar
+        type: mediafinder
+        mode: image
+
+    role:
+        label: Role
+        type: text

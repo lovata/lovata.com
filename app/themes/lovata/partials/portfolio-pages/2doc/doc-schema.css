@@ -1,0 +1,380 @@
+.doc-schema {
+  background: #fff;
+  position: relative;
+  padding-bottom: 120px;
+  padding-top: 45px;
+  display: block;
+  font-family: Roboto, sans-serif;
+  &--sub {
+    position: absolute;
+    top: -45px;
+    left: 140px;
+    width: 170px;
+    &:after {
+      content: "";
+      position: absolute;
+      height: 38px;
+      width: 56px;
+      top: 2px;
+      left: -62px;
+      background: url('../../../assets/img/portfolio_site/2doc/lines/eigth-line.png') no-repeat;
+      background-size: contain;
+    }
+    &-item {
+      width: 130px;
+      height: 16px;
+      color: #8c99a5;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 17px;
+      & + & {
+        margin-top: 8px;
+      }
+    }
+  }
+  &--main {
+    color: #309cd1;
+    font-size: 85px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-decoration: none;
+    width: 140px;
+    line-height: 66px;
+    &:before {
+      content: none;
+    }
+    &-sub {
+      &-item {
+        position: absolute;
+        left: 218px;
+        width: 120px;
+        top: 98px;
+        height: 32px;
+        color: #8c99a5;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 17px;
+      }
+    }
+    &-outer {
+      position: absolute;
+      top: 275px;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 140px;
+    }
+    &:after {
+      content: '';
+      left: 0;
+      position: absolute;
+      bottom: -8px;
+      width: 100%;
+      height: 1px;
+      background: #b9ddf2;
+    }
+    &-line {
+      position: relative;
+      &_first {
+        width: 100px;
+        height: 186px;
+        background: url('../../../assets/img/portfolio_site/2doc/lines/first-line.png') no-repeat;
+        position: absolute;
+        content: "";
+        left: -60px;
+        top: -202px;
+      }
+      &_second {
+        position: absolute;
+        top: -20px;
+        left: -115px;
+        width: 116px;
+        height: 42px;
+        background: url('../../../assets/img/portfolio_site/2doc/lines/second-line.png') no-repeat;
+      }
+      &_third {
+        position: absolute;
+        left: -48px;
+        top: 90px;
+        width: 100px;
+        height: 186px;
+        background: url('../../../assets/img/portfolio_site/2doc/lines/third-line.png') no-repeat;
+      }
+      &_fourth {
+        position: absolute;
+        top: -205px;
+        left: 100px;
+        width: 100px;
+        height: 186px;
+        background: url('../../../assets/img/portfolio_site/2doc/lines/fourth-line.png') no-repeat;
+      }
+      &_fifth {
+        position: absolute;
+        left: 152px;
+        top: -20px;
+        width: 110px;
+        height: 46px;
+        background: url('../../../assets/img/portfolio_site/2doc/lines/fifth-line.png') no-repeat;
+      }
+      &_sixth {
+        position: absolute;
+        left: 104px;
+        top: 90px;
+        width: 100px;
+        height: 116px;
+        background: url('../../../assets/img/portfolio_site/2doc/lines/sixth-line.png') no-repeat;
+      }
+      &_seventh {
+        position: absolute;
+        left: 150px;
+        top: 85px;
+        width: 65px;
+        height: 36px;
+        background: url('../../../assets/img/portfolio_site/2doc/lines/seventh-line.png') no-repeat;
+      }
+    }
+  }
+  &--wrapp {
+    display: flex;
+    justify-content: center;
+  }
+  &--left {
+    margin-right: 150px;
+  }
+  &--right {
+    margin-left: 150px;
+  }
+  &--item {
+    max-width: 368px;
+    position: relative;
+    & + & {
+      margin-top: 50px;
+    }
+    &_first,
+    &_second,
+    &_third,
+    &_fourth {
+      opacity: 1;
+    }
+    &_fifth {
+      position: relative;
+      top: 26px;
+    }
+    &_sixth {
+      position: absolute;
+      top: 380px;
+      margin-top: 0;
+    }
+    &-link {
+      color: #309cd1;
+      font-size: 30px;
+      font-weight: 400;
+      text-decoration: none;
+      position: relative;
+      margin-bottom: 10px;
+      display: inline-block;
+      &:after {
+        left: 0;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background: #b9ddf2;
+      }
+      &_no-link {
+        &:after {
+          content: none;
+        }
+      }
+    }
+    &-text {
+      color: #8c99a5;
+      font-size: 16px;
+      font-weight: 400;
+    }
+    &_left {
+      text-align: right;
+      &.doc-schema--item_relative {
+        position: relative;
+        right: 50px;
+      }
+    }
+    &_right {
+      text-align: left;
+      &.doc-schema--item_relative {
+        position: relative;
+        left: 50px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1070px) {
+  .doc-schema {
+    padding-top: 0;
+    &--wrapp {
+      display: block;
+      padding-left: 40px;
+      padding-right: 20px;
+    }
+    &--left {
+      margin: 0;
+      .doc-schema--item_left.doc-schema--item_relative {
+        position: relative;
+        left: 0;
+      }
+    }
+    &--right {
+      margin: 0;
+      margin-top: 20px;
+      .doc-schema--item_right.doc-schema--item_relative {
+        position: relative;
+        top: 0;
+        left: 0;
+      }
+    }
+    &--item {
+      margin: 0;
+      max-width: 100%;
+      &:after {
+        content: '';
+        position: absolute;
+        top: 14px;
+        left: -38px;
+        width: 27px;
+        height: 13px;
+        background: url('../../../assets/img/portfolio_site/2doc/lines/mobile-line-right.png') no-repeat;
+      }
+      &.doc-schema--item_fourth {
+        margin-bottom: 70px;
+      }
+      &_sixth {
+        position: relative;
+        left: 0;
+        top: 0;
+      }
+      & + & {
+        margin-top: 20px;
+      }
+      &_relative {
+        position: static;
+      }
+      &_left {
+        text-align: left;
+      }
+    }
+    &--main {
+      font-size: 40px;
+      margin-left: 40px;
+      &:after {
+        background: url(../../../assets/img/portfolio_site/2doc/lines/nineth-line.png) no-repeat;
+        content: "";
+        background-size: contain;
+        position: absolute;
+        top: 25px;
+        left: 112px;
+        width: 62px;
+        height: 20px;
+      }
+      &-sub-item {
+        left: 180px;
+        top: 20px;
+      }
+      &-line {
+        display: none;
+      }
+      &-outer {
+        position: relative;
+        left: 0;
+        top: 0;
+        margin: 0;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .doc-schema {
+    padding-bottom: 0;
+    &--sub {
+      top: -15px;
+      left: 100px;
+      &:after {
+        height: 20px;
+        width: 38px;
+        top: 4px;
+        left: -34px;
+      }
+      &-item {
+        font-size: 10px;
+        top: 26px;
+        left: 118px;
+        line-height: 12px;
+        & + & {
+          margin-top: 0;
+        }
+      }
+    }
+    &--wrapp {
+      padding-left: 0;
+    }
+    &--main {
+      font-size: 25px;
+      margin-left: 0;
+      position: relative;
+      &-outer {
+        margin-bottom: 0;
+      }
+      &:before {
+        left: 0;
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background: #b9ddf2;
+        content: none;
+      }
+      &:after {
+        position: absolute;
+        content: "";
+        top: 14px;
+        left: 43px;
+        width: 32px;
+        height: 10px;
+        background: url(../../../assets/img/portfolio_site/2doc/lines/nineth-line.png) no-repeat;
+        background-size: contain;
+      }
+      &-sub-item {
+        font-size: 10px;
+        position: absolute;
+        top: 26px;
+        line-height: 12px;
+        left: 82px;
+      }
+    }
+    &--item {
+      &:after {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: -15px;
+        width: 14px;
+        height: 6px;
+        background: url(../../../assets/img/portfolio_site/2doc/lines/mobile-line-right.png) no-repeat;
+        background-size: contain;
+      }
+      &-link {
+        font-size: 15px;
+      }
+      &-text {
+        font-size: 10px;
+      }
+      &.doc-schema--item_fourth {
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

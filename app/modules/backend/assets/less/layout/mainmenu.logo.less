@@ -1,0 +1,48 @@
+:root {
+    --oc-nav-logo-offset-top: -2px;
+    --oc-nav-logo-offset-start: 0;
+    --oc-nav-logo-opacity: .5;
+}
+
+.layout-mainmenu .navbar.has-logo {
+    .toolbar-logo {
+        position: relative;
+    }
+
+    ul.mainmenu-items[data-main-menu] {
+        margin-left: 10px;
+        li.is-dashboard {
+            display: none;
+        }
+    }
+
+    .toolbar-item.toolbar-primary {
+        &:before { left: -5px; }
+    }
+
+    &.navbar-mode-tile {
+        .mainmenu-logo {
+            padding-top: 20px;
+        }
+    }
+}
+
+.mainmenu-logo {
+    display: block;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 10px;
+    .nav-logo {
+        height: 40px;
+        position: relative;
+        top: var(--oc-nav-logo-offset-top);
+        left: var(--oc-nav-logo-offset-start);
+        opacity: var(--oc-nav-logo-opacity);
+    }
+
+    &.active, &:hover {
+        .nav-logo {
+            opacity: 1;
+        }
+    }
+}

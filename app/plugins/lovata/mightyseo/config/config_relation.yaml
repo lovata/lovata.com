@@ -1,0 +1,16 @@
+seo_template:
+    label: 'lovata.mightyseo::lang.template.name'
+    view:
+        showSearch: true
+        showSorting: true
+        showCheckboxes: true
+        list: $/lovata/mightyseo/models/seotemplate/columns.yaml
+        toolbarButtons: create|add|unlink|delete
+        recordsPerPage: 25
+    manage:
+        showSearch: true
+        showSorting: true
+        form: $/lovata/mightyseo/models/seotemplate/fields.yaml
+        list: $/lovata/mightyseo/models/seotemplate/columns.yaml
+        recordsPerPage: 25
+    emptyMessage: 'lovata.toolbox::lang.field.empty'

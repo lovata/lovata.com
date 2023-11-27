@@ -1,0 +1,64 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    step1_section:
+        label: "1. Export output format"
+        type: section
+
+    file_format:
+        label: File Format
+        type: dropdown
+        options:
+            json: JSON
+            csv: CSV
+            csv_custom: CSV Custom
+        span: left
+
+    format_delimiter:
+        label: Delimiter Character
+        span: left
+        trigger:
+            action: show
+            condition: value[csv_custom]
+            field: file_format
+
+    format_enclosure:
+        label: Enclosure Character
+        span: auto
+        trigger:
+            action: show
+            condition: value[csv_custom]
+            field: file_format
+
+    format_escape:
+        label: Escape Character
+        span: auto
+        trigger:
+            action: show
+            condition: value[csv_custom]
+            field: file_format
+
+    format_encoding:
+        label: File Encoding
+        span: auto
+        type: dropdown
+        trigger:
+            action: show
+            condition: value[csv_custom]
+            field: file_format
+
+    step2_section:
+        label: 2. Select columns to export
+        type: section
+
+    export_columns:
+        type: partial
+        path: ~/modules/backend/behaviors/importexportcontroller/partials/_export_columns.php
+        span: left
+        dependsOn: file_format
+
+    step3_section:
+        label: 3. Set export options
+        type: section

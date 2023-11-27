@@ -1,0 +1,16 @@
+name: 'lovata.goodnews::lang.category.name'
+modelClass: Lovata\GoodNews\Models\Category
+form: $/lovata/goodnews/models/category/fields.yaml
+defaultRedirect: lovata/goodnews/categories
+create:
+    title: 'backend::lang.form.create_title'
+    redirect: 'lovata/goodnews/categories/update/:id'
+    redirectClose: lovata/goodnews/categories
+    flashSave: 'lovata.toolbox::lang.message.create_success'
+update:
+    title: 'backend::lang.form.update_title'
+    redirect: lovata/goodnews/categories
+    redirectClose: lovata/goodnews/categories
+    flashSave: 'lovata.toolbox::lang.message.update_success'
+    flashDelete: 'lovata.toolbox::lang.message.delete_success'
+preview: {  }

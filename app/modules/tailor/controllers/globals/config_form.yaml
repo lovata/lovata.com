@@ -1,0 +1,27 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Record
+
+# Fields supplied dynamically
+form: []
+
+# Model Class name
+modelClass: Tailor\Models\GlobalRecord
+
+# Default redirect location
+defaultRedirect: tailor/globals
+
+# Create page
+create:
+    title: Create Record
+
+# Update page
+update:
+    title: Edit Record
+
+# Preview page
+preview:
+    title: Preview Record

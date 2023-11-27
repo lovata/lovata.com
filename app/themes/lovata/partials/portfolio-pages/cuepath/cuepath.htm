@@ -1,0 +1,88 @@
+<div class="cpt" data-logo="black">
+    <div class="s-cuepath-header portfolio-page cpt--header">
+        <div class="cpt--header-inner">
+            <h1 class="cpt--header-title">Healthcare app for controlling medication intake, CuePath</h1>
+            <span class="cpt--header-date">05/05/2017</span>
+        </div>
+    </div>
+    <div class="cpt--content js-tabs">
+        <div class="cpt--desc">
+            <a class="cpt--desc-link" rel="nofollow" href="https://www.cuepath.io/" target="_blank">CuePath.io</a>
+            <p class="cpt--desc-text">CuePath Innovation is a Canadian healthcare IoT startup that offers tools for tracking loved ones’ medication usage, thereby reducing risk of missing a scheduled intake or taking more pills than necessary.</p>
+            <p class="cpt--desc-text">Patients receive an intelligent blister pack with a set of pills for consumption at exact dates and times. Pharmacists use a web application to create schedules of prescribed medications. Patient’s relatives (children, grandchildren, etc.) or physicians can monitor the accuracy of taken pills through a mobile app and receive phone alerts in a case of missed medication intake or possible overdose.</p>
+            <p class="cpt--desc-text">The solution consists of three components: a progressive web app (PWA) for patient’s relatives to control the medication intake, a web application for pharmacists to schedule medication consumption plans and a web application for system owners to oversee and control the process.</p>
+        </div>
+        <section class="cpt--components">
+            {% partial 'portfolio-pages/cuepath/cuepath-tabs/tabs-nav' %}
+        </section>
+
+        <section class="cpt--tab-content js-tabsContent" id="cuepath-content">
+            <div class="cpt--tab-content-item _active" data-tab-content="content-mobile">
+                {% partial 'portfolio-pages/cuepath/cuepath-tabs/mobile' %}
+            </div>
+            <div class="cpt--tab-content-item" data-tab-content="content-manage">
+                {% partial 'portfolio-pages/cuepath/cuepath-tabs/manage' %}
+            </div>
+            <div class="cpt--tab-content-item" data-tab-content="content-wapp">
+                {% partial 'portfolio-pages/cuepath/cuepath-tabs/wapp' %}
+            </div>
+        </section>
+
+        <section class="cpt--components _bottom">
+            {% partial 'portfolio-pages/cuepath/cuepath-tabs/tabs-nav' %}
+        </section>
+
+        <div class="cpt--technology">
+            <div class="cpt--technology-top">
+                <h2 class="cpt--technology-title">Technologies</h2>
+                <p class="cpt--technology-desc">Server-side business logic is based on Node.js Express Framework with MongoDB used for database development. The client-side is based on AngularJS Framework with Ionic Framework components. The build is realized with Webpack module bundler.</p>
+                <p class="cpt--technology-desc">IBM Bluemix cloud platform is used for software and hardware environment.</p>
+            </div>
+            <div class="cpt--technology-list">
+
+                <img src="{{ 'assets/img/AngularJS_logo.svg'| theme }}" alt="angularJS" class="cpt--technology-item">
+                <img src="{{ 'assets/img/express.js.svg'| theme }}" alt="express" class="cpt--technology-item">
+                <img src="{{ 'assets/img/Ionic_Logo.svg'| theme }}" alt="ionic" class="cpt--technology-item">
+                <img src="{{ 'assets/img/MongoDB-logo.png'| theme }}" alt="mongoDB" class="cpt--technology-item">
+                <a href="{{ 'nodejs-dev'| page }}">
+                    <img src="{{ 'assets/img/nodejs-new-pantone-black.png'| theme }}" alt="nodeJS" class="cpt--technology-item">
+                </a>
+            </div>
+        </div>
+
+        <div class="cpt__similar">
+            <h2 class="cpt__similar-title">Similar projects</h2>
+            <div class="cpt__similar-list">
+                <div class="portfolio__item">
+                    <a href="{{ 'portfolio-med-crm'| page }}" class="portfolio__item-link">
+                        <img src="{{ 'assets/img/portfolio-prev/medCRM.png'| theme }}" alt="cuepath preview image" class="portfolio__img-prev"/>
+                        <div class="portfolio__item-desc">
+                            <p class="portfolio__item-desc-title">MedCRM</p>
+                            <p class="portfolio__item-desc-text">Healthcare CRM System for Hospitals and Medical Centers</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio__item">
+                    <a href="{{ 'portfolio-awarepoint'| page }}" class="portfolio__item-link">
+                        <img src="{{ 'assets/img/portfolio-prev/awarepoint.png'| theme }}" alt="cuepath preview image" class="portfolio__img-prev"/>
+                        <div class="portfolio__item-desc">
+                            <p class="portfolio__item-desc-title">Awarepoint</p>
+                            <p class="portfolio__item-desc-text">Responsive website for medical technology company</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio__item">
+                    <a href="{{ 'portfolio-host-for-web'| page }}" class="portfolio__item-link">
+                        <img src="{{ 'assets/img/portfolio-prev/hostForWeb.png'| theme }}" alt="cuepath preview image" class="portfolio__img-prev"/>
+                        <div class="portfolio__item-desc">
+                            <p class="portfolio__item-desc-title">HostForWeb corporate website</p>
+                            <p class="portfolio__item-desc-text">Corporate website for hosting provider</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% partial 'components/small-footer/small-footer' %}

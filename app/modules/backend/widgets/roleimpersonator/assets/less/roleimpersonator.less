@@ -1,0 +1,30 @@
+@import "../../../../assets/less/core/boot.less";
+
+.control-roleimpersonator {
+    min-height: 30px;
+    color: white;
+
+    .roleimpersonator-left,
+    .roleimpersonator-contents,
+    .roleimpersonator-right {
+        padding: 5px 10px;
+    }
+
+    .roleimpersonator-contents {
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    .roleimpersonator-right {
+        text-align: right;
+    }
+
+    @media (max-width: @screen-xs) {
+        .roleimpersonator-left,
+        .roleimpersonator-contents,
+        .roleimpersonator-right {
+            padding: 5px;
+            text-align: center;
+        }
+    }
+}

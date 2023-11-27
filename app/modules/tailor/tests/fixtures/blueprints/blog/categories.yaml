@@ -1,0 +1,13 @@
+uuid: b022a74b-15e6-4c6b-9eb9-17efc5103543
+name: Categories
+handle: blogCategories
+type: entry
+
+navigation:
+    parent: blog
+    icon: icon-star
+    order: 200
+
+fields:
+    description:
+        label: Description

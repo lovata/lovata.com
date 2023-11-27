@@ -1,0 +1,9 @@
+engines:
+  stylelint:
+    enabled: true
+ratings:
+  paths:
+  - "**.css"
+  - "**.less"
+  - "**.scss"
+  - "**.sss"

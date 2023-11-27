@@ -1,0 +1,19 @@
+.back-end .landing-page__header {
+  background-image: linear-gradient(-130deg,#00d2ff,#3a7bd5);
+}
+
+.back-end .landing-page__header-icon-img {
+  width: 100px;
+
+  @media(max-width: $tablet) {
+    width: 60px;
+  }
+}
+
+.back-end .landing-page__left-border-block::before {
+  background-image: linear-gradient(-130deg,#00d2ff,#3a7bd5);
+}
+
+.back-end__flexdev {
+  padding-top: 0;
+}

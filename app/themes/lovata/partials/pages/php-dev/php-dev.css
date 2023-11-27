@@ -1,0 +1,7 @@
+.php-dev .landing-page__header {
+  background-image: linear-gradient(-130deg,#4568DC,#B06AB3);
+}
+
+.php-dev .landing-page__left-border-block::before {
+  background-image: linear-gradient(-130deg,#4568DC,#B06AB3);
+}

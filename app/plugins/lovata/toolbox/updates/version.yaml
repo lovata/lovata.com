@@ -1,0 +1,124 @@
+1.0.0:
+    - 'Initialize plugin.'
+1.1.0:
+    - 'Add diff, unshift, push, getNearestNext, getNearestPrev methods to ElementCollection class, add ComponentSubmitForm class'
+1.2.0:
+    - 'Add integration with Translate plugin'
+1.3.0:
+    - 'Adding afterCreate model event handling for additional cache cleaning'
+1.3.1:
+    - 'Restore getOldFormData() method in ComponentSubmitForm class'
+1.3.2:
+    - 'Fix lang path for the default properties tab in CommonProperty class'
+1.3.3:
+    - 'Fix path to field name with error in getErrorMessage() method'
+1.4.0:
+    - 'Add PageHelper class'
+1.4.1:
+    - 'Fix processing of positive results in ComponentSubmitForm::getResponseModeAjax() method, if flash_on enabled'
+1.5.0:
+    - 'Add TraitInitActiveLang trait'
+1.6.0:
+    - 'Add SendMailHelper class, Add CommonSettings model'
+1.7.0:
+    - 'Add UserStorage classes. Add classes for integration with Lovata.Buddies and RainLab.User plugins'
+1.8.0:
+    - 'Added translation into French. Thanks for contribution philmarc.'
+1.9.0:
+    - 'Add TraitCached. Update vendor packages.'
+1.9.1:
+    - 'Remove force boot and register plugins in CommonTest class'
+1.10.0:
+    - 'Add PriceHelperTrait. Move PriceHelper class from Shopaholic plugin. Add set(), applySorting() methods to ElementCollection class. Add abstract store classes.'
+1.10.1:
+    - 'Fix ItemStorage class. Clone item objects form storage.'
+1.10.2:
+    - 'Fix ItemStorage class. Added cloning of *Item object before saving it to storage.'
+1.11.0:
+    - 'Added saving of arrays to class properties of *Store class objects after receiving array from cache.'
+1.12.0:
+    - 'Add PageHelper::getPageNameList() method.'
+1.12.1:
+    - 'Update of vendor packages'
+1.12.2:
+    - 'Update of php-pagination vendor packages'
+1.13.0:
+    - 'Added type returned by methods in AbstractStore * classes'
+1.14.0:
+    - 'Add Countable interface in ElementCollection class'
+1.14.1:
+    - 'Added natsort() for property value variants.'
+1.15.0:
+    - 'Added AbstractBackendColumnHandler, AbstractBackendFieldHandler, AbstractBackendMenuHandler, AbstractExtendRelationConfigHandler, AbstractModelRelationHandler classes.'
+1.16.0:
+    - 'Add package information to composer.json. Thanks for contribution pikanji.'
+1.17.0:
+    - 'Added processing of "limit" parameter for the pagination component.'
+1.18.0:
+    - 'Added AbstractImportModel class.'
+1.19.0:
+    - 'Added supported property types: number, rich editor, single checkbox, switch, balloon selector, tag list, radio.'
+1.20.0:
+    - 'Added Japanese language. Thanks for contribution pikanji.'
+1.20.1:
+    - 'Fixed deletion of old images for improt from CSV file.'
+1.21.0:
+    - 'Added support translatable slug in ElementPage class. Added German language. Thanks for contribution Gerald.'
+1.21.1:
+    - 'Removed Iterator interface from ElementCollection class. Added IteratorAggregate interface to ElementCollection class.'
+1.22.0:
+    - 'Replace array_intersect function with array_intersect_key in ElementCollection class.'
+1.23.0:
+    - 'Added copy() method to ElementCollection class. Added choice twig function.'
+1.24.0:
+    - 'Added caching of uploaded file objects as an array.'
+1.24.1:
+    - 'Fixed copy() method in ElementCollection class.'
+1.25.0:
+    - 'Added classes for import elements from xml file.'
+1.25.1:
+    - 'Fixed openMainFile method in AbstractImportModelFromXML class.'
+1.25.2:
+    - 'Added try->catch section for removing images in AbstractImportModel class.'
+1.25.3:
+    - 'Fixed bug with import through queues.'
+1.26.0:
+    - 'Added support of wildcard params to ElementPage class.'
+1.26.1:
+    - 'Fixed support of wildcard params in ElementPage class.'
+1.26.2:
+    - 'Added validation widget context field in AbstractBackendFieldHandler class.'
+1.27.0:
+    - 'Added redirect to error page, if result status is false and redirect URL is not empty.'
+1.28.0:
+    - 'Added dimension fields to lang files'
+1.28.1:
+    - 'Added passing $this param to get[FieldName]Attribute() method in ElementItem class. It is recommended to use parameter from callback function in the dynamic methods get[FieldName]Attribute in ElementItem class.'
+1.29.0:
+    - 'Improved speed of random method in ElementCollection class.'
+1.30.0:
+    - 'The ability to specify URL for downloading images has been added to the abstract import class. Thanks for contribution Sebastiaan Kloos.'
+1.31.0:
+    - 'Added composer.json to plugin.'
+1.32.0:
+    - 'Reduced count of database queries, if cache is empty.'
+1.33.0:
+    - 'Fixed $sFilterValue condition in AbstractStoreWithParam and AbstractStoreWithTwoParam classes.'
+1.33.1:
+    - 'Fixed error with cache images with same disk_name.'
+1.34.0:
+    - 'Added makeItemOnlyCache method to ElementCollection class.'
+1.34.1:
+    - 'Change lists method to pluck method. Thanks for contribution Nick Khaetsky.'
+1.34.2:
+    - 'Fixed name of model.relation.* events. Thanks for contribution Assmay.'
+1.34.3:
+    - 'Added condition for after.detach event, if entity IDs has null value. Thanks for contribution Assmay.'
+1.34.4:
+    - 'Added integration with RainLab.Translate plugin v2'
+2.0.0:
+    - 'Added CallsAnyMethod interface to ElementCollection and MainItem items. Objects of cache items and collections can be used in Twig templates. Requires OctoberCMS version >=3.1'
+2.1.0:
+    - 'Added MultisiteHelperTrait'
+2.1.1:
+    - 'Fixed CommonSettings class.'

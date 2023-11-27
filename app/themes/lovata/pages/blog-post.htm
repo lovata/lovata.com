@@ -1,0 +1,23 @@
+url = "/blog/:slug"
+layout = "main"
+title = "Corporate Blog | Post"
+is_hidden = 0
+
+[ArticleCategoryData]
+
+[ArticlePage]
+slug = "{{ :slug }}"
+slug_required = 1
+smart_url_check = 0
+skip_error = 0
+
+[ArticleList]
+sorting = "publish|asc"
+==
+{% set obArticle = ArticlePage.get() %}
+
+{% set obArticleList = ArticleList.make().sort(ArticleList.getSorting()).published() %}
+
+{% partial 'head/article-metadata' obArticle=obArticle %}
+
+{% partial 'pages/blog-post/blog-post' obArticle=obArticle obArticleList=obArticleList %}

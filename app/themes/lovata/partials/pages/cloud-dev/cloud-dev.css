@@ -1,0 +1,11 @@
+.cloud-dev .landing-page__header {
+  background-image: linear-gradient(-130deg,#56CCF2,#2F80ED);
+}
+
+.cloud-dev .landing-page__left-border-block::before {
+  background-image: linear-gradient(-130deg,#56CCF2,#2F80ED);
+}
+
+.cloud-dev__services {
+  padding-bottom: 0;
+}

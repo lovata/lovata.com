@@ -1,0 +1,8 @@
+{
+    "name": "lovata/mightyseo-plugin",
+    "type": "october-plugin",
+    "description": "Toolbox to manage SEO settings",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}

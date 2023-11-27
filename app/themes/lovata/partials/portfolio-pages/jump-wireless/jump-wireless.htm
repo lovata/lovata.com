@@ -1,0 +1,64 @@
+<section class="portfolio-tmpl">
+    <div class="portfolio-tmpl__container">
+        <div class="portfolio-tmpl__header">
+            <div class="portfolio-tmpl__header-top">
+                <h1 class="portfolio-tmpl__title">Custom Ecommerce Application</h1>
+                <div class="portfolio-tmpl__customer">Customer: <span class="portfolio-tmpl__customer-name">JumpWireless</span></div>
+            </div>
+            <div class="portfolio-tmpl__client-info">
+                <a href="http://customer.jumpwireless.org/" rel="nofollow" target="_blank" class="portfolio-tmpl__link">JumpWireless.org</a>
+            </div>
+            <p class="portfolio-tmpl__desc">A custom web-based eCommerce application for JumpWireless, a non-profit organization that offers affordable mobile phone, e-learning and inexpensive high-speed (LTE) Internet services.</p>
+            <p class="portfolio-tmpl__desc">The aim of the project was to develop an attractive and professional front-end interface that features an efficient user-flow to meet the needs of the client’s online sales, payment fulfillment and customer data gathering processes. Then, customer front-end tasks needed to be integrated into a robust back-end CMS system to ensure day-to-day sales and data processing activities are simplified and unified to reduce redundant tasks that were previously performed by JumpWireless admins.</p>
+            <p class="portfolio-tmpl__desc">The solution is integrated with BrainTree payment gateway and SalesForce CRM.</p>
+        </div>
+        <div class="portfolio-tmpl__content">
+            <img src="{{ 'assets/img/portfolio_site/jump-wireless/jumpwireless-02.jpg'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/jump-wireless/jumpwireless-03.jpg'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/jump-wireless/jumpwireless-04.jpg'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/jump-wireless/jumpwireless-05.jpg'| theme }}" alt="" class="portfolio-tmpl__img">
+        </div>
+        <div class="portfolio-tmpl__tech">
+            <h2 class="portfolio-tmpl__tech-title">Technologies:</h2>
+            <div class="portfolio-tmpl__tech-list">
+                <a href="{{ 'october'| page }}" class="portfolio-tmpl__tech-link"># October</a>
+                <a href="{{ 'php-dev'| page }}" class="portfolio-tmpl__tech-link stub"># PHP</a>
+                <a href="#" class="portfolio-tmpl__tech-link stub"># Salesforce (CRM)</a>
+                <a href="#" class="portfolio-tmpl__tech-link stub"># Braintree (Billing)</a>
+            </div>
+        </div>
+    </div>
+    <div class="portfolio-tmpl__similar">
+        <h2 class="portfolio-tmpl__similar-title">Similar projects</h2>
+        <div class="portfolio-tmpl__similar-list">
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-host-for-web'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/hostForWeb.png'| theme }}" alt="hostForWeb preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">HostForWeb corporate website</p>
+                        <p class="portfolio__item-desc-text">Corporate website for hosting provider</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-the-phone-cellar'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/phonecellar.png'| theme }}" alt="phonecellar preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">ThePhoneCellar</p>
+                        <p class="portfolio__item-desc-text">Ecommerce website development</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-cuepath'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/cuepath.png'| theme }}" alt="cuepath preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">CuePath.io</p>
+                        <p class="portfolio__item-desc-text">Applications for the Internet of things (IoT)</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% partial 'components/small-footer/small-footer' %}

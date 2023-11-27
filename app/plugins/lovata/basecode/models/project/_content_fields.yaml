@@ -1,0 +1,53 @@
+images:
+    name: 'lovata.basecode::lang.groups.images'
+    icon: icon-file-image-o
+    fields:
+        images:
+            label: 'lovata.toolbox::lang.field.images'
+            type: repeater
+            span: full
+            required: false
+            form:
+                fields:
+                    preview_image:
+                        label: 'lovata.toolbox::lang.field.preview_image'
+                        type: mediafinder
+                        span: left
+                        mode: image
+                        required: true
+                    image:
+                        label: 'lovata.basecode::lang.field.image'
+                        type: mediafinder
+                        span: right
+                        mode: image
+                        required: true
+text:
+    name: 'lovata.basecode::lang.groups.text'
+    icon: icon-file-text
+    fields:
+        description:
+            label: 'lovata.toolbox::lang.field.description'
+            type: richeditor
+            span: full
+            required: true
+list:
+    name: 'lovata.basecode::lang.groups.list'
+    icon: icon-list
+    fields:
+        title:
+            label: 'lovata.toolbox::lang.field.title'
+            type: text
+            span: full
+            required: true
+        list:
+            label: 'lovata.basecode::lang.field.list'
+            type: repeater
+            span: full
+            required: false
+            form:
+                fields:
+                    text:
+                        label: 'lovata.basecode::lang.field.text'
+                        type: text
+                        span: full
+                        required: true

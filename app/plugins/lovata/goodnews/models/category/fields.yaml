@@ -1,0 +1,89 @@
+fields:
+    active:
+        label: 'lovata.toolbox::lang.field.active'
+        span: left
+        default: 1
+        type: switch
+    name:
+        label: 'lovata.toolbox::lang.field.name'
+        span: left
+        required: 1
+        type: text
+    slug:
+        label: 'lovata.toolbox::lang.field.slug'
+        span: auto
+        required: 1
+        preset:
+            field: name
+            type: slug
+        type: text
+tabs:
+    fields:
+        preview_text:
+            label: 'lovata.toolbox::lang.field.preview_text'
+            size: large
+            oc.commentPosition: ''
+            span: full
+            type: textarea
+            tab: 'lovata.toolbox::lang.tab.description'
+        description:
+            label: 'lovata.toolbox::lang.field.description'
+            size: giant
+            oc.commentPosition: ''
+            span: full
+            type: richeditor
+            tab: 'lovata.toolbox::lang.tab.description'
+        preview_image:
+            label: 'lovata.toolbox::lang.field.preview_image'
+            oc.commentPosition: ''
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: left
+            type: fileupload
+            tab: 'lovata.toolbox::lang.tab.images'
+        images:
+            label: 'lovata.toolbox::lang.field.images'
+            mode: image
+            useCaption: true
+            thumbOptions:
+                mode: crop
+                extension: auto
+            span: left
+            type: fileupload
+            tab: 'lovata.toolbox::lang.tab.images'
+        seo_title:
+            label: 'lovata.goodnews::lang.field.seo_title'
+            oc.commentPosition: ''
+            span: full
+            type: text
+            tab: 'lovata.goodnews::lang.tab.meta'
+        seo_keywords:
+            label: 'lovata.goodnews::lang.field.seo_keywords'
+            size: small
+            oc.commentPosition: ''
+            span: full
+            type: textarea
+            tab: 'lovata.goodnews::lang.tab.meta'
+        seo_description:
+            label: 'lovata.goodnews::lang.field.seo_description'
+            size: large
+            oc.commentPosition: ''
+            span: full
+            type: textarea
+            tab: 'lovata.goodnews::lang.tab.meta'
+        code:
+            label: 'lovata.toolbox::lang.field.code'
+            oc.commentPosition: ''
+            span: left
+            type: text
+            tab: 'lovata.toolbox::lang.tab.settings'
+        site_list:
+            label: 'lovata.toolbox::lang.field.site_list'
+            span: left
+            type: checkboxlist
+            quickselect: true
+            tab: 'lovata.toolbox::lang.tab.settings'
+            context: [update, preview]

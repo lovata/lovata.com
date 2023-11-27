@@ -1,0 +1,31 @@
+fields:
+    seo_title_prefix:
+        label: 'lovata.mightyseo::lang.field.seo_title_prefix'
+        comment: 'lovata.mightyseo::lang.field.seo_title_prefix_description'
+        type: text
+        span: left
+    seo_title_suffix:
+        label: 'lovata.mightyseo::lang.field.seo_title_suffix'
+        comment: 'lovata.mightyseo::lang.field.seo_title_suffix_description'
+        type: text
+        span: right
+    head_begin:
+        label: 'lovata.mightyseo::lang.field.head_begin'
+        type: codeeditor
+        span: left
+        language: html
+    head_end:
+        label: 'lovata.mightyseo::lang.field.head_end'
+        type: codeeditor
+        span: right
+        language: html
+    body_begin:
+        label: 'lovata.mightyseo::lang.field.body_begin'
+        type: codeeditor
+        span: left
+        language: html
+    body_end:
+        label: 'lovata.mightyseo::lang.field.body_end'
+        type: codeeditor
+        span: right
+        language: html

@@ -1,0 +1,2 @@
+form      : $/blakejones/magicforms/models/export/fields.yaml
+modelClass: BlakeJones\MagicForms\Models\Record

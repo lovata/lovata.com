@@ -1,0 +1,21 @@
+/*breakpoints*/
+$mobile: 540px;
+$tablet: 768px;
+$desktop: 1440px;
+
+$mobile-small: 480px;
+$mobile-large: 660px;
+$tablet-large: 960px;
+$desktop-small: 1200px;
+$desktop-middle: 1280px;
+$desktop-large: 1900px;
+$desktop-infinite: 2500px;
+
+$social-sharing-footer: 1020px;
+
+/*colors*/
+$link-bd-color: rgba(255, 255, 255, 0.2);
+
+/*animation*/
+$link-hover: rgba(255, 255, 255, .6);
+$transition-hover-speed: 0.2s;

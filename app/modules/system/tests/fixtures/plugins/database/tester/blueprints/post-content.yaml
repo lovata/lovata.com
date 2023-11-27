@@ -1,0 +1,24 @@
+uuid: unittest-post-content-4d7fd1e4
+handle: UnitTest\PostContent
+type: mixin
+name: Blog Post Content
+
+fields:
+    author:
+        label: Author
+        type: entries
+        maxItems: 1
+        source: UnitTest\Author
+        column: invisible
+
+    categories:
+        label: Categories
+        type: entries
+        source: UnitTest\Category
+        displayMode: taglist
+        # conditions: is_featured = true
+        # scope: App\Classes\ScopeHelper::applyScope
+        column:
+            relation: categories
+            relationCount: true
+            type: number

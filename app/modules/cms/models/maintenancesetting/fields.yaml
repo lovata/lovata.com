@@ -1,0 +1,19 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    hint:
+        type: hint
+        mode: tip
+        label: Maintenance mode will display the maintenance page to visitors who are not signed in to the back-end area.
+
+    is_enabled:
+        label: Enable maintenance mode
+        comment: Select the page to show when maintenance mode is activated.
+        type: checkbox
+
+    cms_page:
+        type: dropdown
+        cssClass: checkbox-align

@@ -1,0 +1,25 @@
+{
+  "name": "lovata/toolbox-plugin",
+  "type": "october-plugin",
+  "description": "Toolbox plugin for October CMS",
+  "license": "GPL-3.0-only",
+  "require": {
+    "kharanenka/php-result-store": "2.*",
+    "kharanenka/laravel-scope-active": "1.0.*",
+    "kharanenka/oc-pagination": "1.0.*",
+    "kharanenka/laravel-cache-helper": "1.0.*",
+    "kharanenka/laravel-scope-category-belongs-to": "1.0.*",
+    "kharanenka/laravel-scope-code": "1.0.*",
+    "kharanenka/laravel-scope-date": "1.0.*",
+    "kharanenka/laravel-scope-external-id": "1.0.*",
+    "kharanenka/laravel-scope-name": "1.0.*",
+    "kharanenka/laravel-scope-slug": "1.0.*",
+    "kharanenka/laravel-scope-user-belongs-to": "1.0.*",
+    "kharanenka/oc-data-file-model": "1.*",
+    "kharanenka/laravel-scope-moderation": "1.0.*",
+    "kharanenka/laravel-scope-hidden": "1.0.*",
+    "kharanenka/laravel-scope-type": "1.0.*",
+    "october/rain": ">=3.1",
+    "composer/installers": "~1.0"
+  }
+}

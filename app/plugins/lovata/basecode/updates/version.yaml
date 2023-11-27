@@ -1,0 +1,42 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Seed base regions data'
+1.0.3:
+    - 'Create Table lovata_basecode_shops'
+1.0.4:
+    - 'Update table create_table_shops'
+1.0.5:
+    - 'Update table create_table_shops'
+1.0.6:
+    - 'Update table lovata_orders_shopaholic_orders'
+1.0.7:
+    - 'Update table lovata_orders_shopaholic_orders'
+1.0.8:
+    - 'Add truck table and update order tables'
+1.0.9:
+    - 'Update table lovata_stickers_shopaholic_stickers'
+1.0.10:
+    - 'Update table lovata_reviews_shopaholic_reviews'
+1.0.11:
+    - 'Update tablelovata_reviews_shopaholic_reviews'
+1.0.12:
+    - 'Update table lovata_actions_shopaholic_actions'
+1.0.13:
+    - 'Update table lovata_tagsshopaholic_tags'
+1.0.14:
+    - 'Update table lovata_basecode_shops'
+1.0.15:
+    - 'Update table lovata_good_news_articles'
+    - update_table_article.php
+1.0.16:
+  - 'Update table lovata_good_news_articles'
+  - update_table_article2.php
+1.0.17:
+  - 'Add projects model'
+  - create_table_projects.php
+1.0.18:
+  - 'Update form it email template'
+  - seeder_update_email_template.php
+1.1.1:
+    - 'Remove old migration entries'

@@ -1,0 +1,33 @@
+handle: MyStream
+type: stream
+name: Records
+drafts: true
+
+primaryNavigation:
+    label: Stream
+    icon: icon-bookmark
+    order: 130
+
+navigation:
+    icon: icon-bookmark
+    parent: MyStream
+    order: 10
+
+groups:
+    regular_post:
+        name: Regular Post
+        fields:
+            content:
+                tab: Edit
+                label: Content
+                type: richeditor
+                span: adaptive
+
+    markdown_post:
+        name: Markdown Post
+        fields:
+            content:
+                tab: Edit
+                label: Content
+                type: markdown
+                span: adaptive

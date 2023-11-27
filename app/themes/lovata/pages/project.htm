@@ -1,0 +1,16 @@
+title = "Project"
+url = "/:slug"
+layout = "main"
+is_hidden = 0
+
+[ProjectPage]
+slug = "{{ :slug }}"
+slug_required = 1
+skip_error = 0
+
+[ProjectList]
+==
+{# @var obProject \Lovata\BaseCode\Classes\Item\ProjectItem #}
+{% set obProject = ProjectPage.get() %}
+{% partial 'head/cmspage-metadata' %}
+{% partial 'portfolio-pages/project/project' obProject=obProject %}

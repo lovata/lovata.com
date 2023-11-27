@@ -1,0 +1,16 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: Site
+form: ~/modules/system/models/sitedefinition/fields.yaml
+modelClass: System\Models\SiteDefinition
+defaultRedirect: system/sites
+
+create:
+    redirect: system/sites/update/:id
+    redirectClose: system/sites
+
+update:
+    redirect: system/sites
+    redirectClose: system/sites

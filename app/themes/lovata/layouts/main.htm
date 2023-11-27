@@ -1,0 +1,90 @@
+[SeoToolbox]
+==
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns#" lang="en">
+<head>
+     {# Render metric code after head tag #}
+     {{ SeoToolbox.getHeadBegin()|raw }}
+
+    {# Render SEO meta tags (title, description, keywords, canonical URL, robots meta tag) #}
+    {% component 'SeoToolbox' %}
+    <meta charset="UTF-8">
+    <!--{% placeholder seo_metadata %}-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="{{ 'assets/img/favicon-32x32.png'|theme }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ 'assets/img/favicon-16x16.png'|theme }}" sizes="16x16">
+    <link rel="stylesheet" href="{{ vite_asset('assets/css/common.css') }}" />
+    {# Render metric code before /head tag #}
+
+    {{ SeoToolbox.getHeadEnd()|raw }}
+</head>
+<body class="{{ this.page.id }}-page">
+{{ input('test') }}
+
+    {# Render metric code after body tag #}
+    {{ SeoToolbox.getBodyBegin()|raw }}
+    {% partial 'components/aside/aside' %}
+    <div class="main-wrap">
+        <div class="wrp">
+            {% page %}
+        </div>
+        {% partial 'components/header/header' %}
+    </div>
+    {% if this.page.id == 'blog-post' %}
+       <script type="text/javascript" src="//platform-api.sharethis.com/js/sharethis.js#property=59ad27f720e34600114ed07e&amp; product=inline-share-buttons"></script>
+    {% endif %}
+    <script type="module" crossorigin src="{{ vite_asset('assets/js/index.js') }}"></script>
+    {% framework extras %}
+    {% if this.page.id == 'index' %}
+        <script type="application/ld+json">
+            {
+                "@context" : "https://schema.org",
+                "@type" : "WebSite",
+                "name" : "LOVATA",
+                "url" : "https://lovata.com/"
+            }
+        </script>
+    {% endif %}
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Blog",
+            "url": "https://lovata.com/blog/"
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Organization",
+            "name": "LOVATA",
+            "url": "https://lovata.com",
+            "sameAs": [
+                "https://www.facebook.com/lovatagroup",
+                "https://twitter.com/lovata_group",
+                "https://www.linkedin.com/company/lovata/",
+                "http://instagram.com/lovata_group/"
+            ]
+        }
+    </script>
+
+    {#{% if page.id == 'october-cms' %}
+        <script type="text/javascript" src="https://static1.clutch.co/sites/all/modules/custom/clutch_widget/js/widget.js"></script>
+    {% endif %}
+
+    {% if page.id contains 'ada-compliant'
+    or page.id contains 'importance-of-business-analysis'
+    or page.id contains 'october-cms-review-the-best'
+    or page.id contains 'sharing-economy-collaborative-consumption'%}
+        <script type="text/javascript"
+                src="//platform-api.sharethis.com/js/sharethis.js#property=59ad27f720e34600114ed07e&product=inline-share-buttons"></script>
+        <meta property="og:image" content="http://lovata.com/img/lovata_CompetenceADA.png"/>
+    {% endif %}#}
+    {% if hasContent('body_end.htm') %}
+        {% content 'body_end' %}
+    {% endif %}
+    {# Render metric code before /body tag #}
+    {{ SeoToolbox.getBodyEnd()|raw }}
+    {% scripts %}
+</body>
+</html>

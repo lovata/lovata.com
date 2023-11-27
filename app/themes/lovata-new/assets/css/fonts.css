@@ -1,0 +1,60 @@
+@font-face {
+  font-family: 'Circe';
+  src: local('Circe'), local('Circe-Regular'),
+  url('../fonts/Circe-Regular.woff2') format('woff2'),
+  url('../fonts/Circe-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Circe';
+  src: local('Circe Light'), local('Circe-Light'),
+  url('../fonts/Circe-Light.woff2') format('woff2'),
+  url('../fonts/Circe-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Circe';
+  src: local('Circe Bold'), local('Circe-Bold'),
+  url('../fonts/Circe-Bold.woff2') format('woff2'),
+  url('../fonts/Circe-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Circe';
+  src: local('Circe Extra Bold'), local('Circe-ExtraBold'),
+  url('../fonts/Circe-ExtraBold.woff2') format('woff2'),
+  url('../fonts/Circe-ExtraBold.woff') format('woff');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+/*@font-face {*/
+/*  font-family: 'Roboto';*/
+/*  src: local('Roboto Black'), local('Roboto-Black'),*/
+/*  url('../fonts/Roboto-Black.woff2') format('woff2'),*/
+/*  url('../fonts/Roboto-Black.woff') format('woff');*/
+/*  font-weight: 900;*/
+/*  font-style: normal;*/
+/*}*/
+/*@font-face {*/
+/*  font-family: 'Roboto';*/
+/*  src: local('Roboto Regular'), local('Roboto-Regular'),*/
+/*  url('../fonts/Roboto-Regular.woff2') format('woff2'),*/
+/*  url('../fonts/Roboto-Regular.woff') format('woff');*/
+/*  font-weight: normal;*/
+/*  font-style: normal;*/
+/*}*/
+/*@font-face {*/
+/*  font-family: 'Roboto';*/
+/*  src: local('Roboto Light'), local('Roboto-Light'),*/
+/*  url('../fonts/Roboto-Light.woff2') format('woff2'),*/
+/*  url('../fonts/Roboto-Light.woff') format('woff');*/
+/*  font-weight: 300;*/
+/*  font-style: normal;*/
+/*}*/

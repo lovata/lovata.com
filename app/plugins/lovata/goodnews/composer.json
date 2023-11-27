@@ -1,0 +1,9 @@
+{
+    "name": "lovata/goodnews-plugin",
+    "type": "october-plugin",
+    "description": "News (blogging) plugin for October CMS",
+    "require": {
+        "lovata/toolbox-plugin": "^2.1.0",
+        "composer/installers": "~1.0"
+    }
+}

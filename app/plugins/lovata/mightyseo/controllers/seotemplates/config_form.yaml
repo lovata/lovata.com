@@ -1,0 +1,15 @@
+name: 'lovata.mightyseo::lang.template.name'
+modelClass: Lovata\mightyseo\Models\SeoTemplate
+form: $/lovata/mightyseo/models/seotemplate/fields.yaml
+defaultRedirect: lovata/mightyseo/seotemplates
+create:
+    title: 'backend::lang.form.create_title'
+    redirect: 'lovata/mightyseo/seotemplates/update/:id'
+    redirectClose: lovata/mightyseo/seotemplates
+    flashSave: 'lovata.toolbox::lang.message.create_success'
+update:
+    title: 'backend::lang.form.update_title'
+    redirect: lovata/mightyseo/seotemplates
+    redirectClose: lovata/mightyseo/seotemplates
+    flashSave: 'lovata.toolbox::lang.message.update_success'
+    flashDelete: 'lovata.toolbox::lang.message.delete_success'

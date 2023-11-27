@@ -1,0 +1,369 @@
+.blog {
+  padding-top: 150px;
+  background: #ffffff;
+  @media (max-width: $mobile) {
+    padding-top: 85px;
+  }
+  &--inner {
+    max-width: 1200px;
+    height: 100%;
+    padding: 0 15px;
+    margin: 0 auto;
+  }
+  &--title {
+    margin-bottom: 40px;
+    font-size: 60px;
+    font-weight: bold;
+    color: #352e37;
+    @media (max-width: $tablet) {
+      font-size: 50px;
+    }
+    @media (max-width: $mobile) {
+      font-size: 35px;
+      margin-bottom: 25px;
+    }
+  }
+  &--tags-item {
+    display: inline-block;
+    list-style: none;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    border: 1px solid #9f9a9a;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #626262;
+    padding: 2px 5px;
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
+    &:hover{
+      color: #0000ee;
+      border: 1px solid #0000ee;
+      cursor: pointer;
+    }
+    &._mobile-view, &._show{
+      position: relative;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  &--tags-btn{
+    display: inline-block;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    border: 1px solid #9f9a9a;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #626262;
+    position: relative;
+    &:hover{
+      color: #0000ee;
+      border: 1px solid #0000ee;
+      cursor: pointer;
+    }
+  }
+  &--btn-more{
+    background-color: white;
+    border: none;
+    padding: 2px 5px;
+    border-radius: 5px;
+  }
+  &--news{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 40px;
+    @media (max-width: $mobile){
+      flex-direction: column;
+      padding-bottom: 5px;
+    }
+    .top-entry{
+      max-width: 745px;
+      padding-top: 30px;
+      &--date{
+        font-size: 18px;
+        color: #9a969b;
+      }
+      &--tags-item{
+        display: inline-block;
+        list-style: none;
+        border: 1px solid #9f9a9a;
+        border-radius: 5px;
+        font-size: 14px;
+        color: #626262;
+        margin-bottom: 15px;
+        margin-right: 8px;
+        padding: 1px 5px;
+        &:hover{
+          color: #0000ee;
+          border: 1px solid #0000ee;
+          cursor: pointer;
+        }
+      }
+      &--title{
+        font-size: 35px;
+        line-height: 40px;
+        color: #352e37;
+        font-weight: bold;
+        margin-bottom: 30px;
+        @media (max-width: $mobile){
+          font-size: 25px;
+          line-height: 29px;
+        }
+        &-link{
+          text-decoration: none;
+          &:hover{
+            color: #0000ee;
+            cursor: pointer;
+          }
+        }
+      }
+      &--text{
+        font-size: 24px;
+        line-height: 31px;
+        font-weight: 300;
+        width: 100%;
+        @media (max-width: $mobile){
+          font-size: 18px;
+          line-height: 22px;
+        }
+      }
+      &--photo{
+        margin-top: 30px;
+        width: 100%;
+        object-fit: cover;
+        display: block;
+      }
+    }
+    .right-column{
+      width: 360px;
+      padding-top: 30px;
+      padding-left: 25px;
+      @media (max-width: $mobile){
+        width: 100%;
+        padding-left: 0;
+      }
+      &--news{
+        margin-bottom: 60px;
+        @media (max-width: $mobile)
+        {
+          margin-bottom: 20px;
+        }
+        &-date{
+          font-size: 18px;
+          color: #9a969b;
+          margin-right: 15px;
+        }
+        &-date-update{
+          color: #8eb356;
+          font-size: 18px;
+          display: inline-flex;
+          align-items: center;
+          .update_icon{
+            display: block;
+            padding: 0 5px;
+            margin-right: 5px;
+            border-radius: 2px;
+            background: #8eb356;
+            color: white;
+            font-size: 11px;
+          }
+        }
+        &-tags-item{
+          display: inline-block;
+          list-style: none;
+          border: 1px solid #9f9a9a;
+          border-radius: 5px;
+          font-size: 14px;
+          color: #626262;
+          margin-bottom: 15px;
+          margin-top: 5px;
+          margin-right: 8px;
+          padding: 0 5px;
+          &:hover{
+            color: #0000ee;
+            border: 1px solid #0000ee;
+            cursor: pointer;
+          }
+        }
+        &-title{
+          font-size: 24px;
+          line-height: 36px;
+          color: #352e37;
+          margin-bottom: 30px;
+          @media (max-width: $mobile){
+            margin-bottom: 10px;
+            font-size: 20px;
+            line-height: 28px;
+          }
+          &-link{
+            text-decoration: none;
+            &:hover{
+              color: #0000ee;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.news{
+  background-color: #f5f4f5;
+  background: linear-gradient(to bottom, #f5f4f5, #ffffff);
+  &--inner{
+    max-width: 1200px;
+    height: 100%;
+    padding: 40px 15px;
+    margin: 0 auto;
+  }
+    &--item{
+      column-count: 3;
+      column-gap: 1em;
+      padding: 0;
+      font-size: .85em;
+      margin-bottom: 100px;
+      @media (max-width: $tablet-large){
+        column-count: 2;
+        column-gap: 1em;
+      }
+      @media (max-width: $mobile){
+        column-count: 1;
+        column-gap: 0em;
+        margin-bottom: 50px;
+      }
+      &_post{
+        display: inline-block;
+        background: #fff;
+        width: 100%;
+        border: 1px solid #e1e1e1;
+        margin: 0 0 1.5em;
+        .news--item_info{
+          margin: 20px 25px;
+        }
+        &-date{
+          font-size: 18px;
+          color: #9a969b;
+          margin-right: 10px;
+        }
+        &-tags-item{
+          display: inline-block;
+          list-style: none;
+          border: 1px solid #9f9a9a;
+          border-radius: 5px;
+          font-size: 14px;
+          color: #626262;
+          margin-bottom: 10px;
+          margin-top: 5px;
+          margin-right: 8px;
+          padding: 0 5px;
+          &:hover{
+            color: #0000ee;
+            border: 1px solid #0000ee;
+            cursor: pointer;
+          } 
+        }
+        &-title{
+          font-size: 25px;
+          line-height: 36px;
+          color: #352e37;
+          margin-bottom: 25px;
+          @media (max-width: $mobile){
+            margin-bottom: 10px;
+            font-size: 20px;
+            line-height: 28px;
+          }
+          &-link{
+            text-decoration: none;
+            &:hover{
+              color: #0000ee;
+              cursor: pointer;
+            }
+          }
+        }
+        &-photo{
+          width: 100%;
+          display: block;
+          object-fit: cover;
+        }
+      } 
+    }
+  .subscribe-block{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    &--title{
+      font-size: 50px;
+      color: #352e37;
+      line-height: 24px;
+      @media (max-width: $mobile){
+        font-size: 36px;
+        line-height: 33px;
+      }
+    }
+    &--text{
+      text-align: center;
+      font-size: 30px;
+      color: #352e37;
+      line-height: 40px;
+      font-weight: 300;
+      @media (max-width: $mobile){
+        font-size: 20px;
+        line-height: 27px;
+      }
+    }
+    form{
+      margin-top: 50px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+      @media (max-width: $mobile){
+        margin-top: 30px;
+      }
+    }
+    &--input{
+      width: 700px;
+      height: 80px;
+      font-size: 25px;
+      line-height: 33px;
+      font-weight: 300;
+      border: 6px solid #c4c6c8;
+      text-indent: 15px;
+      color: #757575;
+      @media (max-width: $tablet){
+        min-width: 400px;
+      }
+      @media (max-width: $mobile){
+        min-width: 220px;
+        height: 45px;
+        border: 3px solid #c4c6c8;
+        font-size: 16px;
+      }
+    }
+    &--button{
+      margin: 0;
+      padding: 0;
+      border: none;
+      width: 120px;
+      height: 80px;
+      color: white;
+      background-color: #c4c6c8; 
+      font-size: 30px;
+      @media (max-width: $tablet){
+        min-width: 90px;
+      }
+      @media (max-width: $mobile){
+        min-width: 65px;
+        height: 45px;
+        font-size: 15px;
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+<section class="portfolio-tmpl">
+    <div class="portfolio-tmpl__container">
+        <div class="portfolio-tmpl__header">
+            <div class="portfolio-tmpl__header-top">
+                <h1 class="portfolio-tmpl__title">Responsive Website for a Medical Technology Company</h1>
+                <div class="portfolio-tmpl__customer">Customer:<span class="portfolio-tmpl__customer-name"> Awarepoint</span></div>
+            </div>
+            <p class="portfolio-tmpl__desc">Fully responsive project with client-side adaptation for desktop, tablet and mobile.</p>
+            <p class="portfolio-tmpl__desc">Founded in 2002, Awarepoint has led the innovation of real-time location systems (RTLS) and the practical applications of location as a service. Their integrated solutions and patented technologies, based on Bluetooth Low Energy (BLE) and Wi-Fi, simplify the implementation of proven RTLS applications across the Internet of Things (IoT) continuum, enabling their clients to rapidly achieve unprecedented benefits and rapid return on investment.</p>
+        </div>
+        <div class="portfolio-tmpl__content">
+            <img src="{{ 'assets/img/portfolio_site/awarepoint/awarepoint1.png'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/awarepoint/awarepoint2.png'| theme }}" alt="" class="portfolio-tmpl__img">
+        </div>
+        <div class="portfolio-tmpl__tech">
+            <h2 class="portfolio-tmpl__tech-title">Technologies:</h2>
+            <div class="portfolio-tmpl__tech-list">
+                <a href="{{ 'october'| page }}" class="portfolio-tmpl__tech-link"># OctoberCMS</a>
+                <a href="{{ 'php-dev' | page }}" class="portfolio-tmpl__tech-link stub"># PHP</a>
+                <a href="#" class="portfolio-tmpl__tech-link stub"># MySQL</a>
+                <a href="{{ 'js-dev' | page }}" class="portfolio-tmpl__tech-link stub"># EcmaScript 2015 (ES6)</a>
+            </div>
+        </div>
+    </div>
+    <div class="portfolio-tmpl__similar">
+        <h2 class="portfolio-tmpl__similar-title">Similar projects</h2>
+        <div class="portfolio-tmpl__similar-list">
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-cuepath'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/cuepath.png'| theme}}" alt="cuepath preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">CuePath.io</p>
+                        <p class="portfolio__item-desc-text">Applications for the Internet of things (IoT)</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-med-crm'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/medCRM.png'| theme}}" alt="MedCRM preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">MedCRM</p>
+                        <p class="portfolio__item-desc-text">Healthcare CRM System for Hospitals and Medical Centers</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-host-for-web'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/hostForWeb.png'| theme}}" alt="HostForWeb preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">HostForWeb corporate website</p>
+                        <p class="portfolio__item-desc-text">Corporate website for hosting provider</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% partial 'components/small-footer/small-footer' %}

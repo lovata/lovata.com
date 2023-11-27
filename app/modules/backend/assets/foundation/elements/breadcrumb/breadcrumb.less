@@ -1,0 +1,34 @@
+//
+// Breadcrumb
+// --------------------------------------------------
+
+// Breadcrumb to sit flush to the element below
+body.breadcrumb-flush .control-breadcrumb,
+.control-breadcrumb.breadcrumb-flush {
+    margin-bottom: 0;
+}
+
+.control-breadcrumb {
+    > ol > li > a {
+        text-decoration: underline;
+    }
+}
+
+body.compact-container {
+    .control-breadcrumb {
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-right: 20px;
+
+        > ol {
+            margin-bottom: 0;
+        }
+    }
+}
+
+body.slim-container .layout .layout-container {
+    .control-breadcrumb {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}

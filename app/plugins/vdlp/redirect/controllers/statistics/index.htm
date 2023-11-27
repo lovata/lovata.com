@@ -1,0 +1,46 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.umd.js" integrity="sha512-vCUbejtS+HcWYtDHRF2T5B0BKwVG/CLeuew5uT2AiX4SJ2Wff52+kfgONvtdATqkqQMC9Ye5K+Td0OTaz+P7cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="report-widget redirect-hits-per-day" id="hitsPerDay">
+            <?= $this->makePartial('loading-indicator'); ?>
+            <script>
+                let data = null;
+                let config = null;
+                let hitsPerDayChart = null;
+
+                oc.ajax('onLoadHitsPerDay');
+            </script>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="report-widget" id="scoreBoard">
+            <?= $this->makePartial('loading-indicator'); ?>
+            <script>oc.ajax('onLoadScoreBoard')</script>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="report-widget general" id="redirectHitsPerMonth">
+            <?= $this->makePartial('loading-indicator'); ?>
+            <script>oc.ajax('onLoadRedirectHitsPerMonth')</script>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="report-widget general" id="topCrawlersThisMonth">
+            <?= $this->makePartial('loading-indicator'); ?>
+            <script>oc.ajax('onLoadTopCrawlersThisMonth')</script>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="report-widget general" id="topRedirectsThisMonth">
+            <?= $this->makePartial('loading-indicator'); ?>
+            <script>oc.ajax('onLoadTopRedirectsThisMonth')</script>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+{
+    "dir-create": {
+        "title": "editor::lang.filesystem.directory_popup_title",
+        "config": [
+            {
+                "property": "name",
+                "title": "editor::lang.filesystem.directory_name",
+                "type": "string",
+                "defaultFocus": true,
+                "validation": {
+                    "required": {
+                        "message": "editor::lang.filesystem.directory_name_required"
+                    },
+                    "regex": {
+                        "message": "editor::lang.filesystem.invalid_name",
+                        "pattern": "^[0-9a-zA-Z\\.\\s_\\-]+$"
+                    }
+                }
+            }
+        ]
+    },
+    "file-dir-rename": {
+        "title": "editor::lang.filesystem.rename_popup_title",
+        "config": [
+            {
+                "property": "name",
+                "title": "editor::lang.filesystem.rename_new_name",
+                "type": "string",
+                "defaultFocus": true,
+                "validation": {
+                    "required": {
+                        "message": "editor::lang.filesystem.rename_name_required"
+                    },
+                    "regex": {
+                        "message": "editor::lang.filesystem.invalid_name",
+                        "pattern": "^[0-9a-zA-Z\\.\\s_\\-]+$"
+                    }
+                }
+            }
+        ]
+    }
+}

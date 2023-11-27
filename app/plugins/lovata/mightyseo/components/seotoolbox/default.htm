@@ -1,0 +1,11 @@
+<title>{{ __SELF__.getTitle()|raw }}</title>
+<meta name="description" content="{{ __SELF__.get('seo_description')|raw }}">
+<meta name="keywords" content="{{ __SELF__.get('seo_keywords')|raw }}">
+{% set sRobotsTag = __SELF__.getRobotsMeta() %}
+{% if sRobotsTag is not empty %}
+    <meta name="robots" content="{{ sRobotsTag }}">
+{% endif %}
+{% set sCanonicalURL = __SELF__.get('canonical_url') %}
+{% if sCanonicalURL is not empty %}
+    <link rel="canonical" href="{{ sCanonicalURL }}">
+{% endif %}

@@ -1,0 +1,156 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+tabs:
+    fields:
+
+        sender_name:
+            label: Sender Name
+            span: auto
+            tab: General
+
+        sender_email:
+            label: Sender Email
+            span: auto
+            type: email
+            tab: General
+
+        send_mode:
+            label: Mail Method
+            type: dropdown
+            tab: General
+
+        drivers_hint:
+            type: partial
+            path: ~/modules/system/models/mailsetting/_drivers_hint.php
+            tab: General
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[ses][mailgun][postmark]
+
+        smtp_address:
+            label: SMTP Address
+            tab: General
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_port:
+            label: SMTP Port
+            tab: General
+            span: auto
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_encryption:
+            type: dropdown
+            label: SMTP Encryption Protocol
+            tab: General
+            span: auto
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_authorization:
+            type: checkbox
+            label: SMTP Authorization Required
+            tab: General
+            comment: Use this checkbox if your SMTP server requires authorization.
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_user:
+            label: Username
+            tab: General
+            span: left
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        smtp_password:
+            label: Password
+            tab: General
+            type: sensitive
+            span: right
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
+        sendmail_path:
+            label: Sendmail Path
+            commentAbove: Please specify the path of the sendmail program.
+            tab: General
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[sendmail]
+
+        mailgun_domain:
+            label: Mailgun Domain
+            commentAbove: Please specify the Mailgun domain name.
+            tab: General
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[mailgun]
+
+        mailgun_secret:
+            label: Mailgun Secret
+            commentAbove: Enter your Mailgun API key.
+            tab: General
+            type: sensitive
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[mailgun]
+
+        ses_key:
+            label: SES Key
+            commentAbove: Enter your SES API key
+            tab: General
+            span: left
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[ses]
+
+        ses_secret:
+            label: SES Secret
+            commentAbove: Enter your SES API secret key
+            tab: General
+            type: sensitive
+            span: right
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[ses]
+
+        ses_region:
+            label: SES Region
+            commentAbove: Enter your SES region (e.g. us-east-1)
+            tab: General
+            span: left
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[ses]
+
+        postmark_token:
+            label: Postmark Token
+            commentAbove: Enter your Postmark API secret key
+            type: sensitive
+            tab: General
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[postmark]

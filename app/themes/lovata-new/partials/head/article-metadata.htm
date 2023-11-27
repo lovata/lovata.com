@@ -1,0 +1,10 @@
+{% put seo_metadata %}
+    {% set sMetaTitle = obArticle.seo_title ? obArticle.seo_title : obArticle.title %}
+    <title>{{ sMetaTitle }}</title>
+    {% if obArticle.seo_description is not empty %}
+        <meta name="description" content="{{ obArticle.seo_description|raw }}">
+    {% endif %}
+    {% if obArticle.seo_keywords is not empty %}
+        <meta name="keywords" content="{{ obArticle.seo_keywords|raw }}">
+    {% endif %}
+{% endput %}

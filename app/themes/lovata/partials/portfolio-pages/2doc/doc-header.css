@@ -1,0 +1,68 @@
+.doc-header {
+  height: 512px;
+  background: url("../../../assets/img/portfolio_site/2doc/2doc-logo.png"), linear-gradient(to top, #22a2da 0%, #27b2e1 100%);
+  padding-top: 70px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: Roboto, sans-serif;
+  font-weight: 900;
+  &--menu {
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-start;
+    display: none;
+    &-item {
+      & + & {
+        margin-left: 10px;
+      }
+    }
+    &-link {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      transition: background .2s ease-out, border-bottom .2s ease-out;
+      border-bottom: 1px solid #66c7e8;
+      text-decoration: none;
+      &:hover {
+        border-bottom: none;
+        background: #66c7e8;
+      }
+    }
+  }
+  &--title {
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: 700;
+  }
+  &--subtitle {
+    font-size: 25px;
+    position: relative;
+    top: -14px;
+  }
+  &--date {
+    opacity: 0.6;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .doc-header {
+    height: 252px;
+    background-size: contain;
+    background-position: bottom;
+    &--title {
+      font-size: 26px;
+    }
+    &--subtitle {
+      font-size: 18px;
+      top: -2px;
+      display: inline-block;
+      line-height: 24px;
+    }
+    &--date {
+      font-size: 12px;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+@import "../../../../assets/less/core/boot.less";
+
+.control-siteswitcher-banner {
+    .banner-bar {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 101;
+        height: 3px;
+        transition: height 0.35s ease, opacity 0.35s ease-out;
+        opacity: 1;
+
+        background: linear-gradient(45deg, var(--foreground-color) 25%, transparent 25%, transparent 50%, var(--foreground-color) 50%, var(--foreground-color) 75%, transparent 75%, transparent);
+        background-color: var(--background-color);
+        background-size: 3rem 3rem;
+    }
+}
+
+html[data-ajax-progress] {
+    .control-siteswitcher-banner .banner-bar {
+        opacity: .35;
+        height: 0;
+    }
+}
+
+// Offset from the right side
+body ul.mainmenu-items.mainmenu-submenu-dropdown.siteswitcher-dropdown {
+    margin-left: -50px;
+}
+
+body.left-menu-submenu-displayed ul.mainmenu-items.mainmenu-submenu-dropdown.siteswitcher-dropdown {
+    margin-left: 0;
+    margin-bottom: 50px;
+}

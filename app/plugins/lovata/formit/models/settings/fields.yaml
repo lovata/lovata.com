@@ -1,0 +1,6 @@
+tabs:
+    fields:
+        send_to:
+            tab: 'lovata.formit::lang.tab.settings'
+            span: left
+            label: 'lovata.formit::lang.field.send_to'

@@ -1,0 +1,317 @@
+{# @var obProjectList \Lovata\BaseCode\Classes\Collection\ProjectCollection #}
+{# @var obProject \Lovata\BaseCode\Classes\Item\ProjectItem #}
+<div class="portfolio__section">
+    <div class="portfolio__top">
+        <div class="portfolio__top-text-wrap">
+            <h2 class="portfolio__title _heart" id="healthcare"><a href="{{ 'healthcare'| page }}">Healthcare</a> Projects</h2>
+            <p class="portfolio__desc">LOVATA creates innovative healthcare solutions that provide process automation
+                and improve accessibility and quality of medical services. We have expertise in CRM/ERP solutions for
+                medical organizations, healthcare service providers and patient care portals. We also have experience
+                with advanced analytics, big data for population health management, chatbot integration and much
+                more.<a class="portfolio__link" href="{{ 'healthcare'| page }}">Read More</a></p>
+        </div>
+        <div class="portfolio__top-img-wrap">
+            <a href="{{ 'healthcare'| page }}">
+                <img src="{{ 'assets/img/heart.svg'| theme }}" class="portfolio__img" alt="icon heart">
+            </a>
+        </div>
+    </div>
+    <div class="portfolio__list">
+        {# Healthcare projects #}
+        {% set obProjectList = ProjectList.make().active().sort().category(ProjectList.categoryHealthcareProjects())|default([]) %}
+        {% for obProject in obProjectList|filter(obProject => obProject.preview_image is not empty) -%}
+            <div class="portfolio__item">
+                <a href="{{ obProject.getPageUrl() }}" class="portfolio__item-link">
+                    <img src="{{ obProject.preview_image.path }}"
+                         alt="{{ obProject.preview_image.description }}"
+                         title="{{ obProject.preview_image.title }}"
+                         class="portfolio__img-prev"
+                    />
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">{{ obProject.preview_title }}</p>
+                        <p class="portfolio__item-desc-text">{{ obProject.preview_text }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-2doc'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/prewiev_2doc.png'| theme }}" alt="Find a doctor" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">2doc</p>
+                    <p class="portfolio__item-desc-text">Find a Doctor Web Portal</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-cuepath'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/cuepath.png'| theme }}" alt="Applications for the Internet of things (IoT) preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">CuePath.io</p>
+                    <p class="portfolio__item-desc-text">Applications for the Internet of things (IoT)</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-med-crm'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/medCRM.png'| theme }}" alt="Healthcare CRM System for Hospitals and Medical Centers preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">MedCRM</p>
+                    <p class="portfolio__item-desc-text">Healthcare CRM System for Hospitals and Medical Centers</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-awarepoint'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/awarepoint.png'| theme }}" alt="Responsive website for medical technology company preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">Awarepoint</p>
+                    <p class="portfolio__item-desc-text">Responsive website for medical technology company</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="portfolio__section">
+    <div class="portfolio__top">
+        <div class="portfolio__top-text-wrap">
+            <h2 class="portfolio__title _bag" id="ecommerce">Retail & <a href="{{ 'ecommerce'| page }}">Ecommerce</a></h2>
+            <p class="portfolio__desc">We design and integrate complex modern omni-channel and multi-channel solutions
+                for retail and eCommerce businesses that have presence on a variety of international markets. Our agile
+                development practices allow us to make continuous delivery and seamless integration without interfering
+                with the core business of our clients.<a class="portfolio__link" href="{{ 'ecommerce'| page }}">Read More</a></p>
+        </div>
+        <div class="portfolio__top-img-wrap">
+            <img src="{{ 'assets/img/bag.svg'| theme }}" class="portfolio__img" alt="icon bag">
+        </div>
+    </div>
+    <div class="portfolio__list">
+        {# Retail & Ecommerce #}
+        {% set obProjectList = ProjectList.make().active().sort().category(ProjectList.categoryRetailAndEcommerce())|default([]) %}
+        {% for obProject in obProjectList|filter(obProject => obProject.preview_image is not empty) -%}
+            <div class="portfolio__item">
+                <a href="{{ obProject.getPageUrl() }}" class="portfolio__item-link">
+                    <img src="{{ obProject.preview_image.path }}"
+                         alt="{{ obProject.preview_image.description }}"
+                         title="{{ obProject.preview_image.title }}"
+                         class="portfolio__img-prev"
+                    />
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">{{ obProject.preview_title }}</p>
+                        <p class="portfolio__item-desc-text">{{ obProject.preview_text }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-a-renda'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/a-renda.png'| theme }}" alt="Construction Equipment Marketplace and Lease Services preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">a-renda.by</p>
+                    <p class="portfolio__item-desc-text">Construction Equipment Marketplace and Lease Services</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-host-for-web'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/hostForWeb.png'| theme }}" alt="Corporate website for hosting provider preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">HostForWeb corporate website</p>
+                    <p class="portfolio__item-desc-text">Corporate website for hosting provider</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-the-phone-cellar'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/phonecellar.png'| theme }}" alt="Ecommerce website development preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">ThePhoneCellar</p>
+                    <p class="portfolio__item-desc-text">Ecommerce website development</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-jump-wireless'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/jumpWireless.png'| theme }}" alt="Custom ecommerce applicationCorporate website for large email preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">JumpWireless.org</p>
+                    <p class="portfolio__item-desc-text">Custom ecommerce application</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="portfolio__section">
+    <div class="portfolio__top">
+        <div class="portfolio__top-text-wrap">
+            <h2 class="portfolio__title _currency" id="shareEconomy">Sharing Economy & Services</h2>
+            <p class="portfolio__desc">Nowadays, more and more people are opting for online services that are based on
+                innovative sharing economy and collaborative consumption business models. At LOVATA, we have a broad
+                expertise in developing and launching such projects on global and local markets.</p>
+            <p class="portfolio__desc">This expertise helps our clients to avoid common mistakes and unnecessary
+                complications.</p>
+        </div>
+        <div class="portfolio__top-img-wrap">
+            <img src="{{ 'assets/img/currency.svg'| theme }}" alt=" icon currency" class="portfolio__img">
+        </div>
+    </div>
+    <div class="portfolio__list">
+        {# Sharing Economy & Services #}
+        {% set obProjectList = ProjectList.make().active().sort().category(ProjectList.categorySharingEconomyAndServices())|default([]) %}
+        {% for obProject in obProjectList|filter(obProject => obProject.preview_image is not empty) -%}
+            <div class="portfolio__item">
+                <a href="{{ obProject.getPageUrl() }}" class="portfolio__item-link">
+                    <img src="{{ obProject.preview_image.path }}"
+                         alt="{{ obProject.preview_image.description }}"
+                         title="{{ obProject.preview_image.title }}"
+                         class="portfolio__img-prev"
+                    />
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">{{ obProject.preview_title }}</p>
+                        <p class="portfolio__item-desc-text">{{ obProject.preview_text }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-jurist'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/jurist.png'| theme }}" alt="National legal knowledge portal development preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">Jurist.by</p>
+                    <p class="portfolio__item-desc-text">National legal knowledge portal development</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-life'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/life.png'| theme }}" alt="Sales Point System for Life preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">Life:)</p>
+                    <p class="portfolio__item-desc-text">Sales Point System for Life:) Telecommunications Company</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-mailru-face-recognition'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/mailru-face-rec.png'| theme }}" alt="Mail.ru Face Recognition App preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">Mail.ru Group</p>
+                    <p class="portfolio__item-desc-text">Face Recognition App</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-mailru-web-services'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/mailru-web-services.png'| theme }}" alt="Mail.ru Web Services design preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">Mail.ru Group</p>
+                    <p class="portfolio__item-desc-text">Custom Design for Mail.ru Web Services</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-115bel'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/115bel.png'| theme }}" alt="E-government Information System Portal" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">MyCity</p>
+                    <p class="portfolio__item-desc-text">E-government Information System Portal</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-sci-reader'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/scireader.png'| theme }}" alt="Responsive web platform for Stanford University preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">SciReader</p>
+                    <p class="portfolio__item-desc-text">Responsive web platform for Stanford University</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-we-bridge'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/weBridge.png'| theme }}" alt="Responsive Website for a UK language academy preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">we-bridge.co.uk</p>
+                    <p class="portfolio__item-desc-text">Responsive Website for a UK language academy</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-gozebra'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/gozebra.png'| theme }}" alt="Car Insurance Aggregator: Web App, Mobile Apps and CRM preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">Gozebra.kz</p>
+                    <p class="portfolio__item-desc-text">Car Insurance Aggregator: Web App, Mobile Apps and CRM</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="portfolio__section">
+    <div class="portfolio__top">
+        <div class="portfolio__top-text-wrap">
+            <h2 class="portfolio__title _hexagon">Other Projects</h2>
+            <p class="portfolio__desc">We have diverse experience with on-demand product development in various domains:
+                Human assets, Logistics, Finances, Manufacturing and Mass Media. Our integrated approach is tailored
+                to meeting the exact needs of your industry.</p>
+        </div>
+        <div class="portfolio__top-img-wrap">
+            <img src="{{ 'assets/img/other_project.svg'| theme }}" alt="icon for other projects section" class="portfolio__img">
+        </div>
+    </div>
+    <div class="portfolio__list">
+        {# Other Projects #}
+        {% set obProjectList = ProjectList.make().active().sort().category(ProjectList.categoryOtherProjects())|default([]) %}
+        {% for obProject in obProjectList|filter(obProject => obProject.preview_image is not empty) -%}
+            <div class="portfolio__item">
+                <a href="{{ obProject.getPageUrl() }}" class="portfolio__item-link">
+                    <img src="{{ obProject.preview_image.path }}"
+                         alt="{{ obProject.preview_image.description }}"
+                         title="{{ obProject.preview_image.title }}"
+                         class="portfolio__img-prev"
+                    />
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">{{ obProject.preview_title }}</p>
+                        <p class="portfolio__item-desc-text">{{ obProject.preview_text }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-my-mail'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/MyMail.png'| theme }}" alt="Corporate website for large email preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">My.com</p>
+                    <p class="portfolio__item-desc-text">Corporate website for large email provider</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-coex'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/coex.png'| theme }}" alt="Responsive website for software development company preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">Coex</p>
+                    <p class="portfolio__item-desc-text">Responsive website for software development company</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-english-uk'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/englishUK.png'| theme }}" alt="Website design and development for English UK Wales preview" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">English UK (Wales English Language Courses)</p>
+                    <p class="portfolio__item-desc-text">Website design and development for English UK Wales</p>
+                </div>
+            </a>
+        </div>
+        <div class="portfolio__item">
+            <a href="{{ 'portfolio-dev-bank'| page }}" class="portfolio__item-link">
+                <img src="{{ 'assets/img/portfolio-prev/devBank.png'| theme }}" alt="Corporate Style, Logo and Web Design for Development Bank" class="portfolio__img-prev"/>
+                <div class="portfolio__item-desc">
+                    <p class="portfolio__item-desc-title">Development Bank of the Republic of Belarus</p>
+                    <p class="portfolio__item-desc-text">Corporate Style, Logo and Web Design for Development Bank</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

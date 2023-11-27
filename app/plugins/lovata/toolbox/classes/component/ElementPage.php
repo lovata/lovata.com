@@ -1,0 +1,197 @@
+<?php namespace Lovata\Toolbox\Classes\Component;
+
+use Site;
+use System\Classes\PluginManager;
+use Cms\Classes\ComponentBase;
+use Lovata\Toolbox\Models\Settings;
+use Lovata\Toolbox\Traits\Helpers\TraitComponentNotFoundResponse;
+use Lovata\Toolbox\Traits\Helpers\TraitInitActiveLang;
+
+/**
+ * Class ElementPage
+ * @package Lovata\Toolbox\Classes\Component
+ * @author Andrey Kharanenka, a.khoronenko@lovata.com, LOVATA Group
+ */
+abstract class ElementPage extends ComponentBase
+{
+    use TraitInitActiveLang;
+    use TraitComponentNotFoundResponse;
+
+    /** @var \Model */
+    protected $obElement = null;
+
+    /** @var  \Lovata\Toolbox\Classes\Item\ElementItem */
+    protected $obElementItem = null;
+
+    /** @var array Component property list */
+    protected $arPropertyList = [];
+
+    protected $bNeedSmartURLCheck = false;
+    protected $bHasWildCard = false;
+
+    /**
+     * @return array
+     */
+    public function defineProperties()
+    {
+        $this->arPropertyList = array_merge($this->arPropertyList, $this->getElementPageProperties());
+        if ($this->bHasWildCard) {
+            $this->arPropertyList['has_wildcard'] = [
+                'title'   => 'lovata.toolbox::lang.component.has_wildcard',
+                'type'    => 'checkbox',
+                'default' => 0,
+            ];
+        }
+
+        $this->arPropertyList['skip_error'] = [
+            'title'   => 'lovata.toolbox::lang.component.skip_error',
+            'type'    => 'checkbox',
+            'default' => 0,
+        ];
+
+        return $this->arPropertyList;
+    }
+
+    /**
+     * Get element object
+     * @return \Illuminate\Http\Response|null
+     * @throws \Exception
+     */
+    public function onRun()
+    {
+        //Get element slug
+        $sElementSlug = $this->property('slug');
+        if (empty($sElementSlug) && !$this->property('slug_required')) {
+            return null;
+        }
+
+        if (empty($this->obElement) && !$this->property('skip_error')) {
+            return $this->getErrorResponse();
+        }
+
+        return null;
+    }
+
+    /**
+     * Init plugin method
+     */
+    public function init()
+    {
+        //Get element slug
+        $sElementSlug = $this->property('slug');
+        if (empty($sElementSlug)) {
+            return;
+        }
+
+        //Get element by slug
+        $this->obElement = $this->getElementObject($sElementSlug);
+        if (empty($this->obElement)) {
+            return;
+        }
+
+        //Get element item
+        $this->obElementItem = $this->makeItem($this->obElement->id, $this->obElement);
+        if ($this->bNeedSmartURLCheck && $this->property('smart_url_check') && !$this->smartUrlCheck()) {
+            $this->obElement = null;
+            $this->obElementItem = null;
+        }
+    }
+
+    /**
+     * Get element item
+     * @return \Lovata\Toolbox\Classes\Item\ElementItem
+     */
+    public function get()
+    {
+        return $this->obElementItem;
+    }
+
+    /**
+     * Get element object by slug
+     * @param string $sElementSlug
+     * @return \Model
+     */
+    abstract protected function getElementObject($sElementSlug);
+
+    /**
+     * Male new element item
+     * @param int $iElementID
+     * @param \Model $obElement
+     * @return \Lovata\Toolbox\Classes\Item\ElementItem
+     */
+    abstract protected function makeItem($iElementID, $obElement);
+
+    /**
+     * Checks trans value, if value is not form active lang, then return false
+     * @param \Model $obElement
+     * @param string $sElementSlug
+     * @return bool
+     */
+    protected function checkTransSlug($obElement, $sElementSlug)
+    {
+        if (empty($obElement) || empty($sElementSlug)) {
+            return false;
+        }
+
+        $bResult = $obElement->slug == $sElementSlug;
+
+        return $bResult;
+    }
+
+    /**
+     * Smart check URL with additional checking
+     * @return bool
+     */
+    protected function smartUrlCheck()
+    {
+        if (empty($this->obElementItem)) {
+            return false;
+        }
+
+        $sCurrentURL = $this->currentPageUrl();
+        $sValidURL = $this->obElementItem->getPageUrl($this->page->id);
+        $bResult = preg_match("%^{$sValidURL}%", $sCurrentURL);
+
+        return $bResult;
+    }
+
+    /**
+     * Return true, if slug is translatable
+     * @return bool
+     */
+    protected function isSlugTranslatable()
+    {
+        return (bool) Settings::getValue('slug_is_translatable') && PluginManager::instance()->hasPlugin('RainLab.Translate');
+    }
+
+    /**
+     * Returns true, if entity has relation with site
+     * @param mixed|\Lovata\Toolbox\Traits\Models\MultisiteHelperTrait $obEntity
+     * @return bool
+     */
+    protected function hasRelationWithSite($obEntity): bool
+    {
+        if (empty($obEntity)) {
+            return false;
+        }
+
+        $iSiteID = Site::getSiteIdFromContext();
+        if (empty($iSiteID)) {
+            return true;
+        }
+
+        /** @var \October\Rain\Database\Collection|\System\Models\SiteDefinition $obSiteList */
+        $obSiteList = $obEntity->site;
+        if (empty($obSiteList) || $obSiteList->isEmpty()) {
+            return true;
+        }
+
+        foreach ($obSiteList as $obSite) {
+            if ($iSiteID == $obSite->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+}

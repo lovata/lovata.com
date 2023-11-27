@@ -1,0 +1,32 @@
+div.control-simplelist.is-selectable-box.color-mode-selector {
+    margin-left: 0;
+    margin-top: 10px;
+    border: none;
+    margin-bottom: -16px;
+
+    ul {
+        margin-bottom: 0;
+    }
+
+    li {
+        margin: 0 16px 16px 0;
+        width: 230px;
+
+        &.active .color-mode-box {
+            border-color: @brand-accent;
+        }
+
+        .heading {
+            margin: 0;
+            text-align: left;
+            padding: 18px 17px;
+        }
+    }
+
+    .color-mode-box {
+        display: block;
+        border: 2px solid @border-color;
+        background: @input-bg;
+        border-radius: 10px;
+    }
+}

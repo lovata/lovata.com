@@ -8,6 +8,7 @@ Docker-compose file contains:
 * **"queue"** docker container is copy of "backend_app" container. "queue" needs to run
 ```php artisan horizon``` command.
 * local and staging environment contains **mailpit** docker container. mailpit uses to send email locally.
+
 ## Prepare local environment
 
 * You should install **docker, ansible, make**.

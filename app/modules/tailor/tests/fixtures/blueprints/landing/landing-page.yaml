@@ -1,0 +1,12 @@
+uuid: a63fabaf-7c0b-4c74-b36f-7abf1a3ad1c1
+name: Landing Page
+handle: landingPage
+type: single
+
+navigation:
+    icon: icon-rocket
+
+fields:
+    block_builder:
+        type: mixin
+        source: blockBuilder

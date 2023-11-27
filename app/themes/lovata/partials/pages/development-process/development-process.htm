@@ -1,0 +1,59 @@
+<div class="dev-process"  data-logo="black">
+    <section id="work" class="how">
+        <div class="how__inner">
+            <div class="how__top">
+                <img src="{{ 'assets/img/logo_grey.svg'|theme }}" class="how__logo"/>
+                <h1 class="how__title">How do we do it?</h1>
+            </div>
+            <div class="how__bottom">
+                <div class="how__feature _max-w-650">
+                    <h2 class="how__feature-title">Business Analysis</h2>
+                    <p class="how__feature-text">During business analysis stage, we identify the requirements and concerns of a client’s company and its market. Then, we design a solution that allows the client to reach its goals.</p>
+                    <p class="how__feature-text">This is the first and most crucial stage of the development process that is required in order to build a successful product. We help our clients to align business strategy with technical requirements in order to determine the scope of work before the actual development begins.</p>
+                </div>
+                <img src="{{ 'assets/img/business_analysis.svg'|theme }}" class="how__bottom-img" alt=""/>
+                <div class="how__feature _to-right">
+                    <h2 class="how__feature-title">Analysis Results</h2>
+                    <p class="how__feature-text">The result of our business analysis is a conceptualized and documented representation of the planned solution with a clear description of how your business goals will be achieved and which tools and methods will be used.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="design" class="design">
+        <div class="design__inner">
+            <img src="{{ 'assets/img/boardfull.svg'|theme }}" class="design__img"/>
+            <div class="design__feature _first-order">
+                <h2 class="design__feature-title">Design</h2>
+                <p class="design__feature-text">Design at LOVATA is a powerful tool for creating visual solutions that meet business objectives of our clients.</p>
+                <p class="design__feature-text">Our approach is based on modern trends of information delivery and user experience.</p>
+            </div>
+            <div class="design__feature">
+                <h3 class="design__feature-title">Analytics</h3>
+                <p class="design__feature-text">When working on an existing project, we make a complete analysis beforehand. This allows us to
+                    create a solution that will eliminate all errors and issues of the current version, which will increase
+                    conversion rate as a result.</p>
+            </div>
+        </div>
+    </section>
+    {% partial 'components/technology/technology' %}
+    <section id="processes" class="process">
+        <div class="process__inner">
+            <div class="process__top-feature">
+                <h2 class="process__title">Processes</h2>
+                <p class="process__text">The defining measure of business success is the quick reaction to constantly changing conditions of highly competitive business environment and timely discovery of new opportunities.</p>
+            </div>
+            <div class="process__img-wrap">
+                <img src="{{ 'assets/img/process-pattern.png'|theme }}" class="process__img" alt=""/>
+                <img src="{{ 'assets/img/process-pattern-mobile.png'|theme }}" class="process__img-mobile" alt=""/>
+                <span class="process__img-text _begin">High speed</span>
+                <span class="process__img-text _end">Just in time</span>
+            </div>
+            <div class="process__feature">
+                <h2 class="process__feature-title">SCRUM & Continuous Delivery</h2>
+                <p class="process__text">We provide high development speed and timely delivery thanks to our powerful production infrastructure and by applying flexible software development methodologies based on iterative development (SCRUM) and continuous delivery.</p>
+            </div>
+        </div>
+    </section>
+    {% partial 'components/clients/clients' %}
+    {% partial 'components/footer/footer' %}
+</div>

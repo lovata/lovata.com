@@ -1,0 +1,180 @@
+//
+// Override UI variables
+// --------------------------------------------------
+
+@font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+@body-bg:                var(--bs-body-bg);
+@text-color:             var(--bs-body-color);
+@text-muted:             var(--bs-secondary-color);
+@link-color:             var(--bs-link-color);
+@link-hover-color:       var(--bs-link-hover-color);
+@heading-color:          var(--bs-heading-color);
+@emphasis-color:         var(--bs-emphasis-color);
+@border-color:           var(--bs-border-color);
+@popup-bg:               var(--bs-modal-bg);
+@backdrop-opacity:       var(--bs-backdrop-opacity);
+
+//
+// Paths
+// --------------------------------------------------
+
+@font-path: "../font";
+@image-path: "../images";
+@type-font-path: "../font";
+
+//
+// Primary Colors
+// --------------------------------------------------
+
+@brand-primary:           var(--bs-primary);
+@brand-secondary:         var(--bs-secondary);
+@brand-success:           var(--bs-success);
+@brand-info:              var(--bs-info);
+@brand-warning:           var(--bs-warning);
+@brand-danger:            var(--bs-danger);
+@brand-light:             var(--bs-light);
+@brand-dark:              var(--bs-dark);
+
+@brand-accent:            var(--oc-accent);
+@brand-selection:         var(--oc-selection);
+@brand-selection-text:    var(--oc-selection-text);
+
+@primary-color:           var(--oc-primary-color);
+@primary-border:          var(--oc-primary-border);
+@primary-bg:              var(--oc-primary-bg);
+
+@secondary-color:         var(--bs-secondary-color);
+@secondary-bg:            var(--bs-secondary-bg);
+@secondary-bg-alt:        var(--oc-secondary-bg); // Used by secondary button
+
+@tertiary-color:          var(--bs-tertiary-color);
+@tertiary-bg:             var(--bs-tertiary-bg);
+
+//
+// Form Variables
+// --------------------------------------------------
+
+@input-bg:                 var(--oc-form-control-bg);
+@input-disabled-bg:        var(--oc-form-control-disabled-bg);
+@input-disabled-color:     var(--oc-form-control-disabled-color);
+@input-placeholder-color:  var(--bs-tertiary-color);
+@input-color:              var(--bs-body-color);
+@input-border:             var(--bs-border-color);
+@input-border-focus:       var(--oc-border-focus);
+@input-translatable-color: var(--oc-input-translatable-color);
+@input-translatable-bg:    var(--oc-input-translatable-bg);
+@input-selection-color:    var(--oc-input-selection-color);
+@input-selection-bg:       var(--oc-input-selection-bg);
+
+//
+// Component Variables
+// --------------------------------------------------
+
+@mainnav-color:           var(--oc-mainnav-color);
+@mainnav-bg:              var(--oc-mainnav-bg);
+@mainnav-icon-color:      var(--oc-mainnav-icon-color);
+
+@sidebar-color:           var(--oc-sidebar-color);
+@sidebar-bg:              var(--oc-sidebar-bg);
+@sidebar-active-color:    var(--oc-sidebar-active-color);
+@sidebar-active-bg:       var(--oc-sidebar-active-bg);
+@sidebar-active-border:   var(--oc-sidebar-active-border);
+@sidebar-hover-bg:        var(--oc-sidebar-hover-bg);
+
+@editor-bg:               var(--oc-editor-bg);
+@editor-section-color:    var(--oc-editor-section-color);
+@editor-section-bg:       var(--oc-editor-section-bg);
+@editor-tab-color:        var(--oc-editor-tab-color);
+@editor-tab-bg:           var(--oc-editor-tab-bg);
+@editor-tab-active-color: var(--oc-editor-tab-active-color);
+@editor-tab-active-bg:    var(--oc-editor-tab-active-bg);
+
+@document-toolbar-bg:     var(--oc-document-toolbar-bg);
+@document-tabs-bg:        var(--oc-document-tabs-bg);
+@document-content-bg:     var(--oc-document-content-bg);
+@document-ruler-color:    var(--oc-document-ruler-color);
+@document-ruler-bg:       var(--oc-document-ruler-bg);
+@document-ruler-tick:     var(--oc-document-ruler-tick);
+
+@toolbar-color:           var(--oc-toolbar-color);
+@toolbar-bg:              var(--oc-toolbar-bg);
+@toolbar-border:          var(--oc-toolbar-border);
+@toolbar-hover-color:     var(--oc-toolbar-hover-color);
+@toolbar-hover-bg:        var(--oc-toolbar-hover-bg);
+@toolbar-focus-bg:        var(--oc-toolbar-hover-bg);
+
+@tab-color:               var(--oc-tab-color);
+@tab-bg:                  var(--oc-tab-bg);
+@tab-active-color:        var(--oc-tab-active-color);
+@tab-border:              var(--oc-tab-border);
+@tab-hover-bg:            var(--oc-tab-hover-bg);
+
+@dropdown-bg:             var(--bs-modal-bg);
+@dropdown-hover-color:    var(--oc-dropdown-hover-color);
+@dropdown-hover-bg:       var(--oc-dropdown-hover-bg);
+@dropdown-active-bg:      var(--oc-dropdown-active-bg);
+@dropdown-trigger-bg:     var(--oc-dropdown-trigger-bg);
+@dropdown-trigger-color:  var(--oc-dropdown-trigger-color);
+@dropdown-trigger-border: var(--oc-dropdown-trigger-border);
+
+//
+// Colors
+// --------------------------------------------------
+
+@color-footer:                               rgba(255,255,255,.8);
+@color-footer-border:                        #dfdfdf;
+@color-footer-text:                          #666666;
+
+@color-scrollbar-track:                      transparent;
+@color-scrollbar-thumb:                      rgba(0,0,0,.35);
+@color-scrollpanel-border:                   #efefef;
+@color-scroll-indicator:                     #bbbbbb;
+
+@color-outer-muted-text:                     rgba(255,255,255,.44);
+
+@color-breadcrumb-text-active:               #9da3a7;
+@color-breadcrumb-text:                      #9B9B9B;
+@color-breadcrumb-background:                #2b343d;
+
+@color-sortable-caret:                       #999999;
+@color-sortable-active:                      @brand-secondary;
+
+@color-report-widget-title:                  #7e8c8d;
+@color-report-widget-control-inactive:       #b6b6b6;
+@color-report-widget-description:            @color-report-widget-title;
+@color-report-widget-link:                   @color-report-widget-title;
+
+@color-snackbar:                             #323232;
+
+//
+// Sizes
+// --------------------------------------------------
+
+@size-tiny:  50px;
+@size-small: 100px;
+@size-large: 200px;
+@size-huge:  250px;
+@size-giant: 350px;
+
+//
+// Media breakpoints
+// --------------------------------------------------
+
+@menu-breakpoint-min:           769px;
+@menu-breakpoint-max:           (@menu-breakpoint-min - 1);
+@mobile-breakpoint-max:         414px;
+
+//
+// Document UI
+// --------------------------------------------------
+
+@document-ui-base-padding: 20px;
+
+//
+// Close icons
+// --------------------------------------------------
+
+@close-font-weight:           bold;
+@close-color:                 var(--bs-emphasis-color);
+@close-text-shadow:           0 1px 0 var(--bs-body-bg);

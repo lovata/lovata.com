@@ -1,0 +1,30 @@
+[SeoToolbox]
+==
+<!DOCTYPE html  dir="ltl">
+<html prefix="og: http://ogp.me/ns#" lang="en">
+<head>
+     {# Render metric code after head tag #}
+     {{ SeoToolbox.getHeadBegin()|raw }}
+
+    {# Render SEO meta tags (title, description, keywords, canonical URL, robots meta tag) #}
+    {% component 'SeoToolbox' %}
+    <meta charset="UTF-8">
+    <!--{% placeholder seo_metadata %}-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/png" href="{{ 'assets/img/favicon-32x32.png'|theme }}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{{ 'assets/img/favicon-16x16.png'|theme }}" sizes="16x16">
+    <link rel="stylesheet" href="{{ vite_asset('assets/css/common.css') }}" />
+    {# Render metric code before /head tag #}
+
+    {{ SeoToolbox.getHeadEnd()|raw }}
+</head>
+<body class="flex h-full flex-col min-h-screen">
+    {% partial 'components/header/header' %}
+    <main class="flex-grow">
+        {% page %}
+    </main>
+    {% partial 'components/footer/footer' %}
+    <script type="module" crossorigin src="{{ vite_asset('assets/js/index.js') }}"></script>
+</body>
+</html>

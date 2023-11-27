@@ -1,0 +1,25 @@
+plugin:
+    name: 'lovata.basecode::lang.plugin.name'
+    description: 'lovata.basecode::lang.plugin.description'
+    author: LOVATA
+    icon: oc-icon-magic
+    homepage: ''
+navigation:
+    main-basecode:
+        label: 'lovata.basecode::lang.menu.projects'
+        url: lovata/basecode/projects
+        icon: icon-desktop
+        permissions:
+            - 'main-basecode-*'
+        sideMenu:
+            side-basecode-project:
+                label: 'lovata.basecode::lang.menu.projects'
+                url: lovata/basecode/projects
+                icon: icon-desktop
+                permissions:
+                    - 'basecode-menu-project'
+permissions:
+    basecode-menu-project:
+        tab: 'lovata.basecode::lang.tab.permissions'
+        label: 'lovata.basecode::lang.permission.project'
+        order: 100

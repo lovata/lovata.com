@@ -1,0 +1,57 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: Name
+        searchable: true
+
+    theme:
+        label: Theme
+        type: selectable
+
+    locale:
+        label: Locale
+        type: selectable
+
+    timezone:
+        label: Timezone
+        type: selectable
+
+    base_url:
+        label: Base URL
+        type: linkage
+        sortable: false
+        attributes:
+            target: _blank
+
+    code:
+        label: Code
+        searchable: true
+        invisible: true
+
+    allow_roles:
+        label: Roles
+        type: selectable
+        invisible: true
+
+    created_at:
+        label: Created At
+        invisible: true
+
+    updated_at:
+        label: Updated At
+        invisible: true
+
+    status_code:
+        label: Status
+        type: selectable
+        sortable: false
+
+    active_color:
+        label: Color
+        shortLabel: ''
+        type: colorpicker
+        sortable: false
+        cssClass: text-end

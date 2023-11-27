@@ -1,0 +1,27 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Entry
+
+# Fields supplied dynamically
+form: []
+
+# Model Class name
+modelClass: Tailor\Models\EntryRecord
+
+# Default redirect location
+defaultRedirect: tailor/entries
+
+# Create page
+create:
+    title: Create Entry
+
+# Update page
+update:
+    title: Edit Entry
+
+# Preview page
+preview:
+    title: Preview Entry

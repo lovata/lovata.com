@@ -1,0 +1,46 @@
+//
+// Flash Messages
+// --------------------------------------------------
+
+@color-flash-success-bg:                     @brand-success;
+@color-flash-error-bg:                       #cc3300;
+@color-flash-warning-bg:                     #f0ad4e;
+@color-flash-info-bg:                        #5fb6f5;
+@color-flash-text:                           #ffffff;
+
+.flash-message.static {
+    color: @color-flash-text;
+    font-size: 14px;
+    padding: 10px 30px 10px 15px;
+    word-wrap: break-word;
+    text-align: left;
+    border-radius: @border-radius-base;
+
+    &.success { background: @color-flash-success-bg; }
+    &.error { background: @color-flash-error-bg; }
+    &.warning { background: @color-flash-warning-bg; }
+    &.info { background: @color-flash-info-bg; }
+
+    button {
+        float: none;
+        position: absolute;
+        right: 10px;
+        top: 12px;
+        color: white;
+        .hide-text();
+        opacity: 1;
+        outline: none;
+
+        &:before {
+            .icon-OctoFont();
+            content: @octo-icon-cross;
+            color: white;
+            font-size: 16px;
+            position: relative;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

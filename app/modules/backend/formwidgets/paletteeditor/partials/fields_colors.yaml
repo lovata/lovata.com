@@ -1,0 +1,128 @@
+fields:
+    palette[primary]:
+        label: Primary Color
+        type: colorpicker
+        showInput: true
+        span: row
+        spanClass: col-4
+
+    palette[secondary]:
+        label: Secondary Color
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[selection]:
+        label: Selection Color
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[link_color]:
+        label: Link Color
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    _section_mainnav:
+        type: ruler
+
+    palette[mainnav_color]:
+        label: Nav Text
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[mainnav_bg]:
+        label: Nav Background
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    _section_sidebar:
+        type: ruler
+
+    palette[sidebar_color]:
+        label: Sidebar Text
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[sidebar_bg]:
+        label: Sidebar Background
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[sidebar_active_color]:
+        label: Sidebar Active Text
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[sidebar_active_bg]:
+        label: Sidebar Active Background
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[sidebar_hover_bg]:
+        label: Sidebar Hover Background
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    _section_settings:
+        type: ruler
+
+    palette[settings_color]:
+        label: Settings Text
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[settings_bg]:
+        label: Settings Background
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[settings_item]:
+        label: Settings Item Background
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[settings_active_color]:
+        label: Settings Active Color
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[settings_active_bg]:
+        label: Settings Active Background
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4
+
+    palette[settings_hover_bg]:
+        label: Settings Hover Background
+        type: colorpicker
+        availableColors: false
+        span: row
+        spanClass: col-4

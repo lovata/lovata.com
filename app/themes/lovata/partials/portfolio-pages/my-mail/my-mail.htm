@@ -1,0 +1,52 @@
+<section class="portfolio-tmpl">
+    <div class="portfolio-tmpl__container">
+        <div class="portfolio-tmpl__header">
+            <div class="portfolio-tmpl__header-top">
+                <h1 class="portfolio-tmpl__title">Corporate Website for а Large Email Provider</h1>
+                <div class="portfolio-tmpl__customer">Customer: <span class="portfolio-tmpl__customer-name">Mail.ru Group</span></div>
+            </div>
+            <div class="portfolio-tmpl__client-info">
+                <a href="http://mymail.my.com" rel="nofollow" target="_blank" class="portfolio-tmpl__link">mymail.my.com</a>
+                <a href="http://mymail.my.com/ui/" rel="nofollow" target="_blank" class="portfolio-tmpl__link">UI</a>
+            </div>
+            <p class="portfolio-tmpl__desc">My.com comprises myMail, MAPS.ME, as well as various online and mobile games. My.com is a project belonging to Mail.Ru Group, which controls various internet communication channels and entertainment services in Russia and around the world.</p>
+            <p class="portfolio-tmpl__desc">Mail.Ru Group has the world's leading email service, one of the largest portals in Russian-speaking countries, and the largest portfolio of online games. The company also operates such well-known social networks as Vkontakte (vk.com) and Odnoklassniki (ok.com), instant messengers Mail.Ru Agent and ICQ.</p>
+        </div>
+        <div class="portfolio-tmpl__content">
+            <img src="{{ 'assets/img/portfolio_site/my-mail/main.jpg'| theme }}" alt="" class="portfolio-tmpl__img">
+        </div>
+    </div>
+    <div class="portfolio-tmpl__similar">
+        <h2 class="portfolio-tmpl__similar-title">Similar projects</h2>
+        <div class="portfolio-tmpl__similar-list">
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-coex'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/coex.png'| theme }}" alt="coex preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">Coex</p>
+                        <p class="portfolio__item-desc-text">Responsive website for software development company</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-english-uk'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/englishUK.png'| theme }}" alt="Website design and development for English UK Wales preview" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">English UK (Wales English Language Courses)</p>
+                        <p class="portfolio__item-desc-text">Website design and development for English UK Wales</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-cuepath'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/cuepath.png'| theme }}" alt="cuepath preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">CuePath.io</p>
+                        <p class="portfolio__item-desc-text">Applications for the Internet of things (IoT)</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% partial 'components/small-footer/small-footer' %}

@@ -1,0 +1,75 @@
+.doc-info {
+  color: #313238;
+  font-family: Roboto, sans-serif;
+  background: #fff;
+  padding-top: 30px;
+  &--top {
+    position: relative;
+    margin-bottom: 20px;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      background: url('../../../assets/img/portfolio_site/2doc/2doc-favicon.png');
+      width: 16px;
+      height: 16px;
+      background-repeat: no-repeat;
+    }
+  }
+  &--link {
+    margin-left: 25px;
+    color: #3b4045;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 1px solid #c5c5c5;
+    text-decoration: none;
+    transition: opacity .2s ease-out;
+    &:hover {
+      opacity: .7;
+    }
+  }
+  &--title {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  &--text {
+    max-width: 795px;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 400;
+    padding-bottom: 62px;
+    & strong {
+      font-weight: bold;
+    }
+    p + p {
+      margin-top: 14px;
+    }
+    & .bold {
+      font-weight: bold;
+    }
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .doc-info {
+    &--top {
+      margin-bottom: 12px;
+    }
+    &--link {
+      font-size: 15px;
+    }
+    &--title {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+    &--text {
+      font-size: 15px;
+      line-height: 24px;
+      padding-bottom: 36px;
+    }
+  }
+}

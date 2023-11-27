@@ -1,0 +1,42 @@
+.dark [data-activetheme="dark"]{
+  transform: translateX(28px);
+  animation: moon 0.3s ease-in;
+}
+
+.light [data-activetheme="light"]{
+  transform: translateX(0);
+  animation: light 0.3s ease-in;
+}
+
+@keyframes moon {
+  0%   {
+    transform: translateX(0);
+    width: 24px;
+  }
+
+  50%  {
+    transform: translateX(0);
+    width: 52px;
+  }
+
+  100% {
+    width: 24px;
+    transform: translateX(28px);
+  }
+}
+@keyframes light {
+  0%   {
+    transform: translateX(28px);
+    width: 24px;
+  }
+
+  50%  {
+    transform: translateX(0);
+    width: 52px;
+  }
+
+  100% {
+    width: 24px;
+    transform: translateX(0);
+  }
+}

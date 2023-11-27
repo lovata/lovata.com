@@ -1,0 +1,61 @@
+:root, [data-bs-theme="light"] {
+    --bs-primary: @brand-primary;
+    --oc-primary-hover-bg: tint(@brand-primary, 15%);
+    --oc-primary-active-bg: tint(@brand-primary, 20%);
+
+    --bs-link-color: @brand-link-color;
+    --bs-link-color-rgb: red(@brand-link-color), green(@brand-link-color), blue(@brand-link-color);
+    --bs-link-hover-color: shade(@brand-link-color, 20%);
+    --bs-link-hover-color-rgb: red(shade(@brand-link-color, 20%)), green(shade(@brand-link-color, 20%)), blue(shade(@brand-link-color, 20%));
+
+    --bs-secondary: @brand-secondary;
+    --oc-selection: @brand-selection;
+
+    --oc-mainnav-color: @brand-mainnav-color;
+    --oc-mainnav-bg: @brand-mainnav-bg;
+    --oc-mainnav-icon-color: contrast(@brand-mainnav-bg, black, white);
+
+    --oc-sidebar-color: @brand-sidebar-color;
+    --oc-sidebar-bg: @brand-sidebar-bg;
+    --oc-sidebar-active-color: @brand-sidebar-active-color;
+    --oc-sidebar-active-bg: @brand-sidebar-active-bg;
+    --oc-sidebar-hover-bg: @brand-sidebar-hover-bg;
+
+    --oc-settings-color: @brand-settings-color;
+    --oc-settings-bg: @brand-settings-bg;
+    --oc-settings-item: @brand-settings-item;
+    --oc-settings-active-color: @brand-settings-active-color;
+    --oc-settings-active-bg: @brand-settings-active-bg;
+    --oc-settings-hover-bg: @brand-settings-hover-bg;
+}
+
+[data-bs-theme="dark"] {
+    --bs-primary: @brand-primary-dark;
+    --oc-primary-hover-bg: tint(@brand-primary-dark, 15%);
+    --oc-primary-active-bg: tint(@brand-primary-dark, 20%);
+
+    --bs-link-color: @brand-link-color-dark;
+    --bs-link-color-rgb: red(@brand-link-color-dark), green(@brand-link-color-dark), blue(@brand-link-color-dark);
+    --bs-link-hover-color: shade(@brand-link-color-dark, 20%);
+    --bs-link-hover-color-rgb: red(shade(@brand-link-color-dark, 20%)), green(shade(@brand-link-color-dark, 20%)), blue(shade(@brand-link-color-dark, 20%));
+
+    --bs-secondary: @brand-secondary-dark;
+    --oc-selection: @brand-selection-dark;
+
+    --oc-mainnav-color: @brand-mainnav-color-dark;
+    --oc-mainnav-bg: @brand-mainnav-bg-dark;
+    --oc-mainnav-icon-color: contrast(@brand-mainnav-bg-dark, black, white);
+
+    --oc-sidebar-color: @brand-sidebar-color-dark;
+    --oc-sidebar-bg: @brand-sidebar-bg-dark;
+    --oc-sidebar-active-color: @brand-sidebar-active-color-dark;
+    --oc-sidebar-active-bg: @brand-sidebar-active-bg-dark;
+    --oc-sidebar-hover-bg: @brand-sidebar-hover-bg-dark;
+
+    --oc-settings-color: @brand-settings-color-dark;
+    --oc-settings-bg: @brand-settings-bg-dark;
+    --oc-settings-item: @brand-settings-item-dark;
+    --oc-settings-active-color: @brand-settings-active-color-dark;
+    --oc-settings-active-bg: @brand-settings-active-bg-dark;
+    --oc-settings-hover-bg: @brand-settings-hover-bg-dark;
+}

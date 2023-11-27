@@ -1,0 +1,35 @@
+{% set obCategory = ArticleCategoryData.get(2) %}
+{% set obArticleList = ArticleList.make().sort(ArticleList.getSorting()).published().category(obCategory.id) %}
+
+{% set iPage = 1 %}
+{% set arPaginationList = Pagination.get(iPage, obArticleList.count()) %}
+{% set arArticleList = obArticleList.page(iPage, Pagination.getCountPerPage()) %}
+
+{% if arArticleList %}
+    <section id="events" class="events" data-logo="white">
+        <div class="container">
+            <h2 class="events__title">Our News And Events</h2>
+        </div>
+        <div class="events__list">
+            {% for obArticle in arArticleList %}
+                <a href="{{ obArticle.link ? obArticle.link : 'blog-post'|page({'slug': obArticle.slug }) }}"
+                   target="_blank" class="events__item {{ obArticle.post_class ? obArticle.post_class : '' }}">
+                    <div class="events__inner">
+                        {% if obArticle.preview_image is not empty %}
+                            <img src="{{ obArticle.preview_image.path }}" class="events__img"
+                                 alt="{{ obArticle.preview_image.alt }}" title="{{ obArticle.preview_image.title }}">
+                        {% endif %}
+                        <div class="events__performance">
+                            <div class="events__date">
+                                {{ carbon(obArticle.published_start).format('F j, Y') }}
+                            </div>
+                            <p class="events__text">
+                                {{ obArticle.title }}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </section>
+{% endif %}

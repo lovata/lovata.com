@@ -1,0 +1,59 @@
+.modal-content h3 {
+    color: #da5700;
+    margin-bottom: 8px;
+}
+
+#Form-field-Redirect-status_code-group .help-block.before-field {
+    margin-bottom: 0;
+    color: #2a3e51;
+}
+
+.status-code-info {
+    cursor: pointer;
+    margin-bottom: 10px;
+    color: #da5700;
+}
+
+tr.special td {
+    font-style: italic;
+}
+
+div.actions .btn {
+    text-align: center;
+}
+
+.sparkline {
+    width: 100px;
+    height: 30px;
+    background-size: 100px 30px;
+    background-repeat: no-repeat;
+}
+
+.sparkline img {
+    width: 100px;
+    height: 30px;
+    opacity: .8;
+}
+
+.form-sidebar .sparkline {
+    width: 100%;
+    height: 120px;
+    background-size: 260px 120px;
+    background-repeat: no-repeat;
+    margin-top: 4px;
+}
+
+.form-sidebar .sparkline img {
+    width: 100%;
+    height: 120px;
+    opacity: .8;
+}
+
+.scoreboard-item.title-value p {
+    font-size: 20px;
+}
+
+ul.nav li a:focus, table.data tr:focus {
+    outline:0 !important;
+    box-shadow: none !important;
+}

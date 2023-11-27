@@ -1,0 +1,20 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+name: backend::lang.user.name
+form: ~/modules/backend/models/user/fields.yaml
+modelClass: Backend\Models\User
+defaultRedirect: backend/users
+
+create:
+    redirect: backend/users/update/:id
+    redirectClose: backend/users
+
+update:
+    redirect: backend/users
+    redirectClose: backend/users
+
+permissions:
+    modelCreate: admins.manage.create
+    modelDelete: admins.manage.delete

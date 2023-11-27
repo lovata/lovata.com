@@ -1,0 +1,68 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+tabs:
+    defaultTab: Properties
+    fields:
+
+        name:
+            label: Name
+            placeholder: New theme name
+            span: auto
+            required: true
+            attributes:
+                default-focus: 1
+
+        dir_name@create:
+            label: Directory Name
+            placeholder: The destination theme directory
+            span: auto
+            preset: name
+            required: true
+
+        dir_name@update:
+            label: Directory Name
+            disabled: true
+            span: auto
+
+        description:
+            label: Description
+            placeholder: Theme description
+            type: textarea
+            size: tiny
+
+        author:
+            label: Author Name
+            placeholder: Person or company name
+            span: auto
+            tab: Publish
+
+        homepage:
+            label: Homepage
+            placeholder: Website URL
+            span: auto
+            tab: Publish
+
+        authorCode:
+            label: Author Code
+            placeholder: A unique code for the author used for distribution
+            span: auto
+            tab: Publish
+
+        code:
+            label: Theme Code
+            placeholder: A unique code for this theme used for distribution
+            span: auto
+            tab: Publish
+
+        parent:
+            label: Parent Theme
+            type: dropdown
+            tab: Advanced
+
+        database:
+            label: Database Mode
+            comment: Save changes to this theme in the database instead of the filesystem
+            type: checkbox
+            tab: Advanced

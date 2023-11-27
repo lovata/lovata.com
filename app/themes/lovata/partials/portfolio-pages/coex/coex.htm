@@ -1,0 +1,63 @@
+<section class="portfolio-tmpl">
+    <div class="portfolio-tmpl__container">
+        <div class="portfolio-tmpl__header">
+            <div class="portfolio-tmpl__header-top">
+                <h1 class="portfolio-tmpl__title">Responsive Website for а Software Development Company</h1>
+                <div class="portfolio-tmpl__customer">Customer: <span class="portfolio-tmpl__customer-name">COEX, s.r.o.</span></div>
+            </div>
+            <div class="portfolio-tmpl__client-info">
+                <a href="https://www.coex.cz" rel="nofollow" target="_blank" class="portfolio-tmpl__link">Coex.cz</a>
+            </div>
+            <p class="portfolio-tmpl__desc">LOVATA has designed and developed a responsive website for COEX software development company.</p>
+            <p class="portfolio-tmpl__desc">COEX was Established in 2006 by UI/UX designers, software developers, analysts and tech geeks. All open-minded deep thinkers, passionate about challenges and top-notch technology. They live by custom development, bringing smart and innovative solutions, using their extensive technical knowledge gained in diverse segments.</p>
+        </div>
+        <div class="portfolio-tmpl__content">
+            <img src="{{ 'assets/img/portfolio_site/coex/index.png'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/coex/index-2.png'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/coex/blog.png'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/coex/about.png'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/coex/map.png'| theme }}" alt="" class="portfolio-tmpl__img">
+        </div>
+        <div class="portfolio-tmpl__tech">
+            <h2 class="portfolio-tmpl__tech-title">Technologies:</h2>
+            <div class="portfolio-tmpl__tech-list">
+                <a href="#" class="portfolio-tmpl__tech-link stub"># MODX</a>
+                <a href="{{ 'php-dev' | page }}" class="portfolio-tmpl__tech-link stub"># PHP</a>
+                <a href="{{ 'js-dev' | page }}" class="portfolio-tmpl__tech-link stub"># EcmaScript 2015 (ES6)</a>
+            </div>
+        </div>
+    </div>
+    <div class="portfolio-tmpl__similar">
+        <h2 class="portfolio-tmpl__similar-title">Similar projects</h2>
+        <div class="portfolio-tmpl__similar-list">
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-my-mail'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/MyMail.png'| theme }}" alt="MyMail preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">My.com</p>
+                        <p class="portfolio__item-desc-text">Corporate website for large email provider</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-english-uk'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/englishUK.png'| theme }}" alt="Website design and development for English UK Wales preview" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">English UK (Wales English Language Courses)</p>
+                        <p class="portfolio__item-desc-text">Website design and development for English UK Wales</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-cuepath'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/cuepath.png'| theme }}" alt="cuepath preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">CuePath.io</p>
+                        <p class="portfolio__item-desc-text">Applications for the Internet of things (IoT)</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% partial 'components/small-footer/small-footer' %}

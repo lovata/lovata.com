@@ -1,0 +1,307 @@
+.dev-process {
+  background: #ffffff;
+  /* Section 'how do we do this' */
+  .how {
+    &__inner {
+      position: relative;
+      max-width: 1440px;
+      padding: 150px 30px 100px;
+      margin: 0 auto;
+      @media (max-width: $mobile) {
+        padding: 100px 15px 100px;
+      }
+    }
+    &__top {
+      position: relative;
+      max-width: 940px;
+      margin: 0 auto 50px;
+      padding: 0 70px 120px;
+      @media (max-width: $tablet) {
+        padding: 0 20px 100px;
+        margin: 0 auto 30px;
+      }
+      @media (max-width: $mobile) {
+        padding: 0 0 70px;
+      }
+    }
+    &__logo {
+      width: 100%;
+    }
+    &__title {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-size: 65px;
+      font-weight: bold;
+      @media (max-width: $tablet) {
+        font-size: 50px;
+      }
+      @media (max-width: $mobile) {
+        font-size: 35px;
+        width: 100%;
+        text-align: center;
+      }
+    }
+    &__bottom {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      min-height: 950px;
+      @media (max-width: $desktop) {
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 400px;
+      }
+    }
+    &__bottom-img {
+      position: absolute;
+      left: 45%;
+      top: 65%;
+      max-width: 1200px;
+      transform: translate(-50%,-50%);
+      @media (max-width: $desktop) {
+        max-width: 100%;
+        position: static;
+        left: auto;
+        top: auto;
+        margin: 60px auto;
+        transform: none;
+      }
+    }
+    &__feature {
+      max-width: 550px;
+      @media (max-width: $desktop) {
+        max-width: 100%;
+      }
+      &._max-w-650 {
+        max-width: 650px;
+        @media (max-width: $desktop){
+          max-width: 100%;
+        }
+      }
+      &._to-right {
+        margin-left: auto;
+        align-self: flex-end;
+        @media (max-width: $desktop) {
+          align-self: flex-start;
+          margin-left: 0;
+        }
+      }
+    }
+    &__feature-title {
+      font-size: 50px;
+      font-weight: bold;
+      @media (max-width: $tablet) {
+        font-size: 45px;
+      }
+      @media (max-width: $mobile) {
+        font-size: 30px;
+      }
+    }
+    &__feature-text {
+      font-size: 25px;
+      font-weight: 300;
+      margin-bottom: 10px;
+      @media (max-width: $desktop) {
+        font-size: 23px;
+      }
+      @media (max-width: $mobile) {
+        font-size: 20px;
+      }
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+  }
+  /* Section 'Design' */
+  .design {
+    background: #160808;
+    &__inner {
+      position: relative;
+      max-width: 1440px;
+      padding: 75px 30px;
+      margin: 0 auto;
+      color: #ffffff;
+      @media (max-width: $desktop-small) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      @media (max-width: $mobile) {
+        padding: 25px 15px;
+      }
+      &:after {
+        content: '';
+        display: table;
+        clear: both;
+      }
+    }
+    &__feature {
+      max-width: 600px;
+      margin-bottom: 50px;
+      @media (max-width: $desktop) {
+        max-width: 500px;
+      }
+      @media (max-width: $desktop-small) {
+        max-width: 100%;
+      }
+      &._first-order {
+        @media (max-width: $desktop-small) {
+          order: -1;
+        }
+      }
+    }
+    &__feature-title {
+      font-size: 50px;
+      font-weight: bold;
+      @media (max-width: $tablet) {
+        font-size: 45px;
+      }
+      @media (max-width: $mobile) {
+        font-size: 30px;
+      }
+    }
+    &__feature-text {
+      font-size: 25px;
+      font-weight: 300;
+      margin-bottom: 15px;
+      @media (max-width: $desktop) {
+        font-size: 23px;
+      }
+      @media (max-width: $mobile) {
+        font-size: 20px;
+      }
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+    }
+    &__img {
+      float: right;
+      @media (max-width: $desktop-small) {
+        float: none;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+    }
+  }
+  /* Section 'Processes' */
+  .process {
+    background: #160808;
+    &__inner {
+      position: relative;
+      max-width: 1440px;
+      min-height: 800px;
+      padding: 75px 30px;
+      margin: 0 auto;
+      color: #fff;
+      @media (max-width: $desktop) {
+        min-height: 100%;
+      }
+      @media (max-width: $mobile) {
+        padding: 50px 15px;
+      }
+    }
+    &__top-feature {
+      width: 500px;
+      @media (max-width: $desktop) {
+        width: 100%;
+      }
+    }
+    &__title {
+      font-size: 50px;
+      font-weight: bold;
+      @media (max-width: $tablet) {
+        font-size: 45px;
+      }
+      @media (max-width: $mobile) {
+        font-size: 30px;
+      }
+    }
+    &__text {
+      font-size: 25px;
+      font-weight: 300;
+      @media (max-width: $desktop) {
+        font-size: 23px;
+      }
+      @media (max-width: $mobile) {
+        font-size: 20px;
+      }
+    }
+    &__img-wrap {
+      position: absolute;
+      left: 120px;
+      top: 140px;
+      @media (max-width: $desktop) {
+        position: relative;
+        left: auto;
+        top: auto;
+        margin: 60px 0;
+      }
+    }
+    &__img-text {
+      position: absolute;
+      font-size: 30px;
+      font-weight: 900;
+      bottom: 40px;
+      @media (max-width: $desktop) {
+        font-size: 24px;
+      }
+      @media (max-width: $desktop-small) {
+        bottom: 30px;
+      }
+      @media (max-width: $tablet) {
+        bottom: -25px;
+      }
+      @media (max-width: $mobile) {
+        font-size: 20px;
+      }
+      &._begin {
+        left: 0;
+      }
+      &._end {
+        right: 170px;
+        @media (max-width: $desktop) {
+          right: 13%;
+        }
+        @media (max-width: $tablet) {
+          right: 10%;
+        }
+      }
+    }
+    &__img {
+      width: 100%;
+      @media (max-width: $tablet) {
+        display: none;
+      }
+    }
+    &__img-mobile {
+      display: none;
+      width: 100%;
+      @media (max-width: $tablet) {
+        display: block;
+      }
+    }
+    &__feature {
+      position: absolute;
+      bottom: 120px;
+      @media (max-width: $desktop) {
+        position: relative;
+        bottom: auto;
+      }
+    }
+    &__feature-title {
+      font-size: 50px;
+      font-weight: bold;
+      @media (max-width: $desktop) {
+        font-size: 45px;
+      }
+      @media (max-width: $tablet) {
+        font-size: 30px;
+      }
+      @media (max-width: $mobile) {
+        font-size: 27px;
+      }
+    }
+  }
+}

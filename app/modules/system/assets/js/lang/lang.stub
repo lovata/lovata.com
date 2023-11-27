@@ -1,0 +1,15 @@
+/*
+ * This file has been compiled from: /modules/system/lang/{{locale}}/client.php
+ */
+if (!window.oc) {
+    window.oc = {};
+}
+
+if (!window.oc.langMessages) {
+    window.oc.langMessages = {};
+}
+
+window.oc.langMessages['{{locale}}'] = $.extend(
+    window.oc.langMessages['{{locale}}'] || {},
+    {{messages}}
+);

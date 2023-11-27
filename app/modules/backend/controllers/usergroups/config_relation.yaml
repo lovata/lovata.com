@@ -1,0 +1,9 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+users:
+    label: backend::lang.user.group.users_count
+    list: ~/modules/backend/models/user/columns.yaml
+    view:
+        toolbarButtons: add|remove

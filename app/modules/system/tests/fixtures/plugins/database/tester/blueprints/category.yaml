@@ -1,0 +1,30 @@
+uuid: unittest-category-b022a74b
+type: structure
+handle: UnitTest\Category
+name: Category
+drafts: false
+
+structure:
+    maxDepth: 2
+
+navigation:
+    parent: UnitTest\Post
+    icon: octo-icon-list-ul
+    order: 150
+
+fields:
+    is_featured:
+        label: Featured
+        type: checkbox
+
+    description:
+        label: Description
+        type: text
+        column:
+            sortableDefault: true
+
+    posts:
+        type: entries
+        source: UnitTest\Post
+        inverse: categories
+        hidden: true

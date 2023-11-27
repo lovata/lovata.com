@@ -1,0 +1,7 @@
+.custom-crm .landing-page__header {
+  background-image: linear-gradient(-130deg,#ad5389,#3c1053);
+}
+
+.custom-crm .landing-page__left-border-block::before {
+  background-image: linear-gradient(-130deg,#ad5389,#3c1053);
+}

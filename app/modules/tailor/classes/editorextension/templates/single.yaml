@@ -1,0 +1,15 @@
+handle: MySingle
+type: single
+name: Single
+drafts: true
+
+primaryNavigation:
+    label: Single
+    icon: icon-building
+    order: 120
+
+fields:
+    description:
+        label: Description
+        type: textarea
+        size: small

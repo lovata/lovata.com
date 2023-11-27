@@ -1,0 +1,8 @@
+{
+    "name": "lovata/feedbackforcrm-plugin",
+    "type": "october-plugin",
+    "description": "Feedback for CRM Plugin for October CMS",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}

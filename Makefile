@@ -21,6 +21,9 @@ app-composer-install:
 	ansible-playbook --vault-id .vault-password-$(inventory) ansible/playbooks/project/composer-install.yml -i ansible/$(inventory)-hosts.yml
 app-create-database:
 	ansible-playbook --vault-id .vault-password-$(inventory) ansible/playbooks/project/create-database.yml -i ansible/$(inventory)-hosts.yml
+app-apply-dump:
+	ansible-playbook --vault-id .vault-password-$(inventory) ansible/playbooks/project/apply-dump.yml -i ansible/$(inventory)-hosts.yml
+	make app-migrate
 
 # Docker commands
 docker-status:

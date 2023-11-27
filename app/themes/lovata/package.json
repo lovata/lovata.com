@@ -1,0 +1,37 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.2",
+    "babel-core": "^6.25.0",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.1",
+    "babel-preset-env": "^1.6.0",
+    "css-loader": "^0.28.4",
+    "cssnano": "^5.1.15",
+    "csso": "^3.1.1",
+    "csso-loader": "^0.3.1",
+    "csso-webpack-plugin": "^1.0.0-beta.7",
+    "debounce": "^1.0.2",
+    "extract-text-webpack-plugin": "^3.0.0",
+    "file-loader": "^0.11.2",
+    "jquery": "^3.6.3",
+    "laravel-vite-plugin": "^0.7.2",
+    "owl.carousel": "^2.3.4",
+    "postcss": "^8.4.21",
+    "postcss-css-variables": "^0.7.0",
+    "postcss-import": "^10.0.0",
+    "postcss-loader": "^2.0.8",
+    "postcss-nested": "^2.0.4",
+    "postcss-simple-vars": "^4.0.0",
+    "style-loader": "^0.18.2",
+    "vite": "^4.0.0",
+    "vite-plugin-october": "file:./packages_repos/vite-plugin-october"
+  },
+  "dependencies": {
+    "owl-carousel": "^1.0.0"
+  }
+}

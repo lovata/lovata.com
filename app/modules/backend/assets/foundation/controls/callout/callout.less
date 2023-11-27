@@ -1,0 +1,327 @@
+//
+// Callouts
+// --------------------------------------------------
+
+@callout-color:               var(--bs-body-color);
+@callout-info-bg:             var(--oc-callout-info-bg);
+@callout-info-icon:           var(--oc-callout-info-icon);
+@callout-warning-bg:          var(--oc-callout-warning-bg);
+@callout-warning-icon:        var(--oc-callout-warning-icon);
+@callout-danger-bg:           var(--oc-callout-danger-bg);
+@callout-danger-icon:         var(--oc-callout-danger-icon);
+@callout-success-bg:          var(--oc-callout-success-bg);
+@callout-success-icon:        var(--oc-callout-success-icon);
+
+:root, [data-bs-theme="light"] {
+    --oc-callout-info-bg: #e6e7fc;
+    --oc-callout-info-icon: #6a6cf7;
+    --oc-callout-warning-bg: #faf6e2;
+    --oc-callout-warning-icon: #e1b810;
+    --oc-callout-danger-bg: #fadad7;
+    --oc-callout-danger-content-bg: #fadad7;
+    --oc-callout-danger-icon: #ff3e1d;
+    --oc-callout-success-bg: #ecf7da;
+    --oc-callout-success-icon: #86cb43;
+}
+
+[data-bs-theme="dark"] {
+    --oc-callout-info-bg: #12262c;
+    --oc-callout-warning-bg: #302310;
+    --oc-callout-danger-bg: #330c06;
+    --oc-callout-success-bg: #1b290d;
+}
+
+.callout {
+    font-size: @font-size-base;
+    margin-bottom: @line-height-computed;
+
+    &.fade {
+        opacity: 0;
+        transition: all 0.5s, width 0s;
+        transform: scale(0.9);
+    }
+
+    &.fade.show {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    > .close {
+        width: 22px;
+        height: 22px;
+        margin: 15px 15px 0;
+        position: relative;
+        .hide-text();
+        opacity: 1;
+
+        &:before {
+            .icon-OctoFont();
+            content: @octo-icon-cross;
+            color: @callout-color;
+            font-size: 16px;
+            position: relative;
+        }
+
+        &:hover:before {
+            color: @brand-danger;
+        }
+    }
+
+    > .action {
+        float: right;
+        padding: 10px;
+    }
+
+    > .header + .content {
+        border-top: none;
+    }
+
+    > .header {
+        padding: 15px 20px 5px;
+        border-radius: 4px 4px 0 0;
+        color: @callout-color;
+        margin-bottom: -1px;
+
+        > .custom-icon {
+            width: 27.5px;
+            text-align: center;
+            font-size: 22px;
+            float: left;
+            position: relative;
+            top: -5px;
+            left: -5px;
+        }
+
+        //
+        // Default icon
+        //
+
+        > i, > .custom-icon {
+            display: none;
+        }
+
+        &:before {
+            .icon-OctoFont();
+            float: left;
+            font-size: 22px;
+            position: relative;
+            left: -3px;
+        }
+
+        h3 {
+            letter-spacing: 0;
+            font-size: @font-size-base;
+            font-weight: 600;
+            line-height: 150%;
+            margin: 0;
+        }
+
+        h3, p, ul, ol {
+            margin-left: 32px;
+            margin-bottom: 7px;
+        }
+
+        ul, ol {
+            padding-left: @padding-standard;
+        }
+
+        &:last-child {
+            border-radius: 4px;
+            margin-bottom: 0;
+        }
+    }
+
+    > .content {
+        color: @callout-color;
+        padding: 0 20px 15px 52px;
+        border-radius: 0 0 4px 4px;
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            color: @callout-color;
+            text-transform: none;
+            margin: 20px 0 5px 0;
+            line-height: 150%;
+            font-weight: 500;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+        h2 {
+            font-size: 26px;
+        }
+        h3 {
+            font-size: 24px;
+        }
+        h4 {
+            font-size: 20px;
+        }
+        h5 {
+            font-size: 18px;
+        }
+        h6 {
+            font-size: 16px;
+        }
+
+        *:last-child {
+            margin-bottom: 0;
+        }
+
+        ul, ol {
+            padding-left: @padding-standard;
+
+            li {
+                margin-bottom: 5px;
+            }
+        }
+
+        .action-panel {
+            padding: 10px 0 0 0;
+        }
+    }
+
+    //
+    // Modifiers
+    //
+
+    &.has-custom-icon {
+        > .header {
+            > .custom-icon {
+                display: block;
+            }
+
+            &:before {
+                display: none;
+            }
+        }
+    }
+
+    &.no-title {
+        > .content {
+            padding-top: 15px;
+            border-radius: 4px;
+        }
+    }
+
+    &.no-subheader {
+        > .header {
+            padding-bottom: 10px;
+        }
+
+        > .header + .content {
+            margin-top: -5px;
+        }
+    }
+
+    &.no-icon {
+        > .header {
+            h3,
+            p,
+            ul,
+            ol {
+                margin-left: 0;
+            }
+
+            &:before {
+                display: none;
+            }
+        }
+
+        > .content {
+            padding-left: 20px;
+        }
+    }
+
+    //
+    // Styles
+    //
+
+    &.callout-danger {
+        > .header {
+            background: @callout-danger-bg;
+
+            > .custom-icon {
+                color: @callout-danger-icon;
+            }
+
+            &:before {
+                content: @octo-icon-callout-danger;
+                color: @callout-danger-icon;
+            }
+        }
+        > .content {
+            background: @callout-danger-bg;
+        }
+    }
+
+    &.callout-info {
+        > .header {
+            background: @callout-info-bg;
+
+            > .custom-icon {
+                color: @callout-info-icon;
+            }
+
+            &:before {
+                content: @octo-icon-callout-info;
+                color: @callout-info-icon;
+            }
+        }
+        > .content {
+            background: @callout-info-bg;
+        }
+    }
+
+    &.callout-success {
+        > .header {
+            background: @callout-success-bg;
+
+            > .custom-icon {
+                color: @callout-success-icon;
+            }
+
+            &:before {
+                content: @octo-icon-callout-success;
+                color: @callout-success-icon;
+            }
+        }
+        > .content {
+            background: @callout-success-bg;
+        }
+    }
+
+    &.callout-warning {
+        > .header {
+            background: @callout-warning-bg;
+
+            > .custom-icon {
+                color: @callout-warning-icon;
+            }
+
+            &:before {
+                content: @octo-icon-callout-danger;
+                color: @callout-warning-icon;
+            }
+        }
+        > .content {
+            background: @callout-warning-bg;
+        }
+    }
+
+    &.is-flush {
+        margin-bottom: 0;
+        > .content {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+}
+
+.form-group > .callout {
+    margin-bottom: 0;
+}

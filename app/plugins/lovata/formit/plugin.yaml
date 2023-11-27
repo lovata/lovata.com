@@ -1,0 +1,6 @@
+plugin:
+    name: 'lovata.formit::lang.plugin.name'
+    description: 'lovata.formit::lang.plugin.description'
+    author: Lovata
+    icon: icon-envelope-o
+    homepage: ''

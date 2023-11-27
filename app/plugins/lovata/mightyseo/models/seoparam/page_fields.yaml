@@ -1,0 +1,5 @@
+fields:
+    page_id:
+        label: 'lovata.mightyseo::lang.field.page_id'
+        span: left
+        type: dropdown

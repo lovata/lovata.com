@@ -1,0 +1,63 @@
+<section class="portfolio-tmpl">
+    <div class="portfolio-tmpl__container">
+        <div class="portfolio-tmpl__header">
+            <div class="portfolio-tmpl__header-top">
+                <h1 class="portfolio-tmpl__title">Ecommerce Website Development</h1>
+                <div class="portfolio-tmpl__customer">Customer: <span class="portfolio-tmpl__customer-name">ThePhoneCellar</span></div>
+            </div>
+            <div class="portfolio-tmpl__client-info">
+                <a href="http://thephonecellar.com/" rel="nofollow" target="_blank" class="portfolio-tmpl__link">ThePhoneCellar.com</a>
+            </div>
+            <p class="portfolio-tmpl__desc">ThePhoneCellar is an eCommerce store that specializes in cellphones and accessories.</p>
+            <p class="portfolio-tmpl__desc">The project is executed on MODX platform and has PayPal payment system integration.</p>
+        </div>
+        <div class="portfolio-tmpl__content">
+            <img src="{{ 'assets/img/portfolio_site/phonecellar/index.png'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/phonecellar/product.png'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/phonecellar/catalog.png'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/phonecellar/reviews.png'| theme }}" alt="" class="portfolio-tmpl__img">
+        </div>
+        <div class="portfolio-tmpl__tech">
+            <h2 class="portfolio-tmpl__tech-title">Technologies:</h2>
+            <div class="portfolio-tmpl__tech-list">
+                <a href="#" class="portfolio-tmpl__tech-link stub"># MODX</a>
+                <a href="{{ 'js-dev' | page }}" class="portfolio-tmpl__tech-link stub"># EcmaScript 2015 (ES6)</a>
+                <a href="{{ 'php-dev' | page }}" class="portfolio-tmpl__tech-link stub"># PHP</a>
+                <a href="#" class="portfolio-tmpl__tech-link stub"># PayPal</a>
+            </div>
+        </div>
+    </div>
+    <div class="portfolio-tmpl__similar">
+        <h2 class="portfolio-tmpl__similar-title">Similar projects</h2>
+        <div class="portfolio-tmpl__similar-list">
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-host-for-web'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/hostForWeb.png'| theme }}" alt="hostForWeb preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">HostForWeb corporate website</p>
+                        <p class="portfolio__item-desc-text">Corporate website for hosting provider</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-jump-wireless'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/jumpWireless.png'| theme }}" alt="jumpWireless preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">JumpWireless.org</p>
+                        <p class="portfolio__item-desc-text">Custom ecommerce application</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-cuepath'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/cuepath.png'| theme }}" alt="cuepath preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">CuePath.io</p>
+                        <p class="portfolio__item-desc-text">Applications for the Internet of things (IoT)</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% partial 'components/small-footer/small-footer' %}

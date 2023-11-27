@@ -1,0 +1,61 @@
+$body-color: #333;
+$body-bg: #fafbfd;
+$link-color: #3498db;
+$line-height-base: 1.428571429; // 20/14
+
+$link-decoration: none;
+$link-hover-decoration: underline;
+
+$border-radius: .3rem;
+$border-radius-sm: .25rem;
+$border-radius-lg: .35rem;
+
+$gray-100: #f0f4f8;
+$gray-200: #e9ecef;
+$gray-300: #d7e1eA;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #72809d;
+$gray-700: #506880;
+$gray-800: #35425b;
+$gray-900: #212529;
+
+$blue:    #0090c0;
+$indigo:  #6a6cf7;
+$orange:  #e67e22;
+$red:     #ff3e1d;
+$green:   #86cB43;
+$cyan:    #5bc0de;
+$yellow:  #f0ad4e;
+$teal:    #6bc48d;
+
+$primary: $indigo;
+$warning: $orange;
+
+$body-tertiary-bg: #f0f4f8;
+
+$headings-color: #35425b;
+$focus-ring-color: rgba(53, 66, 91, 0.1); // gray-800
+
+$input-bg: var(--oc-form-control-bg);
+$input-disabled-bg: var(--oc-form-control-disabled-bg);
+$input-placeholder-color: var(--bs-tertiary-color);
+
+$input-padding-y: .525rem;
+$input-padding-x: 1rem;
+
+$btn-padding-y: .6rem;
+$btn-padding-x: 1.25rem;
+$btn-font-size: .95rem;
+
+$btn-padding-y-sm: .4rem;
+$btn-padding-x-sm: .85rem;
+$btn-font-size-sm: .875rem;
+
+$tooltip-color: white;
+$tooltip-bg: #536061;
+$form-label-margin-bottom: .385rem;
+
+$form-check-input-width: 1.143em;
+$form-switch-width: 2.2em;
+$form-switch-height: 1.4em;

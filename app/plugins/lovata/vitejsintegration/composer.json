@@ -1,0 +1,21 @@
+{
+    "name": "lovata/vitejsintegration",
+    "type": "october-plugin",
+    "description": "ViteJS Integration",
+    "require": {
+        "composer/installers": "~1.0",
+        "innocenzi/laravel-vite": "^0.3"
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+                "innocenzi/laravel-vite"
+            ]
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}

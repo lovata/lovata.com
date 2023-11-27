@@ -1,0 +1,93 @@
+{
+  "Manage Entries": "مدیریت ورودی ها",
+  "Create :name Entry": "ایجاد :name Entry",
+  "New :name Entry": "جدید: نام ورودی",
+  "Import Entries": "ورودی های وارداتی",
+  "Export Entries": "صادرات ورودی ها",
+  "First Draft": "پیش نویس اول",
+  "Draft Saved": "پیش نویس ذخیره شد",
+  "Draft Applied": "پیش نویس اعمال شد",
+  "Draft Created": "پیش نویس ایجاد شد",
+  "Draft Discarded": "پیش نویس حذف شد",
+  "Create Entry": "ایجاد ورودی",
+  "Publish Entry": "انتشار ورودی",
+  "Delete Entry": "حذف ورودی",
+  "Entries have been disabled": "ورودی ها غیرفعال شده است",
+  "Entries have been enabled": "ورودی ها فعال شده اند",
+  "Entries have been deleted": "ورودی ها حذف شده اند",
+  "Entries have been restored": "ورودی ها بازیابی شده اند",
+  "Entries have been duplicated": "ورودی ها تکراری شده اند",
+  "Manage Blueprints": "نقشه ها را مدیریت کنید",
+  "All Entries": "همه ورودی ها",
+  "Published Date": "تاریخ انتشار",
+  "Published": "منتشر شده",
+  "Expired": "منقضی شده",
+  "Scheduled": "برنامه ریزی شده است",
+  "Hidden": "پنهان شده است",
+  "Draft": "پیش نویس",
+  "Deleted": "حذف شده",
+  "Slug": "Slug",
+  "Enabled": "فعال شد",
+  "Schedule publish date": "تاریخ انتشار را برنامه ریزی کنید",
+  "Set expiry date": "تاریخ انقضا را تنظیم کنید",
+  "View full slug": "مشاهده راب کامل",
+  "Apply this Draft": "این پیش نویس را اعمال کنید",
+  "Remove": "برداشتن",
+  "Drafts are not visible on the website until they are applied.": "پیش نویس ها تا زمانی که اعمال نشوند در وب سایت قابل مشاهده نیستند.",
+  "Save Draft": "ذخیره پیش نویس",
+  "Do you really want to discard the draft?": "آیا واقعاً می‌خواهید پیش‌نویس را کنار بگذارید؟",
+  "Discard Draft": "دور انداختن پیش نویس",
+  "Save & Apply Draft": "ذخیره و اعمال پیش نویس",
+  "Do you really want to delete the record? It will also delete all drafts if any exist.": "آیا واقعاً می خواهید رکورد را حذف کنید؟ همچنین در صورت وجود، تمام پیش‌نویس‌ها را حذف می‌کند.",
+  "Create New Draft": "پیش نویس جدید ایجاد کنید",
+  "Select Draft to Edit": "پیش نویس را برای ویرایش انتخاب کنید",
+  "Edit the Primary Record": "رکورد اولیه را ویرایش کنید",
+  "Unnamed draft": "پیش نویس بی نام",
+  "Notes": "یادداشت",
+  "The document has unsaved changes. Do you want to discard them and proceed with creating a new draft?": "سند دارای تغییرات ذخیره نشده است. آیا می‌خواهید آنها را نادیده بگیرید و به ایجاد پیش‌نویس جدید ادامه دهید؟",
+  "Preview": "پیش نمایش",
+  "Unsaved": "ذخیره نشده است",
+  "put the draft notes here": "یادداشت های پیش نویس را اینجا قرار دهید",
+  "Top level": "سطح بالا",
+  "Draft name: draft notes": "نام پیش نویس: یادداشت های پیش نویس",
+  "Title": "عنوان",
+  "Publish Date": "تاریخ انتشار",
+  "Expiry Date": "تاریخ انقضا",
+  "Entry Type": "نوع ورودی",
+  "Handle": "رسیدگی",
+  "Collection": "مجموعه",
+  "Displays a collection of entries.": "مجموعه ای از ورودی ها را نمایش می دهد.",
+  "Global": "جهانی",
+  "Makes globals available to the page.": "جهانی ها را در دسترس صفحه قرار می دهد.",
+  "Section": "بخش",
+  "Defines a website section with a supporting entry.": "یک بخش وب سایت را با یک ورودی پشتیبانی تعریف می کند.",
+  "URL code (slug) used to find the primary record.": "Slug مورد استفاده برای یافتن رکورد اولیه را مشخص کنید.",
+  "Default View": "نمای پیش فرض",
+  "Used as default entry point when previewing the record.": "به عنوان نقطه ورودی پیش فرض هنگام پیش نمایش رکورد استفاده می شود.",
+  "Full Slug": "حلزون کامل",
+  "Use the full slug when looking up the record.": "هنگام جستجوی رکورد از اسلگ کامل استفاده کنید.",
+  "Are you sure?": "مطمئنی؟",
+  "Delete Forever": "برای همیشه حذف کنید",
+  "This record is not visible because it has been deleted.": "این رکورد قابل مشاهده نیست زیرا حذف شده است.",
+  "Restore this Record": "این رکورد را بازیابی کنید",
+  "Do you really want to delete this permanently?": "آیا واقعاً می خواهید این را برای همیشه حذف کنید؟",
+  "ID (Primary Key)": "شناسه (کلید اصلی)",
+  "Column name (index) to match with the primary record.": "نام ستون (شاخص) برای مطابقت با رکورد اولیه.",
+  "Records Per Page": "رکورد در هر صفحه",
+  "Number of records to display on a single page. Leave empty to disable pagination.": "تعداد رکورد برای نمایش در یک صفحه برای غیرفعال کردن صفحه بندی، خالی بگذارید.",
+  "Invalid format of the records per page value. The value should be a number.": "فرمت رکوردها در هر مقدار صفحه نامعتبر است. مقدار باید یک عدد باشد.",
+  "Pagination": "صفحه بندی",
+  "Page Number": "شماره صفحه",
+  "This value is used to determine what page the user is on.": "این مقدار برای تعیین اینکه کاربر در چه صفحه ای است استفاده می شود.",
+  "Sorting": "مرتب سازی",
+  "Sort by Column": "مرتب سازی بر اساس ستون",
+  "Model column the records should be ordered by": "ستون مدل رکوردها باید بر اساس آن مرتب شوند",
+  "Direction": "جهت",
+  "Update :name Entries": "به روز رسانی: نام ورودی ها",
+  "Update :name": "به روز رسانی :name",
+  ":name Entry": ":نام ورودی",
+  "All :name Items": "همه: ورودی های نام",
+  "Update Existing Records": "به روز رسانی سوابق موجود",
+  "Check this box to update records that match the same ID, title or slug.": "برای به‌روزرسانی رکوردهایی که با همان شناسه، عنوان یا اسلاگ مطابقت دارند، این کادر را علامت بزنید.",
+  "Copy": "کپی 🀄"
+}

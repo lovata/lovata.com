@@ -1,0 +1,43 @@
+.page-404 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: #383239;
+  background: url("../../../assets/img/logo_grey.svg") no-repeat 50% 20%;
+  background-size: 100% 25%;
+  &__wrap {
+    text-align: center;
+  }
+  &__title {
+    font-size: 220px;
+    font-weight: 900;
+    line-height: 170px;
+    @media (max-width: $mobile) {
+      font-size: 150px;
+    }
+  }
+  &__text {
+    margin-bottom: 70px;
+    font-size: 40px;
+    @media (max-width: $mobile) {
+      font-size: 30px;
+    }
+  }
+  &__btn {
+    display: inline-block;
+    padding: 10px 30px;
+    font-size: 30px;
+    text-decoration: none;
+    color: #ffffff;
+    background-color: #383239;
+    transition: background $transition-hover-speed;
+    &:hover {
+      background-color: rgba(56, 60, 57, 0.8);
+    }
+    @media (max-width: $mobile) {
+      font-size: 25px;
+    }
+  }
+}

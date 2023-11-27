@@ -1,0 +1,285 @@
+@formdocument-select-color:   var(--oc-formdocument-select-color);
+@formdocument-select-bg:      var(--oc-formdocument-select-bg);
+
+:root, [data-bs-theme="light"] {
+    --oc-formdocument-select-color: #6a6cf7;
+    --oc-formdocument-select-bg: #e8e8ff;
+}
+
+[data-bs-theme="dark"] {
+    --oc-formdocument-select-color: #e0e0e0;
+    --oc-formdocument-select-bg: #373f47;
+}
+
+.form-document-layout {
+    .control-tabs.primary-tabs:not(.is-nested) {
+        > div > ul.nav-tabs {
+            padding: 13px 0;
+            background: @document-tabs-bg;
+            border-bottom: 1px solid @primary-border;
+
+            &:before {
+                display: none;
+            }
+
+            > li {
+                border-right: 1px solid @primary-border;
+                margin: 0!important;
+                padding: 0;
+
+                &:first-child {
+                    margin-left: -12px!important;
+                }
+
+                &:last-child {
+                    border-right: none;
+                }
+
+                a {
+                    padding: 2px 12px 0;
+                    height: 24px;
+                    border: none;
+                    top: 0;
+
+                    &:before {
+                        display: none;
+                    }
+
+                    > span.title {
+                        padding: 0;
+
+                        &:before, &:after {
+                            display: none;
+                        }
+
+                        > span {
+                            margin: 0;
+                            padding: 0;
+                            border-top: none;
+                        }
+                    }
+                }
+
+                &.active a {
+                    color: @brand-primary;
+                }
+            }
+        }
+
+        // Do not display primary tabs if there is just one tab
+        &[data-single-tab] {
+            > div > ul.nav-tabs {
+                display: none!important;
+            }
+        }
+    }
+
+    .form-tabless-fields {
+        .form-group.primary-title-field {
+            .form-label, .form-translatable {
+                display: none;
+            }
+
+            .form-control {
+                display: block;
+                font-size: 24px;
+                width: 100%;
+                border: 1px solid @body-bg;
+                outline: none;
+                background: transparent;
+                color: @input-color;
+                padding: 1px;
+
+                &:not([disabled]):hover,
+                &:not([disabled]):focus {
+                    border: 1px solid @input-border;
+                    box-shadow: none;
+                }
+            }
+            span.form-control {
+                opacity: .5;
+            }
+        }
+    }
+
+    div.primary-tabs-container > div > .layout-row {
+        display: table-cell;
+
+        .tab-pane.is-adaptive {
+            padding-top: 0;
+        }
+    }
+
+    .component-backend-document .document-progress-indicator {
+        z-index: 1;
+    }
+
+    .form-group.span-adaptive {
+        margin-left: -@padding-standard;
+        margin-right: -@padding-standard;
+
+        > .form-label, > .form-translatable {
+            display: none;
+        }
+    }
+
+    .record-management-controls {
+        font-size: 0;
+        padding-left: 20px;
+        padding-bottom: 20px;
+
+        > div {
+            display: inline-block;
+            margin-right: 10px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            > .record-management-button {
+                margin-right: 0;
+            }
+        }
+
+        .record-management-button {
+            display: inline-block;
+            border: none;
+            background: @primary-bg;
+            outline: none;
+            -webkit-appearance: none;
+            font-size: @font-size-base;
+            height: 38px;
+            margin-right: 10px;
+            border-radius: @border-radius-base;
+            padding: 0 15px;
+            position: relative;
+            white-space: nowrap;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &[disabled] {
+                cursor: default;
+
+                > i,
+                > span,
+                &:after {
+                    opacity: 0.5;
+                }
+            }
+
+            &.has-menu {
+                &:after {
+                    .icon-OctoFont();
+                    content: @octo-icon-angle-down;
+                    position: relative;
+                    font-size: 16px;
+                    vertical-align: middle;
+                    margin-left: 3px;
+                    margin-right: -4px;
+                }
+            }
+
+            &.record-status-button {
+                padding-left: 35px;
+                border: 1px solid @toolbar-border;
+                overflow: hidden;
+
+                span {
+                    position: relative;
+                }
+
+                em {
+                    color: @text-muted;
+                    font-size: 12px;
+                    font-style: normal;
+                }
+
+                i {
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 100%;
+                    position: absolute;
+                    left: 13px;
+                    top: 13px;
+
+                    transition: 0.3s width, 0.3s height, 0.3s left, 0.3s top, 0.3s background-color;
+                }
+
+                &.status-published {
+                    span, &:after {
+                        color: white;
+                    }
+
+                    em {
+                        color: rgba(255, 255, 255, 0.7);
+                    }
+
+                    &:before {
+                        content: '';
+                        display: block;
+                        width: 10px;
+                        height: 10px;
+                        border-radius: 100%;
+                        position: absolute;
+                        left: 13px;
+                        top: 13px;
+                        background: white;
+                        z-index: 1;
+                    }
+
+                    i {
+                        width: 500px;
+                        height: 500px;
+                        left: -250px;
+                        top: -250px;
+                    }
+                }
+
+                &.status-draft {
+                    padding-left: 15px;
+
+                    i {
+                        width: 500px;
+                        height: 500px;
+                        left: -250px;
+                        top: -250px;
+                    }
+
+                    span, &:after {
+                        color: white;
+                    }
+
+                    &:before {
+                        display: none;
+                    }
+
+                    &.status-initial-draft {
+                        i {
+                            background: #46B3A5!important;
+                        }
+                    }
+                }
+            }
+
+            &.entry-type-selector {
+                background: @formdocument-select-bg;
+                color: @formdocument-select-color;
+            }
+        }
+    }
+}
+
+.form-document-layout .record-management-controls .record-management-button.record-status-button.status-published,
+.form-document-layout .record-management-controls .record-management-button.record-status-button.status-draft {
+    border-color: rgba(255, 255, 255, 0.01);
+}
+
+[data-bs-theme="dark"] {
+    .form-document-layout .record-management-controls .record-management-button.record-status-button.status-published,
+    .form-document-layout .record-management-controls .record-management-button.record-status-button.status-draft {
+        border-color: rgba(0, 0, 0, 0.6);
+    }
+}

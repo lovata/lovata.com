@@ -1,0 +1,16 @@
+url = "/blog"
+layout = "main"
+title = "Corporate Blog"
+is_hidden = 0
+meta_title = "Corporate Blog | LOVATA"
+meta_description = "Corporate blog of LOVATA Company. Latest news on software development, IT outsourcing and other information technology topics."
+meta_keywords = "software development process, agile software development, app development, software product development, software development methodologies, scrum, lovata, lovata group"
+
+[ArticleList]
+sorting = "publish|desc"
+==
+{% set obArticleList = ArticleList.make().sort(ArticleList.getSorting()).published() %}
+
+{% partial 'head/cmspage-metadata' %}
+
+{% partial 'pages/blog/blog' obArticleList=obArticleList %}

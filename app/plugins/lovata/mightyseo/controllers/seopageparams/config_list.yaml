@@ -1,0 +1,17 @@
+title: 'lovata.mightyseo::lang.param.list_title'
+modelClass: Lovata\mightyseo\Models\SeoParam
+list: $/lovata/mightyseo/models/seoparam/page_columns.yaml
+recordUrl: 'lovata/mightyseo/seopageparams/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: '25'
+showSetup: true
+showCheckboxes: true
+showSorting: 1
+defaultSort:
+    column: id
+    direction: desc
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+filter: _config_filter.yaml

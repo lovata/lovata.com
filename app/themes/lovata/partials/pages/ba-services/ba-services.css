@@ -1,0 +1,16 @@
+.ba-services .landing-page__header {
+  background-image: linear-gradient(-130deg,#24C6DC,#514A9D);
+}
+
+.ba-services .landing-page__header-icon-img {
+  width: 100px;
+  margin-left: -10px;
+
+  @media(max-width: $tablet) {
+    width: 60px;
+  }
+}
+
+.ba-services .landing-page__left-border-block::before {
+  background-image: linear-gradient(-130deg,#24C6DC,#514A9D);
+}

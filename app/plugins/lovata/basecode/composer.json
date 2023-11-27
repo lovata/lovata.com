@@ -1,0 +1,8 @@
+{
+    "name": "lovata/basecode-plugin",
+    "type": "october-plugin",
+    "description": "Plugin for extending other October CMS plugins",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}

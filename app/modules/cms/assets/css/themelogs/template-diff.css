@@ -1,0 +1,10 @@
+del {
+    text-decoration: none;
+    color: var(--bs-danger-text);
+    background: var(--bs-danger-bg-subtle);
+}
+ins {
+    background: var(--bs-success-bg-subtle);
+    color: var(--bs-success-text);
+    text-decoration: none;
+}

@@ -1,0 +1,107 @@
+body.doc .small-footer {
+  background: #fff;
+}
+
+.portfolio-2doc-page {
+  & .header__navicon-dash {
+    background: white;
+  }
+}
+
+.doc {
+  &--container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 100px;
+    @media (max-width: $tablet-large) {
+      padding: 0 20px;
+    }
+    &-small {
+      max-width: 835px;
+      padding: 0 20px;
+      margin: 0 auto;
+    }
+    &-middle {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    &-middle-l {
+      max-width: 935px;
+      padding: 0 20px;
+      margin: 0 auto;
+    }
+  }
+  &--similar-block {
+    background: #ffffff;
+    padding-bottom: 20px;
+  }
+  & .bold {
+    font-weight: 700;
+  }
+}
+
+@media screen and (max-width: 1070px) {
+  .doc {
+    &--container {
+      &_schema {
+        max-width: 835px;
+        padding: 0 20px;
+        margin: 0 auto;
+        /*&:after {
+          content: "";
+          position: absolute;
+          bottom: 238px;
+          border-left: 1.5px solid #ef2d7c;
+          border-top: 1.5px solid #ef2d7c;
+          border-radius: 4px;
+          border-bottom-left-radius: 5px;
+          width: 26px;
+          left: 19px;
+          top: 30px;
+        }
+        &:before {
+          content: "";
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #ef2d7c;
+          position: absolute;
+          top: 29px;
+          left: 43px;
+        }*/
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $tablet) {
+  .doc {
+    &--container {
+      &_schema {
+        padding-left: 38px;
+        /*&:after {
+          content: "";
+          position: absolute;
+          bottom: 69px;
+          border-left: 1.5px solid #ef2d7c;
+          border-top: 1.5px solid #ef2d7c;
+          border-radius: 4px;
+          border-bottom-left-radius: 5px;
+          width: 10px;
+          left: 20px;
+          top: 30px;
+        }
+        &:before {
+          content: "";
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #ef2d7c;
+          position: absolute;
+          top: 29px;
+          left: 28px;
+        }*/
+      }
+    }
+  }
+}

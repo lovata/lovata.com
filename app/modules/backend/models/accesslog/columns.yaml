@@ -1,0 +1,49 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+
+    id:
+        label: ID
+        searchable: true
+        invisible: true
+        width: 75px
+
+    created_at:
+        label: Date & Time
+        searchable: true
+        type: timetense
+        width: 160px
+
+    ip_address:
+        label: IP address
+        searchable: true
+
+    login:
+        label: Login
+        relation: user
+        select: login
+        searchable: true
+        sortable: false
+
+    first_name:
+        label: First name
+        relation: user
+        select: first_name
+        searchable: true
+        sortable: false
+
+    last_name:
+        label: Last name
+        relation: user
+        select: last_name
+        searchable: true
+        sortable: false
+
+    email:
+        label: Email
+        relation: user
+        select: email
+        searchable: true
+        sortable: false

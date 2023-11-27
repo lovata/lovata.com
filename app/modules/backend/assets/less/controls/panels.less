@@ -1,0 +1,58 @@
+@panel-border-color: @primary-border;
+
+div.panel {
+
+    padding: 20px;
+
+    &.no-padding {
+        padding: 0;
+    }
+
+    &.no-padding-bottom {
+        padding-bottom: 0;
+    }
+
+    &.padding-top {
+        padding-top: 20px;
+    }
+
+    &.padding-less {
+        padding: 15px;
+    }
+
+    &.transparent {
+        background: transparent;
+    }
+
+    &.border-left {
+        border-left: 1px solid @panel-border-color;
+    }
+
+    &.border-right {
+        border-right: 1px solid @panel-border-color;
+    }
+
+    &.border-bottom {
+        border-bottom: 1px solid @panel-border-color;
+    }
+
+    &.border-top {
+        border-top: 1px solid @panel-border-color;
+    }
+
+    /*
+     * Panel sections
+     */
+
+    h3.section, > label {
+        text-transform: uppercase;
+        color: @primary-color;
+        font-size: 13px;
+        font-weight: 600;
+        margin: 0 0 15px 0;
+    }
+
+    > label {
+        margin-bottom: 5px;
+    }
+}

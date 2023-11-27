@@ -28,4 +28,4 @@
       include_vars:
           dir: ./../../vars/{{ env }}
     - name: 'Apply migrations'
-      raw: "php {{ APP_CODE_PATH_CONTAINER }}/artisan migrate --force"
+      raw: "php {{ APP_CODE_PATH_CONTAINER }}/artisan october:migrate --force"

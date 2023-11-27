@@ -1,0 +1,13 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+
+    themeName:
+        label: Seed the specified theme with blueprints, translations and data.
+        disabled: true
+
+    folders:
+        label: Folders
+        type: checkboxlist

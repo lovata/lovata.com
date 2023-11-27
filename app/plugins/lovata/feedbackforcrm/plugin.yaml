@@ -1,0 +1,11 @@
+plugin:
+    name: 'lovata.feedbackforcrm::lang.plugin.name'
+    description: 'lovata.feedbackforcrm::lang.plugin.description'
+    author: LOVATA
+    icon: oc-icon-magic
+    homepage: ''
+permissions:
+    feedbackforcrm-menu-settings:
+        tab: 'lovata.toolbox::lang.tab.permissions'
+        label: 'lovata.feedbackforcrm::lang.permission.feedback_for_crm'
+        order: 100

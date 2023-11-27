@@ -1,0 +1,57 @@
+{#
+    obArticle
+    obArticleList
+#}
+
+<section class="page-post" data-blog-post-page data-logo="black">
+    <article class="post">
+        <div class="post--top">
+            <h1 class="post--title">{{ obArticle.title }}</h1>
+            <div class="post--top-bottom">
+                <time datetime="{{ obArticle.published_start|date('Y-m-d') }}" class="post--date">
+                    {{ obArticle.published_start|date('F j, Y') }}
+                </time>
+            </div>
+        </div>
+        <div class="post--content wysiwyg">{{ obArticle.content|raw }}</div>
+    </article>
+
+    {% set obPrevArticle = obArticleList.getNearestPrev(obArticle.id, 1, true).first() %}
+    {% set obNextArticle = obArticleList.getNearestNext(obArticle.id, 1, true).first() %}
+    {% if obPrevArticle.isNotEmpty() or obNextArticle.isNotEmpty() %}
+        <div class="portfolio__list">
+            {% if obPrevArticle.isNotEmpty() %}
+                <div class="portfolio__item">
+                    <a href="{{ 'blog-post'|page({'slug': obPrevArticle.slug }) }}" class="portfolio__item-link">
+                        {% if obPrevArticle.preview_image is not empty %}
+                            <img class="portfolio__img-prev" src="{{ obPrevArticle.preview_image.path }}" alt="{{ obPrevArticle.preview_image.alt }}" title="{{ obPrevArticle.preview_image.title }}"/>
+                        {% endif %}
+                        <div class="portfolio__item-btn portfolio__item-btn_prev">Previous</div>
+
+                        <div class="portfolio__item-desc">
+                            <p class="portfolio__item-desc-title">{{ obPrevArticle.title }}</p>
+                            <p class="portfolio__item-desc-text">{{ obPrevArticle.published_start|date('F j, Y') }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+            {% if obNextArticle.isNotEmpty() %}
+                <div class="portfolio__item">
+                    <a href="{{ 'blog-post'|page({'slug': obNextArticle.slug }) }}" class="portfolio__item-link">
+                        {% if obNextArticle.preview_image is not empty %}
+                            <img class="portfolio__img-prev" src="{{ obNextArticle.preview_image.path }}" alt="{{ obNextArticle.preview_image.alt }}" title="{{ obNextArticle.preview_image.title }}"/>
+                        {% endif %}
+                        <div class="portfolio__item-btn portfolio__item-btn_next">Next</div>
+
+                        <div class="portfolio__item-desc">
+                            <p class="portfolio__item-desc-title">{{ obNextArticle.title }}</p>
+                            <p class="portfolio__item-desc-text">{{ obNextArticle.published_start|date('F j, Y') }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+</section>
+
+{% partial 'components/small-footer/small-footer' %}

@@ -1,0 +1,9 @@
+{
+    "name": "bizmark/quicksilver-plugin",
+    "type": "october-plugin",
+    "description": "Lightning fast cache for your static website",
+    "require": {
+        "php": ">=7.4",
+        "composer/installers": "~1.0"
+    }
+}

@@ -1,0 +1,67 @@
+{% if paginator.hasPages %}
+    {% set handler = handler|default('onAjax') %}
+    <ul class="pagination">
+        {#-- Previous Page Link --#}
+        {% if paginator.onFirstPage %}
+            <li class="page-item first disabled" aria-disabled="true" aria-label="{{ 'system::lang.pagination.previous'|trans }}">
+                <span class="page-link" aria-hidden="true">&larr;</span>
+            </li>
+        {% else %}
+            <li class="page-item first">
+                <a
+                    class="page-link"
+                    href="javascript:;"
+                    data-request="{{ handler }}"
+                    data-request-query="{ page: {{ paginator.currentPage - 1 }} }"
+                    data-request-update="{ _self: true }"
+                    rel="prev"
+                    aria-label="{{ 'system::lang.pagination.previous'|trans }}">&larr;</a>
+            </li>
+        {% endif %}
+
+        {#-- Pagination Elements --#}
+        {% for element in elements %}
+            {% if element is iterable %}
+                {#-- Array Of Links --#}
+                {% for page, url in element %}
+                    {% if page == paginator.currentPage %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ page }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a
+                                class="page-link"
+                                href="javascript:;"
+                                data-request="{{ handler }}"
+                                data-request-query="{ page: {{ page }} }"
+                                data-request-update="{ _self: true }">{{ page }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {#-- "Three Dots" Separator --#}
+                <li class="page-item middle disabled" aria-disabled="true"><span class="page-link">{{ element }}</span></li>
+            {% endif %}
+        {% endfor %}
+
+        {#-- Next Page Link --#}
+        {% if paginator.hasMorePages %}
+            <li class="page-item last">
+                <a
+                    class="page-link"
+                    href="javascript:;"
+                    data-request="{{ handler }}"
+                    data-request-query="{ page: {{ paginator.currentPage + 1|default(1) }} }"
+                    data-request-update="{ _self: true }"
+                    rel="next"
+                    aria-label="{{ 'system::lang.pagination.next'|trans }}">&rarr;</a>
+            </li>
+        {% else %}
+            <li class="page-item last disabled" aria-disabled="true" aria-label="{{ 'system::lang.pagination.next'|trans }}">
+                <span class="page-link" aria-hidden="true">&rarr;</span>
+            </li>
+        {% endif %}
+    </ul>
+{% endif %}
+

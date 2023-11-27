@@ -1,0 +1,30 @@
+plugin:
+    name: 'lovata.mightyseo::lang.plugin.name'
+    description: 'lovata.mightyseo::lang.plugin.description'
+    author: Lovata
+    icon: oc-icon-line-chart
+    homepage: ''
+navigation:
+    menu-mighty-seo-main:
+        label: 'lovata.mightyseo::lang.menu.main'
+        url: lovata/mightyseo/seopageparams
+        icon: icon-line-chart
+        permissions:
+            - 'mighty-seo'
+        sideMenu:
+            menu-mighty-seo-page:
+                label: 'lovata.mightyseo::lang.menu.seo_page'
+                url: lovata/mightyseo/seopageparams
+                icon: icon-file-text-o
+                permissions:
+                    - 'mighty-seo'
+            menu-mighty-seo-template:
+                label: 'lovata.mightyseo::lang.menu.seo_template'
+                url: lovata/mightyseo/seotemplates
+                icon: icon-clone
+                permissions:
+                    - 'mighty-seo'
+permissions:
+    mighty-seo:
+        tab: 'lovata.mightyseo::lang.tab.mighty_seo'
+        label: 'lovata.mightyseo::lang.permission.mighty_seo'

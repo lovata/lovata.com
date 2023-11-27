@@ -1,0 +1,23 @@
+{#
+    obArticleList
+#}
+
+<section class="blog" data-logo="black">
+    <div class="blog--inner">
+        <h1 class="blog--title">{{ this.page.title }}</h1>
+        {% if obArticleList.isNotEmpty() %}
+            <ul class="blog--list">
+                {% for obArticle in obArticleList %}
+                    <li class="blog--item">
+                        <a href="{{ 'blog-post'|page({'slug': obArticle.slug }) }}" class="blog--item-link">
+                            {{ obArticle.title }}
+                        </a>
+                        <time datetime="{{ obArticle.published_start|date('Y-m-d') }}" class="blog--item-date">
+                            {{ obArticle.published_start|date('F j, Y') }}
+                        </time>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+</section>

@@ -1,0 +1,75 @@
+
+    seo_title:
+        label: 'lovata.mightyseo::lang.field.seo_title'
+        span: left
+        type: codeeditor
+        size: large
+        language: twig
+    page_h1:
+        label: 'lovata.mightyseo::lang.field.page_h1'
+        span: right
+        type: codeeditor
+        size: large
+        language: twig
+    seo_description:
+        label: 'lovata.mightyseo::lang.field.seo_description'
+        span: left
+        type: codeeditor
+        size: huge
+        language: twig
+    seo_keywords:
+        label: 'lovata.mightyseo::lang.field.seo_keywords'
+        span: right
+        type: codeeditor
+        size: huge
+        language: twig
+    page_description:
+        label: 'lovata.mightyseo::lang.field.page_description'
+        span: left
+        size: huge
+        type: richeditor
+    robots_follow:
+        label: 'lovata.mightyseo::lang.field.robots_follow'
+        span: right
+        type: dropdown
+        emptyOption: 'lovata.toolbox::lang.field.empty'
+        options:
+            follow: follow
+            nofollow: nofollow
+    robots_index:
+        label: 'lovata.mightyseo::lang.field.robots_index'
+        span: right
+        type: dropdown
+        emptyOption: 'lovata.toolbox::lang.field.empty'
+        options:
+            index: index
+            noindex: noindex
+    canonical_url:
+        label: 'lovata.mightyseo::lang.field.canonical_url'
+        span: right
+        type: text
+    robots_index_addition:
+        label: 'lovata.mightyseo::lang.field.robots_index_addition'
+        span: right
+        type: text<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('lovata/mightyseo/seopageparams') ?>"><?= e(trans('lovata.mightyseo::lang.param.list_title')) ?></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?php if (!$this->fatalError): ?>
+
+    <div class="form-preview">
+        <?= $this->formRenderPreview() ?>
+    </div>
+
+<?php else: ?>
+    <p class="flash-message static error"><?= e($this->fatalError) ?></p>
+<?php endif ?>
+
+<p>
+    <a href="<?= Backend::url('lovata/mightyseo/seopageparams') ?>" class="btn btn-default oc-icon-chevron-left">
+        <?= e(trans('backend::lang.form.return_to_list')) ?>
+    </a>
+</p>

@@ -1,0 +1,3 @@
+title: 'backend::lang.reorder.default_title'
+modelClass: Lovata\GoodNews\Models\Category
+nameFrom: name

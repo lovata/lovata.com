@@ -1,0 +1,87 @@
+<section class="portfolio-tmpl">
+    <div class="portfolio-tmpl__container">
+        <div class="portfolio-tmpl__header">
+            <div class="portfolio-tmpl__header-top">
+                <h1 class="portfolio-tmpl__title">Mail.ru Face Recognition App</h1>
+                <div class="portfolio-tmpl__customer">Customer: <span class="portfolio-tmpl__customer-name">Mail.ru</span></div>
+            </div>
+        </div>
+
+        <h2 class="portfolio-tmpl__content-title">Our Client</h2>
+        <p class="portfolio-tmpl__desc">Mail.ru Group is the leading email and internet services provider on the Russian-speaking market. Other than email it provides social media, instant messaging, online games, job searching, eCommerce and cloud solutions.</p>
+
+        <h2 class="portfolio-tmpl__content-title">Project Goals</h2>
+        <p class="portfolio-tmpl__desc">Project goals were to provide conference visitors with an easy and convenient way of retrieving photos that professional photographers were taking of them at the event. Our team at LOVATA was hired to implement an application and integrate with Mail.ru face recognition technology. We had to provide an app with a smooth and fluid interface for users to interact with on a stand at the conference. The idea was to create a great user experience.</p>
+        <p class="portfolio-tmpl__desc">By taking a photo of the person/persons, the application was to determine whether photos of them have been added to Mail.ru database, and if so, send a link to download the photos to the person’s email.</p>
+
+        <h2 class="portfolio-tmpl__content-title">The Solution</h2>
+
+        <p class="portfolio-tmpl__list-title">We created a web application with its own database and the following logic:</p>
+
+        <ul class="portfolio-tmpl__list">
+            <li class="portfolio-tmpl__list-item">
+                First, the web app prompts for the person/persons to take a picture of themselves;
+                <img src="{{ 'assets/img/portfolio_site/mailru-face-recognition/scan.png'| theme }}" alt="scan photo screenshot" class="portfolio-tmpl__img-content">
+            </li>
+            <li class="portfolio-tmpl__list-item">Then the person presses the “find photos of me” button and sends this photo via API to Mail.ru’s image recognition system to identify the person;
+            </li>
+            <li class="portfolio-tmpl__list-item">The image recognition system reads the image, identifies the person’s face and searches for him within the database. In the case when a person is not found within the database, the system creates a new ID for the person. Otherwise, if the person was identified within the system, it sends the person’s ID, photos of the person and a link to the folder containing these photos back to our application;</li>
+            <li class="portfolio-tmpl__list-item">
+                These photos are then displayed by our app and the user is prompted to type in their email in order for our app to send the link to their photos folder.
+                <img src="{{ 'assets/img/portfolio_site/mailru-face-recognition/list.png'| theme }}" alt="photo list screenshot" class="portfolio-tmpl__img portfolio-tmpl__img_top-space portfolio-tmpl__img-content">
+            </li>
+            <li class="portfolio-tmpl__list-item">
+                If there were no photos found in the database, the person is prompted to provide their email in case photos will appear later on. The app also displays the photographers and their names for the person’s convenience, if one has to ask any questions or get some additional information regarding the photos.
+                <img src="{{ 'assets/img/portfolio_site/mailru-face-recognition/no-photo.png'| theme }}" alt="no photo screenshot" class="portfolio-tmpl__img portfolio-tmpl__img_top-space portfolio-tmpl__img-content">
+            </li>
+            <li class="portfolio-tmpl__list-item">
+                In the end, the app thanks the user and displays the email the link to the photos was sent to.
+                <img src="{{ 'assets/img/portfolio_site/mailru-face-recognition/end.png'| theme }}" alt="send photo by email screenshot" class="portfolio-tmpl__img portfolio-tmpl__img_top-space portfolio-tmpl__img-content">
+            </li>
+        </ul>
+
+        <div class="portfolio-tmpl__tech">
+            <h2 class="portfolio-tmpl__tech-title">Technologies:</h2>
+            <div class="portfolio-tmpl__tech-list">
+                <a href="{{ 'js-dev' | page }}" class="portfolio-tmpl__tech-link stub"># EcmaScript 2015 (ES6)</a>
+                <a href="{{ 'nodejs-dev' | page }}" class="portfolio-tmpl__tech-link"># NodeJS</a>
+                <a href="#" class="portfolio-tmpl__tech-link"># MongoDB</a>
+                <a href="#" class="portfolio-tmpl__tech-link"># Express</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="portfolio-tmpl__similar">
+        <h2 class="portfolio-tmpl__similar-title">Similar projects</h2>
+        <div class="portfolio-tmpl__similar-list">
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-host-for-web'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/hostForWeb.png'| theme }}" alt="hostForWeb preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">HostForWeb corporate website</p>
+                        <p class="portfolio__item-desc-text">Corporate website for hosting provider</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-mailru-web-services'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/mailru-web-services.png'| theme }}" alt="Mail.ru Web Services design preview" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">Mail.ru Group</p>
+                        <p class="portfolio__item-desc-text">Custom Design for Mail.ru Web Services</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-jurist'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/jurist.png'| theme }}" alt="National legal knowledge portal development preview" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">Jurist.by</p>
+                        <p class="portfolio__item-desc-text">National legal knowledge portal development</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% partial 'components/small-footer/small-footer' %}

@@ -1,0 +1,247 @@
+//
+// Buttons
+// --------------------------------------------------
+
+@btn-default-bg:                 var(--bs-secondary);
+@btn-default-hover-bg:           var(--oc-primary-hover-bg);
+@btn-default-active-bg:          var(--oc-primary-active-bg);
+
+@btn-secondary-bg:               var(--oc-secondary-bg);
+@btn-secondary-hover-bg:         var(--oc-secondary-hover-bg);
+@btn-secondary-active-bg:        var(--oc-secondary-active-bg);
+
+@btn-text-color:                 var(--bs-secondary-color);
+
+@btn-icon-color:                 #bcc3c7;
+@btn-icon-danger-color:          #c63e26;
+
+
+// No borders
+.btn-default,
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-info,
+.btn-warning,
+.btn-danger {
+    border: none;
+}
+
+// Primary gets a bigger weight
+.btn-primary {
+    --bs-btn-font-weight: 500;
+    --bs-btn-bg: @brand-primary;
+    --bs-btn-hover-bg: @btn-default-hover-bg;
+    --bs-btn-active-bg: @btn-default-active-bg;
+}
+
+.btn-secondary {
+    --bs-btn-color: @emphasis-color;
+    --bs-btn-bg: @btn-secondary-bg;
+    --bs-btn-hover-color: @emphasis-color;
+    --bs-btn-hover-bg: @btn-secondary-hover-bg;
+    --bs-btn-active-color: @emphasis-color;
+    --bs-btn-active-bg: @btn-secondary-active-bg;
+    --bs-btn-disabled-bg: @btn-secondary-bg;
+    --bs-btn-disabled-color: var(--bs-body-color);
+
+    box-shadow: inset 0 -2px 0 rgba(var(--bs-body-color-rgb), .1);
+
+    &.active,
+    &:active {
+        box-shadow: inset 0 1px 0 rgba(var(--bs-body-color-rgb), .2);
+    }
+}
+
+// All buttons have white text
+.btn-primary,
+.btn-success,
+.btn-info,
+.btn-warning,
+.btn-danger {
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #fff;
+    --bs-btn-disabled-color: rgba(255, 255, 255, 0.6);
+}
+
+// All use default background, except danger
+.btn-success,
+.btn-info,
+.btn-warning {
+    --bs-btn-bg: @btn-default-bg;
+    --bs-btn-disabled-bg: @btn-default-bg;
+}
+
+// Use a darker hover color
+.btn-success {
+    --bs-btn-hover-bg: @brand-success;
+}
+
+.btn-info {
+    --bs-btn-hover-bg: @brand-info;
+}
+
+.btn-warning {
+    --bs-btn-hover-bg: @brand-warning;
+}
+
+// Custom default button style
+.btn-default {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: @btn-default-bg;
+    --bs-btn-border-color: @btn-default-bg;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: @btn-default-hover-bg;
+    --bs-btn-hover-border-color: @btn-default-hover-bg;
+    --bs-btn-focus-shadow-rgb: 90, 92, 210;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: @btn-default-active-bg;
+    --bs-btn-active-border-color: @btn-default-active-bg;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #f0f0f0;
+    --bs-btn-disabled-bg: @btn-default-bg;
+    --bs-btn-disabled-border-color: @btn-default-bg;
+}
+
+.btn-link.text-muted {
+    text-decoration: underline;
+    &:hover, &:focus-visible {
+        color: #124364 !important;
+    }
+}
+
+//
+// Button separator
+// --------------------------------------------------
+
+.button-separator {
+    color: @text-muted;
+    margin: 0 10px;
+    font-size: @font-size-base;
+    padding-bottom: 2px;
+
+    + .btn-link {
+        margin-left: -5px;
+    }
+}
+
+//
+// Buttons with icons
+// --------------------------------------------------
+
+.btn {
+    &[class^="oc-icon-"],
+    &[class*=" oc-icon-"] {
+        &:before {
+            font-size: 14px;
+            line-height: 14px;
+            position: relative;
+        }
+    }
+}
+
+.btn-group {
+    .btn {
+        border-right: 1px solid rgba(0,0,0,0.09);
+        margin-left: 0 !important;
+
+        &:last-child, &.last {
+            border-right: none;
+        }
+
+        &.last {
+            .border-right-radius(@border-radius-base) !important;
+        }
+    }
+
+    > .dropdown {
+        float: left;
+
+        &:not(:last-child, .last) > .btn {
+            border-right: 1px solid rgba(0,0,0,0.09);
+            .border-right-radius(0) !important;
+        }
+
+        &:not(:first-child) > .btn {
+            .border-left-radius(0) !important;
+        }
+
+        &.last {
+            .btn {
+                border-right: none;
+            }
+        }
+    }
+}
+
+.btn, .btn-group {
+    &.offset-right {
+        margin-right: 10px;
+    }
+}
+
+.btn-icon {
+    display: inline-block;
+    height: 36px;
+    font-size: 21px;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-radius: .3rem;
+    transition: @input-transition;
+
+    &:before {
+        display: block;
+        color: @btn-icon-color;
+    }
+
+    &:focus-visible {
+        box-shadow: @input-focus-box-shadow;
+    }
+
+    &:hover:before {
+        color: @link-color;
+    }
+
+    &.danger:hover:before {
+        color: @btn-icon-danger-color;
+    }
+
+    &.pull-right:before {
+        margin-right: 0;
+    }
+
+    &.margin-left {
+        margin-left: 5px;
+    }
+
+    &.small {
+        font-size: 17px;
+        height: 17px;
+        line-height: 15px;
+    }
+
+    &.larger {
+        font-size: 21px;
+        height: 21px;
+        line-height: 17px;
+    }
+}
+
+.btn-text {
+    font-size: @font-size-base;
+    padding: 8px 0;
+    vertical-align: middle;
+    display: inline-block;
+    color: @btn-text-color;
+
+    a {
+        color: @btn-text-color;
+        text-decoration: underline;
+
+        &:hover {
+            color: @link-color;
+        }
+    }
+}

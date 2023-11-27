@@ -1,0 +1,22 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: Sites
+list: ~/modules/system/models/sitedefinition/columns.yaml
+modelClass: System\Models\SiteDefinition
+recordUrl: system/sites/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 20
+showSetup: true
+expandLastColumn: true
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt
+
+structure:
+    showTree: false
+    showReorder: true
+    maxDepth: 1

@@ -1,0 +1,139 @@
+.laravel-dev__header {
+  background-color: #ca442c;
+  background-image: linear-gradient(-243deg,#ca442c,#ffc156);
+}
+
+.laravel-dev-company__header {
+  background-color: #394996;
+  background-image: linear-gradient(96.44deg, #394996 3.11%, #2B90E8 97.19%);
+}
+
+.laravel-dev__header .landing-page__header-icon-img {
+  width: 125px;
+
+  @media(max-width: $tablet) {
+    width: 70px;
+  }
+}
+
+.laravel-dev__info {
+  padding: 80px 0;
+
+  @media(max-width: $tablet) {
+    padding: 40px 0;
+  }
+}
+
+.laravel-dev__info .landing-page__inner-block {
+  box-shadow: 0 5px 45px 0 rgba(43,121,208,.35);
+  padding: 35px 55px;
+  max-width: 1100px;
+  border: 15px solid #FFD333;
+
+  @media(max-width: $tablet) {
+    padding: 50px 25px;
+    margin: 0 20px;
+  }
+}
+
+.laravel-dev__info .inner__block-border_blue {
+  border: 15px solid #2B90E8;
+}
+
+.landing-page__blue-decoration .inner__block-border_blue {
+  box-shadow: 0 5px 45px 0 rgba(43,121,208,.35);
+  margin-bottom: 80px;
+  padding: 35px 55px;
+  max-width: 1100px;
+  border: 15px solid #2B90E8;
+
+  @media(max-width: $tablet) {
+    padding: 50px 25px;
+    margin: 0 20px 55px;
+  }
+}
+
+.landing-page__blue-decoration .inner__block-border_blue .landing-page__text {
+  font-size: 28px;
+  font-weight: 400;
+  margin-top: 0;
+
+  @media(max-width: $tablet) {
+    font-size: 20px;
+  }
+}
+
+.laravel-dev__info .landing-page__text {
+  font-weight: 500;
+  font-size: 28px;
+  margin-top: 0;
+
+  @media(max-width: $tablet) {
+    font-size: 20px;
+  }
+}
+
+.laravel-dev__whylaravel {
+  padding: 0 0 50px;
+
+  @media(max-width: $tablet) {
+    padding: 0 0 20px;
+  }
+}
+
+.laravel-dev__portfolio {
+  padding: 80px 0px 100px;
+  background-image: linear-gradient(117deg,#2c243c,#3c2435);
+
+  @media(max-width: $tablet) {
+    padding: 20px 0 60px;
+  }
+}
+
+.laravel-dev__portfolio .landing-page__title {
+  font-size: 65px;
+  color: #ffffff;
+
+  @media(max-width: $tablet) {
+    font-size: 40px;
+  }
+}
+
+.laravel-dev__portfolio .landing-page__text {
+  text-align: center;
+  font-size: 27px;
+  color: #ffffff;
+
+  @media(max-width: $tablet) {
+    font-size: 23px;
+  }
+}
+
+.laravel-dev__portfolio .portfolio__list {
+  margin: 40px 0;
+}
+
+.laravel-dev__whylovata {
+  padding: 80px 0 200px;
+
+  @media(max-width: $tablet) {
+    padding: 40px 0 40px;
+  }
+}
+
+.laravel-dev__whylovata .landing-page__plus-list {
+  margin: 30px 0;
+}
+
+.laravel-dev__contact .landing-page__order-btn {
+  margin-top: 60px;
+}
+
+.laravel-dev__whylaravel .landing-page__text {
+  font-size: 28px;
+  color: #535353;
+
+  @media(max-width: $tablet) {
+    font-size: 20px;
+  }
+}

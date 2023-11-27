@@ -1,0 +1,50 @@
+tabs:
+    fields:
+
+        plugin_help:
+            type   : partial
+            path   : $/blakejones/magicforms/models/settings/_plugin_help.htm
+            tab    : blakejones.magicforms::lang.settings.tabs.general
+
+        global_hide_button:
+            label  : blakejones.magicforms::lang.settings.global_hide_button
+            comment: blakejones.magicforms::lang.settings.global_hide_button_desc
+            type   : switch
+            default: false
+            tab    : blakejones.magicforms::lang.settings.tabs.general
+
+        recaptcha_help:
+            type   : partial
+            path   : $/blakejones/magicforms/models/settings/_recaptcha_help.htm
+            tab    : blakejones.magicforms::lang.settings.tabs.recaptcha
+
+        recaptcha_site_key:
+            label: blakejones.magicforms::lang.settings.recaptcha_site_key
+            span : left
+            tab  : blakejones.magicforms::lang.settings.tabs.recaptcha
+
+        recaptcha_secret_key:
+            label: blakejones.magicforms::lang.settings.recaptcha_secret_key
+            span : right
+            tab  : blakejones.magicforms::lang.settings.tabs.recaptcha
+
+        gdpr_help:
+            type   : partial
+            path   : $/blakejones/magicforms/models/settings/_gdpr_help.htm
+            tab    : blakejones.magicforms::lang.settings.tabs.gdpr
+
+        gdpr_enable:
+            label  : blakejones.magicforms::lang.settings.gdpr_enable
+            type   : switch
+            default: false
+            tab    : blakejones.magicforms::lang.settings.tabs.gdpr
+
+        gdpr_days:
+            label  : blakejones.magicforms::lang.settings.gdpr_days
+            span   : left
+            default: 120
+            tab    : blakejones.magicforms::lang.settings.tabs.gdpr
+            trigger:
+                action: show
+                field: gdpr_enable
+                condition: checked

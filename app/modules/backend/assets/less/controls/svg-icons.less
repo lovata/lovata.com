@@ -1,0 +1,43 @@
+.svg-icon-container {
+    img.svg-icon {
+        display: inline-block;
+    }
+
+    &.svg-active-effects {
+        img.svg-icon {
+            filter: grayscale(100%);
+        }
+
+        &.active {
+            img.svg-icon {
+                filter: none;
+            }
+        }
+    }
+}
+
+body:not(.drag) {
+    .svg-icon-container {
+        &.svg-active-effects:hover {
+            img.svg-icon {
+                filter: none;
+            }
+        }
+    }
+}
+
+// SVG colorization (unused but useful research -sg)
+/*
+
+Set variables (sepia offset -30deg)
+--oc-mainnav-hue: unit(hue(@brand-mainnav-bg)-30, deg);
+--oc-mainnav-saturation: 300%;
+
+Use filter
+filter: sepia(100%) hue-rotate(var(--oc-mainnav-hue)) saturate(var(--oc-mainnav-saturation));
+
+Base variables (grayscale)
+--oc-mainnav-hue: -30deg; // sepia offset: unit(hue(#000)-30, deg)
+--oc-mainnav-saturation: 0%;
+
+*/

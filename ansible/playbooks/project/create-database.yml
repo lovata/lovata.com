@@ -29,7 +29,7 @@
           dir: ./../../vars/{{ env }}
     - name: 'Run create script'
       when: DATABASE_TYPE == 'mysql'
-      raw: "mysql -hmysql -u{{ DB_USERNAME }} --password={{ DB_PASSWORD }} {{ DB_DATABASE }} << /temp/sail/temp/db/scripts/mysql.createdb.sql"
+      raw: "mysql -hmysql -u{{ DB_USERNAME }} --password={{ DB_PASSWORD }} {{ DB_DATABASE }} << /home/sail/temp/db/scripts/mysql.createdb.sql"
     - name: 'Run create script'
       when: DATABASE_TYPE == 'mariadb'
-      raw: "mysql -hmariadb -u{{ DB_USERNAME }} --password={{ DB_PASSWORD }} {{ DB_DATABASE }} << /temp/sail/temp/db/scripts/mariadb.createdb.sql"
+      raw: "mysql -hmariadb -u{{ DB_USERNAME }} --password={{ DB_PASSWORD }} {{ DB_DATABASE }} << /home/sail/temp/db/scripts/mariadb.createdb.sql"

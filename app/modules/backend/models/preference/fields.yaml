@@ -1,0 +1,137 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+tabs:
+    fields:
+
+        locale:
+            tab: Region
+            label: Locale
+            comment: Select your desired locale for language use.
+            type: dropdown
+            span: left
+
+        timezone:
+            tab: Region
+            label: Timezone
+            comment: Adjust displayed dates to this timezone.
+            type: dropdown
+            span: left
+
+        editor_preview:
+            type: partial
+            tab: Code Editor
+            path: field_editor_preview
+
+        editor_theme:
+            label: Color Scheme
+            tab: Code Editor
+            span: auto
+            type: dropdown
+
+        editor_word_wrap:
+            label: Word Wrap
+            tab: Code Editor
+            type: dropdown
+            span: auto
+            options:
+                off: "Off"
+                40: 40 Characters
+                80: 80 Characters
+                fluid: Fluid
+
+        editor_font_size:
+            label: Font Size
+            tab: Code Editor
+            span: auto
+            type: dropdown
+            options:
+                11: 11px
+                12: 12px
+                13: 13px
+                14: 14px
+                15: 15px
+                16: 16px
+
+        editor_tab_size:
+            label: Tab Size
+            tab: Code Editor
+            span: auto
+            type: dropdown
+            options:
+                2: 2
+                3: 3
+                4: 4
+                5: 5
+                6: 6
+                7: 7
+                8: 8
+
+        editor_code_folding:
+            label: Code Folding
+            tab: Code Editor
+            type: dropdown
+            span: auto
+            options:
+                manual: "Off"
+                markbegin: Mark begin
+                markbeginend: Mark begin and end
+
+        editor_autocompletion:
+            label: Autocompletion
+            tab: Code Editor
+            type: dropdown
+            span: auto
+            options:
+                manual: "Off"
+                basic: Basic Autocompletion (Ctrl + Space)
+                live: Live Autocompletion
+
+        editor_use_emmet:
+            label: Use Emmet abbreviations
+            tab: Code Editor
+            type: checkbox
+            span: auto
+
+        editor_show_gutter:
+            label: Show gutter
+            tab: Code Editor
+            type: checkbox
+            span: auto
+
+        editor_highlight_active_line:
+            label: Highlight active line
+            tab: Code Editor
+            type: checkbox
+            span: auto
+
+        editor_auto_closing:
+            label: Automatically close tags
+            tab: Code Editor
+            type: checkbox
+            span: auto
+
+        editor_use_hard_tabs:
+            label: Indent using tabs
+            tab: Code Editor
+            type: checkbox
+            span: auto
+
+        editor_display_indent_guides:
+            label: Show indent guides
+            tab: Code Editor
+            type: checkbox
+            span: auto
+
+        editor_show_invisibles:
+            label: Show invisible characters
+            tab: Code Editor
+            type: checkbox
+            span: auto
+
+        editor_show_print_margin:
+            label: Show print margin
+            tab: Code Editor
+            type: checkbox
+            span: auto

@@ -1,0 +1,5 @@
+<select class="form-control" onchange="window.location.assign(this.value)">
+    {% for site in __SELF__.sites %}
+        <option value="{{ site.url }}" {{ this.site.code == site.code ? 'selected' }}>{{ site.name }}</option>
+    {% endfor %}
+</select>

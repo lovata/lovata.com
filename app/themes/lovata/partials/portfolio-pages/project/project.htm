@@ -1,0 +1,104 @@
+{# @var obProject \Lovata\BaseCode\Classes\Item\ProjectItem #}
+{# @var obProjectList \Lovata\BaseCode\Classes\Collection\ProjectCollection #}
+{% set arProjectList = ProjectList.make().active().sort().exclude(obProject.id).category(obProject.id).take(3) %}
+<section class="portfolio-tmpl">
+    <div class="portfolio-tmpl__container">
+
+        <div class="portfolio-tmpl__header">
+            <div class="portfolio-tmpl__header-top">
+                <h1 class="portfolio-tmpl__title">{{ obProject.title }}</h1>
+                <span class="portfolio-tmpl__date">{{ obProject.date.format('d/m/Y') }}</span>
+            </div>
+            {% if obProject.project_name is not empty %}
+                <div class="portfolio-tmpl__client-info">
+                    <a rel="nofollow"
+                       {% if obProject.project_url is not empty %}href="{{ obProject.project_url }}"{% endif %}
+                       target="_blank"
+                       class="portfolio-tmpl__link">
+                        {{ obProject.project_name }}
+                    </a>
+                </div>
+            {% endif %}
+            <p class="portfolio-tmpl__desc">{{ obProject.preview_text_inner_page }}</p>
+        </div>
+
+        {% for arBlock in obProject.content %}
+            {# Images block #}
+            {% if arBlock._group == 'images' and arBlock.images is not empty %}
+                <div class="portfolio-tmpl__content-small">
+                    {% for arImage in arBlock.images if arImage.preview_image is not empty and arImage.image is not empty %}
+                        <div class="portfolio-tmpl__small-img-wrap js-uploadImg" data-img-path="{{ arImage.image|media }}">
+                            <img src="{{ arImage.preview_image|media }}" alt="screenshot" class="portfolio-tmpl__img-small">
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {# Text #}
+            {% if arBlock._group == 'text' and arBlock.description is not empty %}
+                <div class="portfolio-tmpl__desc-small">
+                    <div class="portfolio-tmpl__desc">
+                        {{ arBlock.description|raw }}
+                    </div>
+                </div>
+            {% endif %}
+            {# List #}
+            {% if arBlock._group == 'list' and arBlock.list is not empty %}
+                <div class="portfolio-tmpl__feature _small-images-portfolio">
+                    {% if arBlock.title is not empty %}
+                        <h2 class="portfolio-tmpl__feature-title">{{ arBlock.title }}</h2>
+                    {% endif %}
+                    <ul class="portfolio-tmpl__feature-list">
+                        {% for arItem in arBlock.list %}
+                            <li class="portfolio-tmpl__feature-item">{{ arItem.text }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        {# Tags #}
+        {% if obProject.tags is not empty %}
+            <div class="portfolio-tmpl__tech">
+                <h2 class="portfolio-tmpl__tech-title">Technologies:</h2>
+                <div class="portfolio-tmpl__tech-list">
+                    {% for arTag in obProject.tags if arTag.name is not empty %}
+                        <a class="portfolio-tmpl__tech-link stub"
+                           {% if arTag.url is not empty %}href="{{ arTag.url }}"{% endif%}
+                        >
+                            {{ arTag.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="portfolio-tmpl__similar">
+        {% if arProjectList is not empty %}
+            <h2 class="portfolio-tmpl__similar-title">Similar projects</h2>
+            <div class="portfolio-tmpl__similar-list">
+                {% for obProject in arProjectList if obProject.preview_image is not empty %}
+                    <div class="portfolio__item">
+                        <a href="{{ obProject.getPageUrl() }}" class="portfolio__item-link">
+                            <img src="{{ obProject.preview_image.path }}"
+                                 alt="{{ obProject.preview_image.description }}"
+                                 title="{{ obProject.preview_image.title }}"
+                                 class="portfolio__img-prev"
+                            />
+                            <div class="portfolio__item-desc">
+                                <p class="portfolio__item-desc-title">{{ obProject.preview_title }}</p>
+                                <p class="portfolio__item-desc-text">{{ obProject.preview_text }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</section>
+<div class="popup-wrap">
+    <button type="button" class="popup-wrap__close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="29" height="29" viewBox="0 0 29 29"><path fill="#fff" d="M3.19 1.06L14.5 12.37 25.81 1.06a1 1 0 0 1 1.42 0l.71.71a1 1 0 0 1 0 1.42L16.62 14.5l11.31 11.31c.4.39.4 1.03 0 1.42l-.7.7a1 1 0 0 1-1.42 0l-11.3-11.3-11.32 11.3a1 1 0 0 1-1.42 0l-.7-.7a.99.99 0 0 1 0-1.42l11.3-11.31L1.07 3.18a1 1 0 0 1 0-1.41l.71-.71a1 1 0 0 1 1.42 0z"/></svg>
+    </button>
+</div>
+{% partial 'components/small-footer/small-footer' %}

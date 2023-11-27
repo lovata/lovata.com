@@ -1,0 +1,102 @@
+.scholarship__header {
+  background-color: #02aa9d;
+  background-image: linear-gradient(-243deg,#9a2dff,#315eea);
+}
+
+.scholarship__therms .landing-page__banner {
+  background-image: linear-gradient(-243deg,#9a2dff,#315eea);
+}
+
+.scholarship__header .landing-page__header-icon-img {
+  margin-top: -15px;
+}
+
+.scholarship__how-to-enter .landing-page__inner-block {
+  background-image: linear-gradient(-243deg,#6b14bb,#315eea);
+}
+.scholarship__how-to-enter .landing-page__inner-block::before {
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.scholarship__how-to-enter .landing-page__title {
+  padding-top: 0;
+  color: #ffffff;
+}
+
+.scholarship__how-to-enter .landing-page__text {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 27px;
+}
+
+.scholarship__how-to-enter .landing-page__text a{
+  color: #ffffff;
+}
+
+.scholarship__info {
+  padding: 80px 0;
+
+  @media(max-width: $tablet) {
+    padding: 40px 0;
+  }
+}
+
+.scholarship__info .landing-page__inner-block {
+  box-shadow: 0 5px 45px 0 rgba(43,121,208,.35);
+  padding: 50px 70px;
+  max-width: 900px;
+  border: 15px solid #315eea;
+
+  @media(max-width: $tablet) {
+    padding: 50px 25px;
+    margin: 0 20px;
+  }
+}
+
+.scholarship__info .landing-page__text {
+  font-weight: 500;
+  font-size: 25px;
+  margin-top: 0;
+
+  @media(max-width: $tablet) {
+    font-size: 20px;
+  }
+}
+
+.scholarship__eligibility {
+  padding: 0 0 20px;
+
+  @media(max-width: $tablet) {
+    padding: 0 0 20px;
+  }
+}
+
+.scholarship__therms .landing-page__title {
+  font-size: 45px;
+  padding-top: 50px;
+
+  @media(max-width: $tablet) {
+    font-size: 32px;
+  }
+}
+
+.scholarship__about {
+  padding: 60px 0px 100px;
+
+  @media(max-width: $tablet) {
+    padding: 20px 0px 60px;
+  }
+}
+
+.scholarship__about .landing-page__title {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.scholarship__about .landing-page__text {
+  font-size: 25px;
+
+  @media(max-width: $tablet) {
+    font-size: 23px;
+  }
+}

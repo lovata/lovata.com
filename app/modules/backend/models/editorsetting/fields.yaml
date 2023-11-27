@@ -1,0 +1,139 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+tabs:
+    fields:
+
+        html_custom_styles:
+            label: Custom Stylesheet
+            commentAbove: Custom styles to include in the HTML editor.
+            tab: Markup Styles
+            type: codeeditor
+            size: giant
+            language: css
+
+        html_paragraph_formats:
+            label: Paragraph Formats
+            tab: Markup Classes
+            type: datatable
+            span: auto
+            columns:
+                format_tag:
+                    title: Markup Classes
+                format_label:
+                    title: Label
+
+        html_style_paragraph:
+            label: Paragraph
+            tab: Markup Classes
+            span: auto
+            type: datatable
+            columns:
+                class_name:
+                    title: Class Name
+                class_label:
+                    title: Label
+
+        html_style_link:
+            label: Link
+            tab: Markup Classes
+            span: auto
+            type: datatable
+            columns:
+                class_name:
+                    title: Class Name
+                class_label:
+                    title: Label
+
+        html_style_table:
+            label: Table
+            tab: Markup Classes
+            span: auto
+            type: datatable
+            columns:
+                class_name:
+                    title: Class Name
+                class_label:
+                    title: Label
+
+        html_style_table_cell:
+            label: Table Cell
+            tab: Markup Classes
+            span: auto
+            type: datatable
+            columns:
+                class_name:
+                    title: Class Name
+                class_label:
+                    title: Label
+
+        html_style_image:
+            label: Image
+            tab: Markup Classes
+            span: auto
+            type: datatable
+            columns:
+                class_name:
+                    title: Class Name
+                class_label:
+                    title: Label
+
+        html_allow_tags:
+            label: Allowed Tags
+            comment: The list of allowed tags.
+            tab: Markup Tags
+            type: textarea
+
+        html_allow_empty_tags:
+            label: Allowed Empty Tags
+            comment: The list of tags that are not removed when they have no content inside.
+            tab: Markup Tags
+            type: textarea
+            size: small
+            span: auto
+
+        html_no_wrap_tags:
+            label: Do Not Wrap Tags
+            comment: The list of tags that should not be wrapped inside block tags.
+            tab: Markup Tags
+            type: textarea
+            size: small
+            span: auto
+
+        html_remove_tags:
+            label: Remove Tags
+            comment: The list of tags that are removed together with their content.
+            tab: Markup Tags
+            type: textarea
+            size: small
+            span: auto
+
+        html_line_breaker_tags:
+            label: Line Breaker Tags
+            comment: The list of tags that are used to place a line breaker element between.
+            tab: Markup Tags
+            type: textarea
+            size: small
+            span: auto
+
+        html_toolbar_buttons:
+            label: Toolbar Buttons
+            comment: The Toolbar Buttons to be displayed in the Rich Editor by default.
+            tab: Toolbar Buttons
+            type: textarea
+            span: left
+
+        _html_toolbar_buttons_presets:
+            label: Insert a preset toolbar button configuration
+            tab: Toolbar Buttons
+            type: partial
+            path: ~/modules/backend/models/editorsetting/_toolbar_presets.php
+            span: right
+
+        html_allow_attrs:
+            label: Allowed Attributes
+            comment: The list of allowed HTML attributes, in addition to the normal allowances.
+            tab: Markup Tags
+            type: text
+            span: left

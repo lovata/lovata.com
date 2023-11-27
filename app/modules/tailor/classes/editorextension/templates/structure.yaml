@@ -1,0 +1,34 @@
+handle: MyStructure
+type: structure
+name: Structure
+drafts: true
+
+structure:
+    maxDepth: 3
+
+primaryNavigation:
+    label: Structure
+    icon: icon-tree
+    order: 140
+
+navigation:
+    icon: icon-tree
+    parent: MyStructure
+    order: 10
+
+fields:
+    content:
+        label: Content
+        tab: Edit
+        type: richeditor
+        span: adaptive
+
+    summary_text:
+        label: Summary Text
+        type: textarea
+        size: small
+
+    gallery:
+        label: Gallery
+        type: fileupload
+        mode: image

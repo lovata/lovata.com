@@ -1,0 +1,236 @@
+.jurist {
+  background-color: #ffffff;
+}
+
+.jurist__section {
+  background-color: #ffffff;
+}
+
+.jurist__section_color_blue {
+  background-color: #eff4f8;
+}
+
+.jurist__inner-block {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 50px 60px;
+
+  @media (max-width: $tablet) {
+    padding: 5px 40px 25px;
+  }
+}
+
+.jurist__title {
+  padding-top: 160px;
+  margin-bottom: 20px;
+  font-size: 65px;
+  font-weight: 700;
+  line-height: 75px;
+
+  @media (max-width: $tablet) {
+    padding-top: 60px;
+    margin-bottom: 0;
+    font-size: 35px;
+    line-height: 45px;
+  }
+}
+
+.jurist__content-title {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 55px;
+  margin-top: 50px;
+  margin-bottom: 30px;
+
+  @media (max-width: $tablet) {
+    font-size: 30px;
+    line-height: 35px;
+  }
+}
+
+
+.jurist__section_color_blue .jurist__content-title {
+  color: #5f8ac7;
+}
+
+.jurist__list-title {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  margin-top: 20px;
+
+  @media (max-width: $tablet) {
+    font-size: 25px;
+    line-height: 1.1;
+  }
+}
+
+
+.jurist__text {
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 20px;
+
+  @media (max-width: $tablet) {
+    font-size: 18px;
+  }
+}
+
+.jurist__list {
+  margin-bottom: 20px;
+}
+
+.jurist__list_font_common .jurist__list-item {
+  font-size: 24px;
+  margin-bottom: 10px;
+
+  @media (max-width: $tablet) {
+    font-size: 18px;
+  }
+}
+
+.jurist__list_with-marker {
+  padding-left: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.jurist__list-item {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 30px;
+  position: relative;
+
+  @media (max-width: $tablet) {
+    font-size: 18px;
+  }
+}
+
+.jurist__list_with-marker .jurist__list-item {
+  list-style-type: disc;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+
+
+.jurist__list_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 30px;
+  padding-top: 30px;
+
+  @media (max-width: $tablet) {
+    grid-template-columns: 1fr;
+    grid-row-gap: 30px;
+    padding-top: 0px;
+  }
+}
+
+.jurist__list_grid .jurist__list-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 25px;
+  grid-column-gap: 30px;
+  align-items: center;
+}
+
+.jurist__list_grid .jurist__list-item .jurist__list-item-img {
+  width: 100px;
+}
+
+.jurist__number {
+  font-size: 40px;
+  line-height: 50px;
+  display: block;
+}
+
+.jurist__bold {
+  font-weight: 500;
+}
+
+.jurist__future .jurist__inner-block {
+  padding-bottom: 40px;
+}
+
+.jurist__tech .jurist__inner-block{
+  padding-top: 0;
+}
+
+.jurist__tech-list {
+  padding-top: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.jurist__tech-list-item {
+  padding: 10px;
+}
+
+.jurist__tech-img {
+  max-width: 220px;
+}
+
+.jurist__footer .portfolio-tmpl__similar-title {
+  color: #100a1c;
+  text-align: center;
+}
+
+
+.jurist__client .jurist__inner-block {
+  padding-top: 0;
+  padding-bottom: 40px;
+}
+
+.jurist__client .jurist__content-title {
+  margin-bottom:10px;
+  margin-top: 20px;
+}
+
+
+.jurist__clientlink {
+  position: relative;
+  display: inline-block;
+  color: #100a1c;
+  margin: 25px 0 10px 25px;
+  font-size: 22px;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,.7);
+}
+
+.jurist__clientlink::before {
+  content: url('../../../assets/img/portfolio_site/jurist/jurisr.ico');
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  top: 2px;
+  left: -25px;
+  display: block;
+}
+
+
+.jurist__img {
+  width: 100%;
+}
+
+.jurist__image-block {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+
+  @media (max-width: $tablet) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: $mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.jurist__cross-platform-img {
+  width: 100%;
+}

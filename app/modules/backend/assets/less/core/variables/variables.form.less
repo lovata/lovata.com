@@ -1,0 +1,34 @@
+
+//
+// Forms
+// --------------------------------------------------
+
+@input-border-radius:            4px;
+@input-border-fade:              darken(#cfd7e1, 10%);
+@input-box-shadow:               none;
+@input-focus-box-shadow:         0 0 0 0.25rem rgba(53, 66, 91, 0.1);
+
+@input-color-placeholder:        #cccccc;
+@input-color-disabled:           @color-grey-2;
+
+@input-height-base:              (@line-height-computed + (@padding-base-vertical * 2) + 2);
+@input-height-large:             (ceil(@font-size-large * @line-height-large) + (@padding-large-vertical * 2) + 2);
+@input-height-small:             (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
+
+@legend-color:                   @gray-dark;
+@legend-border-color:            #e5e5e5;
+
+@input-group-addon-bg:           @gray-lighter;
+@input-group-addon-border-color: @input-border;
+
+@label-font-size: 1rem;
+@input-font-size: 1rem;
+
+@input-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+@form-breakpoint-min: 770px;
+@form-breakpoint-max: (@form-breakpoint-min - 1);
+
+@color-form-required-asterisk:  @brand-danger;
+@color-form-field-bg:           #ffffff;
+@color-form-field-icon:         #bdbdbd;

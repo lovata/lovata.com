@@ -1,0 +1,14 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    title:
+        type: text
+        placeholder: Title
+        span: full
+    description:
+        type: textarea
+        placeholder: Description
+        span: full
+        size: tiny

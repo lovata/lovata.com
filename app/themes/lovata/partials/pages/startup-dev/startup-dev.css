@@ -1,0 +1,8 @@
+.startup-dev .landing-page__header {
+  background-image: linear-gradient(-342deg,#00b4e4,#4baf55)
+}
+
+.startup-dev .landing-page__banner {
+  background-image: linear-gradient(117deg,#00b4e4,#4baf55);
+  padding: 15px;
+}

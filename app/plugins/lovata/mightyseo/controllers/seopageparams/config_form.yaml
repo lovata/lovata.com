@@ -1,0 +1,15 @@
+name: 'lovata.mightyseo::lang.param.name'
+modelClass: Lovata\mightyseo\Models\SeoParam
+form: $/lovata/mightyseo/models/seoparam/page_fields.yaml
+defaultRedirect: lovata/mightyseo/seopageparams
+create:
+    title: 'backend::lang.form.create_title'
+    redirect: 'lovata/mightyseo/seopageparams/update/:id'
+    redirectClose: lovata/mightyseo/seopageparams
+    flashSave: 'lovata.toolbox::lang.message.create_success'
+update:
+    title: 'backend::lang.form.update_title'
+    redirect: lovata/mightyseo/seopageparams
+    redirectClose: lovata/mightyseo/seopageparams
+    flashSave: 'lovata.toolbox::lang.message.update_success'
+    flashDelete: 'lovata.toolbox::lang.message.delete_success'

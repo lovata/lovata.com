@@ -1,0 +1,123 @@
+tabs:
+    fields:
+        ### Settings ###
+        client_id:
+            label: 'lovata.feedbackforcrm::lang.field.client_id'
+            type: text
+            span: left
+            required: 1
+            tab: 'lovata.toolbox::lang.tab.settings'
+            placeholder: 'lovata.feedbackforcrm::lang.field.client_id'
+            disabled: 0
+        client_secret:
+            label: 'lovata.feedbackforcrm::lang.field.client_secret'
+            type: text
+            span: left
+            required: 1
+            tab: 'lovata.toolbox::lang.tab.settings'
+            placeholder: 'lovata.feedbackforcrm::lang.field.client_secret'
+            disabled: 0
+        code:
+            label: 'lovata.feedbackforcrm::lang.field.code'
+            type: textarea
+            span: left
+            required: 1
+            tab: 'lovata.toolbox::lang.tab.settings'
+            placeholder: 'lovata.feedbackforcrm::lang.field.code'
+            disabled: 0
+            size: giant
+        redirect_uri:
+            label: 'lovata.feedbackforcrm::lang.field.redirect_uri'
+            type: text
+            span: left
+            required: 1
+            tab: 'lovata.toolbox::lang.tab.settings'
+            placeholder: 'lovata.feedbackforcrm::lang.field.redirect_uri'
+            disabled: 0
+        domain_name:
+            label: 'lovata.feedbackforcrm::lang.field.domain_name'
+            type: text
+            span: left
+            required: 1
+            tab: 'lovata.toolbox::lang.tab.settings'
+            placeholder: 'lovata.feedbackforcrm::lang.field.domain_name'
+            disabled: 0
+        form:
+            label: ' '
+            type: partial
+            span: left
+            tab: 'lovata.toolbox::lang.tab.settings'
+            path: '$/lovata/feedbackforcrm/controllers/amocrmsettings/_firm_field.htm'
+        ### Feedback form ###
+        feedback_form:
+            label: ''
+            type: repeater
+            span: full
+            required: 1
+            tab: 'lovata.feedbackforcrm::lang.tab.feedback_form'
+            disabled: 0
+            form:
+                fields:
+                    form:
+                        label: 'lovata.feedbackforcrm::lang.field.feedback_form'
+                        type: dropdown
+                        span: full
+                        required: 1
+                        disabled: 0
+                        showSearch: 1
+                        options: getFormListOptions
+                    pipeline_value:
+                        label: 'lovata.toolbox::lang.field.value'
+                        type: text
+                        span: left
+                        required: 0
+                        placeholder: 'lovata.feedbackforcrm::lang.field.key'
+                        disabled: 0
+                    pipeline_id:
+                        label: 'lovata.feedbackforcrm::lang.field.pipeline'
+                        type: dropdown
+                        span: right
+                        required: 0
+                        disabled: 0
+                        emptyOption: 'lovata.toolbox::lang.field.empty'
+                        showSearch: 1
+                        options: getPipelineListOptions
+                    responsible_user_id:
+                        label: 'lovata.feedbackforcrm::lang.field.responsible_user'
+                        type: dropdown
+                        span: full
+                        required: 0
+                        disabled: 0
+                        emptyOption: 'lovata.toolbox::lang.field.empty'
+                        showSearch: 1
+                        options: getResponsibleUserListOptions
+                    tags:
+                        label: 'lovata.feedbackforcrm::lang.field.tags'
+                        type: text
+                        span: full
+                        required: 0
+                        placeholder: 'lovata.feedbackforcrm::lang.field.tags'
+                        disabled: 0
+                    custom_fields:
+                        label: 'lovata.feedbackforcrm::lang.field.custom_fields'
+                        type: repeater
+                        span: full
+                        required: 0
+                        disabled: 0
+                        form:
+                            fields:
+                                key:
+                                    label: 'lovata.feedbackforcrm::lang.field.key'
+                                    type: text
+                                    span: left
+                                    required: 1
+                                    placeholder: 'lovata.feedbackforcrm::lang.field.key'
+                                    disabled: 0
+                                field_id:
+                                    label: 'lovata.feedbackforcrm::lang.field.field_in_crm'
+                                    type: dropdown
+                                    span: right
+                                    required: 1
+                                    disabled: 0
+                                    showSearch: 1
+                                    options: getCustomFieldListOptions

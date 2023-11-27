@@ -1,0 +1,59 @@
+<section class="portfolio-tmpl">
+    <div class="portfolio-tmpl__container">
+        <div class="portfolio-tmpl__header">
+            <div class="portfolio-tmpl__header-top">
+                <h1 class="portfolio-tmpl__title">Website Design and Development for English UK Wales</h1>
+                <div class="portfolio-tmpl__customer">Customer: <span class="portfolio-tmpl__customer-name">English UK Wales</span></div>
+            </div>
+            <p class="portfolio-tmpl__desc">Website design and development for English UK Wales, an organization that offers English courses in Wales, United Kingdom.</p>
+            <p class="portfolio-tmpl__desc">Besides informational purposes, the new website allows to chose appropriate school in Wales, search for needed courses and sign up for them right from the website.</p>
+        </div>
+        <div class="portfolio-tmpl__content">
+            <img src="{{ 'assets/img/portfolio_site/englishUK/index.png'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/englishUK/Schools.png'| theme }}" alt="" class="portfolio-tmpl__img">
+            <img src="{{ 'assets/img/portfolio_site/englishUK/Courses.png'| theme }}" alt="" class="portfolio-tmpl__img">
+        </div>
+        <div class="portfolio-tmpl__tech">
+            <h2 class="portfolio-tmpl__tech-title">Technologies:</h2>
+            <div class="portfolio-tmpl__tech-list">
+                <a href="{{ 'october'| page }}" class="portfolio-tmpl__tech-link"># October</a>
+                <a href="{{ 'php-dev' | page }}" class="portfolio-tmpl__tech-link stub"># PHP</a>
+                <a href="#" class="portfolio-tmpl__tech-link stub"># MySQL</a>
+                <a href="{{ 'js-dev' | page }}" class="portfolio-tmpl__tech-link stub"># EcmaScript 2015 (ES6)</a>
+            </div>
+        </div>
+    </div>
+    <div class="portfolio-tmpl__similar">
+        <h2 class="portfolio-tmpl__similar-title">Similar projects</h2>
+        <div class="portfolio-tmpl__similar-list">
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-coex'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/coex.png'| theme }}" alt="cuepath preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">Coex</p>
+                        <p class="portfolio__item-desc-text">Responsive website for software development company</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-my-mail'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/MyMail.png'| theme }}" alt="MyMail preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">My.com</p>
+                        <p class="portfolio__item-desc-text">Corporate website for large email provider</p>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio__item">
+                <a href="{{ 'portfolio-cuepath'| page }}" class="portfolio__item-link">
+                    <img src="{{ 'assets/img/portfolio-prev/cuepath.png'| theme }}" alt="cuepath preview image" class="portfolio__img-prev"/>
+                    <div class="portfolio__item-desc">
+                        <p class="portfolio__item-desc-title">CuePath.io</p>
+                        <p class="portfolio__item-desc-text">Applications for the Internet of things (IoT)</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% partial 'components/small-footer/small-footer' %}

@@ -1,0 +1,75 @@
+//
+// Common control styles
+// --------------------------------------------------
+
+.oc-progress-bar {
+    background-color: var(--oc-accent, #0076ff);
+}
+
+//
+// The scroll panel can host a scrollbar control. It has a right border that covers
+// the scrollbar to satisfy the design requirements.
+//
+.control-scrollpanel {
+    position: relative;
+    background: @tertiary-bg;
+
+    .control-scrollbar {
+        &.vertical > .scrollbar-scrollbar {
+            right: 0;
+        }
+    }
+}
+
+.tooltip {
+    .tooltip-inner {
+        text-align: left;
+        padding: 5px 8px;
+    }
+
+    &.show {
+        opacity: 1;
+    }
+}
+
+//
+// General Status Indicator
+//
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-right: 3px;
+    border: 1px solid rgba(var(--bs-body-bg-rgb), 0.9);
+}
+
+//
+// Logos
+//
+
+.oc-logo-white {
+    background-image: url(../../images/october-logo-white.svg);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.oc-logo,
+.october-cms-logo-grey {
+    background-image: url(../../images/october-logo.svg);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.layout.control-tabs.oc-logo-transparent:not(.has-tabs),
+.flex-layout-column.oc-logo-transparent:not(.has-tabs),
+.layout-cell.oc-logo-transparent {
+    background-size: auto 38px;
+    background-repeat: no-repeat;
+    background-image: url(../../images/october-logo.svg);
+    background-position: 50% 50%;
+    position: relative;
+}

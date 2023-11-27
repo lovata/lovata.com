@@ -1,0 +1,42 @@
+columns:
+    seo_title:
+        label: 'lovata.mightyseo::lang.field.seo_title'
+        type: text
+        searchable: true
+        sortable: false
+    page_h1:
+        label: 'lovata.mightyseo::lang.field.page_h1'
+        type: text
+        searchable: true
+        sortable: false
+    robots_follow:
+        label: 'lovata.mightyseo::lang.field.robots_follow'
+        type: text
+        searchable: true
+        sortable: false
+    robots_index:
+        label: 'lovata.mightyseo::lang.field.robots_index'
+        type: text
+        searchable: true
+        sortable: false
+    canonical_url:
+        label: 'lovata.mightyseo::lang.field.canonical_url'
+        type: text
+        searchable: true
+        sortable: false
+    id:
+        label: 'lovata.toolbox::lang.field.id'
+        type: text
+        searchable: true
+        sortable: true
+        width: 100px
+    created_at:
+        label: 'lovata.toolbox::lang.field.created_at'
+        type: timetense
+        invisible: true
+        sortable: true
+    updated_at:
+        label: 'lovata.toolbox::lang.field.updated_at'
+        type: timetense
+        invisible: true
+        sortable: true

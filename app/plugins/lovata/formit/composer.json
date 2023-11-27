@@ -1,0 +1,8 @@
+{
+    "name": "lovata/formit-plugin",
+    "type": "october-plugin",
+    "description": "Formit plugin for October CMS",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
