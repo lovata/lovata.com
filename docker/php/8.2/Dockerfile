@@ -31,8 +31,8 @@ ONBUILD RUN pecl install -o -f redis xdebug \
     && docker-php-ext-install -j$(nproc) mysqli pdo_mysql pgsql pdo pdo_pgsql curl mbstring bcmath zip intl gd xml exif opcache \
     && docker-php-ext-enable pdo pdo_mysql pdo_pgsql curl mbstring bcmath zip intl gd xml exif redis xdebug
 
-ONBUILD COPY ./../start-container /usr/local/bin/start-container
-ONBUILD COPY ./../php.ini /usr/local/etc/php/conf.d/99-sail.ini
+ONBUILD COPY start-container /usr/local/bin/start-container
+ONBUILD COPY php.ini /usr/local/etc/php/conf.d/99-sail.ini
 
 ONBUILD RUN chmod +x /usr/local/bin/start-container
 
