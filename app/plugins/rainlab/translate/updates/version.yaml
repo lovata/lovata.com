@@ -1,0 +1,37 @@
+v1.0.1:
+    - First version of Translate
+    - create_attributes_table.php
+    - create_indexes_table.php
+v1.1.0: Introduce compatibility with RainLab.Pages plugin.
+v1.2.0: CMS pages now support translating the URL.
+v1.3.0: Added search to the translate messages page.
+v1.4.0: Add importer and exporter for messages
+v1.5.0: Compatibility fix with Build 451
+v1.6.0: Make File Upload widget properties translatable. Merge Repeater core changes into MLRepeater widget. Add getter method to retrieve original translate data.
+v1.7.0: Breaking change for the Message::trans() method (params are now escaped), fix message translation documentation, fix string translation key for scan errors column header.
+v1.8.0: Adds initial support for October v2.0
+v1.9.0: Restores ability to translate URLs with CMS Editor in October v2.0
+v1.10.0: Adds new multilingual nested form widget. Adds withFallbackLocale method.
+v1.11.0: Update to latest Media Finder changes in October v2.2
+v1.12.0: Adds scopeTransWhereNoFallback method
+v2.0.0: Major upgrade and multisite integration
+v2.0.1:
+    - Create message data store
+    - create_message_data_table.php
+v2.0.2: Fixes various bugs in message translation
+v2.0.3: Remove deprecated class
+v2.0.4: Include component default partials in theme scanner
+v2.0.5: Reset locale when edit site changes programmatically
+v2.0.6: Restores the post scan purge feature in messages
+v2.1.0: Adds support for translatable file attachments
+v2.1.1: Fixes child menu item translations for pages plugin
+v2.1.2: Fixes translatable integration with settings models
+v2.1.3: Fixes installation of Translate with other dependencies
+v2.2.0: Adds localePage Twig filter for translating page URLs
+v2.2.1: Fixes translated checkboxes
+v2.2.2: Fixes translatable models without timestamps
+v2.2.3: Fixes translatable fields with fallback values
+v2.2.4: Fixes bug where translations are lost by unintentional cleanup
+v2.2.5: Fixes storing attributes via setAttributeTranslated
+v2.2.6: Adds option to disable fallback values when writing attributes
+v2.2.7: Improve theme scanner to show active theme and include component partials

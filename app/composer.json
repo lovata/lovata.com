@@ -21,7 +21,8 @@
         "blakejones/magicforms-plugin": "^1.6",
         "lovata/vitejsintegration": "0.1.0-dev",
         "bizmark/quicksilver-plugin": "^3.2",
-        "offline/oc-sentry-plugin": "^2.1"
+        "offline/oc-sentry-plugin": "^2.1",
+        "rainlab/translate-plugin": "^2.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5|^9.0"
