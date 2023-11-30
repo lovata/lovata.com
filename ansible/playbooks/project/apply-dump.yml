@@ -5,15 +5,15 @@
       - name: 'Include global vars'
         include_vars:
             dir: ./../../vars/global
-      - name: 'Check operating system'
-        shell: uname
-        ignore_errors: yes
-        register: uname_result
+      - name: 'Get container status'
+        docker_container_info:
+            name: "{{ SHORT_PROJECT_NAME }}_backend_app_1"
+        register: status
       - add_host:
             env: "{{ env }}"
             hostname: "backend_app"
             ansible_connection: "docker"
-            ansible_host: "{{ SHORT_PROJECT_NAME }}{{ (uname_result.stdout != 'Darwin')|ternary('_', '-') }}backend_app{{ (uname_result.stdout != 'Darwin')|ternary('_', '-') }}1"
+            ansible_host: "{{ SHORT_PROJECT_NAME }}{{ (status.exists)|ternary('_', '-') }}backend_app{{ (status.exists)|ternary('_', '-') }}1"
             ansible_python_interpreter: "/usr/bin/python3"
 - name: 'Connect to docker backend_app and create database'
   hosts: backend_app
