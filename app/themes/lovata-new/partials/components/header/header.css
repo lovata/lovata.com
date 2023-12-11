@@ -1,37 +1,48 @@
-.header{
-  @apply bg-white-black py-6 lg:py-10 z-0
+.header {
+  @apply bg-white-black z-0 py-6 lg:py-4
 }
-.header__wrap {
+
+.header .header__wrap {
   @apply px-4 sm:px-6 flex items-center justify-between lg:hidden
 }
-.header__navigation {
+
+.header .header__navigation {
   @apply mx-auto lg:max-w-7xl px-4  lg:px-8 top-0 fixed lg:static inset-0 transition-all
 }
-.header__navigation:not(open) {
+
+.header .header__navigation:not(.open) {
   @apply left-full
 }
-.header__navigation.open {
+
+.header .header__navigation.open {
   @apply left-0
 }
-.header__logo {
+
+.header .header__logo {
+  @apply text-black-white max-h-[28px]
+}
+
+.header .header__burger {
   @apply text-black-white
 }
-.header__burger {
-  @apply text-black-white
-}
-.header__actions {
+
+.header .header__actions {
   @apply lg:flex items-center mt-9 lg:mt-0 space-y-10 lg:space-y-0
 }
-.navigation {
+
+.header .navigation {
   @apply bg-white-black lg:bg-transparent h-screen lg:h-auto overflow-y-auto lg:overflow-y-visible
 }
-.navigation__wrap {
+
+.header .navigation__wrap {
   @apply lg:z-50 lg:flex lg:items-center lg:justify-between pb-4 lg:pb-0
 }
-.navigation__header {
+
+.header .navigation__header {
   @apply flex items-center justify-between py-6 lg:py-0 bg-white-black
 }
-.navigation .header__icon {
+
+.header .navigation .header__icon {
   @apply h-7 text-black-white
 }
 
@@ -39,63 +50,95 @@
 .navigation__menu {
   @apply lg:flex items-center lg:pt-0 mt-9 lg:mt-0
 }
-.navigation .menu__link {
-  @apply lg:px-3.5 py-3 text-2xl lg:text-lg xl:text-xl items-center flex text-gray-600-white
+
+.navigation .menu__item {
+  @apply py-3 block
 }
+
+.navigation .menu__link {
+  @apply lg:px-5 text-2xl lg:text-lg xl:text-xl items-center flex text-gray-600-white space-x-1
+}
+
+.navigation .menu__link:focus {
+  @apply outline-1 outline-dashed outline-blue-400
+}
+
 .navigation .menu__item:hover .menu__link {
   @apply lg:text-blue-600-400
 }
+
 .navigation .menu__arow {
   @apply w-4 h-4 ms-1 transition-all
 }
+
 .navigation .menu__item:hover .menu__arow {
   @apply lg:rotate-180
 }
+
 .navigation .menu__submenu {
-  @apply lg:hidden lg:absolute lg:inset-x-0 lg:top-[90px] lg:pt-7 lg:pb-10 lg:visible bg-white-black
+  @apply lg:absolute lg:inset-x-0 lg:top-[68px] lg:pt-9 lg:pb-10 lg:visible bg-white-black lg:hidden
 }
+
 .navigation .menu__container {
   @apply lg:mx-auto lg:max-w-7xl lg:px-8
 }
-.navigation .menu__item.show .menu__submenu{
+
+.navigation .menu__item.show .menu__submenu {
   @apply visible opacity-100
 }
-.navigation .menu__item.show .menu__link{
+
+.navigation .menu__item.show .menu__link {
   @apply text-blue-600-400
 }
+
 .navigation .menu__item.show .menu__arow {
   @apply rotate-180
 }
-.navigation .menu__item.hide .menu__submenu{
+
+.navigation .menu__item.hide .menu__submenu {
   @apply invisible lg:visible opacity-0 lg:opacity-100
 }
+
 .navigation .menu__item:hover .menu__submenu {
   @apply block
 }
+
 .navigation .submenu {
   @apply w-full
 }
+
 .navigation .submenu__wrap {
-  @apply lg:pl-menucalc xl:pl-[266px] lg:flex lg:items-start
+  @apply lg:pl-menucalc xl:pl-[253px] lg:flex lg:items-start
 }
+
 .navigation .submenu__list {
-  @apply w-full lg:max-w-[425px] xl:me-8 lg:columns-2 lg:space-y-4 pb-6 lg:pb-0
+  @apply w-full lg:max-w-[425px] xl:me-8 lg:columns-2 lg:space-y-4 pb-6 lg:pb-0 pt-6 lg:pt-0
 }
-.navigation .menu__item.hide .submenu__wrap{
+
+.navigation .menu__item.hide .submenu__wrap {
   @apply hidden lg:flex
 }
+
 .navigation .submenu__link {
-  @apply text-gray-600-white text-lg xl:text-xl py-2.5 lg:p-0 inline-block
+  @apply text-gray-600-white text-lg xl:text-xl py-2.5 lg:p-0 block
 }
+
 .navigation .submenu__link:hover {
   @apply lg:text-blue-600-400
 }
+
+.navigation .submenu__link:focus {
+  @apply outline-1 outline-dashed outline-blue-400
+}
+
 .navigation .submenu__descr {
   @apply ps-10 hidden lg:block border-s border-gray-300-600 w-full max-w-[245px]
 }
+
 .navigation .submenu__title {
   @apply text-3xl text-black-white
 }
+
 .navigation .submenu__text {
   @apply mt-2 text-gray-600-300
 }

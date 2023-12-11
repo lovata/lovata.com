@@ -1,0 +1,10 @@
+<form class="form">
+    <div class="form__wrap">
+        {% partial 'elements/input/input' name="name" label="Your name *" %}
+        {% partial 'elements/input/input' name="email" label="Your email *" %}
+        {% partial 'elements/input/input' name="number" label="Your phone number" %}
+        {% partial 'elements/input/input' name="project" label="Brief description of your project *" %}
+        {% partial 'elements/checkbox/checkbox' sName="checkbox" labelText="I have read and agree to the Privacy Policy *" %}
+        <button class="w-full lg:w-auto mt-10 lg:mt-0 lg:flex bg-black-white text-white-black px-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 py-3">Send</button>
+    </div>
+</form>

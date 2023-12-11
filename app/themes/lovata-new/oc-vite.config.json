@@ -1,7 +1,10 @@
 {
   "entrypoints": {
     "paths": [
-        "assets/css/common.css",
+        "assets/css/main.css",
+        "assets/css/light.css",
+        "assets/css/dark.css",
+        "assets/js/common.js",
         "assets/js/index.js"
     ]
   }
