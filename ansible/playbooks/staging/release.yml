@@ -1,0 +1,50 @@
+- name: 'Add staging docker host'
+  hosts: localhost
+  tasks:
+      # Gather facts
+      - name: 'Include global vars'
+        include_vars:
+            dir: ./../../vars/global
+      - name: 'Include staging vars'
+        include_vars:
+            dir: ./../../vars/staging
+      - add_host:
+            env: "staging"
+            hostname: "staging_app"
+            ansible_connection: "ssh"
+            ansible_host: "{{ SERVER_IP }}"
+            ansible_port: "{{ SERVER_PORT }}"
+            ansible_ssh_pass: "{{ USER_PASSWORD }}"
+            ansible_sudo_pass: "{{ USER_PASSWORD }}"
+            ansible_python_interpreter: "/usr/bin/python3"
+- name: 'Configure server for app_user'
+  hosts: "staging_app"
+  remote_user: "app_user"
+  tasks:
+      # Gather facts
+      - name: 'Include global vars'
+        include_vars:
+            dir: ./../../vars/global
+      - name: 'Include staging vars'
+        include_vars:
+            dir: ./../../vars/staging
+
+      # Update project via git
+      - name: "Clone app repo"
+        git:
+            repo: "git@github.com-lovata.com:lovata/lovata.com.git"
+            dest: "{{ PATH_TO_PROJECT_FOLDER }}"
+            version: "{{ GIT_VERSION }}"
+            force: yes
+      - name: 'Run npm prod'
+        command: "make app-npm-build inventory={{ env }}"
+        args:
+          chdir: "{{ PATH_TO_PROJECT_FOLDER }}"
+      - name: 'Run composer install'
+        command: "make app-composer-install inventory={{ env }}"
+        args:
+          chdir: "{{ PATH_TO_PROJECT_FOLDER }}"
+      - name: 'Run migrations'
+        command: "make app-migrate inventory={{ env }}"
+        args:
+          chdir: "{{ PATH_TO_PROJECT_FOLDER }}"

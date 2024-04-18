@@ -2,3 +2,5 @@
 !.gitignore
 !snippets
 !snippets/*
+!snippets/staging/*
+!.htpasswd
