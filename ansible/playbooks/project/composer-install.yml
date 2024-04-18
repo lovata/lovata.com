@@ -30,8 +30,12 @@
     - name: 'Run command'
       when:
         - env == "local"
-      raw: "composer install"
+      command: "composer install"
+      args:
+          chdir: "{{ APP_CODE_PATH_CONTAINER }}"
     - name: 'Run command'
       when:
         - env != "local"
-      raw: "composer install -q --no-ansi --no-interaction --no-progress --prefer-dist --no-scripts"
+      command: "composer install -q --no-ansi --no-interaction --no-progress --prefer-dist --no-scripts"
+      args:
+          chdir: "{{ APP_CODE_PATH_CONTAINER }}"
