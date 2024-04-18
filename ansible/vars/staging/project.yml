@@ -12,6 +12,6 @@ ENABLE_REDIS: false
 ENABLE_QUEUE: false
 ENABLE_MAILPIT: true
 
-SAIL_XDEBUG_MODE: off
+SAIL_XDEBUG_MODE: 'off'
 
 APP_CODE_PATH_CONTAINER: /var/www/html/lovata.com/app
