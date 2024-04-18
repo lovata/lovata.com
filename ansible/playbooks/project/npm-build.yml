@@ -28,7 +28,7 @@
       include_vars:
           dir: ./../../vars/{{ env }}
     - name: 'Run npm i'
-      command: "npm run i"
+      command: "npm i"
       args:
         chdir: "{{ APP_CODE_PATH_CONTAINER }}/themes/lovata-new"
     - name: 'Run npm build'
