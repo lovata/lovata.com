@@ -1,0 +1,97 @@
+version: '3.9'
+services:
+    backend_app:
+        restart: "{{ RESTART_POLICY }}"
+        build:
+            context: ./docker/php/${PHP_VERSION}
+            dockerfile: Dockerfile
+            args:
+                MODE: app
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        image: app/php:${PHP_VERSION}
+        environment:
+            CONTAINER_ROLE: 'app'
+            APP_CODE_PATH_CONTAINER: '${APP_CODE_PATH_CONTAINER}'
+            COMPOSE_INTERACTIVE_NO_CLI: 1
+            LARAVEL_SAIL: 1
+            WWWUSER: '${WWWUSER}'
+            WWWGROUP: '${WWWGROUP}'
+            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
+            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
+            NODE_VERSION: '${NODE_VERSION}'
+            POSTGRES_VERSION: '${PGSQL_VERSION}'
+        volumes:
+            - '${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}'
+            - './temp:/home/sail/temp'
+        networks:
+            lovata_frontend:
+                aliases:
+                    - {{ SHORT_PROJECT_NAME }}_backend_app
+            lovata_backend:
+                aliases:
+                    - {{ SHORT_PROJECT_NAME }}_backend_app
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+    schedule:
+        restart: "{{ RESTART_POLICY }}"
+        build:
+            context: ./docker/php/${PHP_VERSION}
+            dockerfile: Dockerfile
+            args:
+                MODE: main
+        image: main/php:${PHP_VERSION}
+        environment:
+            CONTAINER_ROLE: 'schedule'
+            APP_CODE_PATH_CONTAINER: '${APP_CODE_PATH_CONTAINER}'
+            COMPOSE_INTERACTIVE_NO_CLI: 1
+            LARAVEL_SAIL: 1
+            WWWUSER: '${WWWUSER}'
+            WWWGROUP: '${WWWGROUP}'
+        volumes:
+            - '${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}'
+        networks:
+            lovata_backend:
+                aliases:
+                    - {{ SHORT_PROJECT_NAME }}_schedule
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+{% if ENABLE_QUEUE %}
+    queue:
+        restart: "no"
+        build:
+            context: ./docker/php/${PHP_VERSION}
+            dockerfile: Dockerfile
+            args:
+                MODE: main
+        image: main/php:${PHP_VERSION}
+        environment:
+            CONTAINER_ROLE: 'queue'
+            APP_CODE_PATH_CONTAINER: '${APP_CODE_PATH_CONTAINER}'
+            COMPOSE_INTERACTIVE_NO_CLI: 1
+            LARAVEL_SAIL: 1
+            WWWUSER: '${WWWUSER}'
+            WWWGROUP: '${WWWGROUP}'
+        volumes:
+            - '${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}'
+        networks:
+            lovata_backend:
+                aliases:
+                    - {{ SHORT_PROJECT_NAME }}_queue
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "10m"
+                max-file: "3"
+{% endif %}
+networks:
+    lovata_frontend:
+        external: true
+    lovata_backend:
+        external: true

@@ -1,5 +1,5 @@
 inventory = local
-sail_path=./app/vendor/bin/sail
+version = develop
 
 # Run/build/stop project
 local-init:
@@ -24,6 +24,15 @@ app-create-database:
 app-apply-dump:
 	ansible-playbook --vault-id .vault-password-$(inventory) ansible/playbooks/project/apply-dump.yml -i ansible/$(inventory)-hosts.yml
 	make app-migrate
+
+# Staging commands
+staging-release:
+	ansible-playbook --vault-id .vault-password-staging ansible/playbooks/staging/release.yml -i ansible/staging-hosts.yml --extra-vars "GIT_VERSION=$(version)"
+staging-init:
+	ansible-playbook --vault-id .vault-password-staging ansible/playbooks/init/init-docker.yml -i ansible/staging-hosts.yml
+	ansible-playbook --vault-id .vault-password-staging ansible/playbooks/staging/init-nginx.yml -i ansible/staging-hosts.yml
+	ansible-playbook --vault-id .vault-password-staging ansible/playbooks/init/init-app.yml -i ansible/staging-hosts.yml
+
 
 # Docker commands
 docker-status:
