@@ -24,6 +24,8 @@ app-create-database:
 app-apply-dump:
 	ansible-playbook --vault-id .vault-password-$(inventory) ansible/playbooks/project/apply-dump.yml -i ansible/$(inventory)-hosts.yml
 	make app-migrate
+app-npm-build:
+	ansible-playbook --vault-id .vault-password-$(inventory) ansible/playbooks/project/npm-build.yml -i ansible/$(inventory)-hosts.yml
 
 # Staging commands
 staging-release:
