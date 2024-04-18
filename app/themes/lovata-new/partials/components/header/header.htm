@@ -161,8 +161,9 @@
                 <div class="me-8">
                     {% partial 'extends/toggle-theme/toggle-theme' %}
                 </div>
-
-                {% partial 'extends/language/language' %}
+                {% if sitePicker.sites|length > 1 %}
+                    {% partial 'extends/language/language' %}
+                {% endif %}
             </div>
             <button class="w-full lg:w-auto mt-10 lg:mt-0 lg:flex bg-black-white text-white-black px-6 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 py-3">Send request</button>
         </nav>
