@@ -1,13 +1,16 @@
 import { defineConfig } from 'vite';
 import october from 'vite-plugin-october';
 import tailwindcss from 'tailwindcss';
-import { resolve } from 'path'
+import { ViteMinifyPlugin } from 'vite-plugin-minify'
 
-console.log(resolve(__dirname, './'));
 export default defineConfig({
+  server: {
+    port: 3000,
+  },
   plugins: [
     tailwindcss(),
     october(),
+    ViteMinifyPlugin({}),
   ]
 });
 
