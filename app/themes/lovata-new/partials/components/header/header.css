@@ -63,6 +63,8 @@
   @apply outline-1 outline-dashed outline-blue-400
 }
 
+.navigation .menu__item:focus-within .menu__link,
+.navigation .menu__item:focus .menu__link,
 .navigation .menu__item:hover .menu__link {
   @apply lg:text-blue-600-400
 }
@@ -71,6 +73,8 @@
   @apply w-4 h-4 ms-1 transition-all
 }
 
+.navigation .menu__item:focus-within .menu__arow,
+.navigation .menu__item:focus .menu__arow,
 .navigation .menu__item:hover .menu__arow {
   @apply lg:rotate-180
 }
@@ -99,6 +103,8 @@
   @apply invisible lg:visible opacity-0 lg:opacity-100
 }
 
+.navigation .menu__item:focus-within .menu__submenu,
+.navigation .menu__item:focus .menu__submenu,
 .navigation .menu__item:hover .menu__submenu {
   @apply block
 }

@@ -7,16 +7,9 @@ export default new class Header {
     }
 
     showMenuforMobile (event) {
-        console.log('showMenuforMobile click')
         const elem = event.target.parentNode.parentNode
-        if (elem.classList.contains('hide')) {
-            const heightSubMenu = elem.querySelector('ul').clientHeight + 'px'
-            elem.classList.remove('hide')
-            elem.classList.add('show')
-        } else {
-            elem.classList.remove('show')
-            elem.classList.add('hide')
-        }
+        elem.classList.contains('hide') ? this.showDesctopMenu() : this.hideDesctopMenu(elem)
+
     }
 
     addEventMobile () {
@@ -34,14 +27,35 @@ export default new class Header {
                 })
                 const submenu = document.querySelectorAll('.js-show-submenu.show')
                 if (submenu) {
-                    submenu.forEach(menu => {
-                        menu.classList.remove('show')
-                        menu.classList.add('hide')
-                    })
+                    submenu.forEach(menu => this.hideDesctopMenu(menu))
                 }
             } else this.addEventMobile()
             this.screen = screenWidth
         }
+    }
+
+    focusEvent() {
+        const submenu = document.querySelectorAll('.js-show-submenu')
+        if (submenu) {
+            submenu.forEach(button => {
+
+                button.addEventListener("focusin", (event) => {
+                    this.showDesctopMenu(event.target.closest(".js-show-submenu"))
+                });
+                button.addEventListener("focusout", (event) => {
+                    this.hideDesctopMenu(event.target.closest(".js-show-submenu"))
+                });
+            })
+        }
+    }
+
+    hideDesctopMenu(btn) {
+        btn.classList.remove('show')
+        btn.classList.add('hide')
+    }
+    showDesctopMenu(btn) {
+        btn.classList.add('show')
+        btn.classList.remove('hide')
     }
 
     burgerMenu () {
@@ -64,6 +78,7 @@ export default new class Header {
         document.addEventListener('DOMContentLoaded', () => {
             this.menu = document.querySelectorAll('.js-show-submenu')
             this.bindEvent()
+            this.focusEvent()
             this.burgerMenu()
             window.addEventListener('resize', () => {
                 this.bindEvent()

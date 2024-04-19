@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import october from 'vite-plugin-october';
 import tailwindcss from 'tailwindcss';
-import { resolve } from 'path'
+import { ViteMinifyPlugin } from 'vite-plugin-minify'
 
 export default defineConfig({
   server: {
@@ -10,6 +10,7 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     october(),
+    ViteMinifyPlugin({}),
   ]
 });
 

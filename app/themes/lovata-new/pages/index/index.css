@@ -9,4 +9,5 @@
 @import '../../partials/extends/toggle-theme/toggle-theme.css';
 @import '../../partials/extends/language/language.css';
 @import '../../partials/elements/input/input.css';
+@import '../../partials/elements/input-file/input-file.css';
 @import '../../partials/elements/checkbox/checkbox.css';

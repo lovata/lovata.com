@@ -3,10 +3,7 @@ const darkStyles = document.querySelectorAll('link[rel=stylesheet][media*=prefer
 
 function setupSwitcher () {
   getSavedScheme();
-  const switcherButton = document.querySelectorAll('.js-toggle-theme')
-
-  console.log("switcherButton")
-  console.log(switcherButton)
+  const switcherButton = document.querySelectorAll('.js-toggle-theme');
   switcherButton.forEach((button) => {
 
     button.addEventListener('click', () => {
