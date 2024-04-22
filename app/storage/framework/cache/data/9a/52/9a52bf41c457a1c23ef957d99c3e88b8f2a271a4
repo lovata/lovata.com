@@ -1,0 +1,20 @@
+1713858556a:1:{s:25:"head/cmspage-metadata.htm";a:5:{s:8:"fileName";s:25:"head/cmspage-metadata.htm";s:7:"content";s:452:"{% put seo_metadata %}
+    {% set sMetaTitle = this.page.meta_title ? this.page.meta_title : this.page.title %}
+    <title>{{ sMetaTitle }}</title>
+    {% if this.page.meta_description is not empty %}
+        <meta name="description" content="{{ this.page.meta_description|raw }}">
+    {% endif %}
+    {% if this.page.meta_keywords is not empty %}
+        <meta name="keywords" content="{{ this.page.meta_keywords|raw }}">
+    {% endif %}
+{% endput %}
+";s:5:"mtime";i:1709634859;s:6:"markup";s:451:"{% put seo_metadata %}
+    {% set sMetaTitle = this.page.meta_title ? this.page.meta_title : this.page.title %}
+    <title>{{ sMetaTitle }}</title>
+    {% if this.page.meta_description is not empty %}
+        <meta name="description" content="{{ this.page.meta_description|raw }}">
+    {% endif %}
+    {% if this.page.meta_keywords is not empty %}
+        <meta name="keywords" content="{{ this.page.meta_keywords|raw }}">
+    {% endif %}
+{% endput %}";s:4:"code";N;}}

@@ -1,0 +1,22 @@
+1713861020a:1:{s:32:"components/feedback/feedback.htm";a:5:{s:8:"fileName";s:32:"components/feedback/feedback.htm";s:7:"content";s:455:"<section class="feedback">
+    <div class="feedback__wrap">
+        <div class="feedback__left">
+            <h2 class="title">Have a business challenge?</h2>
+            <p class="feedback__subtitle">Is there a challenge your company looking for a partner to solve? <br>We’d love to discuss it.</p>
+        </div>
+        <div class="feedback__form">
+            {% partial 'extends/feedback-form/feedback-form' %}
+        </div>
+    </div>
+</section>
+";s:5:"mtime";i:1713773893;s:6:"markup";s:454:"<section class="feedback">
+    <div class="feedback__wrap">
+        <div class="feedback__left">
+            <h2 class="title">Have a business challenge?</h2>
+            <p class="feedback__subtitle">Is there a challenge your company looking for a partner to solve? <br>We’d love to discuss it.</p>
+        </div>
+        <div class="feedback__form">
+            {% partial 'extends/feedback-form/feedback-form' %}
+        </div>
+    </div>
+</section>";s:4:"code";N;}}

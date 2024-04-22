@@ -3,13 +3,16 @@ import tailwindcss from 'tailwindcss';
 import { resolve, basename, join } from 'path';
 import { globSync } from 'glob';
 
-const pagesPath = join(__dirname, 'pages');
-const input = {
-    main: resolve(__dirname, 'assets/js/index.js'),
-    css: resolve(__dirname, 'assets/css/common.css'),
-}
+const input = {}
 
-const fileList= globSync(`${pagesPath}/**/*.+(js|css)`);
+const pagesPath = join(__dirname, 'pages');
+let fileList= globSync(`${pagesPath}/**/*.+(js|css)`);
+
+const assetsPath = join(__dirname, 'assets');
+const assetCssFileList= globSync(`${pagesPath}/css/*.+(js|css)`);
+const assetJSFileList= globSync(`${pagesPath}/js/*.+(js|css)`);
+
+fileList = [...fileList, ...assetCssFileList, ...assetJSFileList];
 fileList.forEach((filePath) => {
     const fileName = filePath.replace(join(__dirname, '/'), '');
     input[fileName] = filePath;

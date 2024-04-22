@@ -1,0 +1,27 @@
+.checkbox {
+  @apply flex items-start relative
+}
+
+.checkbox__input {
+  @apply border h-4 w-4 border-gray-600-500 text-black rounded-none opacity-0 absolute z-0
+}
+
+.checkbox__label {
+  @apply text-lg flex items-start space-x-2 cursor-pointer text-gray-600-300
+}
+
+.checkbox__box {
+  @apply w-4 h-4 border border-gray-400 flex items-center justify-center mt-1
+}
+
+.checkbox__icon {
+  @apply opacity-0
+}
+
+.checkbox__input:checked + .checkbox__label .checkbox__icon {
+  @apply bg-black-white text-white-black opacity-100
+}
+
+.checkbox__input:focus-visible + .checkbox__label .checkbox__box {
+  @apply outline-2 ring-2 outline-white ring-blue-600
+}

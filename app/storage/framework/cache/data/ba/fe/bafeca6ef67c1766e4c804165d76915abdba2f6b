@@ -1,0 +1,27 @@
+1713861019a:1:{s:15:"index/index.htm";a:12:{s:8:"fileName";s:15:"index/index.htm";s:7:"content";s:1362:"url = "/"
+layout = "main"
+title = "index"
+is_hidden = 0
+meta_title = "LOVATA: Software Product Development Services Company"
+meta_description = "LOVATA is an award-winning software product development company that provides custom web and mobile app development services based on open-source technologies."
+meta_keywords = "software product development company, web application development, web software development company, custom software development, mobile app development company, website and software development company, product software development, software product development, software development company, software development services, product development services, product development services companies, software product development services, software app development, app development, web development, software application development, app development companies, software companies, offshore software development, it outsourcing, software developer companies, software developer company, web design company, web apps, agile software development"
+
+==
+{% partial 'head/cmspage-metadata' %}
+{% partial 'components/main/main' %}
+
+{% partial 'components/services/services' %}
+{% partial 'components/expertise/expertise' %}
+{% partial 'components/cases/cases' %}
+{% partial 'components/reviews/reviews' %}
+{% partial 'components/feedback/feedback' %}
+
+
+";s:5:"mtime";i:1713773893;s:6:"markup";s:294:"{% partial 'head/cmspage-metadata' %}
+{% partial 'components/main/main' %}
+
+{% partial 'components/services/services' %}
+{% partial 'components/expertise/expertise' %}
+{% partial 'components/cases/cases' %}
+{% partial 'components/reviews/reviews' %}
+{% partial 'components/feedback/feedback' %}";s:4:"code";N;s:3:"url";s:1:"/";s:6:"layout";s:4:"main";s:5:"title";s:5:"index";s:9:"is_hidden";s:1:"0";s:10:"meta_title";s:53:"LOVATA: Software Product Development Services Company";s:16:"meta_description";s:159:"LOVATA is an award-winning software product development company that provides custom web and mobile app development services based on open-source technologies.";s:13:"meta_keywords";s:736:"software product development company, web application development, web software development company, custom software development, mobile app development company, website and software development company, product software development, software product development, software development company, software development services, product development services, product development services companies, software product development services, software app development, app development, web development, software application development, app development companies, software companies, offshore software development, it outsourcing, software developer companies, software developer company, web design company, web apps, agile software development";}}

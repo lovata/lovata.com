@@ -1,0 +1,91 @@
+.footer {
+  @apply bg-gray-50-natural-900
+}
+
+.footer__inner {
+  @apply mx-auto max-w-7xl px-4 md:px-6 lg:px-8
+}
+
+.footer__wrap {
+  @apply lg:flex lg:space-x-5 justify-between py-7 md:py-12
+}
+
+.footer__bottom {
+  @apply md:flex md:justify-between border-t border-gray-300-600 pt-8 pb-12 md:space-x-5 text-sm
+}
+
+.footer__contact {
+  @apply mb-12 lg:mb-0
+}
+
+.footer .contact {
+  @apply flex items-start space-x-3 text-gray-500-300
+}
+
+.footer .contact__icon {
+  @apply w-6 h-6
+}
+
+.footer .footer__address {
+  @apply not-italic w-44 text-lg leading-6
+}
+
+.footer .menu {
+  @apply lg:flex columns-2 space-x-2 lg:space-x-12 space-y-12 lg:space-y-0
+}
+
+.footer .menu__title {
+  @apply font-bold uppercase text-sm lg:text-lg mb-4 lg:mb-3 tracking-[0.9px] text-black-white
+}
+
+.footer .menu__list {
+  @apply grid grid-rows-1 xl:grid-rows-5 xl:grid-flow-col gap-x-12 gap-y-4 lg:gap-y-3 lg:text-lg text-gray-600-300
+}
+
+.footer .menu__item {
+  @apply md:whitespace-nowrap
+}
+
+.footer .menu__link {
+  @apply text-gray-600-300 hover:text-blue-600-400
+}
+
+.footer .menu__link:focus {
+  @apply outline-1 outline-dashed outline-blue-400
+}
+
+.footer__container {
+  @apply flex justify-between md:justify-start space-x-6 xl:space-x-10
+}
+
+.footer__copy {
+  @apply text-gray-600-300 whitespace-nowrap
+}
+
+.footer__static {
+  @apply text-gray-600-300 whitespace-nowrap hover:text-blue-600-400
+}
+
+.footer__static:focus {
+  @apply outline-1 outline-dashed outline-blue-400
+}
+
+.footer__logos {
+  @apply mt-8 md:mt-0
+}
+
+.footer .logos {
+  @apply flex justify-between space-x-4 md:space-x-6
+}
+
+.footer .logos__icon {
+  @apply w-[24px]
+}
+
+.logos__link {
+  @apply block
+}
+
+.logos__link:focus {
+  @apply outline-1 outline-dashed outline-blue-400
+}

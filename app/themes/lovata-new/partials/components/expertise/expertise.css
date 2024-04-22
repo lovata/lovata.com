@@ -1,0 +1,23 @@
+.expertise__inner {
+  @apply pb-24 pt-[60px] md:py-24 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8
+}
+
+.expertise__wrap {
+  @apply mt-12 md:mt-16 grid lg:grid-cols-2 gap-x-8 gap-y-12
+}
+
+.expertise__item {
+  @apply flex space-x-4
+}
+
+.expertise__icon {
+  @apply w-9 h-9 md:w-10 md:h-10 shrink-0
+}
+
+.expertise__title {
+  @apply text-3xl	md:text-4xl underline text-black-white
+}
+
+.expertise__text {
+  @apply mt-2.5 font-light leading-snug text-2xl text-gray-600-300
+}

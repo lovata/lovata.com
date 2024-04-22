@@ -1,0 +1,8 @@
+1713861020a:1:{s:24:"elements/input/input.htm";a:5:{s:8:"fileName";s:24:"elements/input/input.htm";s:7:"content";s:223:"<field-text class="field js-field">
+    <label class="field__label js-field-label" for="{{name}}">{{label}}</label>
+    <input class="field__input js-field-input" id="{{name}}" type="text" name="{{ name }}"/>
+</field-text>
+";s:5:"mtime";i:1713773893;s:6:"markup";s:222:"<field-text class="field js-field">
+    <label class="field__label js-field-label" for="{{name}}">{{label}}</label>
+    <input class="field__input js-field-input" id="{{name}}" type="text" name="{{ name }}"/>
+</field-text>";s:4:"code";N;}}

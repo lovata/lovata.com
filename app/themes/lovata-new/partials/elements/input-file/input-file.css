@@ -1,0 +1,32 @@
+.input-file__clip {
+  @apply me-3;
+}
+.input-file__label {
+  @apply transition ease-in-out inline-flex items-center bg-white-black hover:bg-black-white border border-gray-400-500 px-6 py-3 cursor-pointer text-gray-600-300 hover:text-gray-300-600
+}
+.input-file__input {
+  @apply sr-only
+}
+.input-file__input:focus + .input-file__label {
+  @apply bg-black-white text-gray-300-600
+}
+
+.input-file__attachment {
+  @apply flex items-center space-x-1.5
+}
+.input-file__name {
+  @apply line-clamp-1 text-lg text-gray-600-500
+}
+.input-file__close {
+  @apply text-black-white
+}
+
+.input-file__icon {
+  @apply shrink-0
+}
+
+.input-file__error {
+  @apply text-red-500 mt-2.5 block text-sm
+}
+
+.input-file__error:first-letter { text-transform: capitalize !important; }

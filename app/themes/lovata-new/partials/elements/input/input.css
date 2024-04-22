@@ -1,0 +1,14 @@
+.field {
+  @apply relative block w-full
+}
+
+.field__label {
+  @apply absolute text-gray-600-300 text-xl lg:text-2xl top-2 font-light transition-all ease-linear
+}
+.field__label.high {
+  @apply text-base -top-6
+}
+
+.field .field__input {
+  @apply text-xl lg:text-2xl font-light pb-2 pt-1 mt-1 border-b border-gray-400-500 text-black-white w-full outline-dashed outline-2 bg-white-black outline-offset-2 outline-transparent focus-visible:outline-blue-600
+}

@@ -1,0 +1,1 @@
+1713815385a:6:{s:5:"title";s:14:"Manage Updates";s:4:"list";s:50:"~/modules/system/models/pluginversion/columns.yaml";s:10:"modelClass";s:27:"System\Models\PluginVersion";s:16:"noRecordsMessage";s:29:"backend::lang.list.no_records";s:9:"recordUrl";s:26:"system/market/plugin/:slug";s:7:"toolbar";a:1:{s:7:"buttons";s:12:"list_toolbar";}}

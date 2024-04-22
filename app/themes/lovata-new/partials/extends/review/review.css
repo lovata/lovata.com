@@ -1,0 +1,19 @@
+.review .review__header {
+  @apply sm:flex sm:items-start sm:space-x-8 mb-px
+}
+
+.review__stars {
+  @apply flex items-center space-x-1 mt-1 sm:mt-px
+}
+
+.review__name {
+  @apply text-2xl uppercase text-black-white
+}
+
+.review__author {
+  @apply text-gray-600-300 uppercase mt-1
+}
+
+.review__text {
+  @apply text-3xl lg:text-4xl mt-6 sm:mt-4 text-black-white
+}

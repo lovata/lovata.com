@@ -1,6 +1,6 @@
 [SeoToolbox]
 ==
-<!DOCTYPE html  dir="ltl">
+<!DOCTYPE html>
 <html prefix="og: http://ogp.me/ns#" lang="en">
 <head>
      {# Render metric code after head tag #}
@@ -14,16 +14,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" type="image/png" href="{{ 'assets/img/favicon-32x32.png'|theme }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ 'assets/img/favicon-16x16.png'|theme }}" sizes="16x16">
-    {{ vite(['assets/css/common.css']) }}
+    {{ vite(['assets/css/main.css']) }}
     {# Render metric code before /head tag #}
 
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#c7cbcc">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#273a43">
+
+    <script>
+      if (matchMedia('(prefers-color-scheme: dark)').media === 'not all') {
+        document.documentElement.style.display = 'none';
+        document.head.insertAdjacentHTML(
+          'beforeend',
+          '{{ vite([{ path: 'assets/css/light.css', onload: "document.documentElement.style.display=" }]) }}'
+        );
+      }
+    </script>
+
+
+
+    {{ vite([{ path: 'assets/css/light.css', media: "(prefers-color-scheme: light)" }]) }}
+    {{ vite([{ path: 'assets/css/dark.css', media: "(prefers-color-scheme: dark)" }]) }}
+    {{ vite([{ path: 'assets/js/common.js' }]) }}
     {{ SeoToolbox.getHeadEnd()|raw }}
 </head>
-<body class="flex h-full flex-col min-h-screen">
+<body class="flex h-full flex-col min-h-screen bg-white-black">
     {% partial 'components/header/header' %}
     <main class="flex-grow">
         {% page %}
     </main>
+
     {% partial 'components/footer/footer' %}
     {{ vite(['assets/js/index.js']) }}
 </body>
