@@ -1,1 +1,0 @@
-1713815385a:7:{s:4:"list";s:57:"~/modules/system/models/pluginversion/columns_manage.yaml";s:10:"modelClass";s:27:"System\Models\PluginVersion";s:16:"noRecordsMessage";s:29:"backend::lang.list.no_records";s:9:"showSetup";b:0;s:14:"showCheckboxes";b:1;s:13:"recordOnClick";s:28:"$.oc.listToggleChecked(this)";s:7:"toolbar";a:1:{s:7:"buttons";s:19:"list_manage_toolbar";}}
