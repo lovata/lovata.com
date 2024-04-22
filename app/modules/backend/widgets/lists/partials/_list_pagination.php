@@ -59,6 +59,7 @@
                                 class="page-link page-dots"
                                 data-control="popover"
                                 data-content-from="#<?= $this->getId('pageChooserPopover') ?>"
+                                data-fallback-placement="left"
                                 data-load-indicator="<?= e(trans('backend::lang.list.loading')) ?>">
                                 <?= e($element) ?>
                             </a>

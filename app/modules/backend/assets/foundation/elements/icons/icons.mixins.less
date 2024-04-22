@@ -1,43 +1,21 @@
-// Mixins
-// --------------------------
-
 .icon(@icon) {
-    .icon-FontAutumn();
+    .icon-OctoFont();
     content: @icon;
 }
 
-.icon-FontAutumn() {
-    font-family: FontAwesome;
-    font-weight: normal;
+.icon-OctoFont() {
+    // use !important to prevent issues with browser extensions that change fonts
+    font-family: 'octo-icon' !important;
+    speak: none;
     font-style: normal;
-    text-decoration: inherit;
-    -webkit-font-smoothing: antialiased;
-}
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
 
-.icon-stack(@width: 2em, @height: 2em, @top-font-size: 1em, @base-font-size: 2em) {
-    .icon-stack {
-        position: relative;
-        display: inline-block;
-        width: @width;
-        height: @height;
-        line-height: @width;
-        vertical-align: -35%;
-        [class^="icon-"],
-        [class*=" icon-"] {
-            display: block;
-            text-align: center;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            font-size: @top-font-size;
-            line-height: inherit;
-            *line-height: @height;
-        }
-        .icon-stack-base {
-            font-size: @base-font-size;
-            *line-height: @height / @base-font-size;
-        }
-    }
+    // Better Font Rendering ===========
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 // Scroll markers
@@ -52,7 +30,7 @@
         display: none;
 
         &:after {
-            .icon(@ellipsis-h);
+            .icon(@icon-ellipsis-h);
             display: block;
             position: absolute;
             left: 50%;
@@ -89,12 +67,12 @@
 
     &:before {
         left: -6px;
-        .icon(@angle-left);
+        .icon(@icon-angle-left);
     }
 
     &:after {
         right: -8px;
-        .icon(@angle-right);
+        .icon(@icon-angle-right);
     }
 
     &.scroll-before:before { display: block; }

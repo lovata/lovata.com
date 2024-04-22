@@ -9,7 +9,7 @@
  * JavaScript API:
  * $('a#someElement').rowLink()
  *
- * Dependences:
+ * Dependencies:
  * - Null
  */
 

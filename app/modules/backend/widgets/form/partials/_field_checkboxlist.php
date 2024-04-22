@@ -28,10 +28,10 @@
                         checked
                     />
                     <label class="form-check-label" for="<?= $checkboxId ?>">
-                        <?= e(__($option[0])) ?>
+                        <?= $field->getDisplayValue($option[0]) ?>
                     </label>
                     <?php if (isset($option[1])): ?>
-                        <p class="form-text"><?= e(__($option[1])) ?></p>
+                        <p class="form-text"><?= $field->getDisplayValue($option[1]) ?></p>
                     <?php endif ?>
                 </div>
             <?php endforeach ?>
@@ -54,7 +54,7 @@
                     <?= $field->disabled ? 'disabled' : '' ?>
                     <?= $field->readOnly ? 'readonly' : '' ?>
                     data-field-checkboxlist-all>
-                    <i class="octo-icon-check-multi"></i>
+                    <i class="icon-check-multi"></i>
                     <span class="button-label"><?= e(trans('backend::lang.form.select_all')) ?></span>
                 </a>
 
@@ -63,7 +63,7 @@
                     <?= $field->disabled ? 'disabled' : '' ?>
                     <?= $field->readOnly ? 'readonly' : '' ?>
                     data-field-checkboxlist-none>
-                    <i class="octo-icon-eraser"></i>
+                    <i class="icon-eraser"></i>
                     <span class="button-label"><?= e(trans('backend::lang.form.select_none')) ?></span>
                 </a>
             </div>
@@ -83,31 +83,35 @@
                 <?= $field->disabled ? 'disabled' : '' ?>
             />
 
-            <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
-                <?php
-                    $index++;
-                    $checkboxId = 'checkbox_'.$field->getId().'_'.$index;
-                    if (!is_array($option)) $option = [$option];
-                ?>
-                <div class="form-check <?= $inlineOptions ? 'form-check-inline' : '' ?>">
-                    <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="<?= $checkboxId ?>"
-                        name="<?= $field->getName() ?>[]"
-                        value="<?= e($value) ?>"
-                        <?= in_array($value, $checkedValues) ? 'checked="checked"' : '' ?>
-                        <?= $field->disabled ? 'disabled' : '' ?>
-                        <?= $field->readOnly ? 'onclick="return false"' : '' ?>
-                    />
-                    <label class="form-check-label" for="<?= $checkboxId ?>">
-                        <?= e(__($option[0])) ?>
-                    </label>
-                    <?php if (isset($option[1]) && strlen($option[1])): ?>
-                        <p class="form-text"><?= e(__($option[1])) ?></p>
-                    <?php endif ?>
-                </div>
-            <?php endforeach ?>
+            <?php if (count($fieldOptions)): ?>
+                <?php $index = 0; foreach ($fieldOptions as $value => $option): ?>
+                    <?php
+                        $index++;
+                        $checkboxId = 'checkbox_'.$field->getId().'_'.$index;
+                        if (!is_array($option)) $option = [$option];
+                    ?>
+                    <div class="form-check <?= $inlineOptions ? 'form-check-inline' : '' ?>">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="<?= $checkboxId ?>"
+                            name="<?= $field->getName() ?>[]"
+                            value="<?= e($value) ?>"
+                            <?= in_array($value, $checkedValues) ? 'checked="checked"' : '' ?>
+                            <?= $field->disabled ? 'disabled' : '' ?>
+                            <?= $field->readOnly ? 'onclick="return false"' : '' ?>
+                        />
+                        <label class="form-check-label" for="<?= $checkboxId ?>">
+                            <?= $field->getDisplayValue($option[0]) ?>
+                        </label>
+                        <?php if (isset($option[1]) && strlen($option[1])): ?>
+                            <p class="form-text"><?= $field->getDisplayValue($option[1]) ?></p>
+                        <?php endif ?>
+                    </div>
+                <?php endforeach ?>
+            <?php else: ?>
+                <p class="text-muted"><?= e(__($field->emptyOption)) ?></p>
+            <?php endif ?>
 
             <?php if ($isScrollable): ?>
                     </div>

@@ -80,7 +80,7 @@ trait DecodesCsv
         $options = array_merge($defaultOptions, $options);
 
         // Read CSV
-        $reader = CsvReader::createFromPath($filePath, 'r');
+        $reader = CsvReader::createFromPath($filePath);
 
         if ($options['delimiter'] !== null) {
             $reader->setDelimiter($options['delimiter']);

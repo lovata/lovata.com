@@ -41,6 +41,11 @@ trait ViewMaker
     public $suppressLayout = false;
 
     /**
+     * @var array viewPathGuessCache remembers path guesses for performance.
+     */
+    protected $viewPathGuessCache = [];
+
+    /**
      * addViewPath prepends a path on the available view path locations
      * @param string|array $path
      * @return void
@@ -248,7 +253,11 @@ trait ViewMaker
             $extraParams = [];
         }
 
-        $vars = array_merge($this->vars, $extraParams);
+        $vars = array_merge(
+            $this->vars,
+            $extraParams,
+            ['_context' => $extraParams]
+        );
 
         $obLevel = ob_get_level();
 
@@ -295,17 +304,35 @@ trait ViewMaker
     }
 
     /**
-     * guessViewPathFrom guesses the package path from a specified class
-     * @param string $class Class to guess path from.
-     * @param string $suffix An extra path to attach to the end
-     * @param bool $isPublic Returns public path instead of an absolute one
+     * guessViewPathFrom guesses the package path from a specified class, including
+     * an optional suffix to attach at the end, and the option to return a public
+     * path instead of a local one.
+     * @param string $class
+     * @param string $suffix
+     * @param bool $isPublic
      * @return string
      */
     public function guessViewPathFrom($class, $suffix = '', $isPublic = false)
     {
-        $classFolder = strtolower(class_basename($class));
-        $classFile = realpath(dirname(File::fromClass($class)));
-        $guessedPath = $classFile ? $classFile . '/' . $classFolder . $suffix : null;
+        // Pass to the controller to share the cache
+        if (isset($this->controller)) {
+            return $this->controller->guessViewPathFrom($class, $suffix, $isPublic);
+        }
+
+        if (is_object($class)) {
+            $class = get_class($class);
+        }
+
+        if (!array_key_exists($class, $this->viewPathGuessCache)) {
+            $classFolder = strtolower(class_basename($class));
+            $classFile = realpath(dirname(File::fromClass($class)));
+            $this->viewPathGuessCache[$class] = $classFile ? $classFile . '/' . $classFolder : null;
+        }
+
+        $guessedPath = $this->viewPathGuessCache[$class];
+        if ($guessedPath !== null) {
+            $guessedPath .= $suffix;
+        }
 
         return $isPublic ? File::localToPublic($guessedPath) : $guessedPath;
     }

@@ -10,7 +10,10 @@
 >
     <div class="component-header">
         <i :class="componentIcon"></i>
-        <h3 v-text="component.title"></h3>
+        <h3>
+            <span v-text="component.title"></span>
+            <span v-text="component.alias"></span>
+        </h3>
     </div>
     <p v-text="component.description"></p>
     <p class="component-alias oc-icon-code" v-text="component.alias"></p>

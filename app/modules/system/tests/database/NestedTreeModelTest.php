@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use Database\Tester\Models\CategoryNested;
 
 class NestedTreeModelTest extends PluginTestCase

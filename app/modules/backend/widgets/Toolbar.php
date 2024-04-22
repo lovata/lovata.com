@@ -25,6 +25,11 @@ class Toolbar extends WidgetBase
      */
     public $search;
 
+    /**
+     * @var string setupHandler displays a list configuration icon in the toolbar.
+     */
+    public $setupHandler;
+
     //
     // Object Properties
     //
@@ -57,6 +62,7 @@ class Toolbar extends WidgetBase
         $this->fillFromConfig([
             'buttons',
             'search',
+            'setupHandler',
         ]);
 
         // Prepare the search widget (optional)
@@ -91,6 +97,7 @@ class Toolbar extends WidgetBase
         $this->vars['search'] = $this->searchWidget ? $this->searchWidget->render() : '';
         $this->vars['cssClasses'] = implode(' ', $this->cssClasses);
         $this->vars['controlPanel'] = $this->makeControlPanel();
+        $this->vars['setupHandler'] = $this->setupHandler;
     }
 
     /**

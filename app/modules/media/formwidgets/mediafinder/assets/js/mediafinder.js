@@ -6,9 +6,9 @@
  * - data-option="value" - an option with a value
  *
  * JavaScript API:
- * $('a#someElement').recordFinder({ option: 'value' })
+ * $('a#someElement').mediaFinder({ option: 'value' })
  *
- * Dependences:
+ * Dependencies:
  * - Some other plugin (filename.js)
  */
 
@@ -72,15 +72,16 @@
         this.$el.on('click', 'input[data-record-selector]', this.proxy(this.onClickCheckbox));
         this.$el.on('change', 'input[data-record-selector]', this.proxy(this.onSelectionChanged));
 
-        this.initToolbarExtensionPoint();
-        this.initExternalToolbarEventBus();
-        this.mountExternalToolbarEventBusEvents();
-
         if (this.options.isSortable) {
             this.bindSortable();
         }
 
-        this.extendExternalToolbar();
+        // External toolbar
+        setTimeout(() => {
+            this.initToolbarExtensionPoint();
+            this.mountExternalToolbarEventBusEvents();
+            this.extendExternalToolbar();
+        }, 0);
     }
 
     MediaFinder.prototype.dispose = function() {
@@ -118,29 +119,15 @@
             return;
         }
 
-        // Expected format: tailor.app::toolbarExtensionPoint
-        const parts = this.options.externalToolbarAppState.split('::');
-        if (parts.length !== 2) {
-            throw new Error('Invalid externalToolbarAppState format. Expected format: module.name::stateElementName');
+        const point = $.oc.vueUtils.getToolbarExtensionPoint(
+            this.options.externalToolbarAppState,
+            this.$el.get(0)
+        );
+
+        if (point) {
+            this.toolbarExtensionPoint = point.state;
+            this.externalToolbarEventBusObj = point.bus;
         }
-
-        const app = oc.Modules.import(parts[0]);
-        this.toolbarExtensionPoint = app.state[parts[1]];
-    }
-
-    MediaFinder.prototype.initExternalToolbarEventBus = function() {
-        if (!this.options.externalToolbarEventBus) {
-            return;
-        }
-
-        // Expected format: tailor.app::eventBus
-        const parts = this.options.externalToolbarEventBus.split('::');
-        if (parts.length !== 2) {
-            throw new Error('Invalid externalToolbarEventBus format. Expected format: module.name::stateElementName');
-        }
-
-        const module = oc.Modules.import(parts[0]);
-        this.externalToolbarEventBusObj = module.state[parts[1]];
     }
 
     MediaFinder.prototype.mountExternalToolbarEventBusEvents = function() {
@@ -191,7 +178,7 @@
 
         $buttons.each(function () {
             var $button = $(this),
-                $icon = $button.find('i[class^=octo-icon]');
+                $icon = $button.find('i[class^=icon]');
 
             that.toolbarExtensionPoint.push(
                 {

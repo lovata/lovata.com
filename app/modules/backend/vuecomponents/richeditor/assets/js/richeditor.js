@@ -3,12 +3,13 @@ oc.Modules.register('backend.component.richeditor', function () {
         const options = JSON.parse(component.$el.getAttribute('data-configuration'));
         const $textarea = $(component.$refs.textarea);
         let froalaOptions = {
+            ...component.editorOptions,
             editorClass: 'control-richeditor',
             language: options.editorLang,
             toolbarSticky: false
         };
 
-        if (component.inlineMode) {
+        if (component.useLineBreaks) {
             froalaOptions.enter = $.FroalaEditor.ENTER_BR;
         }
 
@@ -162,7 +163,8 @@ oc.Modules.register('backend.component.richeditor', function () {
                 default: true
             },
             readOnly: Boolean,
-            inlineMode: Boolean,
+            useLineBreaks: Boolean,
+            editorOptions: Object,
             toolbarButtons: Array,
             fullPage: {
                 type: Boolean,

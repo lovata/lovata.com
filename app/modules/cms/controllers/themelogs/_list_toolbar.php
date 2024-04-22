@@ -15,7 +15,7 @@
         <?= e(trans('cms::lang.theme_log.empty_link')) ?>
     </a>
     <button
-        class="btn btn-danger oc-icon-trash-o"
+        class="btn btn-danger oc-icon-trash"
         data-request="onDelete"
         data-list-checked-trigger
         data-list-checked-request

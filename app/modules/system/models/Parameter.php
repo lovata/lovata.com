@@ -1,8 +1,10 @@
 <?php namespace System\Models;
 
+use Date;
 use Cache;
 use System;
 use October\Rain\Database\Model;
+use Exception;
 
 /**
  * Parameter model is used for storing internal application parameters.
@@ -181,5 +183,46 @@ class Parameter extends Model
     public static function clearInternalCache()
     {
         static::$cache = [];
+    }
+
+    /**
+     * getGatewayServiceData returns system parameters used to filter
+     * gateway and marketplace package requests by the current version
+     */
+    public static function getGatewayServiceData(): array
+    {
+        $serviceData = [];
+
+        // Include time alive time
+        try {
+            if ($sinceTimestamp = self::get('system::core.since')) {
+                $serviceData['since'] = $sinceTimestamp;
+            }
+            else {
+                $serviceData['since'] = PluginVersion::orderBy('created_at')->value('created_at')
+                    ?: Date::now()->format('Y-m-d H:i:s');
+
+                self::set('system::core.since', $serviceData['since']);
+            }
+        }
+        catch (Exception $ex) {
+            $serviceData['since'] = null;
+        }
+
+        // Include birthmark hash
+        try {
+            if ($birthHash = self::get('system::core.bash')) {
+                $serviceData['bash'] = $birthHash;
+            }
+            else {
+                $serviceData['bash'] = md5($serviceData['since'] ?: Date::now()->format('Y-m-d H:i:s')) . str_random(40);
+                self::set('system::core.bash', $serviceData['bash']);
+            }
+        }
+        catch (Exception $ex) {
+            $serviceData['bash'] = '-1';
+        }
+
+        return $serviceData;
     }
 }

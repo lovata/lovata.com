@@ -41,6 +41,6 @@ trait HasJoinTable
         $table->string('field_name')->nullable()->index();
         $table->integer('site_id')->nullable()->index();
 
-        $table->index(['relation_id', 'relation_type'], $table->getTable().'_idx');
+        $table->index(['parent_id', 'relation_type', 'field_name'], $table->getTable().'_idx');
     }
 }

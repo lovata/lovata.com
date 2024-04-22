@@ -4,6 +4,7 @@
 
 title: Access Log
 list: ~/modules/backend/models/accesslog/columns.yaml
+filter: ~/modules/backend/models/accesslog/scopes.yaml
 modelClass: Backend\Models\AccessLog
 noRecordsMessage: backend::lang.list.no_records
 recordsPerPage: 30
@@ -17,4 +18,3 @@ toolbar:
     search:
         prompt: backend::lang.list.search_prompt
 
-filter: config_filter.yaml

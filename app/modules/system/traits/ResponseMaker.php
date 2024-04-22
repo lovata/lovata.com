@@ -5,8 +5,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
 /**
- * Response Maker Trait
- * Stores attributes the can be used to prepare a response from the server.
+ * ResponseMaker stores attributes the can be used to prepare a response from the server.
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
@@ -14,19 +13,24 @@ use Symfony\Component\HttpFoundation\Response as BaseResponse;
 trait ResponseMaker
 {
     /**
-     * @var int Response status code
+     * @var int statusCode for the response
      */
     protected $statusCode = 200;
 
     /**
-     * @var mixed Override the standard controller response.
+     * @var mixed responseOverride for the standard controller response.
      */
     protected $responseOverride = null;
 
     /**
-     * @var Symfony\Component\HttpFoundation\ResponseHeaderBag
+     * @var Symfony\Component\HttpFoundation\ResponseHeaderBag responseHeaderBag
      */
     protected $responseHeaderBag = null;
+
+    /**
+     * @var array responseBrowserEvents for the AJAX framework.
+     */
+    protected $responseBrowserEvents = [];
 
     /**
      * Sets the status code for the current web response.
@@ -39,7 +43,7 @@ trait ResponseMaker
     }
 
      /**
-     * Returns the status code for the current web response.
+     * getStatusCode returns the status code for the current web response.
      * @return int Status code
      */
     public function getStatusCode()
@@ -48,7 +52,7 @@ trait ResponseMaker
     }
 
     /**
-     * Sets the response for the current page request cycle, this value takes priority
+     * setResponse for the current page request cycle, this value takes priority
      * over the standard response prepared by the controller.
      * @param mixed $response Response object or string
      * @return void
@@ -59,7 +63,7 @@ trait ResponseMaker
     }
 
     /**
-     * Set a header on the Response.
+     * setResponseHeader value
      *
      * @param  string  $key
      * @param  array|string  $values
@@ -76,7 +80,7 @@ trait ResponseMaker
     }
 
     /**
-     * Add a cookie to the response.
+     * setResponseCookie adds a cookie to the response.
      *
      * @param  \Symfony\Component\HttpFoundation\Cookie|mixed  $cookie
      * @return void
@@ -95,7 +99,7 @@ trait ResponseMaker
     }
 
     /**
-     * Get the header response bag
+     * getResponseHeaders as a response header bag
      * @return Symfony\Component\HttpFoundation\ResponseHeaderBag|null
      */
     public function getResponseHeaders()
@@ -104,7 +108,26 @@ trait ResponseMaker
     }
 
     /**
-     * Prepares a response that considers overrides and custom responses.
+     * dispatchBrowserEvent queues a browser event
+     */
+    public function dispatchBrowserEvent(string $event, array $data = null)
+    {
+        $this->responseBrowserEvents[] = [
+            'event' => $event,
+            'data' => $data
+        ];
+    }
+
+    /**
+     * getBrowserEvents returns the queued browser events
+     */
+    public function getBrowserEvents(): array
+    {
+        return $this->responseBrowserEvents;
+    }
+
+    /**
+     * makeResponse prepares a response that considers overrides and custom responses.
      * @param mixed $contents
      * @return mixed
      */

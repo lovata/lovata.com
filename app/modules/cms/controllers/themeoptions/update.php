@@ -45,7 +45,7 @@
                         data-request="onResetDefault"
                         data-load-indicator="<?= e(trans('backend::lang.form.resetting')) ?>"
                         data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>">
-                        <?= e(trans('backend::lang.form.reset_default')) ?>
+                        <?= __("Reset to Default") ?>
                     </button>
                 </div>
             </div>

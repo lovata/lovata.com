@@ -1,9 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
-use Lang;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
-use ApplicationException;
 
 /**
  * Repeater Form Widget
@@ -89,18 +87,10 @@ class Repeater extends FormWidgetBase
     /**
      * @var string Defines a mount point for the editor toolbar.
      * Must include a module name that exports the Vue application and a state element name.
-     * Format: module.name::stateElementName
+     * Format: stateElementName
      * Only works in Vue applications and form document layouts.
      */
     public $externalToolbarAppState = null;
-
-    /**
-     * @var string Defines an event bus for an external toolbar.
-     * Must include a module name that exports the Vue application and a state element name.
-     * Format: module.name::eventBus
-     * Only works in Vue applications and form document layouts.
-     */
-    public $externalToolbarEventBus = null;
 
     //
     // Object Properties
@@ -169,8 +159,7 @@ class Repeater extends FormWidgetBase
             'minItems',
             'maxItems',
             'useTabs',
-            'externalToolbarAppState',
-            'externalToolbarEventBus'
+            'externalToolbarAppState'
         ]);
 
         if ($this->formField->disabled) {
@@ -223,7 +212,6 @@ class Repeater extends FormWidgetBase
         $this->vars['showReorder'] = $this->showReorder;
         $this->vars['showDuplicate'] = $this->showDuplicate;
         $this->vars['externalToolbarAppState'] = $this->externalToolbarAppState;
-        $this->vars['externalToolbarEventBus'] = $this->externalToolbarEventBus;
     }
 
     /**
@@ -313,22 +301,6 @@ class Repeater extends FormWidgetBase
             ? $this->getLoadValueFromRelation()
             : $this->getLoadValue();
 
-        // This lets record finder work inside a repeater with some hacks
-        // since record finder spawns outside the form and its AJAX calls
-        // don't reinitialize this repeater's items. We a need better way
-        // remove if year >= 2025 @deprecated -sg
-        $handler = $this->controller->getAjaxHandler();
-        if (!$this->isLoaded && starts_with($handler, $this->alias . 'Form')) {
-            $handler = str_after($handler, $this->alias . 'Form');
-            preg_match("~^(\d+)~", $handler, $matches);
-
-            if (isset($matches[1])) {
-                $index = $matches[1];
-                $this->makeItemFormWidget($index);
-                unset($this->formWidgets[$index]);
-            }
-        }
-
         // Pad current value with minimum items and disable for groups,
         // which cannot predict their item types
         if (!$this->useGroups && $this->minItems > 0) {
@@ -336,8 +308,9 @@ class Repeater extends FormWidgetBase
                 $currentValue = [];
             }
 
+            $emptyItem = $this->useRelation ? $this->getRelationModel() : [];
             if (count($currentValue) < $this->minItems) {
-                $currentValue = array_pad($currentValue, $this->minItems, []);
+                $currentValue = array_pad($currentValue, $this->minItems, $emptyItem);
             }
         }
 
@@ -375,18 +348,21 @@ class Repeater extends FormWidgetBase
 
         if ($this->useRelation) {
             $config->model = $this->getModelFromIndex($index);
+            $indexName = ($modelKey = $config->model->getKey()) ? "id:{$modelKey}" : $index;
         }
         else {
             $config->model = $this->model;
             $config->data = $this->getValueFromIndex($dataIndex);
             $config->isNested = true;
+            $indexName = $index;
         }
 
         $config->alias = $this->alias . 'Form' . $index;
         $config->context = self::$onAddItemCalled ? FormField::CONTEXT_CREATE : FormField::CONTEXT_UPDATE;
         $config->arrayName = $this->getFieldName().'['.$index.']';
         $config->sessionKey = $this->sessionKey;
-        $config->sessionKeySuffix = $this->sessionKeySuffix . '-' . $index;
+        $config->sessionKeySuffix = $this->sessionKeySuffix . "-{$index}";
+        $config->parentFieldName = $this->formField->fieldName . "[{$indexName}]";
 
         $widget = $this->makeWidget(\Backend\Widgets\Form::class, $config);
         $widget->previewMode = $this->previewMode;
@@ -396,7 +372,8 @@ class Repeater extends FormWidgetBase
         ];
 
         // Convert to tabbed config
-        if ($this->useTabs || ($config->useTabs ?? false)) {
+        $useTabs = isset($config->useTabs) ? $config->useTabs : $this->useTabs;
+        if ($useTabs) {
             $widget->bindEvent('form.extendFields', function() use ($widget) {
                 $this->moveTabbedFormFields($widget, 'outside', 'secondary');
             });
@@ -451,6 +428,8 @@ class Repeater extends FormWidgetBase
     public function onAddItem()
     {
         self::$onAddItemCalled = true;
+
+        $this->prepareParentModelData();
 
         $groupCode = post('_repeater_group');
         $index = $this->getNextIndex();
@@ -523,6 +502,8 @@ class Repeater extends FormWidgetBase
      */
     public function onRefresh()
     {
+        $this->prepareParentModelData();
+
         $index = post('_repeater_index');
         $group = post('_repeater_group');
 
@@ -544,6 +525,20 @@ class Repeater extends FormWidgetBase
         }
 
         return 0;
+    }
+
+    /**
+     * prepareParentModelData will ensure the parent model has its form data set
+     * to provide context for newly created items or refreshed existing items.
+     */
+    protected function prepareParentModelData()
+    {
+        // This code is used since it is more efficient than calling setFormValues()
+        // on the form widget, switching to this could be useful if form field value
+        // context is needed in the future.
+        if (($form = $this->getParentForm()) && !$form->isNested) {
+            $this->prepareModelsToSave($form->getModel(), $form->getSaveData());
+        }
     }
 
     //
@@ -585,13 +580,17 @@ class Repeater extends FormWidgetBase
             }
 
             foreach ($groups as $code => $config) {
+                if (str_starts_with($code, '_')) {
+                    continue;
+                }
+
                 if (is_string($config)) {
                     $config = $this->makeConfig($config);
                 }
 
                 $palette[$code] = ['code' => $code] + ((array) $config) + [
                     'name' => '',
-                    'icon' => 'icon-square-o',
+                    'icon' => 'icon-square',
                     'description' => '',
                     'titleFrom' => '',
                     'fields' => [],

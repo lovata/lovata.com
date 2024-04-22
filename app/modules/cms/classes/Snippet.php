@@ -6,7 +6,7 @@ use ValidationException;
 /**
  * Snippet represents a static page snippet.
  *
- * @package rainlab\pages
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class Snippet

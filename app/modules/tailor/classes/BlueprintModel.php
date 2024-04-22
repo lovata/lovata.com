@@ -169,4 +169,17 @@ abstract class BlueprintModel extends Model
 
         return $fieldset;
     }
+
+    /**
+     * makePageUrlParams returns parameters used when linking to this record as a page
+     */
+    public function makePageUrlParams(): array
+    {
+        return [
+            'id' => $this->id,
+            'code' => $this->code,
+            'slug' => $this->slug,
+            'fullslug' => $this->fullslug
+        ];
+    }
 }

@@ -11,7 +11,7 @@
         <div class="control-simplelist is-divided is-scrollable size-small" data-control="simplelist">
             <ul>
                 <?php foreach ($columnData as $sample): ?>
-                    <li class="oc-icon-file-o">
+                    <li class="oc-icon-file">
                         <?= e($sample) ?>
                     </li>
                 <?php endforeach ?>
@@ -22,7 +22,7 @@
 <div class="modal-footer">
     <button
         type="button"
-        class="btn btn-default"
+        class="btn btn-secondary"
         data-dismiss="popup">
         <?= e(trans('backend::lang.form.close')) ?>
     </button>

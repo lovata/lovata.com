@@ -88,6 +88,11 @@ class Controller extends Extendable
     public $pageTitle;
 
     /**
+     * @var mixed pageSize defines the maximum page size
+     */
+    public $pageSize;
+
+    /**
      * @var string pageTitleTemplate
      */
     public $pageTitleTemplate;
@@ -284,7 +289,7 @@ class Controller extends Extendable
      *
      * @param string $name Specifies the action name.
      * @param bool $internal Allow protected actions.
-     * @return boolean
+     * @return bool
      */
     public function actionExists($name, $internal = false)
     {
@@ -422,7 +427,7 @@ class Controller extends Extendable
     }
 
     /**
-     * execAjaxHandlers is used internally and unvokes a controller event handler and
+     * execAjaxHandlers is used internally and invokes a controller event handler and
      * loads the supplied partials.
      */
     protected function execAjaxHandlers()
@@ -435,7 +440,7 @@ class Controller extends Extendable
 
                     foreach ($partialList as $partial) {
                         if (!preg_match('/^(?!.*\/\/)[a-z0-9\_][a-z0-9\_\-\/]*$/i', $partial)) {
-                            throw new ApplicationException(Lang::get('backend::lang.partial.invalid_name', ['name'=>$partial]));
+                            throw new ApplicationException(Lang::get('backend::lang.partial.invalid_name', ['name'=>e($partial)]));
                         }
                     }
                 }
@@ -450,7 +455,7 @@ class Controller extends Extendable
 
                 // Execute the handler
                 if (!$result = $this->runAjaxHandler($handler)) {
-                    throw new ApplicationException(Lang::get('backend::lang.ajax_handler.not_found', ['name'=>$handler]));
+                    throw new ApplicationException(Lang::get('backend::lang.ajax_handler.not_found', ['name'=>e($handler)]));
                 }
 
                 // If the handler returned a redirect, process the URL and dispose of it so
@@ -468,6 +473,11 @@ class Controller extends Extendable
                 // Look for any flash messages
                 if (Flash::check()) {
                     $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
+                }
+
+                // Look for browser events
+                if ($browserEvents = $this->getBrowserEvents()) {
+                    $responseContents['X_OCTOBER_DISPATCHES'] = $browserEvents;
                 }
 
                 // Detect assets
@@ -496,7 +506,16 @@ class Controller extends Extendable
                 $responseContents = [];
                 $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
                 $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
+                if ($browserEvents = $this->getBrowserEvents()) {
+                    $responseContents['X_OCTOBER_DISPATCHES'] = $browserEvents;
+                }
                 throw new AjaxException($responseContents);
+            }
+            catch (AjaxException $ex) {
+                if ($browserEvents = $this->getBrowserEvents()) {
+                    $ex->addContent('X_OCTOBER_DISPATCHES', $browserEvents);
+                }
+                throw $ex;
             }
             catch (MassAssignmentException $ex) {
                 throw new ApplicationException(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]));
@@ -552,8 +571,9 @@ class Controller extends Extendable
 
     /**
      * runAjaxHandler tries to find and run an AJAX handler in the page action.
-     * The method stops as soon as the handler is found.
-     * @return boolean Returns true if the handler was found. Returns false otherwise.
+     * The method stops as soon as the handler is found. Returns true if the
+     * handler was found. Returns false otherwise.
+     * @return bool
      */
     protected function runAjaxHandler($handler)
     {
@@ -769,7 +789,7 @@ class Controller extends Extendable
     /**
      * isBackendHintHidden checks if a hint has been hidden by the user.
      * @param  string $name Unique key name
-     * @return boolean
+     * @return bool
      */
     public function isBackendHintHidden($name)
     {

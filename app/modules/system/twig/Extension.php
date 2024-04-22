@@ -135,7 +135,7 @@ class Extension extends TwigExtension
      */
     public function resizeFilter($image, $width = null, $height = null, $options = [])
     {
-        return Url::to(ResizeImages::resize($image, $width, $height, $options));
+        return ResizeImages::resize($image, $width, $height, $options);
     }
 
     /**

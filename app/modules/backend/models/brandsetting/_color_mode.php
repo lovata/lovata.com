@@ -8,7 +8,7 @@
                 <div class="color-mode-box">
                     <h5 class="heading d-flex">
                         <span class="flex-grow-1"><?= __("Light Mode") ?></span>
-                        <i class="icon icon-sun-o"></i>
+                        <i class="icon icon-sun"></i>
                     </h5>
                 </div>
             </a>
@@ -18,7 +18,7 @@
                 <div class="color-mode-box">
                     <h5 class="heading d-flex">
                         <span class="flex-grow-1"><?= __("Dark Mode") ?></span>
-                        <i class="icon icon-moon-o"></i>
+                        <i class="icon icon-moon"></i>
                     </h5>
                 </div>
             </a>
@@ -44,11 +44,14 @@
 />
 
 <script>
-    // Always force a reload of the next page
-    oc.AjaxTurbo.controller.disable();
-
     $(document).on('click', '[data-color-mode]', function() {
         backendBrandSettingSetColorMode($(this).data('color-mode'));
+
+        // Reset the color switcher preference cookie
+        Cookies.remove('admin_color_mode_user');
+
+        // Always force a reload of the next page
+        oc.AjaxTurbo && oc.AjaxTurbo.controller.disable();
     });
 
     function backendBrandSettingSetColorMode(mode) {

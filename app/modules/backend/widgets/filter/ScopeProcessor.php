@@ -1,6 +1,7 @@
 <?php namespace Backend\Widgets\Filter;
 
 use BackendAuth;
+use October\Rain\Html\Helper as HtmlHelper;
 
 /**
  * ScopeProcessor concern
@@ -42,9 +43,11 @@ trait ScopeProcessor
                 $model = new $className;
                 $this->scopeModels[$scopeName] = $model;
             }
-            elseif ($this->model && $this->model->hasRelation($scopeName)) {
-                $model = $this->model->makeRelation($scopeName);
-                $this->scopeModels[$scopeName] = $model;
+            elseif ($this->model) {
+                [$nestedModel, $nestedField] = $this->makeNestedFilterModel($this->model, $scopeName);
+                if ($nestedModel->hasRelation($nestedField)) {
+                    $this->scopeModels[$scopeName] = $nestedModel->makeRelation($nestedField);
+                }
             }
         }
     }
@@ -90,6 +93,49 @@ trait ScopeProcessor
     }
 
     /**
+     * processAutoOrder applies a default sort order to all scopes
+     */
+    protected function processAutoOrder(array &$scopes)
+    {
+        // Build before and after map
+        $beforeMap = $afterMap = [];
+        foreach ($scopes as $scope) {
+            if ($scope->after && isset($scopes[$scope->after])) {
+                $afterMap[$scope->scopeName] = $scopes[$scope->after]->scopeName;
+            }
+            elseif ($scope->before && isset($scopes[$scope->before])) {
+                $beforeMap[$scope->scopeName] = $scopes[$scope->before]->scopeName;
+            }
+        }
+
+        // Apply incremental default orders
+        $orderCount = 0;
+        foreach ($scopes as $scope) {
+            if (
+                $scope->order !== -1 ||
+                isset($afterMap[$scope->scopeName]) ||
+                isset($beforeMap[$scope->scopeName])
+            ) {
+                continue;
+            }
+            $scope->order = ($orderCount += 100);
+        }
+
+        // Apply before and after
+        foreach ($beforeMap as $from => $to) {
+            $scopes[$from]->order = $scopes[$to]->order - 1;
+        }
+        foreach ($afterMap as $from => $to) {
+            $scopes[$from]->order = $scopes[$to]->order + 1;
+        }
+
+        // Sort scopes
+        uasort($scopes, static function ($a, $b) {
+            return $a->order - $b->order;
+        });
+    }
+
+    /**
      * processLegacyDefinitions applies deprecated definitions for backwards compatibility
      */
     protected function processLegacyDefinitions(array $scopes): void
@@ -117,5 +163,24 @@ trait ScopeProcessor
                 $this->refitLegacyDefaultScope($scope);
             }
         }
+    }
+
+    /**
+     * makeNestedFilterModel resolves a relation based on a nested field name
+     * E.g: model[relation1][relation2] → $model->relation1()->relation2()
+     */
+    protected function makeNestedFilterModel($model, $field)
+    {
+        if (strpos($field, '[') === false || strpos($field, ']') === false) {
+            return [$model, $field];
+        }
+
+        $parts = HtmlHelper::nameToArray($field);
+        $lastField = array_pop($parts);
+        while ($rootField = array_shift($parts)) {
+            $model = $model->$rootField()->getRelated();
+        }
+
+        return [$model, $lastField];
     }
 }

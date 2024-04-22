@@ -8,9 +8,11 @@ use October\Rain\Exception\SystemException;
  */
 class RoleManagerTest extends TestCase
 {
+    protected $instance;
+
     public function setUp(): void
     {
-        $this->createApplication();
+        parent::setUp();
 
         $this->instance = RoleManager::instance();
         $this->instance->registerPermissions('October.TestCase', [
@@ -27,14 +29,10 @@ class RoleManagerTest extends TestCase
         ]);
     }
 
-    public function tearDown(): void
-    {
-        RoleManager::forgetInstance();
-    }
-
     public function testListPermissions()
     {
-        $permissions = $this->instance->listPermissions();
+        $manager = $this->instance;
+        $permissions = $manager->listPermissions();
         $permissionCodes = collect($permissions)->pluck('code')->toArray();
         $this->assertContains('test.permission_one', $permissionCodes);
         $this->assertContains('test.permission_two', $permissionCodes);
@@ -42,7 +40,8 @@ class RoleManagerTest extends TestCase
 
     public function testRegisterPermissions()
     {
-        $this->instance->registerPermissions('October.TestCase', [
+        $manager = $this->instance;
+        $manager->registerPermissions('October.TestCase', [
             'test.permission_three' => [
                 'label' => 'Test Permission 3',
                 'tab' => 'Test',
@@ -50,39 +49,31 @@ class RoleManagerTest extends TestCase
             ]
         ]);
 
-        $permissions = $this->instance->listPermissions();
+        $permissions = $manager->listPermissions();
         $permissionCodes = collect($permissions)->pluck('code')->toArray();
 
         $this->assertContains('test.permission_one', $permissionCodes);
         $this->assertContains('test.permission_two', $permissionCodes);
         $this->assertContains('test.permission_three', $permissionCodes);
-    }
 
-    public function testRegisterPermissionsThroughCallbacks()
-    {
-        // Callback one
-        $this->instance->registerCallback(function ($manager) {
-            $manager->registerPermissions('October.TestCase', [
-                'test.permission_three' => [
-                    'label' => 'Test Permission 3',
-                    'tab' => 'Test',
-                    'order' => 100
-                ]
-            ]);
-        });
+        // Continue
+        $manager->registerPermissions('October.TestCase', [
+            'test.permission_three' => [
+                'label' => 'Test Permission 3',
+                'tab' => 'Test',
+                'order' => 100
+            ]
+        ]);
 
-        // Callback two
-        $this->instance->registerCallback(function ($manager) {
-            $manager->registerPermissions('October.TestCase', [
-                'test.permission_four' => [
-                    'label' => 'Test Permission 4',
-                    'tab' => 'Test',
-                    'order' => 400
-                ]
-            ]);
-        });
+        $manager->registerPermissions('October.TestCase', [
+            'test.permission_four' => [
+                'label' => 'Test Permission 4',
+                'tab' => 'Test',
+                'order' => 400
+            ]
+        ]);
 
-        $permissions = $this->instance->listPermissions();
+        $permissions = $manager->listPermissions();
         $permissionCodes = collect($permissions)->pluck('code')->toArray();
 
         $this->assertContains('test.permission_one', $permissionCodes);
@@ -93,7 +84,9 @@ class RoleManagerTest extends TestCase
 
     public function testRegisterAdditionalTab()
     {
-        $this->instance->registerPermissions('October.TestCase', [
+        $manager = $this->instance;
+
+        $manager->registerPermissions('October.TestCase', [
             'test.permission_three' => [
                 'label' => 'Test Permission 3',
                 'tab' => 'Test 2',
@@ -101,7 +94,7 @@ class RoleManagerTest extends TestCase
             ]
         ]);
 
-        $this->instance->registerCallback(function ($manager) {
+        $manager->registerCallback(function ($manager) {
             $manager->registerPermissions('October.TestCase', [
                 'test.permission_four' => [
                     'label' => 'Test Permission 4',
@@ -111,7 +104,7 @@ class RoleManagerTest extends TestCase
             ]);
         });
 
-        $tabs = $this->listTabbedPermissions($this->instance->listPermissions());
+        $tabs = $this->listTabbedPermissions($manager->listPermissions());
         $this->assertArrayHasKey('Test', $tabs);
         $this->assertArrayHasKey('Test 2', $tabs);
 
@@ -126,9 +119,10 @@ class RoleManagerTest extends TestCase
 
     public function testRemovePermission()
     {
-        $this->instance->removePermission('October.TestCase', 'test.permission_one');
+        $manager = $this->instance;
+        $manager->removePermission('October.TestCase', 'test.permission_one');
 
-        $permissions = $this->instance->listPermissions();
+        $permissions = $manager->listPermissions();
         $permissionCodes = collect($permissions)->pluck('code')->toArray();
         $this->assertNotContains('test.permission_one', $permissionCodes);
     }
@@ -138,9 +132,8 @@ class RoleManagerTest extends TestCase
         $this->expectException(SystemException::class);
         $this->expectExceptionMessage('Unable to remove permissions before they are loaded.');
 
-        RoleManager::forgetInstance();
-        $this->instance = RoleManager::instance();
-        $this->instance->removePermission('October.TestCase', 'test.permission_one');
+        $manager = new RoleManager;
+        $manager->removePermission('October.TestCase', 'test.permission_one');
     }
 
     protected function listTabbedPermissions($permissions)

@@ -16,88 +16,88 @@ class CodeEditor extends FormWidgetBase
     //
 
     /**
-     * @var string Code language to display (php, twig)
+     * @var string language code to display (php, twig)
      */
     public $language = 'php';
 
     /**
-     * @var boolean Determines whether the gutter is visible.
+     * @var bool showGutter determines whether the gutter is visible.
      */
     public $showGutter = true;
 
     /**
-     * @var boolean Indicates whether the the word wrapping is enabled.
+     * @var bool wordWrap indicates whether the the word wrapping is enabled.
      */
     public $wordWrap = true;
 
     /**
-     * @var string Cold folding mode: manual, markbegin, markbeginend.
+     * @var string codeFolding mode: manual, markbegin, markbeginend.
      */
     public $codeFolding = 'manual';
 
     /**
-     * @var boolean Automatically close tags and special characters,
+     * @var bool autoClosing automatically close tags and special characters,
      * like quotation marks, parenthesis, or brackets.
      */
     public $autoClosing = true;
 
     /**
-     * @var boolean Indicates whether the the editor uses spaces for indentation.
+     * @var bool useSoftTabs indicates whether the the editor uses spaces for indentation.
      */
     public $useSoftTabs = true;
 
     /**
-     * @var boolean Sets the size of the indentation.
+     * @var bool tabSize sets the size of the indentation.
      */
     public $tabSize = 4;
 
     /**
-     * @var integer Sets the font size.
+     * @var int fontSize sets the font size.
      */
     public $fontSize = 12;
 
     /**
-     * @var integer Sets the editor margin size.
+     * @var int margin sets the editor margin size.
      */
     public $margin = 0;
 
     /**
-     * @var string Ace Editor theme to use.
+     * @var string theme to use.
      */
     public $theme = 'twilight';
 
     /**
-     * @var bool Show invisible characters.
+     * @var bool showInvisibles characters.
      */
     public $showInvisibles = false;
 
     /**
-     * @var bool Highlight the active line.
+     * @var bool highlightActiveLine highlights the active line.
      */
     public $highlightActiveLine = true;
 
     /**
-     * @var boolean If true, the editor is set to read-only mode
+     * @var bool readOnly, if true, the editor is set to read-only mode
      */
     public $readOnly = false;
 
     /**
-     * @var string Autocomplete mode: manual, basic, live.
+     * @var string autocompletion mode: manual, basic, live.
      */
     public $autocompletion = 'manual';
 
     /**
-     * @var boolean If true, the editor activate use Snippets
+     * @var bool enableSnippets ,if true, the editor activate use Snippets
      */
     public $enableSnippets = true;
 
     /**
-     * @var boolean If true, the editor show Indent Guides
+     * @var bool displayIndentGuides, if true, the editor show Indent Guides
      */
     public $displayIndentGuides = true;
 
     /**
-     * @var boolean If true, the editor show Print Margin
+     * @var bool showPrintMargin, if true, the editor show Print Margin
      */
     public $showPrintMargin = false;
 

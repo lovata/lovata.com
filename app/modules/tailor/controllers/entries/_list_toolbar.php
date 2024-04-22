@@ -1,33 +1,48 @@
 <?php
     $section = $this->activeSource;
+    $showExport = $section->showExport ?? true;
+    $showImport = ($section->showImport ?? true) && $this->hasSourcePermission('create');
 ?>
 <div data-control="toolbar" data-list-linkage="<?= $this->listGetId() ?>">
 
     <?php if ($this->hasSourcePermission('create')): ?>
-        <a href="<?= Backend::url('tailor/entries/'.$section->handleSlug.'/create') ?>" class="btn btn-primary">
-            <?= $section->getMessage('buttonCreate', "Create :name Entry", ['name' => "<strong>".e(__($section->name))."</strong>"]) ?>
-        </a>
+        <?= Ui::button($section->getMessage('buttonCreate', "New :name", ['name' => e(__($section->name))]), 'tailor/entries/'.$section->handleSlug.'/create')
+            ->labelHtml()
+            ->icon('icon-plus')
+            ->primary() ?>
+
+        <div class="toolbar-divider"></div>
     <?php endif ?>
 
     <?php if ($this->hasSourcePermission('publish', 'delete')): ?>
-        <div class="btn-group dropdown dropdown-fixed" id="listBulkActions">
+        <div id="listBulkActions" class="btn-container">
             <?= $this->makePartial('list_bulk_actions') ?>
         </div>
     <?php endif ?>
 
-    <?php if ($section->showExport ?? true): ?>
-        <a
-            href="<?= Backend::url('tailor/bulkactions/'.$section->handleSlug.'/export') ?>"
-            class="btn btn-secondary oc-icon-download">
-            <?= __("Export") ?>
-        </a>
-    <?php endif ?>
-
-    <?php if (($section->showImport ?? true) && $this->hasSourcePermission('create')): ?>
-        <a
-            href="<?= Backend::url('tailor/bulkactions/'.$section->handleSlug.'/import') ?>"
-            class="btn btn-secondary oc-icon-upload">
-            <?= __("Import") ?>
-        </a>
+    <?php if ($showImport || $showExport): ?>
+        <div class="dropdown dropdown-fixed">
+            <?= Ui::button("More Actions")
+                ->attributes(['data-toggle' => 'dropdown'])
+                ->circleIcon('icon-ellipsis-v')
+                ->secondary()
+            ?>
+            <ul class="dropdown-menu">
+                <?php if ($showImport): ?>
+                    <li>
+                        <?= Ui::button("Import", 'tailor/bulkactions/'.$section->handleSlug.'/import')
+                            ->replaceCssClass('dropdown-item')
+                            ->icon('icon-upload') ?>
+                    </li>
+                <?php endif ?>
+                <?php if ($showExport): ?>
+                    <li>
+                        <?= Ui::button("Export", 'tailor/bulkactions/'.$section->handleSlug.'/export')
+                            ->replaceCssClass('dropdown-item')
+                            ->icon('icon-download') ?>
+                    </li>
+                <?php endif ?>
+            </ul>
+        </div>
     <?php endif ?>
 </div>

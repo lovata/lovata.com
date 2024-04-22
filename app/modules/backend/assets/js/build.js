@@ -22,12 +22,12 @@ module.exports = [
     "october/october.vueutils.js",
     "october/october.tooltip.js",
     "october/october.jsmodule.js",
-    "october/october.vueapp.js",
 
     // Still used? -sg
     "october/october.flyout.js",
     "october/october.tabformexpandcontrols.js",
 
     "backend/backend.js",
+    "backend/backend.ajax.js",
     "backend/backend.fixes.js",
 ];

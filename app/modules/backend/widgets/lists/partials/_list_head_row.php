@@ -34,21 +34,16 @@
                     data-request="<?= $this->getEventHandler('onSort') ?>"
                     data-stripe-load-indicator
                     data-request-data="sortColumn: '<?= $column->columnName ?>', page: <?= $pageCurrent ?>"
-                ><?= $this->getHeaderValue($column) ?></a>
+                ><?= $this->getHeaderValue($column) ?><?php if ($column->tooltip): ?>
+                    <?= $this->makePartial('list_head_tooltip', ['column' => $column]) ?>
+                <?php endif ?></a>
             </th>
         <?php else: ?>
             <th style="<?= implode(';', $styles) ?>" class="<?= implode(' ', $classes) ?>">
-                <span><?= $this->getHeaderValue($column) ?></span>
+                <span><?= $this->getHeaderValue($column) ?><?php if ($column->tooltip): ?>
+                    <?= $this->makePartial('list_head_tooltip', ['column' => $column]) ?>
+                <?php endif ?></span>
             </th>
         <?php endif ?>
     <?php endforeach ?>
-
-    <?php if ($showSetup): ?>
-        <th class="list-setup">
-            <a href="javascript:;"
-                title="<?= e(trans('backend::lang.list.setup_title')) ?>"
-                data-control="popup"
-                data-handler="<?= $this->getEventHandler('onLoadSetup') ?>"><span></span></a>
-        </th>
-    <?php endif ?>
 </tr>

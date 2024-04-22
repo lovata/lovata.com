@@ -3,7 +3,7 @@
  *
  * - Documentation: ../docs/datepicker.md
  *
- * Dependences:
+ * Dependencies:
  * - Pikaday plugin (pikaday.js)
  * - Pikaday jQuery addon (pikaday.jquery.js)
  * - Clockpicker plugin (jquery-clockpicker.js)

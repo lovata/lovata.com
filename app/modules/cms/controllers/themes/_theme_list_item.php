@@ -2,10 +2,10 @@
     $author = $theme->getConfigValue('author');
 ?>
 
-<div class="layout-cell min-height theme-thumbnail">
+<div class="theme-thumbnail">
     <div class="thumbnail-container"><img src="<?= $theme->getPreviewImageUrl() ?>" alt="" /></div>
 </div>
-<div class="layout-cell min-height theme-description">
+<div class="theme-description">
     <h3><?= e($theme->getConfigValue('name', $theme->getDirName())) ?></h3>
     <?php if (strlen($author)): ?>
         <p class="author"><?= __('By :name', ['name' => e($author)]) ?></p>

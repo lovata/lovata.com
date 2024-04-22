@@ -57,6 +57,6 @@ class MorphToModelTest extends PluginTestCase
         $event = EventLog::make(['action' => "user-created", 'related_id' => $author->id, 'related_type' => get_class($author)]);
         Model::reguard();
 
-        $this->assertEquals([$author->id, get_class($author)], $event->getRelationValue('related'));
+        $this->assertEquals([$author->id, get_class($author)], $event->getRelationSimpleValue('related'));
     }
 }

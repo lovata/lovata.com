@@ -20,7 +20,7 @@
                             <?php endforeach ?>
                         </dl>
                     <?php else: ?>
-                        <p><?= e(trans('system::lang.updates.details_changelog_missing')) ?></p>
+                        <p class="m-3"><?= e(trans('system::lang.updates.details_changelog_missing')) ?></p>
                     <?php endif ?>
                 </div>
             </div>
@@ -31,8 +31,8 @@
 <div class="modal-footer">
     <button
         type="button"
-        class="btn btn-default"
+        class="btn btn-secondary"
         data-dismiss="popup">
-        <?= e(trans('backend::lang.form.close')) ?>
+        <?= __("Close") ?>
     </button>
 </div>

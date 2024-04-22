@@ -43,10 +43,11 @@ trait HasFilterWidgets
             return $this->filterWidgets[$scope->scopeName];
         }
 
-        $widgetConfig = $this->makeConfig($scope->getAttributes());
+        $widgetConfig = $this->makeConfig($scope->config);
         $widgetConfig->alias = $this->alias . studly_case($this->nameToId($scope->scopeName));
         $widgetConfig->previewMode = $this->previewMode;
         $widgetConfig->model = $this->scopeModels[$scope->scopeName] ?? null;
+        $widgetConfig->isJsonable = $this->model->isJsonable($scope->scopeName);
         $widgetConfig->parentFilter = $this;
 
         $widgetName = $widgetConfig->widget;

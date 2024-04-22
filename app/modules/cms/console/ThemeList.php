@@ -9,7 +9,7 @@ use Cms\Classes\Theme;
  *
  * This lists all the available themes in the system. It also shows the active theme.
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ThemeList extends Command

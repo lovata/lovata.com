@@ -25,9 +25,9 @@
 
             <button
                 type="button"
-                class="btn btn-default"
+                class="btn btn-secondary"
                 data-dismiss="popup">
-                <?= e(trans('backend::lang.form.cancel')) ?>
+                <?= __("Cancel") ?>
             </button>
         </div>
 
@@ -41,7 +41,7 @@
                 type="button"
                 class="btn btn-default"
                 data-dismiss="popup">
-                <?= e(trans('backend::lang.form.close')) ?>
+                <?= __("Close") ?>
             </button>
         </div>
 

@@ -11,7 +11,7 @@
                 name="code"
                 id="themeSearchInput"
                 class="product-search-input search-input-lg typeahead"
-                placeholder="<?= e(trans('system::lang.themes.search')) ?>"
+                placeholder="<?= __("search themes to install...") ?>"
                 data-search-type="theme"
                 />
             <i class="icon icon-search"></i>

@@ -9,7 +9,7 @@
     <?= $field->getAttributes() ?>>
     <ul>
         <?php foreach ($fieldOptions as $value => $text): ?>
-            <li data-value="<?= e($value) ?>" class="<?= $field->isSelected($value) ? 'active' : '' ?>"><?= e(__($text)) ?></li>
+            <li data-value="<?= e($value) ?>" class="<?= $field->isSelected($value) ? 'active' : '' ?>"><?= $field->getDisplayValue($text) ?></li>
         <?php endforeach ?>
     </ul>
 

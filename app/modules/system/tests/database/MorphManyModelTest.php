@@ -76,7 +76,7 @@ class MorphManyModelTest extends PluginTestCase
         $event2 = EventLog::create(['action' => "user-updated", 'related_id' => $author->id, 'related_type' => 'Database\Tester\Models\Author']);
         Model::reguard();
 
-        $this->assertEquals([$event1->id, $event2->id], $author->getRelationValue('event_log'));
+        $this->assertEquals([$event1->id, $event2->id], $author->getRelationSimpleValue('event_log'));
     }
 
     public function testDeferredBinding()
@@ -99,7 +99,7 @@ class MorphManyModelTest extends PluginTestCase
         $this->assertEquals(1, $author->event_log()->withDeferred($sessionKey)->count());
 
         // Commit deferred
-        $author->save(null, $sessionKey);
+        $author->save(['sessionKey' => $sessionKey]);
         $event = EventLog::find($eventId);
         $this->assertEquals(1, $author->event_log()->count());
         $this->assertEquals($author->id, $event->related_id);
@@ -120,7 +120,7 @@ class MorphManyModelTest extends PluginTestCase
         ], $author->event_log->pluck('action')->all());
 
         // Commit deferred (model is deleted as per definition)
-        $author->save(null, $sessionKey);
+        $author->save(['sessionKey' => $sessionKey]);
         $event = EventLog::find($eventId);
         $this->assertEquals(0, $author->event_log()->count());
         $this->assertNull($event);
@@ -148,7 +148,7 @@ class MorphManyModelTest extends PluginTestCase
         $this->assertEquals(1, $tagForPost->posts()->withDeferred($sessionKey)->count());
 
         // Commit deferred
-        $tagForPost->save(null, $sessionKey);
+        $tagForPost->save(['sessionKey' => $sessionKey]);
         $this->assertEquals(1, $tagForPost->posts()->count());
         $this->assertEquals([$post->id], $tagForPost->posts->pluck('id')->all());
         $this->assertEquals(88, $tagForPost->posts->first()->pivot->added_by);

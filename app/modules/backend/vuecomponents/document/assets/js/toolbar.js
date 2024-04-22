@@ -24,11 +24,15 @@ oc.Modules.register('backend.component.toolbar', function () {
         },
         computed: {
             flattenedElements: function computeFlattenedElements() {
+                if (!this.elements) {
+                    return [];
+                }
+
                 var result = [];
 
                 for (var index = 0; index < this.elements.length; index++) {
                     var element = this.elements[index];
-                    if (!$.isArray(element)) {
+                    if (!Array.isArray(element)) {
                         result.push(element);
                     }
                     else {
@@ -67,7 +71,7 @@ oc.Modules.register('backend.component.toolbar', function () {
                 $(this.$refs.scrollable).dragScroll('fixScrollClasses');
             },
             disabled: function watchDisabled() {
-                Vue.nextTick($.oc.octoberTooltips.clear, 1);
+                Vue.nextTick(oc.octoberTooltips.clear, 1);
             }
         },
         template: '#backend_vuecomponents_document_toolbar'

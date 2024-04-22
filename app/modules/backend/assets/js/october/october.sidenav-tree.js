@@ -8,7 +8,7 @@
  * JavaScript API:
  * $('#tree').sidenavTree()
  *
- * Dependences:
+ * Dependencies:
  * - Null
  */
 

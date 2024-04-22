@@ -46,7 +46,7 @@ class SearchInput extends UiElement
                         class="clear-input-text"
                         type="button"
                         value=""
-                        style="display: none"
+                        style="display:none"
                         data-search-clear
                     >
                         <i class="storm-icon"></i>

@@ -1,8 +1,8 @@
 <?php namespace System\Helpers;
 
+use Date;
 use Carbon\Carbon;
 use DateTime as PhpDateTime;
-use DateTimeZone;
 use InvalidArgumentException;
 use Exception;
 
@@ -62,17 +62,17 @@ class DateTime
             // Do nothing
         }
         elseif ($value instanceof PhpDateTime) {
-            $value = Carbon::instance($value);
+            $value = Date::instance($value);
         }
         elseif (is_numeric($value)) {
-            $value = Carbon::createFromTimestamp($value);
+            $value = Date::createFromTimestamp($value);
         }
         elseif (preg_match('/^(\d{4})-(\d{2})-(\d{2})$/', $value)) {
-            $value = Carbon::createFromFormat('Y-m-d', $value)->startOfDay();
+            $value = Date::createFromFormat('Y-m-d', $value)->startOfDay();
         }
         else {
             try {
-                $value = Carbon::parse($value);
+                $value = Date::parse($value);
             }
             catch (Exception $ex) {
                 // Do nothing

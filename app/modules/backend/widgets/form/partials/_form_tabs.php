@@ -5,20 +5,23 @@
 
     if ($tabs->stretch) {
         $navCss = 'layout-row min-size';
-        $contentCss = 'layout-row';
+        $contentCss = 'layout-row flex-grow-1';
         $paneCss = 'layout-cell';
     }
 ?>
 <div class="<?= $navCss ?>">
     <ul class="nav nav-tabs">
         <?php $index = 0; foreach ($tabs as $name => $fields): $index++ ?>
-        <?php
-            $isActive = $tabs->isPaneActive($index, $name);
-            $isLazy = !$isActive && $tabs->isLazy($name);
-            $paneId = $tabs->getPaneId($index, $name);
-        ?>
-            <li class="<?= $isActive ? 'active' : '' ?> <?= $isLazy ? 'tab-lazy' : '' ?>">
-                <a href="#<?= e($paneId) ?>" name="<?= e($paneId) ?>"
+            <?php
+                $isActive = $tabs->isPaneActive($index, $name);
+                $isLazy = !$isActive && $tabs->isLazy($name);
+                $anchorId = $tabs->getPaneAnchorId($index, $name);
+                $tabId = $tabs->getTabId($name);
+                $tabClass = ($isActive ? 'active ' : '')
+                    . ($isLazy ? 'tab-lazy ' : '');
+            ?>
+            <li class="<?= $tabClass ?>" <?php if ($tabId): ?>id="<?= $tabId ?>"<?php endif ?>>
+                <a href="#<?= e($anchorId) ?>" name="<?= e($anchorId) ?>"
                     <?php if ($isLazy): ?>
                         data-tab-name="<?= e($name) ?>"
                         data-tab-section="<?= $tabs->section ?>"
@@ -45,13 +48,20 @@
             $isActive = $tabs->isPaneActive($index, $name);
             $isLazy = !$isActive && $tabs->isLazy($name);
             $isAdaptive = $tabs->isAdaptive($name);
+            $paneId = $tabs->getPaneId($name);
+            $paneClass = 'tab-pane '
+                . ($isLazy ? 'is-lazy ' : '')
+                . ($isAdaptive ? 'is-adaptive ' : '')
+                . ($tabs->getPaneCssClass($index, $name) . ' ')
+                . ($isActive ? 'active ' : '')
+                . $paneCss;
         ?>
-            <div class="tab-pane <?= $isLazy ? 'is-lazy' : '' ?> <?= $isAdaptive ? 'is-adaptive' : '' ?> <?= e($tabs->getPaneCssClass($index, $name)) ?> <?= $isActive ? 'active' : '' ?> <?= $paneCss ?>">
-                <?php if ($isLazy): ?>
-                    <?= $this->makePartial('form_fields_lazy', ['fields' => $fields]) ?>
-                <?php else: ?>
-                    <?= $this->makePartial('form_fields', ['fields' => $fields]) ?>
-                <?php endif ?>
-            </div>
+        <div class="<?= $paneClass ?>" <?php if ($paneId): ?>id="<?= $paneId ?>"<?php endif ?>>
+            <?php if ($isLazy): ?>
+                <?= $this->makePartial('form_fields_lazy', ['fields' => $fields]) ?>
+            <?php else: ?>
+                <?= $this->makePartial('form_fields', ['fields' => $fields]) ?>
+            <?php endif ?>
+        </div>
     <?php endforeach ?>
 </div>

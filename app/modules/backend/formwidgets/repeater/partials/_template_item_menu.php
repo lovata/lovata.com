@@ -6,7 +6,7 @@
                 role="menuitem"
                 href="javascript:;"
                 tabindex="-1">
-                <i class="octo-icon-copy"></i>
+                <i class="icon-copy"></i>
                 <?= __("Duplicate") ?>
             </a>
         </li>
@@ -18,7 +18,7 @@
             role="menuitem"
             href="javascript:;"
             tabindex="-1">
-            <i class="octo-icon-expand"></i>
+            <i class="icon-expand"></i>
             <?= __("Expand") ?>
         </a>
     </li>
@@ -28,7 +28,7 @@
             role="menuitem"
             href="javascript:;"
             tabindex="-1">
-            <i class="octo-icon-collapse"></i>
+            <i class="icon-collapse"></i>
             <?= __("Collapse") ?>
         </a>
     </li>
@@ -39,7 +39,7 @@
                 role="menuitem"
                 href="javascript:;"
                 tabindex="-1">
-                <i class="octo-icon-long-arrow-up"></i>
+                <i class="icon-long-arrow-up"></i>
                 <?= __("Move Up") ?>
             </a>
         </li>
@@ -49,7 +49,7 @@
                 role="menuitem"
                 href="javascript:;"
                 tabindex="-1">
-                <i class="octo-icon-long-arrow-down"></i>
+                <i class="icon-long-arrow-down"></i>
                 <?= __("Move Down") ?>
             </a>
         </li>
@@ -61,7 +61,7 @@
             role="menuitem"
             href="javascript:;"
             tabindex="-1">
-            <i class="octo-icon-delete"></i>
+            <i class="icon-delete"></i>
             <?= __("Remove") ?>
         </a>
     </li>

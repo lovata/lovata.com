@@ -1,12 +1,23 @@
 <?php
 
 use Backend\Classes\NavigationManager;
+use October\Rain\Exception\SystemException;
 
 class NavigationManagerTest extends TestCase
 {
+    protected $instance;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->instance = NavigationManager::instance();
+        $this->instance->registerMenuItems('October.TestCase', []);
+    }
+
     public function testRegisterMenuItems()
     {
-        $manager = NavigationManager::instance();
+        $manager = $this->instance;
         $items = $manager->listMainMenuItems();
         $this->assertArrayNotHasKey('OCTOBER.TEST.DASHBOARD', $items);
 
@@ -43,7 +54,7 @@ class NavigationManagerTest extends TestCase
 
     public function testListMainMenuItems()
     {
-        $manager = NavigationManager::instance();
+        $manager = $this->instance;
         $items = $manager->listMainMenuItems();
 
         $this->assertArrayHasKey('OCTOBER.TESTER.BLOG', $items);
@@ -51,7 +62,7 @@ class NavigationManagerTest extends TestCase
 
     public function testListSideMenuItems()
     {
-        $manager = NavigationManager::instance();
+        $manager = $this->instance;
 
         $items = $manager->listSideMenuItems();
         $this->assertEmpty($items);
@@ -83,7 +94,7 @@ class NavigationManagerTest extends TestCase
 
     public function testAddMainMenuItems()
     {
-        $manager = NavigationManager::instance();
+        $manager = $this->instance;
         $manager->addMainMenuItems('October.Tester', [
             'print' => [
                 'label' => 'Print',
@@ -108,7 +119,7 @@ class NavigationManagerTest extends TestCase
 
     public function testRemoveMainMenuItem()
     {
-        $manager = NavigationManager::instance();
+        $manager = $this->instance;
         $manager->addMainMenuItems('October.Tester', [
             'close' => [
                 'label' => 'Close',
@@ -128,7 +139,7 @@ class NavigationManagerTest extends TestCase
 
     public function testAddSideMenuItems()
     {
-        $manager = NavigationManager::instance();
+        $manager = $this->instance;
 
         $manager->addSideMenuItems('October.Tester', 'blog', [
             'foo' => [
@@ -167,7 +178,7 @@ class NavigationManagerTest extends TestCase
 
     public function testRemoveSideMenuItem()
     {
-        $manager = NavigationManager::instance();
+        $manager = $this->instance;
         $manager->addSideMenuItems('October.Tester', 'blog', [
             'bar' => [
                 'label' => 'Bar',
@@ -185,5 +196,14 @@ class NavigationManagerTest extends TestCase
 
         $items = $manager->listSideMenuItems();
         $this->assertArrayNotHasKey('bar', $items);
+    }
+
+    public function testCannotRemovePermissionsBeforeLoaded()
+    {
+        $this->expectException(SystemException::class);
+        $this->expectExceptionMessage('Unable to remove navigation items before they are loaded.');
+
+        $manager = new NavigationManager;
+        $manager->removeMainMenuItem('October.Tester', 'blog');
     }
 }

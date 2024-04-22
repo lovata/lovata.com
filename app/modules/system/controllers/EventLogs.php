@@ -64,7 +64,7 @@ class EventLogs extends Controller
     public function index_onEmptyLog()
     {
         EventLog::truncate();
-        Flash::success(Lang::get('system::lang.event_log.empty_success'));
+        Flash::success(__("Event log emptied"));
         return $this->listRefresh();
     }
 
@@ -95,11 +95,11 @@ class EventLogs extends Controller
      */
     public function preview($id)
     {
-        $this->addCss('/modules/system/assets/css/eventlogs/exception-beautifier.css');
-        $this->addJs('/modules/system/assets/js/eventlogs/exception-beautifier.js');
+        $this->addCss('/modules/system/assets/css/pages/eventlogs.css');
+        $this->addJs('/modules/system/assets/js/pages/eventlogs.beautifier.js');
 
         if (System::checkDebugMode()) {
-            $this->addJs('/modules/system/assets/js/eventlogs/exception-beautifier.links.js');
+            $this->addJs('/modules/system/assets/js/pages/eventlogs.beautifier.links.js');
         }
 
         return $this->asExtension('FormController')->preview($id);

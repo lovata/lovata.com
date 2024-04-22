@@ -35,7 +35,7 @@ class ComponentNode extends TwigNode
         }
 
         $compiler
-            ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->componentFunction(")
+            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->componentFunction(")
             ->subcompile($this->getNode('nodes')->getNode(0))
             ->write(", \$context['__cms_component_params']")
             ->write(");\n")

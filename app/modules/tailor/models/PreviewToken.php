@@ -2,9 +2,9 @@
 
 use Str;
 use Url;
+use Date;
 use Model;
 use BackendAuth;
-use Carbon\Carbon;
 
 /**
  * PreviewToken is used to provide temporary access to a page
@@ -45,7 +45,7 @@ class PreviewToken extends Model
         $token = new static;
         $token->route = $route;
         $token->token = Str::random(32);
-        $token->expired_at = $expiry ?: Carbon::now()->addHours(48);
+        $token->expired_at = $expiry ?: Date::now()->addHours(48);
 
         if ($user = BackendAuth::getUser()) {
             $token->created_user_id = $user->id;
@@ -160,7 +160,7 @@ class PreviewToken extends Model
      */
     protected static function cleanUpExpired()
     {
-        $timestamp = Carbon::now()->toDateTimeString();
+        $timestamp = Date::now()->toDateTimeString();
 
         $tokens = self::where('expired_at', '<', $timestamp)->get();
 

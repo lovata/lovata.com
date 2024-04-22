@@ -19,7 +19,7 @@
                 <backend-component-richeditor-document-connector
                     :allow-resizing="showMargins"
                     :toolbar-container="toolbarExtensionPointProxy"
-                    :external-toolbar-event-bus="externalToolbarEventBus"
+                    :external-toolbar-app-state="externalToolbarAppState"
                     :use-media-manager="useMediaManager"
                     :built-in-mode="true"
                     unique-key="html-editor-form-widget"
@@ -28,8 +28,9 @@
                     <backend-component-richeditor
                         v-model="value"
                         :read-only="options.readOnly"
-                        :inline-mode="options.inlineMode"
+                        :use-line-breaks="options.useLineBreaks"
                         :full-page="fullPage"
+                        :editor-options="editorOptions"
                         :toolbar-buttons="toolbarButtons"
                         ref="richeditor"
                         @blur="onBlur"

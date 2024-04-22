@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" type="image/png" href="{{ 'assets/img/favicon-32x32.png'|theme }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ 'assets/img/favicon-16x16.png'|theme }}" sizes="16x16">
-    <link rel="stylesheet" href="{{ vite_asset('assets/css/common.css') }}" />
+    {{ vite(['assets/css/common.css']) }}
     {# Render metric code before /head tag #}
 
     {{ SeoToolbox.getHeadEnd()|raw }}
@@ -25,6 +25,6 @@
         {% page %}
     </main>
     {% partial 'components/footer/footer' %}
-    <script type="module" crossorigin src="{{ vite_asset('assets/js/index.js') }}"></script>
+    {{ vite(['assets/js/index.js']) }}
 </body>
 </html>

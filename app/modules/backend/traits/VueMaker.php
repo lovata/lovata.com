@@ -88,14 +88,13 @@ trait VueMaker
             throw new SystemException(sprintf('Vue component class not found: %s', $className));
         }
 
-        $component = new $className($this);
-        if (!$component instanceof VueComponentBase) {
+        if (!is_subclass_of($className, VueComponentBase::class)) {
             throw new SystemException(
                 sprintf('Vue component class must be a descendant of Backend\Classes\VueComponentBase: %s', $className)
             );
         }
 
-        return $component;
+        return new $className($this);
     }
 
     /**

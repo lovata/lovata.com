@@ -28,7 +28,7 @@ Vue.component('cms-editor-component-content-editor', {
             return this.postProcessToolbarElements([
                 {
                     type: 'button',
-                    icon: 'octo-icon-save',
+                    icon: 'icon-save-cloud',
                     label: this.trans('backend::lang.form.save'),
                     hotkey: 'ctrl+s, cmd+s',
                     tooltip: this.trans('backend::lang.form.save'),
@@ -37,7 +37,7 @@ Vue.component('cms-editor-component-content-editor', {
                 },
                 {
                     type: 'button',
-                    icon: 'octo-icon-settings',
+                    icon: 'icon-settings',
                     label: this.trans('editor::lang.common.settings'),
                     command: 'settings',
                     hidden: !this.hasSettingsForm
@@ -47,7 +47,7 @@ Vue.component('cms-editor-component-content-editor', {
                 },
                 {
                     type: 'button',
-                    icon: 'octo-icon-info',
+                    icon: 'icon-info-circle',
                     label: this.trans('cms::lang.editor.info'),
                     command: 'show-template-info',
                     disabled: this.isNewDocument
@@ -58,7 +58,7 @@ Vue.component('cms-editor-component-content-editor', {
                 },
                 {
                     type: 'button',
-                    icon: 'octo-icon-delete',
+                    icon: 'icon-delete',
                     disabled: this.isNewDocument,
                     command: 'delete',
                     hotkey: 'shift+option+d',
@@ -68,7 +68,7 @@ Vue.component('cms-editor-component-content-editor', {
                 this.toolbarExtensionPoint,
                 {
                     type: 'button',
-                    icon: this.documentHeaderCollapsed ? 'octo-icon-angle-down' : 'octo-icon-angle-up',
+                    icon: this.documentHeaderCollapsed ? 'icon-angle-down' : 'icon-angle-up',
                     command: 'document:toggleToolbar',
                     fixedRight: true,
                     tooltip: this.trans('editor::lang.common.toggle_document_header')

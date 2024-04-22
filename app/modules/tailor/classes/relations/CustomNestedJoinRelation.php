@@ -5,7 +5,8 @@ use Illuminate\Database\Eloquent\Builder;
 use October\Rain\Database\Relations\BelongsToMany;
 
 /**
- * CustomNestedJoinRelation adds a field name, site identifier and relation morph.
+ * CustomNestedJoinRelation is used by tailor records, creating relationships
+ * to nested content joins via the "tailor_content_joins" table.
  *
  * @package october\tailor
  * @author Alexey Bobkov, Samuel Georges
@@ -90,9 +91,9 @@ class CustomNestedJoinRelation extends BelongsToMany
     {
         parent::addWhereConstraints();
 
-        $this->wherePivot('parent_type', $this->parentClass);
-        $this->wherePivot('relation_type', $this->morphClass);
-        $this->wherePivot('field_name', $this->relationName);
+        $this->where($this->qualifyPivotColumn('parent_type'), $this->parentClass);
+        $this->where($this->qualifyPivotColumn('relation_type'), $this->morphClass);
+        $this->where($this->qualifyPivotColumn('field_name'), $this->relationName);
 
         return $this;
     }
@@ -103,9 +104,9 @@ class CustomNestedJoinRelation extends BelongsToMany
     public function getRelationExistenceQuery(Builder $query, Builder $parentQuery, $columns = ['*'])
     {
         return parent::getRelationExistenceQuery($query, $parentQuery, $columns)
-            ->where($this->table.'.parent_type', $this->parentClass)
-            ->where($this->table.'.relation_type', $this->morphClass)
-            ->where($this->table.'.field_name', $this->relationName)
+            ->where($this->qualifyPivotColumn('parent_type'), $this->parentClass)
+            ->where($this->qualifyPivotColumn('relation_type'), $this->morphClass)
+            ->where($this->qualifyPivotColumn('field_name'), $this->relationName)
         ;
     }
 
@@ -124,22 +125,14 @@ class CustomNestedJoinRelation extends BelongsToMany
     }
 
     /**
-     * shouldSelect is modified to select all fields
-     */
-    protected function shouldSelect(array $columns = ['*'])
-    {
-        return array_merge($columns, $this->aliasedPivotColumns());
-    }
-
-    /**
      * addEagerConstraints
      */
     public function addEagerConstraints(array $models)
     {
         parent::addEagerConstraints($models);
 
-        $this->wherePivot('parent_type', $this->parentClass);
-        $this->wherePivot('relation_type', $this->morphClass);
-        $this->wherePivot('field_name', $this->relationName);
+        $this->where($this->qualifyPivotColumn('parent_type'), $this->parentClass);
+        $this->where($this->qualifyPivotColumn('relation_type'), $this->morphClass);
+        $this->where($this->qualifyPivotColumn('field_name'), $this->relationName);
     }
 }

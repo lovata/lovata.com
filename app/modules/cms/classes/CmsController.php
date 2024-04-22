@@ -1,6 +1,7 @@
 <?php namespace Cms\Classes;
 
 use App;
+use Cms;
 use Site;
 use Config;
 use Request;
@@ -51,6 +52,11 @@ class CmsController extends ControllerBase
      */
     public function run($url = '/')
     {
+        // Check configuration for bypass exceptions
+        if (Cms::urlHasException((string) $url, 'site')) {
+            return App::make(Controller::class)->run($url);
+        }
+
         // Locate site
         $site = $this->findSite(Request::getHost(), $url);
 
@@ -108,8 +114,14 @@ class CmsController extends ControllerBase
         // Apply redirect policy
         $site = $this->determineSiteFromPolicy($site);
 
+        // Preserve query string
+        $redirectUrl = $site->attachRoutePrefix($originalUrl);
+        if ($queryString = Request::getQueryString()) {
+            $redirectUrl .= '?'.$queryString;
+        }
+
         // No prefix detected, attach one with redirect
-        return Redirect::to($site->attachRoutePrefix($originalUrl), 301);
+        return Redirect::to($redirectUrl, 301);
     }
 
     /**

@@ -33,6 +33,9 @@ class SeoParamItem extends ElementItem
      */
     protected function setElementObject()
     {
-        $this->obElement = SeoParam::getByPage($this->iElementID)->orWhere('id', (int) $this->iElementID)->first();
+        $this->obElement = SeoParam::getByPage($this->iElementID)->first();
+        if (empty($this->obElement)) {
+            $this->obElement = SeoParam::find((int) $this->iElementID);
+        }
     }
 }

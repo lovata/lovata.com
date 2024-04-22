@@ -49,7 +49,9 @@ trait HasActiveSite
          *     });
          *
          */
-        Event::fire('system.site.setActiveSite', compact('id'));
+        Event::fire('system.site.setActiveSite', [$id]);
+
+        $this->broadcastSiteChange($id);
     }
 
     /**

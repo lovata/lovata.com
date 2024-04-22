@@ -1,6 +1,6 @@
 <?= Form::open(['id' => 'themeForm']) ?>
     <div class="modal-header">
-        <h4 class="modal-title"><?= e(trans('system::lang.install.theme_label')) ?></h4>
+        <h4 class="modal-title"><?= __("Install Theme") ?></h4>
         <button type="button" class="btn-close" data-dismiss="popup"></button>
     </div>
     <div class="modal-body">
@@ -10,14 +10,14 @@
         <?php endif ?>
 
         <div class="form-group">
-            <label class="form-label" for="themeCode"><?= e(trans('system::lang.theme.name.label')) ?></label>
+            <label class="form-label" for="themeCode"><?= __("Theme Name") ?></label>
             <input
                 name="code"
                 type="text"
                 class="form-control"
                 id="themeCode"
                 value="<?= e(post('code')) ?>" />
-            <p class="form-text"><?= e(trans('system::lang.theme.name.help')) ?></p>
+            <p class="form-text"><?= __("Name the theme by its unique code. For example, RainLab.Vanilla") ?></p>
         </div>
 
     </div>
@@ -28,14 +28,14 @@
             class="btn btn-primary"
             data-dismiss="popup"
             data-control="popup"
-            data-handler="<?= $this->getEventHandler('onInstallTheme') ?>">
-            <?= e(trans('system::lang.install.plugin_label')) ?>
+            data-handler="<?= $this->getEventHandler('onInstallThemeCheck') ?>">
+            <?= __("Install Theme") ?>
         </button>
         <button
             type="button"
-            class="btn btn-default"
+            class="btn btn-secondary"
             data-dismiss="popup">
-            <?= e(trans('backend::lang.form.cancel')) ?>
+            <?= __("Cancel") ?>
         </button>
     </div>
     <script>

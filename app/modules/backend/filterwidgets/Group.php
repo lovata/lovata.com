@@ -6,6 +6,7 @@ use Lang;
 use DbDongle;
 use Backend\Classes\FilterWidgetBase;
 use October\Rain\Element\ElementHolder;
+use October\Rain\Html\Helper as HtmlHelper;
 use ApplicationException;
 
 /**
@@ -108,14 +109,31 @@ class Group extends FilterWidgetBase
             return;
         }
 
+        // Check for null existence check
+        if (($nullKey = array_search(null, $activeValue)) !== false) {
+            unset($activeValue[$nullKey]);
+        }
+
         // Default query
+        $activeField = HtmlHelper::nameToDot($this->valueFrom);
         if ($this->model) {
-            $query->whereHas($this->valueFrom, function($q) use ($activeValue) {
-                $q->whereIn('id', $activeValue);
+            $query->whereHas($activeField, function($q) use ($activeValue) {
+                $q->whereIn($q->getModel()->getQualifiedKeyName(), $activeValue);
             });
+
+            if ($nullKey !== false) {
+                $query->orDoesntHave($activeField);
+            }
+        }
+        elseif ($this->isJsonable) {
+            $query->whereJsonContains($this->valueFrom, array_values($activeValue));
         }
         else {
             $query->whereIn($this->valueFrom, $activeValue);
+
+            if ($nullKey !== false) {
+                $query->orWhereNull($this->valueFrom);
+            }
         }
     }
 
@@ -148,7 +166,7 @@ class Group extends FilterWidgetBase
         $available = [];
         $scope = $this->filterScope;
 
-        if ($scope->options) {
+        if ($scope->options || $scope->optionsMethod) {
             $available = $this->getOptionsFromArray($searchQuery);
         }
         else {
@@ -225,26 +243,46 @@ class Group extends FilterWidgetBase
     protected function getOptionsFromArray($searchQuery = null)
     {
         // Load the data
+        $model = $this->model;
         $scope = $this->filterScope;
         $options = $scope->optionsMethod ?: $scope->options;
 
-        if (is_scalar($options)) {
-            $model = $this->model;
-            $methodName = $options;
+        // Calling via ClassName::method
+        if (is_string($options)) {
+            if (
+                count($staticMethod = explode('::', $options)) === 2 &&
+                is_callable($staticMethod)
+            ) {
+                $options = $staticMethod($model, $scope);
 
-            if (!$model->methodExists($methodName)) {
-                throw new ApplicationException(Lang::get('backend::lang.filter.options_method_not_exists', [
-                    'model'  => get_class($model),
-                    'method' => $methodName,
-                    'filter' => $scope->scopeName
-                ]));
+                if (!is_array($options)) {
+                    throw new ApplicationException(Lang::get('backend::lang.field.options_static_method_invalid_value', [
+                        'class' => $staticMethod[0],
+                        'method' => $staticMethod[1]
+                    ]));
+                }
             }
+            // Calling via $model->method
+            else {
+                $methodName = $options;
 
-            // For passing to events
-            $holder = new ElementHolder($this->getParentFilter()->getScopes());
-            $options = $model->$methodName($holder);
+                if (!$model->methodExists($methodName)) {
+                    throw new ApplicationException(Lang::get('backend::lang.filter.options_method_not_exists', [
+                        'model'  => get_class($model),
+                        'method' => $methodName,
+                        'filter' => $scope->scopeName
+                    ]));
+                }
+
+                // For passing to events
+                // @deprecated v4 review this interface to closer resemble the form field
+                // interface (FormField and FilterScope)
+                $holder = new ElementHolder($this->getParentFilter()->getScopes());
+                $options = $model->$methodName($holder);
+            }
         }
-        elseif (!is_array($options)) {
+
+        if (!is_array($options)) {
             $options = [];
         }
 
@@ -309,7 +347,8 @@ class Group extends FilterWidgetBase
         $processed = [];
 
         foreach ($options as $id => $result) {
-            $processed[] = ['id' => $id, 'name' => trans($result)];
+            $name = is_array($result) ? ($result[0] ?? '') : $result;
+            $processed[] = ['id' => $id, 'name' => __($name)];
         }
 
         return $processed;

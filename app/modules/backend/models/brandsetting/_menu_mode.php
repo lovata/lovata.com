@@ -63,18 +63,21 @@
 
 <script>
     $(document).on('click', '[data-menu-mode]', function() {
-        backendBrandSettingSetMenuMode($(this).data('menu-mode'))
+        backendBrandSettingSetMenuMode($(this).data('menu-mode'));
+
+        // Always force a reload of the next page
+        oc.AjaxTurbo && oc.AjaxTurbo.controller.disable();
     })
 
     function backendBrandSettingSetMenuMode(mode) {
-        $('[data-menu-mode]').removeClass('active')
-        $('[data-menu-mode="'+mode+'"]').addClass('active')
-        $('#<?= $field->getId() ?>').val(mode)
+        $('[data-menu-mode]').removeClass('active');
+        $('[data-menu-mode="'+mode+'"]').addClass('active');
+        $('#<?= $field->getId() ?>').val(mode);
 
         $('#layout-mainmenu .main-menu-container > nav.navbar')
             .removeClass('navbar-mode-icons navbar-mode-inline navbar-mode-text navbar-mode-tile navbar-mode-collapse')
-            .addClass('navbar-mode-' + mode)
+            .addClass('navbar-mode-' + mode);
 
-        $(document.body).toggleClass('main-menu-left', mode === 'left')
+        $(document.body).toggleClass('main-menu-left', mode === 'left');
     }
 </script>

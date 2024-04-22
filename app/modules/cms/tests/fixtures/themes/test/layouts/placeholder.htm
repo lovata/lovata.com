@@ -1,1 +1,1 @@
-<div>LAYOUT CONTENT <span>{% placeholder test default %}DEFAULT{% endplaceholder %}</span> {{ page() }}</div>{% placeholder second %}
+{% set third = placeholder('third') %}<div>LAYOUT CONTENT <span>{% placeholder test default %}DEFAULT{% endplaceholder %}</span> {{ page() }}</div><p>{% placeholder second %}</p>{{ third }}

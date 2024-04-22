@@ -24,5 +24,16 @@
         @hook:mounted="onDropdownMounted"
     >
         <span slot="noResult"><?= e(trans('backend::lang.form.no_options_found')) ?></span>
+        <template v-if="useValuesAsIcons || useValuesAsColors" slot="option" slot-scope="props">
+            <div class="option-with-icon" v-if="useValuesAsIcons">
+                <div class="option-icon" :class="props.option.code"></div>
+                <span>{{ props.option.label }}</span>
+            </div>
+
+            <div class="option-with-color" v-if="useValuesAsColors">
+                <div class="option-color" :style="{'background-color': props.option.code}"></div>
+                <span>{{ props.option.label }}</span>
+            </div>
+        </template>
     </backend-component-dropdown>
 </div>

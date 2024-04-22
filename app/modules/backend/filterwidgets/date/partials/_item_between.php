@@ -1,6 +1,6 @@
 <div class="facet-item">
     <div class="input-with-icon size-sm right-align">
-        <i class="icon icon-calendar-o"></i>
+        <i class="icon icon-calendar"></i>
         <input
             type="text"
             name="Filter[afterRaw]"
@@ -22,7 +22,7 @@
 </div>
 <div class="facet-item">
     <div class="input-with-icon size-sm right-align">
-        <i class="icon icon-calendar-o"></i>
+        <i class="icon icon-calendar"></i>
         <input
             type="text"
             name="Filter[beforeRaw]"

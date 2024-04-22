@@ -12,6 +12,9 @@ use System\Classes\PluginManager;
  */
 class PluginVersion extends Model
 {
+    /**
+     * @var string table associated with the model
+     */
     public $table = 'system_plugin_versions';
 
     /**
@@ -82,7 +85,7 @@ class PluginVersion extends Model
 
         if (!$pluginObj) {
             $this->name = $this->code;
-            $this->description = Lang::get('system::lang.plugins.unknown_plugin');
+            $this->description = __("Plugin has been removed from the file system.");
             $this->orphaned = true;
             return;
         }
@@ -92,8 +95,8 @@ class PluginVersion extends Model
             $this->disabledBySystem = true;
             $this->disabledByConfig = in_array($this->code, $manager->listDisabledByConfig());
             $this->description = $this->disabledByConfig || $this->is_disabled
-                ? Lang::get('system::lang.plugins.disabled_by_config')
-                : Lang::get('system::lang.plugins.disabled_by_system');
+                ? __("Plugin has been disabled by configuration.")
+                : __("Plugin has missing dependencies or disabled by system.");
             return;
         }
 

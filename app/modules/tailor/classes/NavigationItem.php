@@ -16,6 +16,7 @@ use System\Classes\SettingsManager;
  * @method NavigationItem parent(string $parent) parent is a parent uuid and used by secondary modes
  * @method NavigationItem parentCode(string $parentCode) parentCode is a parent code and used by secondary modes
  * @method NavigationItem permissionCode(string $permissionCode) permissionCode for a secondary item
+ * @method NavigationItem itemType(string $itemType) itemType
  *
  * @package october\tailor
  * @author Alexey Bobkov, Samuel Georges
@@ -79,6 +80,7 @@ class NavigationItem extends ItemDefinition
             'iconSvg' => $this->iconSvg,
             'url' => Backend::url($this->url),
             'order' => $this->order,
+            'itemType' => $this->itemType,
         ];
 
         if ($this->permissionCode) {

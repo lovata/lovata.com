@@ -1,0 +1,48 @@
+.daterangepicker {
+    background: var(--bs-modal-bg);
+    border: @popup-border !important;
+
+    .drp-buttons {
+        border-top: @popup-border;
+    }
+
+    .ranges li:hover {
+        background-color: var(--bs-secondary);
+        color: white;
+    }
+
+    &.show-ranges.ltr .drp-calendar.left {
+        border-left: @popup-border;
+    }
+
+    &:before, &:after {
+        display: none!important;
+    }
+
+    .calendar-table {
+        background-color: transparent;
+        border-color: transparent;
+    }
+
+    td.off, td.off.in-range, td.off.start-date, td.off.end-date {
+        background-color: transparent;
+        color: inherit;
+    }
+
+    td.in-range:not(.active) {
+        background-color: var(--bs-secondary);
+    }
+
+    td.available, th.available {
+        &:hover {
+            background-color: var(--bs-secondary);
+            color: inherit;
+        }
+    }
+
+    .calendar-table {
+        .prev span, .next span {
+            border-color: var(--bs-body-color);
+        }
+    }
+}

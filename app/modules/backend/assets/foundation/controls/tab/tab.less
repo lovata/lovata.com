@@ -75,6 +75,7 @@
                 color: @tab-color;
                 font-weight: 400;
                 overflow: hidden;
+                text-decoration: none;
 
                 &:hover {
                     background-color: transparent;
@@ -90,11 +91,23 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                     display: inline-block;
-                    margin-top: -4px;
-                    padding-top: 7px;
+                    // margin-top: -4px;
+                    // padding-top: 7px;
                     > span:not([class*="oc-icon"]) {
                         margin-right: 8px;
                     }
+                }
+
+                span.badge-colorpicker {
+                    text-decoration: none;
+                    display: inline-block;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 6px;
+                    background-color: var(--background-color, var(--bs-secondary));
+                    margin-left: 15px;
+                    margin-right: -15px;
+                    opacity: .3;
                 }
             }
 
@@ -107,6 +120,11 @@
 
                 a {
                     color: @tab-active-color;
+
+                    span.badge-colorpicker {
+                        opacity: 1;
+                        background-color: var(--background-color, var(--bs-primary));
+                    }
                 }
 
                 &:after {
@@ -191,7 +209,7 @@
                         top: -4px;
 
                         &:before {
-                            content: @circle;
+                            content: @icon-circle;
                             font-size: 9px;
                         }
                     }

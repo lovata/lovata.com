@@ -5,8 +5,11 @@
  *
  * @method AjaxButton ajaxHandler(string $ajaxHandler) ajaxHandler
  * @method AjaxButton ajaxData(array $ajaxData) ajaxData
+ * @method AjaxButton ajaxSuccess(array $ajaxSuccess) ajaxSuccess JS function
  * @method AjaxButton confirmMessage(string $confirmMessage) confirmMessage
  * @method AjaxButton loadingMessage(string $loadingMessage) loadingMessage
+ * @method AjaxButton listCheckedRequest(bool $listCheckedRequest) listCheckedRequest includes selected list checkboxes in the AJAX request
+ * @method AjaxButton attachLoading(bool $attachLoading) attachLoading attach loading indicator when an AJAX request is running
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
@@ -36,15 +39,24 @@ class AjaxButton extends Button
             $attr['data-request-data'] = $this->ajaxData;
         }
 
+        if ($this->ajaxSuccess !== null) {
+            $attr['data-request-success'] = $this->ajaxSuccess;
+        }
+
         if ($this->confirmMessage !== null) {
-            $attr['data-request-confirm'] = $this->confirmMessage;
+            $attr['data-request-confirm'] = __($this->confirmMessage);
         }
 
         if ($this->loadingMessage !== null) {
-            $attr['data-load-indicator'] = $this->loadingMessage;
+            $attr['data-request-message'] = __($this->loadingMessage);
         }
-        elseif ($this->loading) {
+
+        if ($this->attachLoading) {
             $attr['data-attach-loading'] = true;
+        }
+
+        if ($this->listCheckedRequest) {
+            $attr['data-list-checked-request'] = true;
         }
 
         return $attr;
@@ -57,7 +69,7 @@ class AjaxButton extends Button
     {
         $this->label('');
 
-        $this->replaceCssClass('oc-icon-trash-o btn-icon danger pull-right');
+        $this->replaceCssClass('oc-icon-delete btn-icon danger pull-right');
 
         return $this;
     }

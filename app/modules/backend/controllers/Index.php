@@ -15,6 +15,7 @@ use Backend\Classes\Controller;
 class Index extends Controller
 {
     use \Backend\Traits\InspectableContainer;
+    use \Backend\Controllers\Index\HasVueDashboard;
 
     /**
      * @var array requiredPermissions to view this page.
@@ -40,7 +41,7 @@ class Index extends Controller
     }
 
     /**
-     * index
+     * index controller action
      */
     public function index()
     {
@@ -48,7 +49,12 @@ class Index extends Controller
             return $redirect;
         }
 
-        $this->initReportContainer();
+        if ($this->usingVueDashboard()) {
+            $this->actionVueDashIndex();
+        }
+        else {
+            $this->initReportContainer();
+        }
 
         $this->pageTitle = 'backend::lang.dashboard.menu_label';
 
@@ -73,11 +79,10 @@ class Index extends Controller
     protected function initReportContainer()
     {
         $widgetConfig = $this->makeConfig('config_dashboard.yaml');
-
         $widgetConfig->showConfigure = BackendAuth::userHasAccess('dashboard.manage');
-        $widgetConfig->showAddRemove = BackendAuth::userHasAccess('dashboard.create');
+        $widgetConfig->showAddRemove = BackendAuth::userHasAccess('dashboard.manage');
         $widgetConfig->showReorder = $widgetConfig->showConfigure || $widgetConfig->showAddRemove;
-        $widgetConfig->showMakeDefault = BackendAuth::userHasAccess('dashboard.defaults');
+        $widgetConfig->showMakeDefault = BackendAuth::userHasAccess('dashboard.manage');
 
         $reportWidget = $this->makeWidget(\Backend\Widgets\ReportContainer::class, $widgetConfig);
         $reportWidget->bindToController();
@@ -89,7 +94,7 @@ class Index extends Controller
      */
     protected function checkPermissionRedirect()
     {
-        if (BackendAuth::userHasAccess('dashboard')) {
+        if ($this->user->hasAnyAccess(['dashboard', 'dashboard.*'])) {
             return;
         }
 

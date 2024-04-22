@@ -7,6 +7,7 @@ use Route;
 use Config;
 use Redirect;
 use Response;
+use Cms\Classes\Page;
 use Cms\Classes\Controller;
 use System\Helpers\DateTime as DateTimeHelper;
 use Exception;
@@ -62,11 +63,14 @@ class Cms
         }
 
         if (self::$actionExists) {
-            return Url::action($routeAction, ['slug' => $path]);
+            $result = Url::action($routeAction, ['slug' => $path]);
+        }
+        else {
+            $result = $path;
         }
 
         // Use the base URL
-        return Url::to($path);
+        return Url::toRelative($result);
     }
 
     /**
@@ -92,7 +96,31 @@ class Cms
             return rtrim($site->base_url . $path, '/');
         }
 
-        return $this->url($path);
+        return Url::to($path);
+    }
+
+    /**
+     * entryUrl returns an entry point URL from the CMS theme based on a component name
+     * and the isDefault component property to assign it explicitly.
+     */
+    public function entryUrl($componentName, array $parameters = [], array $componentProps = null)
+    {
+        // @todo check cached, if not, see \Tailor\Behaviors\PreviewController for example -sg
+        $pages = $componentProps
+            ? Page::whereComponent($componentName, $componentProps)
+            : Page::withComponent($componentName);
+
+        $page = $pages->first();
+
+        if ($pages->count() > 1) {
+            $page = $pages->whereComponent($componentName, ['isDefault' => true])->first() ?: $page;
+        }
+
+        if (!$page) {
+            return null;
+        }
+
+        return $this->pageUrl($page->getBaseFileName(), $parameters);
     }
 
     /**
@@ -109,6 +137,60 @@ class Cms
         $url = $this->pageUrl($to, $parameters) ?: $to;
 
         return Redirect::to($url, $status);
+    }
+
+    /**
+     * redirectFromPost performs a redirect after an action using a "redirect" postback
+     * value. Setting to false or 0 will disable the redirect. This method will only
+     * redirect to a relative path for security reasons.
+     */
+    public function redirectFromPost($key = 'redirect')
+    {
+        return $this->makePostRedirect($key);
+    }
+
+    /**
+     * redirectIntendedFromPost
+     */
+    public function redirectIntendedFromPost($key = 'redirect')
+    {
+        return $this->makePostRedirect($key, 'intended');
+    }
+
+    /**
+     * makePostRedirect
+     */
+    protected function makePostRedirect($key = 'redirect', $method = 'to')
+    {
+        $property = post($key);
+
+        if (!$property || $property === 'false') {
+            return;
+        }
+
+        if (in_array($property, ['1', 'true'])) {
+            return Redirect::refresh();
+        }
+
+        $redirectUrl = $this->pageUrl($property) ?: $property;
+
+        if ($redirectUrl) {
+            return Redirect::$method(Url::toRelative($redirectUrl));
+        }
+    }
+
+    /**
+     * flashFromPost requests a flash message from the "message" postback.
+     */
+    public function flashFromPost($message, $key = 'message')
+    {
+        $property = post($key);
+
+        if (in_array($property, ['0', 'false'])) {
+            return;
+        }
+
+        return $property ?: $message;
     }
 
     /**
@@ -162,5 +244,38 @@ class Cms
         $carbon->setTimezone(Config::get('cms.timezone', Config::get('app.timezone')));
 
         return $carbon;
+    }
+
+    /**
+     * urlHasException checks if the url pattern has an exception for the specified type
+     */
+    public function urlHasException(string $url, string $type): bool
+    {
+        $exceptions = (array) Config::get('cms.url_exceptions', []);
+        if (!$exceptions) {
+            return false;
+        }
+
+        // Normalize URL
+        $haystack = '/' . trim($url, '/ ');
+
+        foreach ($exceptions as $urlPattern => $exceptionStr) {
+            $exceptionTypes = explode('|', $exceptionStr);
+            if (!in_array($type, $exceptionTypes)) {
+                continue;
+            }
+
+            // Normalize slash prefix, remove wildcard end
+            $needle = '/' . ltrim(rtrim($urlPattern, '*'), '/ ');
+            if (str_ends_with($urlPattern, '*') && str_starts_with($haystack, $needle)) {
+                return true;
+            }
+
+            if ($haystack === $needle) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -1,7 +1,9 @@
 <?php namespace System\Models;
 
 use App;
+use Site;
 use Event;
+use Config;
 use System\Models\SettingModel;
 
 /**
@@ -12,6 +14,7 @@ use System\Models\SettingModel;
  */
 class MailSetting extends SettingModel
 {
+    use \October\Rain\Database\Traits\Multisite;
     use \October\Rain\Database\Traits\Validation;
 
     const MODE_LOG = 'log';
@@ -30,6 +33,25 @@ class MailSetting extends SettingModel
      * @var mixed settingsFields definitions
      */
     public $settingsFields = 'fields.yaml';
+
+    /**
+     * @var array propagatable fields
+     */
+    protected $propagatable = [
+        'sendmail_path',
+        'smtp_address',
+        'smtp_port',
+        'smtp_user',
+        'smtp_password',
+        'smtp_authorization',
+        'smtp_encryption',
+        'mailgun_domain',
+        'mailgun_secret',
+        'ses_key',
+        'ses_secret',
+        'ses_region',
+        'postmark_token',
+    ];
 
     /**
      * @var array rules for validation
@@ -70,14 +92,14 @@ class MailSetting extends SettingModel
      */
     public function getSendModeOptions()
     {
-        $options =  [
+        $options =  (array) Config::get('mail.send_mode_options', [
             static::MODE_LOG => "Log File",
             static::MODE_SENDMAIL => "Sendmail",
             static::MODE_SMTP => "SMTP",
             static::MODE_MAILGUN => "Mailgun",
             static::MODE_SES => "SES",
             static::MODE_POSTMARK => "Postmark",
-        ];
+        ]);
 
         /**
          * @event system.mail.getSendModeOptions
@@ -96,6 +118,34 @@ class MailSetting extends SettingModel
         Event::fire('system.mail.getSendModeOptions', [&$options]);
 
         return $options;
+    }
+
+    /**
+     * enableMultisiteMailer uses a just-in-time mail driver to handle mail configuration
+     * for multiple site definitions. A new driver is needed due to the Laravel internals
+     * caching most of the configuration after resolving.
+     */
+    public static function enableMultisiteMailer()
+    {
+        Event::listen('mailer.buildQueueMailable', function ($mailer, $mailable) {
+            $mailable->forceMailer('x_site_mailer_' . Site::getSiteIdFromContext());
+        });
+
+        Event::listen('mailer.beforeResolve', function ($mailer, $name) {
+            if (!str_starts_with($name, 'x_site_mailer_')) {
+                return;
+            }
+
+            // Assuming site context is applied
+            if (static::isConfigured()) {
+                static::applyConfigValues();
+            }
+
+            // Set the unique mailer just in time
+            if ($activeMailer = Config::get('mail.default')) {
+                Config::set("mail.mailers.{$name}", Config::get("mail.mailers.{$activeMailer}"));
+            }
+        });
     }
 
     /**
@@ -175,5 +225,14 @@ class MailSetting extends SettingModel
             '' => "No encryption",
             'tls' => "TLS",
         ];
+    }
+
+    /**
+     * isMultisiteEnabled allows for programmatic toggling
+     * @return bool
+     */
+    public function isMultisiteEnabled()
+    {
+        return Site::hasFeature('backend_mail_setting');
     }
 }

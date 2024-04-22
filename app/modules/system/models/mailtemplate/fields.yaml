@@ -3,43 +3,41 @@
 # ===================================
 
 fields:
-
     layout:
-        label: system::lang.mail_templates.layout
+        label: "Layout"
         type: relation
-        emptyOption: system::lang.mail_templates.no_layout
+        emptyOption: "-- No layout --"
 
     code:
-        label: system::lang.mail_templates.code
-        comment: system::lang.mail_templates.code_comment
+        label: "Code"
+        comment: "Unique code used to refer to this template"
         span: left
         context: create
 
     subject@create:
-        label: system::lang.mail_templates.subject
-        comment: system::lang.mail_templates.subject_comment
+        label: "Subject"
+        comment: "Email message subject"
         span: right
 
     subject@update:
-        label: system::lang.mail_templates.subject
+        label: "Subject"
 
     description:
-        label: system::lang.mail_templates.description
+        label: "Description"
         type: textarea
         size: tiny
 
 secondaryTabs:
     fields:
-
         content_html:
             type: markdown
             size: giant
-            tab: system::lang.mail_templates.content_html
+            tab: "HTML"
             safe: true
             stretch: true
 
         content_text:
             type: textarea
             size: giant
-            tab: system::lang.mail_templates.content_text
+            tab: "Plaintext"
             stretch: true

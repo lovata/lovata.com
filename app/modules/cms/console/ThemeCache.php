@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 /**
  * ThemeCache caches the system themes
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ThemeCache extends Command

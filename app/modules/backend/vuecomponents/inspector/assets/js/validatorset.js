@@ -65,7 +65,7 @@
             }
         }
 
-        this.validate = function(value) {
+        this.validate = function (value) {
             try {
                 for (var i=0; i<validators.length; i++) {
                     var validator = validators[i],

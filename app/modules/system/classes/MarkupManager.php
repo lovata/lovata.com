@@ -9,39 +9,53 @@ use Twig\TwigFunction as TwigSimpleFunction;
 /**
  * MarkupManager class manages Twig functions, token parsers and filters.
  *
- * @method static MarkupManager instance()
- *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
 class MarkupManager
 {
-    use \October\Rain\Support\Traits\Singleton;
-
     const EXTENSION_FILTER = 'filters';
     const EXTENSION_FUNCTION = 'functions';
     const EXTENSION_TOKEN_PARSER = 'tokens';
 
     /**
-     * @var array Cache of registration callbacks.
-     */
-    protected $callbacks = [];
-
-    /**
-     * @var array[MarkupExtentionItem[]] Globally registered extension items
+     * @var array[MarkupExtensionItem[]] items are globally registered extension items
      */
     protected $items;
+
+    /**
+     * instance creates a new instance of this singleton
+     */
+    public static function instance(): static
+    {
+        return App::make('system.markup');
+    }
+
+    /**
+     * registerCallback function that defines simple Twig extensions.
+     * The callback function should register menu items by calling the manager's
+     * `registerFunctions`, `registerFilters`, `registerTokenParsers` function.
+     * The manager instance is passed to the callback function as an argument. Usage:
+     *
+     *     MarkupManager::registerCallback(function ($manager) {
+     *         $manager->registerFilters([...]);
+     *         $manager->registerFunctions([...]);
+     *         $manager->registerTokenParsers([...]);
+     *     });
+     *
+     * @deprecated this will be removed in a later version
+     * @param callable $callback A callable function.
+     */
+    public function registerCallback(callable $callback)
+    {
+        App::extendInstance('system.markup', $callback);
+    }
 
     /**
      * loadExtensions parses all registrations and adds them to this class
      */
     protected function loadExtensions()
     {
-        // Load external items
-        foreach ($this->callbacks as $callback) {
-            $callback($this);
-        }
-
         // Load module items
         foreach (System::listModules() as $module) {
             if ($provider = App::getProvider($module . '\\ServiceProvider')) {
@@ -76,25 +90,6 @@ class MarkupManager
 
             $this->registerExtensions($type, $definitions);
         }
-    }
-
-    /**
-     * registerCallback function that defines simple Twig extensions.
-     * The callback function should register menu items by calling the manager's
-     * `registerFunctions`, `registerFilters`, `registerTokenParsers` function.
-     * The manager instance is passed to the callback function as an argument. Usage:
-     *
-     *     MarkupManager::registerCallback(function ($manager) {
-     *         $manager->registerFilters([...]);
-     *         $manager->registerFunctions([...]);
-     *         $manager->registerTokenParsers([...]);
-     *     });
-     *
-     * @param callable $callback A callable function.
-     */
-    public function registerCallback(callable $callback)
-    {
-        $this->callbacks[] = $callback;
     }
 
     /**

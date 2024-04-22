@@ -100,7 +100,7 @@
         });
     }
 
-    $(document).on('shown.bs.dropdown', '.dropdown.dropdown-fixed', function(ev) {
+    $(document).on('shown.bs.dropdown', '.dropdown.dropdown-fixed', function (ev) {
         $container = $(this);
         $dropdown = $('.dropdown-menu', $container);
         $target = $(ev.relatedTarget);

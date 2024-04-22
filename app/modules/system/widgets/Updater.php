@@ -1,10 +1,10 @@
 <?php namespace System\Widgets;
 
+use Ui;
 use Log;
 use Flash;
 use System;
 use Backend;
-use Ui;
 use Redirect;
 use Cms\Classes\ThemeManager;
 use System\Classes\UpdateManager;
@@ -74,8 +74,8 @@ class Updater extends WidgetBase
             ->label(__('There are missing dependencies needed for the system to run correctly.'))
             ->action(
                 Ui::popupButton(__('Check Dependencies'), $this->getEventHandler('onCheckDependencies'))
+                    ->attachLoading()
                     ->danger()
-                    ->loading()
             );
     }
 
@@ -292,6 +292,76 @@ class Updater extends WidgetBase
     }
 
     /**
+     * onInstallThemeCheck requests information from the user about how to install the theme
+     */
+    public function onInstallThemeCheck()
+    {
+        try {
+            // Locate theme remotely
+            if (!$code = trim(post('code'))) {
+                throw new ApplicationException(__('Please specify a Theme name to install.'));
+            }
+            $manager = UpdateManager::instance();
+            $details = $manager->requestThemeDetails($code);
+            $deps = $this->findProposedDependencies($details['require'] ?? []);
+
+            // Build form
+            $formWidget = $this->getThemeCheckFormWidget();
+            if (count($deps)) {
+                $formWidget->getField('install_requirements')->hidden(false)->options(array_combine($deps, $deps));
+                $formWidget->getField('_requirements_ruler')->hidden(false);
+            }
+
+            $this->vars['code'] = $code;
+            $this->vars['formWidget'] = $formWidget;
+
+            return $this->makePartial('theme_check_form');
+        }
+        catch (Exception $ex) {
+            $this->handleError($ex);
+            return $this->makePartial('theme_form');
+        }
+    }
+
+    /**
+     * findProposedDependencies checks a response `require` object for missing plugins
+     */
+    protected function findProposedDependencies($require): array
+    {
+        $pluginManager = PluginManager::instance();
+        if (!is_array($require)) {
+            return [];
+        }
+
+        $result = [];
+        foreach ($require as $r) {
+            if (!isset($r['code'])) {
+                continue;
+            }
+
+            if ($pluginManager->hasPlugin($r['code'])) {
+                continue;
+            }
+
+            $result[] = $r['code'];
+        }
+
+        return $result;
+    }
+
+    /**
+     * getThemeCheckFormWidget
+     */
+    protected function getThemeCheckFormWidget()
+    {
+        $config = $this->makeConfig('~/modules/system/widgets/updater/fields-theme-check.yaml');
+        $config->model = new \Model;
+        $widget = $this->makeWidget(\Backend\Widgets\Form::class, $config);
+        $widget->bindToController();
+        return $widget;
+    }
+
+    /**
      * onInstallTheme validates the theme code and execute the theme installation
      */
     public function onInstallTheme()
@@ -301,17 +371,52 @@ class Updater extends WidgetBase
                 throw new ApplicationException(__('Please specify a Theme name to install.'));
             }
 
-            $updateSteps = [
-                [
+            $updateSteps = [];
+
+            if (post('install_requirements')) {
+                $deps = (array) post('install_requirements', []);
+                foreach ($deps as $pluginCode) {
+                    $updateSteps[] = [
+                        'code' => 'installPlugin',
+                        'label' => __('Installing plugin: :name', ['name' => $pluginCode]),
+                        'name' => $pluginCode
+                    ];
+                }
+            }
+
+            if (post('install_strategy') === 'composer') {
+                $updateSteps[] = [
                     'code' => 'installTheme',
                     'label' => __('Installing theme: :name', ['name' => $code]),
                     'name' => $code
-                ],
-                [
-                    'code' => 'completeInstall',
-                    'label' => __('Finishing installation process'),
-                    'type' => 'final'
-                ]
+                ];
+            }
+            else {
+                $updateSteps[] = [
+                    'code' => 'downloadTheme',
+                    'label' => __('Installing theme: :name', ['name' => $code]),
+                    'name' => $code
+                ];
+
+                $updateSteps[] = [
+                    'code' => 'extractTheme',
+                    'label' => __('Extracting theme: :name', ['name' => $code]),
+                    'name' => $code
+                ];
+            }
+
+            if (post('seed_theme_data')) {
+                $updateSteps[] = [
+                    'code' => 'seedTheme',
+                    'label' => __('Seeding theme: :name', ['name' => $code]),
+                    'name' => $code
+                ];
+            }
+
+            $updateSteps[] = [
+                'code' => 'completeInstall',
+                'label' => __('Finishing installation process'),
+                'type' => 'final'
             ];
 
             $this->vars['updateSteps'] = $updateSteps;
@@ -400,6 +505,21 @@ class Updater extends WidgetBase
                     $this->clearMetaCache();
                     break;
 
+                case 'downloadTheme':
+                    $manager->downloadTheme(post('name'));
+                    $this->clearMetaCache();
+                    break;
+
+                case 'extractTheme':
+                    $manager->extractTheme(post('name'));
+                    $this->clearMetaCache();
+                    break;
+
+                case 'seedTheme':
+                    $manager->seedTheme(post('name'));
+                    $this->clearMetaCache();
+                    break;
+
                 case 'removePlugin':
                     $manager->uninstallPlugin(post('name'));
                     $this->clearMetaCache();
@@ -421,7 +541,7 @@ class Updater extends WidgetBase
 
                 case 'completeInstall':
                     $manager->update();
-                    Flash::success(__('Plugin installed successfully'));
+                    Flash::success(__("Package installed successfully"));
                     return Redirect::refresh();
             }
         }

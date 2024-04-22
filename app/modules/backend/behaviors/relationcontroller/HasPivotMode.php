@@ -4,6 +4,7 @@ use Db;
 use Lang;
 use ApplicationException;
 use Backend\Widgets\Form as FormWidget;
+use Exception;
 
 /**
  * HasPivotMode contains logic for managing pivot records
@@ -31,11 +32,18 @@ trait HasPivotMode
     protected $foreignId;
 
     /**
-     * makePivotWidget return a form widget based on pivot configuration
+     * makePivotFormWidget return a form widget based on pivot configuration
      */
-    protected function makePivotWidget()
+    protected function makePivotFormWidget(): ?FormWidget
     {
-        $config = $this->makeConfigForMode('pivot', 'form');
+        if ($this->manageMode !== 'pivot') {
+            return null;
+        }
+
+        if (!$config = $this->makeConfigForMode('pivot', 'form')) {
+            return null;
+        }
+
         $config->model = $this->relationModel;
         $config->arrayName = class_basename($this->relationModel);
         $config->context = $this->evalFormContext('pivot', !!$this->manageId);
@@ -91,6 +99,10 @@ trait HasPivotMode
     {
         $this->beforeAjax();
 
+        if (!$this->pivotWidget) {
+            throw new ApplicationException("Missing configuration for [pivot.form] in RelationController definition [{$this->field}].");
+        }
+
         $this->vars['foreignId'] = $this->foreignId ?: post('checked');
 
         return $this->relationMakePartial('pivot_form');
@@ -107,16 +119,26 @@ trait HasPivotMode
         Db::transaction(function () {
             // Add the checked IDs to the pivot table
             $foreignIds = (array) $this->foreignId;
-            $this->relationObject->sync($foreignIds, false);
+            $saveData = (array) $this->pivotWidget->getSaveData();
+            $pivotData = $this->getPivotDataForAttach($saveData);
+
+            // Two methods are used to synchronize the records, the first inserts records in
+            // bulk but may encounter collisions. The fallback adds records one at a time
+            // and checks for collisions with existing records.
+            try {
+                $this->relationObject->attach($foreignIds, $pivotData);
+            }
+            catch (Exception $ex) {
+                $this->relationObject->sync(array_fill_keys($foreignIds, $pivotData), false);
+            }
 
             // Save data to models
             $foreignKeyName = $this->relationModel->getQualifiedKeyName();
             $hydratedModels = $this->relationObject->whereIn($foreignKeyName, $foreignIds)->get();
-            $saveData = $this->pivotWidget->getSaveData();
             foreach ($hydratedModels as $hydratedModel) {
                 $modelsToSave = $this->prepareModelsToSave($hydratedModel, $saveData);
                 foreach ($modelsToSave as $modelToSave) {
-                    $modelToSave->save(null, $this->pivotWidget->getSessionKey());
+                    $modelToSave->save(['sessionKey' => $this->pivotWidget->getSessionKey()]);
                 }
             }
         });
@@ -138,7 +160,7 @@ trait HasPivotMode
         $modelsToSave = $this->prepareModelsToSave($this->pivotModel, $saveData);
 
         foreach ($modelsToSave as $modelToSave) {
-            $modelToSave->save(null, $this->pivotWidget->getSessionKey());
+            $modelToSave->save(['sessionKey' => $this->pivotWidget->getSessionKey()]);
         }
 
         $this->showFlashMessage('flashUpdate');
@@ -156,5 +178,35 @@ trait HasPivotMode
         }
 
         return $this->getCustomLang('titlePivotForm');
+    }
+
+    /**
+     * getPivotDataForAttach returns either a list of IDs to sync, or an associative
+     * array with sync keys and pivot attributes as values.
+     *
+     * This method only exists to send the pivot attributes to the `model.relation.attach`
+     * event. The attributes are set and saved a second time via the regular life cycle.
+     * Eloquent should not send it to SQL twice if the attributes are an exact match.
+     */
+    protected function getPivotDataForAttach(array $saveData): array
+    {
+        if (!isset($saveData['pivot']) || !is_array($saveData['pivot'])) {
+            return [];
+        }
+
+        $pivotModel = $this->relationObject->newPivot();
+        $this->setModelAttributes($pivotModel, $saveData['pivot']);
+
+        // Emulate save events for attribute manipulation
+        $pivotModel->fireEvent('model.beforeSave');
+        $pivotModel->fireEvent('model.beforeCreate');
+        $pivotModel->fireEvent('model.beforeSaveDone');
+
+        $pivotData = $pivotModel->getAttributes();
+        if (!$pivotData) {
+            return [];
+        }
+
+        return $pivotData;
     }
 }

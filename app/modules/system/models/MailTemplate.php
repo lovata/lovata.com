@@ -51,31 +51,53 @@ class MailTemplate extends Model
      */
     public static function listAllTemplates()
     {
+        // Only return short codes, not views
         $fileTemplates = (array) MailManager::instance()->listRegisteredTemplates();
+        $fileTemplates = array_keys($fileTemplates);
+        $fileTemplates = array_combine($fileTemplates, $fileTemplates);
+
+        // Short codes are in the db too
         $dbTemplates = (array) self::lists('code', 'code');
         $templates = $fileTemplates + $dbTemplates;
+
+        // Sort and return
         ksort($templates);
         return $templates;
     }
 
     /**
-     * allTemplates returns a list of all mail templates.
-     * @return array Returns an array of the MailTemplate objects.
+     * allTemplates returns a list of all mail templates, returns an array of
+     * MailTemplate objects.
      */
-    public static function allTemplates()
+    public static function allTemplates(): array
     {
-        $result = [];
-        $codes = array_keys(self::listAllTemplates());
+        $dbTemplates = self::all();
+        $fileReferences = (array) MailManager::instance()->listRegisteredTemplates();
+        $fileTemplates = [];
 
-        foreach ($codes as $code) {
-            $result[] = self::findOrMakeTemplate($code);
+        // Add missing file-based references
+        foreach ($fileReferences as $code => $view) {
+            if ($dbTemplates->where('code', $code)->count() > 0) {
+                continue;
+            }
+
+            if (View::exists($view)) {
+                $template = new self;
+                $template->code = $code;
+                $template->fillFromView($view);
+                $fileTemplates[] = $template;
+            }
         }
 
-        return $result;
+        if ($fileTemplates) {
+            $dbTemplates->merge($fileTemplates);
+        }
+
+        return $dbTemplates->all();
     }
 
     /**
-     * Syncronise all file templates to the database.
+     * syncAll synchronizes all file templates to the database.
      * @return void
      */
     public static function syncAll()
@@ -89,22 +111,18 @@ class MailTemplate extends Model
 
         // Clean up non-customized templates
         foreach ($dbTemplates as $code => $isCustom) {
-            if ($isCustom) {
-                continue;
-            }
-
-            if (!array_key_exists($code, $templates)) {
+            if (!$isCustom && !array_key_exists($code, $templates)) {
                 self::whereCode($code)->delete();
             }
         }
 
         // Create new templates
-        foreach ($newTemplates as $code) {
-            $sections = self::getTemplateSections($code);
+        foreach ($newTemplates as $code => $view) {
+            $sections = self::getTemplateSections($view);
             $layoutCode = array_get($sections, 'settings.layout', 'default');
             $description = array_get($sections, 'settings.description');
 
-            $template = self::make();
+            $template = new self;
             $template->code = $code;
             $template->description = $description;
             $template->is_custom = 0;
@@ -119,7 +137,8 @@ class MailTemplate extends Model
     public function afterFetch()
     {
         if (!$this->is_custom) {
-            $this->fillFromView($this->code);
+            $viewPath = MailManager::instance()->getViewPathForTemplate($this->code);
+            $this->fillFromView($viewPath ?: $this->code);
         }
     }
 
@@ -155,9 +174,9 @@ class MailTemplate extends Model
     /**
      * getTemplateSections
      */
-    protected static function getTemplateSections($code)
+    protected static function getTemplateSections($view)
     {
-        return MailParser::parse(FileHelper::get(View::make($code)->getPath()));
+        return MailParser::parse(FileHelper::get(View::make($view)->getPath()));
     }
 
     /**
@@ -165,14 +184,36 @@ class MailTemplate extends Model
      */
     public static function findOrMakeTemplate($code)
     {
-        $template = self::whereCode($code)->first();
-
-        if (!$template && View::exists($code)) {
-            $template = new self;
-            $template->code = $code;
-            $template->fillFromView($code);
+        $template = self::where('code', $code)->first();
+        if ($template) {
+            return $template;
         }
 
-        return $template;
+        $view = MailManager::instance()->getViewPathForTemplate($code) ?: $code;
+        if (View::exists($view)) {
+            $template = new self;
+            $template->code = $code;
+            $template->fillFromView($view);
+            return $template;
+        }
+
+        return null;
+    }
+
+    /**
+     * canSendTemplate
+     */
+    public static function canSendTemplate($code): bool
+    {
+        if (!$code) {
+            return false;
+        }
+
+        $view = MailManager::instance()->getViewPathForTemplate($code) ?: $code;
+        if (View::exists($view)) {
+            return true;
+        }
+
+        return self::where('code', $code)->count() > 0;
     }
 }

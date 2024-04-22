@@ -19,6 +19,9 @@ trait HasRepeaterTable
         $tableExists = Schema::hasTable($tableName);
 
         if ($tableExists) {
+            Schema::table($tableName, function ($table) {
+                $this->patchRepeaterTableColumns($table);
+            });
             return;
         }
 
@@ -28,6 +31,25 @@ trait HasRepeaterTable
         });
 
         $this->actionCount++;
+    }
+
+    /**
+     * patchRepeaterTableColumns
+     */
+    protected function patchRepeaterTableColumns($table)
+    {
+        $tableColumns = Schema::getColumnListing($table->getTable());
+
+        // Patch missing columns
+        if (!in_array('parent_id', $tableColumns)) {
+            $table->integer('parent_id')->nullable();
+        }
+
+        // Increment actions
+        if ($table->getColumns() || $table->getCommands()) {
+            $this->defineTableComment($table);
+            $this->actionCount++;
+        }
     }
 
     /**
@@ -42,6 +64,7 @@ trait HasRepeaterTable
         $table->string('content_group')->nullable();
         $table->mediumText('content_value')->nullable();
         $table->text('content_spawn_path')->nullable();
+        $table->integer('parent_id')->nullable();
         $table->integer('sort_order')->nullable();
         $table->timestamps();
         $table->index(['host_id', 'host_field'], $table->getTable().'_idx');

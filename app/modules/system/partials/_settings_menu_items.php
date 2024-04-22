@@ -34,6 +34,7 @@
                     <li
                         class="<?= strtolower($item->owner) == $context->owner && strtolower($item->code) == $context->itemCode ? 'active' : false ?>"
                         data-keywords="<?= e(__($item->keywords ?? '')) ?>"
+                        <?= Html::attributes($item->attributes) ?>
                     >
                         <a href="<?= $item->url ?>" ontouchstart="">
                             <i class="<?= $item->icon ?? '' ?>"></i>

@@ -3,51 +3,49 @@
 # ===================================
 
 fields:
-
     code:
-        label: system::lang.mail_templates.code
-        comment: system::lang.mail_templates.code_comment
+        label: "Code"
+        comment: "Unique code used to refer to this template"
         span: left
         context: create
 
     name@create:
-        label: system::lang.mail_templates.name
+        label: "Name"
         span: right
 
     name@update:
-        label: system::lang.mail_templates.name
+        label: "Name"
 
 secondaryTabs:
     fields:
-
         content_html:
             type: codeeditor
             size: giant
-            tab: system::lang.mail_templates.content_html
+            tab: "HTML"
             language: html
             stretch: true
 
         content_css:
             type: codeeditor
             size: giant
-            tab: system::lang.mail_templates.content_css
+            tab: "CSS"
             language: css
             stretch: true
 
         content_text:
             type: textarea
             size: giant
-            tab: system::lang.mail_templates.content_text
+            tab: "Plaintext"
             stretch: true
 
         options[disable_auto_inline_css]:
-            label: system::lang.mail_templates.disable_auto_inline_css
+            label: "Disable automatic inline CSS"
             type: checkbox
-            tab: system::lang.mail_templates.options
+            tab: "Options"
             default: false
 
         options[disable_brand_css]:
             label: Disable mail branding CSS
             type: checkbox
-            tab: system::lang.mail_templates.options
+            tab: "Options"
             default: false

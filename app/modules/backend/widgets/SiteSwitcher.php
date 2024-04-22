@@ -222,6 +222,6 @@ class SiteSwitcher extends WidgetBase
          *     });
          *
          */
-        Event::fire('backend.site.setEditSite', compact('id'));
+        Event::fire('backend.site.setEditSite', [$id]);
     }
 }

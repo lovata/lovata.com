@@ -19,8 +19,7 @@ class MarkdownField extends FallbackField
         $config = $this->config;
 
         if (isset($config['span']) && $config['span'] === 'adaptive') {
-            $config['externalToolbarAppState'] = 'tailor.app::toolbarExtensionPoint';
-            $config['externalToolbarEventBus'] = 'tailor.app::eventBus';
+            $config['externalToolbarAppState'] = 'toolbarExtensionPoint';
 
             if (!array_key_exists('sideBySide', $config)) {
                 $config['sideBySide'] =  true;

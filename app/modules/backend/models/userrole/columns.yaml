@@ -39,3 +39,4 @@ columns:
         shortLabel: ''
         cssClass: text-end
         type: colorpicker
+        sortable: false

@@ -44,7 +44,8 @@ oc.Modules.register('backend.component.inspector.control.set', function () {
 
             return {
                 editedObject: initialValue,
-                loadedItems: {}
+                loadedItems: {},
+                unwatches: []
             };
         },
         computed: {
@@ -128,6 +129,18 @@ oc.Modules.register('backend.component.inspector.control.set', function () {
             getDefaultValue: function getDefaultValue() {
                 return {};
             },
+
+            findOptionByValue: function findOptionByValue(value) {
+                if (!this.options) {
+                    return null;
+                }
+
+                for (var index = 0; index < this.options.length; index++) {
+                    if (this.options[index].code == value) {
+                        return this.options[index];
+                    }
+                }
+            },
         },
         created: function created() {
 
@@ -139,6 +152,23 @@ oc.Modules.register('backend.component.inspector.control.set', function () {
             if (!this.control.items) {
                 this.loadDynamicOptions();
             }
+
+            if (Array.isArray(this.control.depends)) {
+                this.control.depends.forEach(dependsOn => {
+                    this.unwatches.push(
+                        this.$watch('obj.' + dependsOn, (newVal) => {
+                            const originalValue = this.value;
+                            this.loadDynamicOptions().then(() => {
+                                if (!this.findOptionByValue(originalValue)) {
+                                    this.setManagedValue([]);
+                                }
+                            })
+                        }, {
+                            deep: true
+                        })
+                    );
+                })
+            }
         },
         watch: {
             editedObject: {
@@ -147,6 +177,11 @@ oc.Modules.register('backend.component.inspector.control.set', function () {
                     this.updateValue(newValue);
                 }
             }
+        },
+        beforeDestroy: function () {
+            this.unwatches.forEach(unwatch => {
+                unwatch();
+            })
         },
         template: '#backend_vuecomponents_inspector_control_set'
     });

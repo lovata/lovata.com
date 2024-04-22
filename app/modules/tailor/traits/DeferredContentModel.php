@@ -1,6 +1,5 @@
 <?php namespace Tailor\Traits;
 
-use October\Rain\Database\Models\DeferredBinding;
 use Tailor\Models\RepeaterItem;
 
 /**

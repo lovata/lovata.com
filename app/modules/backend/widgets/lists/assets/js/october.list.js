@@ -1,7 +1,7 @@
 /*
  * List Widget
  *
- * Dependences:
+ * Dependencies:
  * - Row Link Plugin (backend/assets/foundation/scripts/rowlink/rowlink.js)
  */
 +function ($) { "use strict";
@@ -105,6 +105,7 @@
 
         $(this.options.checkboxSelector, this.$body)
             .prop('checked', checked)
+            .first()
             .trigger('change');
 
         if (checked) {
@@ -245,6 +246,15 @@
     // LIST HELPER DATA-API
     // ==============
 
+    oc.listOnLoadForm = function(recordId) {
+        $('<a />').popup({
+            handler: 'onLoadPopupForm',
+            extraData: {
+                'form_record_id': recordId,
+            }
+        });
+    }
+
     $.fn.listCheckedTriggerOn = function() {
         this.each(function() {
             var $buttonEl = $(this),
@@ -256,10 +266,27 @@
                 return;
             }
 
+            var triggerCallback = null,
+                $counter = $('[data-list-checked-counter]', $buttonEl);
+
+            if ($counter.length) {
+                $buttonEl.get(0).addEventListener('trigger:after-update', () => {
+                    var checked = $.oc.listGetChecked('#' + listId + ' > .control-list:first');
+
+                    if (checked.length) {
+                        $counter.text('(' + checked.length + ')');
+                    }
+                    else {
+                        $counter.text('');
+                    }
+                });
+            }
+
             $buttonEl.triggerOn({
+                triggerCallback: triggerCallback,
                 triggerAction: 'enable',
                 triggerCondition: 'checked',
-                trigger: '#' + listId + ' > .control-list:first .list-checkbox input[type=checkbox]'
+                trigger: '#' + listId + ' > .control-list:first tbody .list-checkbox input[type=checkbox]'
             });
 
             $buttonEl.data('oc.listCheckedTriggerOn', true);

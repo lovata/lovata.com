@@ -4,13 +4,13 @@
             <?= e(__('Return to System Updates')) ?>
         </a>
 
-        <div class="btn-group dropdown dropdown-fixed">
+        <div class="dropdown dropdown-fixed">
             <button
                 type="button"
-                class="btn btn-default dropdown-toggle"
+                class="btn btn-secondary dropdown-toggle"
                 data-toggle="dropdown"
                 data-list-checked-trigger>
-                <?= e(trans('system::lang.plugins.select_label')) ?>
+                <?= __("Select Action...") ?>
             </button>
 
             <ul class="dropdown-menu">
@@ -19,9 +19,9 @@
                         data-request="onBulkAction"
                         data-request-data="action: 'disable'"
                         data-list-checked-request
-                        data-request-confirm="<?= e(trans('system::lang.plugins.action_confirm', ['action' => e(trans('system::lang.plugins.disable'))])) ?>"
+                        data-request-confirm="<?= __("Are you sure you want to :action these plugins?", ['action' => __("disable")]) ?>"
                         data-stripe-load-indicator>
-                        <i class="icon-ban"></i> <?= e(trans('system::lang.plugins.disable_label')) ?>
+                        <i class="icon-ban"></i> <?= __("Disable Plugins") ?>
                     </a>
                 </li>
                 <li>
@@ -29,9 +29,9 @@
                         data-request="onBulkAction"
                         data-request-data="action: 'enable'"
                         data-list-checked-request
-                        data-request-confirm="<?= e(trans('system::lang.plugins.action_confirm', ['action' => e(trans('system::lang.plugins.enable'))])) ?>"
+                        data-request-confirm="<?= __("Are you sure you want to :action these plugins?", ['action' => __("enable")]) ?>"
                         data-stripe-load-indicator>
-                        <i class="icon-check"></i> <?= e(trans('system::lang.plugins.enable_label')) ?>
+                        <i class="icon-check"></i> <?= __("Enable Plugins") ?>
                     </a>
                 </li>
                 <?php if ($canUpdate): ?>
@@ -41,9 +41,9 @@
                             data-request="onBulkAction"
                             data-request-data="action: 'refresh'"
                             data-list-checked-request
-                            data-request-confirm="<?= e(trans('system::lang.plugins.refresh_confirm')) ?>"
+                            data-request-confirm="<?= __("Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.") ?>"
                             data-stripe-load-indicator>
-                            <i class="icon-bomb"></i> <?= e(trans('system::lang.plugins.refresh_label')) ?>
+                            <i class="icon-bomb"></i> <?= __("Reset Plugin Data") ?>
                         </a>
                     </li>
                 <?php endif ?>

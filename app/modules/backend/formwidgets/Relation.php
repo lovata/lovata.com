@@ -1,9 +1,9 @@
 <?php namespace Backend\FormWidgets;
 
-use Db;
 use DbDongle;
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
+use October\Rain\Html\Helper as HtmlHelper;
 use SystemException;
 
 /**
@@ -21,9 +21,9 @@ class Relation extends FormWidgetBase
     //
 
     /**
-     * @var bool useController to completely replace this widget the `RelationController` behavior.
+     * @var bool readOnly if the sensitive field cannot be edited, but can be toggled
      */
-    public $useController;
+    public $readOnly = false;
 
     /**
      * @var string nameFrom is the model column to use for the name reference
@@ -55,6 +55,21 @@ class Relation extends FormWidgetBase
      */
     public $defaultSort;
 
+    /**
+     * @var mixed excludeFrom identifiers from the specified model attribute.
+     */
+    public $excludeFrom;
+
+    /**
+     * @var bool useController to completely replace this widget the `RelationController` behavior.
+     */
+    public $useController;
+
+    /**
+     * @var array useControllerConfig manually configures the `RelationController` behavior.
+     */
+    public $useControllerConfig;
+
     //
     // Object Properties
     //
@@ -75,9 +90,11 @@ class Relation extends FormWidgetBase
     public function init()
     {
         $this->fillFromConfig([
+            'readOnly',
             'nameFrom',
             'emptyOption',
             'defaultSort',
+            'excludeFrom',
             'scope',
             'conditions',
         ]);
@@ -86,7 +103,18 @@ class Relation extends FormWidgetBase
             $this->sqlSelect = $this->config->select;
         }
 
+        $this->useControllerConfig = (array) ($this->config->controller ?? []);
+
         $this->useController = $this->evalUseController($this->config->useController ?? true);
+    }
+
+    /**
+     * bindToController ensures manual relation controller configuration is applied.
+     */
+    public function bindToController()
+    {
+        $this->defineRelationControllerConfig();
+        parent::bindToController();
     }
 
     /**
@@ -104,32 +132,7 @@ class Relation extends FormWidgetBase
      */
     public function prepareVars()
     {
-        if ($this->useController) {
-            return;
-        }
-
         $this->vars['field'] = $this->makeRenderFormField();
-    }
-
-    /**
-     * evalUseController determines if the relation controller is usable and returns the default
-     * preference if it can be used.
-     */
-    protected function evalUseController(bool $defaultPref): bool
-    {
-        if (!$this->controller->isClassExtendedWith(\Backend\Behaviors\RelationController::class)) {
-            return false;
-        }
-
-        if (!is_string($this->valueFrom)) {
-            return false;
-        }
-
-        if (!$this->controller->relationHasField($this->valueFrom)) {
-            return false;
-        }
-
-        return $defaultPref;
     }
 
     /**
@@ -137,6 +140,10 @@ class Relation extends FormWidgetBase
      */
     protected function makeRenderFormField()
     {
+        if ($this->useController) {
+            return null;
+        }
+
         $field = clone $this->formField;
         [$model, $attribute] = $this->resolveModelAttribute($this->valueFrom);
 
@@ -160,9 +167,13 @@ class Relation extends FormWidgetBase
             $this->applyDefaultSortToQuery($query);
         }
 
+        // Exclude values from the specified parent model attribute
+        if ($this->excludeFrom) {
+            $query->whereNotIn($relationModel->getKeyName(), (array) $model->{$this->excludeFrom});
+        }
         // It is safe to assume that if the model and related model are of
         // the exact same class, then it cannot be related to itself
-        if ($model->exists && ($relationModel->getTable() === $model->getTable())) {
+        elseif ($model->exists && ($relationModel->getTable() === $model->getTable())) {
             $query->where($relationModel->getKeyName(), '<>', $model->getKey());
         }
 
@@ -187,8 +198,8 @@ class Relation extends FormWidgetBase
         else {
             $relationObject->addDefinedConstraintsToQuery($query);
 
-            // Reset any orders that may have come from these definitions
-            // because it has a tendency to break things.
+            // Reset any orders that come from the definition since they may
+            // reference the pivot table that isn't included in this query
             if (in_array($relationType, ['belongsToMany', 'morphedByMany', 'morphToMany'])) {
                 $query->getQuery()->reorder();
             }
@@ -241,6 +252,72 @@ class Relation extends FormWidgetBase
         elseif (is_array($this->defaultSort) && isset($this->defaultSort['column'])) {
             $query->orderBy($this->defaultSort['column'], $this->defaultSort['direction'] ?? 'desc');
         }
+    }
+
+    /**
+     * evalUseController determines if the relation controller is usable and returns the default
+     * preference if it can be used.
+     */
+    protected function evalUseController(bool $defaultPref): bool
+    {
+        if ($this->useControllerConfig) {
+            return true;
+        }
+
+        if (!$this->controller->isClassExtendedWith(\Backend\Behaviors\RelationController::class)) {
+            return false;
+        }
+
+        if (!is_string($this->valueFrom)) {
+            return false;
+        }
+
+        if (!$this->controller->relationHasField($this->getRelationControllerFieldName())) {
+            return false;
+        }
+
+        return $defaultPref;
+    }
+
+    /**
+     * defineRelationControllerConfig
+     */
+    protected function defineRelationControllerConfig()
+    {
+        if (!$this->useController || !$this->useControllerConfig) {
+            return;
+        }
+
+        if (!$this->controller->isClassExtendedWith(\Backend\Behaviors\RelationController::class)) {
+            $this->controller->extendClassWith(\Backend\Behaviors\RelationController::class);
+            $this->controller->asExtension('RelationController')->beforeDisplay();
+        }
+
+        $controllerConfig = $this->useControllerConfig;
+
+        if (!isset($controllerConfig['readOnly']) && $this->readOnly === true) {
+            $controllerConfig['readOnly'] = $this->readOnly;
+        }
+
+        if (!isset($controllerConfig['sessionKey'])) {
+            $controllerConfig['sessionKey'] = $this->getParentForm()?->getSessionKeyWithSuffix();
+        }
+
+        $this->controller->relationRegisterField($this->getRelationControllerFieldName(), $controllerConfig);
+    }
+
+    /**
+     * getRelationControllerFieldName
+     */
+    protected function getRelationControllerFieldName()
+    {
+        $relationName = $this->valueFrom;
+
+        if ($parentFieldName = $this->getParentForm()?->parentFieldName) {
+            $relationName = $parentFieldName . '['.implode('][', HtmlHelper::nameToArray($relationName)).']';
+        }
+
+        return $relationName;
     }
 
     /**

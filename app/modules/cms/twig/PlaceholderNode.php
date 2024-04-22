@@ -44,21 +44,22 @@ class PlaceholderNode extends TwigNode
         if ($hasBody) {
             $compiler
                 ->addDebugInfo($this)
-                ->write('ob_start();')
-                ->subcompile($this->getNode('default'))
                 ->write("\$context[")
                 ->raw("'".$varId."'")
-                ->raw("] = ob_get_clean();");
+                ->raw("] = implode('', iterator_to_array((function() use (\$context, \$blocks, \$macros) {")
+                ->subcompile($this->getNode('default'))
+                ->raw('return; yield "";})()));')
+            ;
         }
 
         $isText = $this->hasAttribute('type') && $this->getAttribute('type') == 'text';
 
         $compiler->addDebugInfo($this);
         if (!$isText) {
-            $compiler->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock(");
+            $compiler->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock(");
         }
         else {
-            $compiler->write("echo twig_escape_filter(\$this->env, \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock(");
+            $compiler->write("yield Twig\Extension\EscaperExtension::escape(\$this->env, \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock(");
         }
 
         $compiler

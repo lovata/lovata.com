@@ -2,6 +2,7 @@
     <backend-component-inspector-controlhost-row
         v-for="control in controls"
         :obj="obj"
+        :parent-obj="parentObj"
         :key="control.property"
         :control-host-unique-id="uniqueId"
         :control="control"

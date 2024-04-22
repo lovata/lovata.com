@@ -32,7 +32,7 @@
                 $classes[] = 'nolink';
             }
 
-            $isLastWithSetup = $expandLastColumn && $showSetup && $index === $total;
+            $isLastWithoutStructure = $expandLastColumn && !$useStructure && $index === $total;
 
             $styles = '';
             $isTreeCell = $index === 1 && $useStructure;
@@ -41,7 +41,7 @@
                 $styles = 'padding-left:'.$this->getIndentStartSize($treeLevel).'px';
             }
         ?>
-        <td class="<?= implode(' ', $classes) ?>" style="<?= $styles ?>" <?= $isLastWithSetup ? 'colspan="2"' : '' ?>>
+        <td class="<?= implode(' ', $classes) ?>" style="<?= $styles ?>" <?= $isLastWithoutStructure ? 'colspan="2"' : '' ?>>
             <?php if ($isTreeCell): ?>
                 <?= $this->makePartial('list_body_tree', [
                     'treeLevel' => $treeLevel,
@@ -59,7 +59,7 @@
             <?php endif ?>
         </td>
     <?php endforeach ?>
-    <?php if (!$expandLastColumn && $showSetup): ?>
+    <?php if (!$expandLastColumn && !$useStructure): ?>
         <td></td>
     <?php endif ?>
 </tr>

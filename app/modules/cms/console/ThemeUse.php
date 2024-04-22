@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 /**
  * ThemeUse switches the active theme to another one, saved to the database.
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ThemeUse extends Command

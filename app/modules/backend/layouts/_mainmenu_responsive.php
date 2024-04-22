@@ -20,7 +20,7 @@
 
                     <span class="nav-label">
                         <div class="company-name"><?= e(Backend\Models\BrandSetting::get('app_name')) ?></div>
-                        <div class="user-name"><?= e($this->user->full_name) ?></div>
+                        <div class="user-name"><?= e($this->user->full_name ?: $this->user->login) ?></div>
                     </span>
                 </div>
             </div>

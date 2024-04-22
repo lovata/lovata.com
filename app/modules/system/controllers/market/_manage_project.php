@@ -34,20 +34,21 @@
         </td>
         <td>
             <div class="details">
-                <h4><a href="{{detailUrl}}">{{name}}</a> by {{author}}</h4>
+                <h4 class="mt-2"><a href="{{detailUrl}}">{{name}}</a> by {{author}}</h4>
                 <p class="description">{{description}}</p>
             </div>
         </td>
         <td class="controls">
-            <div class="card mb-1 ms-auto" style="width:10.5rem">
-                <div class="card-body text-center">
+            <div class="text-sm-end text-center">
+                <div class="action-button-wrapper in-project">
                     {{^installed}}
                         <a
                             href="javascript:;"
                             data-control="popup"
                             data-handler="{{handler}}"
                             data-request-data="code: '{{code}}'"
-                            class="btn btn-success oc-icon-plus">
+                            class="btn btn-success">
+                            <i class="icon-plus"></i>
                             <?= __("Install") ?>
                         </a>
                     {{/installed}}
@@ -57,7 +58,8 @@
                             data-control="popup"
                             data-handler="{{handler}}"
                             data-request-data="code: '{{code}}'"
-                            class="btn btn-danger oc-icon-trash-o">
+                            class="btn btn-danger">
+                            <i class="icon-delete"></i>
                             <?= __("Remove") ?>
                         </a>
                     {{/installed}}

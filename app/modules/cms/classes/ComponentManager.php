@@ -10,20 +10,11 @@ use SystemException;
 /**
  * ComponentManager
  *
- * @method static ComponentManager instance()
- *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ComponentManager
 {
-    use \October\Rain\Support\Traits\Singleton;
-
-    /**
-     * @var array callbacks for registration.
-     */
-    protected $callbacks = [];
-
     /**
      * @var array codeMap where keys are codes and values are class names.
      */
@@ -50,16 +41,33 @@ class ComponentManager
     protected $detailsCache;
 
     /**
+     * instance creates a new instance of this singleton
+     */
+    public static function instance(): static
+    {
+        return App::make('cms.components');
+    }
+
+    /**
+     * registerComponents manually registers a component for consideration. Usage:
+     *
+     *     ComponentManager::registerComponents(function ($manager) {
+     *         $manager->registerComponent(\October\Demo\Components\Test::class, 'testComponent');
+     *     });
+     *
+     * @deprecated this will be removed in a later version
+     * @param callable $callback A callable function.
+     */
+    public function registerComponents(callable $definitions)
+    {
+        App::extendInstance('cms.components', $definitions);
+    }
+
+    /**
      * loadComponents scans each plugin an loads it's components.
-     * @return void
      */
     protected function loadComponents()
     {
-        // Load external components
-        foreach ($this->callbacks as $callback) {
-            $callback($this);
-        }
-
         // Load module items
         foreach (System::listModules() as $module) {
             if ($provider = App::getProvider($module . '\\ServiceProvider')) {
@@ -105,20 +113,6 @@ class ComponentManager
         foreach ($items as $className => $code) {
             $this->registerComponent($className, $code, $owner);
         }
-    }
-
-    /**
-     * registerComponents manually registers a component for consideration. Usage:
-     *
-     *     ComponentManager::registerComponents(function ($manager) {
-     *         $manager->registerComponent(\October\Demo\Components\Test::class, 'testComponent');
-     *     });
-     *
-     * @return array Array values are class names.
-     */
-    public function registerComponents(callable $definitions)
-    {
-        $this->callbacks[] = $definitions;
     }
 
     /**

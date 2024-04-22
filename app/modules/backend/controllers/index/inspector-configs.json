@@ -1,0 +1,60 @@
+{
+    "dashboardCreateUpdate": {
+        "title_create": "backend::lang.dashboard.create_dashboard",
+        "title_edit": "backend::lang.dashboard.edit_dashboard",
+        "confirmation_created": "backend::lang.dashboard.dashboard_created",
+        "confirmation_updated": "backend::lang.dashboard.dashboard_updated",
+        "config": [
+            {
+                "property": "name",
+                "title": "backend::lang.dashboard.dashboard_name",
+                "type": "string",
+                "defaultFocus": true,
+                "validation": {
+                    "required": {
+                        "message": "backend::lang.dashboard.dashboard_name_required"
+                    },
+                    "regex": {
+                        "message": "editor::lang.filesystem.invalid_name",
+                        "pattern": "^[0-9a-zA-Z\\.\\s_\\-]+$"
+                    }
+                }
+            },
+            {
+                "property": "slug",
+                "title": "backend::lang.dashboard.dashboard_slug",
+                "type": "string",
+                "validation": {
+                    "required": {
+                        "message": "backend::lang.dashboard.dashboard_slug_required"
+                    },
+                    "regex": {
+                        "message": "backend::lang.dashboard.dashboard_slug_invalid",
+                        "pattern": "^[0-9a-zA-Z\\-]+$"
+                    }
+                },
+                "preset": {
+                    "type": "file",
+                    "property": "name"
+                }
+            },
+            {
+                "property": "icon",
+                "title": "backend::lang.dashboard.dashboard_icon",
+                "type": "dropdown",
+                "useValuesAsIcons": true,
+                "validation": {
+                    "required": {
+                        "message": "backend::lang.dashboard.dashboard_icon_required"
+                    }
+                }
+            },
+            {
+                "property": "global_access",
+                "title": "backend::lang.dashboard.dashboard_global_access",
+                "description": "backend::lang.dashboard.dashboard_global_access_description",
+                "type": "checkbox"
+            }
+        ]
+    }
+}

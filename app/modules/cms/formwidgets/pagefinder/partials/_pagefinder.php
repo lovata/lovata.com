@@ -19,7 +19,7 @@
                     <div class="record-data-container">
                         <div class="record-data-container-inner">
                             <div class="icon-container">
-                                <i class="octo-icon-chain"></i>
+                                <i class="icon-chain"></i>
                             </div>
                             <div class="info">
                                 <span class="recordname"><?= e(__($nameValue)) ?: __('Link') ?></span>
@@ -35,7 +35,7 @@
         <?php if (!$previewMode): ?>
             <div class="pagefinder-control-toolbar">
                 <a href="javascript:;" class="backend-toolbar-button control-button toolbar-find-button">
-                    <i class="octo-icon-common-file-star"></i>
+                    <i class="icon-common-file-star"></i>
                     <?= $value ? __("Replace") : __("Select") ?>
                 </a>
                 <?php if ($value): ?>
@@ -46,7 +46,7 @@
                         data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>"
                         data-request-success="$('#<?= $field->getId() ?>').val('').trigger('change')"
                         aria-label="Remove">
-                        <i class="octo-icon-common-file-remove"></i>
+                        <i class="icon-common-file-remove"></i>
                         <?= __("Clear") ?>
                     </button>
                 <?php endif ?>

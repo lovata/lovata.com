@@ -41,7 +41,7 @@ class Themes extends Controller
     {
         parent::__construct();
 
-        $this->addCss('/modules/cms/assets/css/october.theme-selector.css');
+        $this->addCss('/modules/cms/assets/css/themes.css');
 
         $this->pageTitle = 'Frontend Theme';
         BackendMenu::setContext('October.System', 'system', 'settings');

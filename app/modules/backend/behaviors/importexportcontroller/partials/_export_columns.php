@@ -9,7 +9,7 @@
                     <?php foreach ($exportColumns as $key => $column): ?>
                         <li>
                             <span class="drag-handle" title="<?= __("Reorder") ?>">
-                                <i class="octo-icon-list-reorder"></i>
+                                <i class="icon-list-reorder"></i>
                             </span>
                             <div class="form-check">
                                 <input

@@ -2,7 +2,7 @@
 
 use Db;
 use DbDongle;
-use Carbon\Carbon;
+use Date as DateFacade;
 use Backend\Classes\FilterWidgetBase;
 use Exception;
 
@@ -149,15 +149,17 @@ class Date extends FilterWidgetBase
         // Raw SQL query
         $sqlCondition = $scopeConditions[$activeCondition] ?? null;
         if (is_string($sqlCondition)) {
-            $query->whereRaw(DbDongle::parse(strtr($sqlCondition, [
-                ':filtered' => $this->parseDate($scope->value),
-                ':value' => $this->parseDate($scope->value),
-                ':valueDate' => $this->parseDate($scope->value, ['isDateOnly' => true]),
-                ':after' => $this->parseDate($scope->after),
-                ':afterDate' => $this->parseDate($scope->after, ['isDateOnly' => true]),
-                ':before' => $this->parseDate($scope->before),
-                ':beforeDate' => $this->parseDate($scope->before, ['isDateOnly' => true]),
-            ])));
+            // @deprecated adapt legacy format
+            $sqlCondition = str_replace(["':filtered'", "':value'", "':valueDate'", "':after'", "':afterDate'", "':before'", "':beforeDate'"], [':value', ':value', ':valueDate', ':after', ':afterDate', ':before', ':beforeDate'], $sqlCondition);
+
+            $query->whereRaw(DbDongle::parse($sqlCondition, [
+                'value' => $this->parseDate($scope->value),
+                'valueDate' => $this->parseDate($scope->value, ['isDateOnly' => true]),
+                'after' => $this->parseDate($scope->after),
+                'afterDate' => $this->parseDate($scope->after, ['isDateOnly' => true]),
+                'before' => $this->parseDate($scope->before),
+                'beforeDate' => $this->parseDate($scope->before, ['isDateOnly' => true]),
+            ]));
             return;
         }
 
@@ -210,8 +212,8 @@ class Date extends FilterWidgetBase
 
         try {
             $date = is_int($value)
-                ? Carbon::createFromTimestamp($value)
-                : Carbon::parse($value);
+                ? DateFacade::createFromTimestamp($value)
+                : DateFacade::parse($value);
 
             if ($isEndOfDay) {
                 $date = $date->copy()->addDay()->addMinutes(-1);

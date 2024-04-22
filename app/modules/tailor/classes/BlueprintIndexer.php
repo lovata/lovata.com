@@ -198,18 +198,27 @@ class BlueprintIndexer
         $mtime = File::lastModifiedRecursive(app_path('blueprints'));
         $debugFile = $this->makeCacheFile('debug');
 
-        if (file_exists($debugFile)) {
-            $currentMtime = File::getRequire($debugFile)['mtime'] ?? 0;
+        try {
+            if (file_exists($debugFile)) {
+                $currentMtime = File::getRequire($debugFile)['mtime'] ?? 0;
+            }
+        }
+        catch (Exception $ex) {
+            $currentMtime = 0;
         }
 
         if ($mtime > $currentMtime) {
             $this->clearCache();
         }
 
-        File::put(
-            $debugFile,
-            '<?php return '.var_export(compact('mtime'), true).';'
-        );
+        try {
+            File::put(
+                $debugFile,
+                '<?php return '.var_export(compact('mtime'), true).';'
+            );
+        }
+        catch (Exception $ex) {
+        }
 
         $this->debugChecked = true;
     }

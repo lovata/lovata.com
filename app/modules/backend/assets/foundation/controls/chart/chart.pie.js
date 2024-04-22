@@ -9,7 +9,7 @@
  * JavaScript API:
  * $('.scoreboard .chart').pieChart()
  *
- * Dependences:
+ * Dependencies:
  * - Raphaël (raphael-min.js)
  * - October chart utilities (chart.utils.js)
  */

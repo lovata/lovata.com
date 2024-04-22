@@ -63,7 +63,7 @@ class Theme implements CallsMethods
 
         $theme->setDirName((string) $dirName);
 
-        $theme->registerHalyconDatasource();
+        $theme->registerHalcyonDatasource();
 
         return $theme;
     }
@@ -539,9 +539,9 @@ class Theme implements CallsMethods
     }
 
     /**
-     * registerHalyconDatasource ensures this theme is registered as a Halcyon datasource
+     * registerHalcyonDatasource ensures this theme is registered as a Halcyon datasource
      */
-    public function registerHalyconDatasource()
+    public function registerHalcyonDatasource()
     {
         $resolver = App::make('halcyon');
 

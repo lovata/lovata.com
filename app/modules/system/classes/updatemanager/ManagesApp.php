@@ -16,16 +16,18 @@ trait ManagesApp
      */
     public function migrateApp()
     {
+        $migrator = $this->getMigrator();
+
         // Suppress the "Nothing to migrate" message
         if (isset($this->notesOutput)) {
-            $this->migrator->setOutput(new \Symfony\Component\Console\Output\NullOutput);
+            $migrator->setOutput(new \Symfony\Component\Console\Output\NullOutput);
 
-            Event::listen(\Illuminate\Database\Events\MigrationsStarted::class, function() {
-                $this->migrator->setOutput($this->notesOutput);
+            Event::listen(\Illuminate\Database\Events\MigrationsStarted::class, function() use ($migrator) {
+                $migrator->setOutput($this->notesOutput);
             });
         }
 
-        if ($this->migrator->run(app_path('database/migrations'))) {
+        if ($migrator->run(app_path('database/migrations'))) {
             $this->migrateCount++;
         }
     }

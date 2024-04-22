@@ -268,7 +268,7 @@
             }
         }
 
-        return this.options.fallbackPlacement
+        return this.options.fallbackPlacement;
     }
 
     Popover.prototype.calcPosition = function(placement) {

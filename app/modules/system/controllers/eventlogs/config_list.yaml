@@ -2,8 +2,9 @@
 #  List Behavior Config
 # ===================================
 
-title: system::lang.event_log.menu_label
+title: "Event Log"
 list: ~/modules/system/models/eventlog/columns.yaml
+filter: ~/modules/system/models/eventlog/scopes.yaml
 modelClass: System\Models\EventLog
 recordUrl: system/eventlogs/preview/:id
 noRecordsMessage: backend::lang.list.no_records
@@ -19,4 +20,3 @@ toolbar:
     search:
         prompt: backend::lang.list.search_prompt
 
-filter: config_filter.yaml

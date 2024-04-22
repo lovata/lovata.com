@@ -85,7 +85,7 @@ class HasOneModelTest extends PluginTestCase
         $phone = Phone::create(['number' => '0404040404', 'author_id' => $author->id]);
         Model::reguard();
 
-        $this->assertEquals($phone->id, $author->getRelationValue('phone'));
+        $this->assertEquals($phone->id, $author->getRelationSimpleValue('phone'));
     }
 
     public function testDeferredBinding()
@@ -108,7 +108,7 @@ class HasOneModelTest extends PluginTestCase
         $this->assertEquals(1, $author->phone()->withDeferred($sessionKey)->count());
 
         // Commit deferred
-        $author->save(null, $sessionKey);
+        $author->save(['sessionKey' => $sessionKey]);
         $phone = Phone::find($phoneId);
         $this->assertEquals(1, $author->phone()->count());
         $this->assertEquals($author->id, $phone->author_id);
@@ -125,7 +125,7 @@ class HasOneModelTest extends PluginTestCase
         $this->assertEquals('0404040404', $author->phone->number);
 
         // Commit deferred
-        $author->save(null, $sessionKey);
+        $author->save(['sessionKey' => $sessionKey]);
         $phone = Phone::find($phoneId);
         $this->assertEquals(0, $author->phone()->count());
         $this->assertNull($phone->author_id);

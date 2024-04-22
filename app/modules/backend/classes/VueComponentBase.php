@@ -3,6 +3,7 @@
 use File;
 use SystemException;
 use October\Rain\Extension\Extendable;
+use Backend\Classes\Controller;
 
 /**
  * VueComponentBase class.
@@ -46,15 +47,13 @@ abstract class VueComponentBase extends Extendable
      * __construct
      * @param \Backend\Classes\Controller $controller
      */
-    public function __construct($controller)
+    public function __construct(Controller $controller)
     {
         $this->controller = $controller;
         $this->viewPath = $this->guessViewPath('/partials');
         $this->assetPath = $this->guessViewPath('/assets', true);
 
-        /*
-         * Prepare assets used by this widget.
-         */
+        // Prepare assets used by this widget.
         $this->loadDependencyAssets();
         $this->loadDefaultAssets();
         $this->loadAssets();

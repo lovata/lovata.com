@@ -17,8 +17,6 @@
 .control-tabs.content-tabs {
     > ul.nav-tabs {
         position: relative;
-        background: @content-tab-content-bg;
-
         &:before {
             content: ' ';
             position: absolute;
@@ -26,27 +24,29 @@
             left: 0;
             width: 100%;
             height: 1px;
-            background: @content-tab-content-border;
+            border-bottom: 1px solid @content-tab-content-border;
         }
 
         li {
             margin-right: 0;
             border-top: 1px solid @content-tab-content-border;
             border-right: 1px solid @content-tab-content-border;
-
+            border-bottom: 1px solid @content-tab-content-border;
+            background-color: @content-tab-content-bg;
 
             a {
-                font-size: 12px;
-                padding: 11px 20px;
+                font-size: 1rem;
+                padding: 7px 20px;
                 margin: 0;
                 border: none;
-                text-transform: uppercase;
+                // text-transform: uppercase;
                 background: transparent;
-                font-weight: 500;
+                font-weight: normal;
 
                 span.title {
                     span {
                         border-top: none;
+                        padding-top: 5px;
                     }
                 }
             }
@@ -61,6 +61,7 @@
 
             &.active {
                 background: @content-tab-content-active-bg;
+                border-bottom-color: transparent;
                 a {
                     font-weight: 600;
                 }
@@ -91,6 +92,7 @@
     // Tabs to sit flush to the element above
     &.tabs-flush {
         > ul.nav-tabs {
+            background-color: @content-tab-content-bg;
             li {
                 border-top: none;
             }

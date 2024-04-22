@@ -3,7 +3,7 @@
 # ===================================
 
 # Record name
-name: system::lang.mail_brand.menu_label
+name: "Mail Branding"
 
 # Fields are defined by extension
 form: ~/modules/system/models/mailbrandsetting/fields.yaml
@@ -12,4 +12,8 @@ form: ~/modules/system/models/mailbrandsetting/fields.yaml
 modelClass: System\Models\MailBrandSetting
 
 # Default redirect location
-defaultRedirect: system/themes
+defaultRedirect: system/settings
+
+# Form Design
+design:
+    displayMode: sidebar

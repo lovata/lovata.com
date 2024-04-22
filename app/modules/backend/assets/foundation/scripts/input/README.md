@@ -97,11 +97,13 @@ Scripts that manage user input events.
 
 ## Example
 
-    <input type="text" id="presetExample1" placeholder="Type something" />
-    <input type="text"
-        data-input-preset="#presetExample1"
-        placeholder="Watch here"
-        disabled />
+```html
+<input type="text" id="presetExample1" placeholder="Type something" />
+<input type="text"
+    data-input-preset="#presetExample1"
+    placeholder="Watch here"
+    disabled />
+```
 
 # Input Trigger API
 
@@ -111,37 +113,40 @@ The API allows to change elements' visibility or status (enabled/disabled) basin
 
 ### Checked condition
 
-    <input type="checkbox" id="triggerChk1" />
-    <button class="btn disabled"
-        data-trigger-action="enable"
-        data-trigger="#triggerChk1"
-        data-trigger-condition="checked">
-        Check the checkbox
-    </button>
+```html
+<input type="checkbox" id="triggerChk1" />
+<button class="btn disabled"
+    data-trigger-action="enable"
+    data-trigger="#triggerChk1"
+    data-trigger-condition="checked">
+    Check the checkbox
+</button>
+```
 
 ### Value condition
 
-    <p>
-        <input
-            type="text"
-            id="triggerTxt1"
-            value=""
-            onkeyup="$(this).trigger('change')"
-            placeholder="Enter 'foo' or 'bar' here"
-            class="form-control" />
-    </p>
+```html
+<p>
+    <input
+        type="text"
+        id="triggerTxt1"
+        value=""
+        onkeyup="$(this).trigger('change')"
+        placeholder="Enter 'foo' or 'bar' here"
+        class="form-control" />
+</p>
 
-    <div
-        class="callout callout-success"
-        data-trigger-action="show"
-        data-trigger="#triggerTxt1"
-        data-trigger-condition="value[foo][bar]">
+<div
+    class="callout callout-success"
+    data-trigger-action="show"
+    data-trigger="#triggerTxt1"
+    data-trigger-condition="value[foo][bar]">
 
-        <div class="content">
-            Passphrase is valid!
-        </div>
+    <div class="content">
+        Passphrase is valid!
     </div>
-
+</div>
+```
 
 ## Supported data attributes
 
@@ -155,29 +160,35 @@ The API allows to change elements' visibility or status (enabled/disabled) basin
 
 Example code:
 
-    <input type="button" class="btn disabled"
-        data-trigger-action="enable"
-        data-trigger="#cblist input[type=checkbox]"
-        data-trigger-condition="checked" ... >
+```html
+<input type="button" class="btn disabled"
+    data-trigger-action="enable"
+    data-trigger="#cblist input[type=checkbox]"
+    data-trigger-condition="checked" ... >
+```
 
 Multiple actions are supported:
 
-    data-trigger-action="hide|empty"
-
+```html
+data-trigger-action="hide|empty"
+```
 Multiple value conditions are supported:
 
-    data-trigger-condition="value[foo][bar]"
-
+```html
+data-trigger-condition="value[foo][bar]"
+```
 
 ### Supported events
 
 - oc.triggerOn.update - triggers the update. Trigger this event on the element the plugin is bound to to force it to check the condition and update itself. This is useful when the page content is updated with AJAX.
 - oc.triggerOn.afterUpdate - triggered after the element is updated
 
-### JavaScript API
+### jQuery API
 
-    $('#mybutton').triggerOn({
-        triggerCondition: 'checked',
-        trigger: '#cblist input[type=checkbox]',
-        triggerAction: 'enable'
-    })
+```js
+$('#mybutton').triggerOn({
+    triggerCondition: 'checked',
+    trigger: '#cblist input[type=checkbox]',
+    triggerAction: 'enable'
+})
+```

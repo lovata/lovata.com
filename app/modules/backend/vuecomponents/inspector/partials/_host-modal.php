@@ -32,7 +32,7 @@
                 <backend-component-inspector
                     :data-schema="dataSchema"
                     :data="data"
-                    :live-mode="false"
+                    :live-mode="liveMode"
                     :unique-id="uniqueId"
                     :layout-update-data="layoutUpdateData"
                     :read-only="readOnly"
@@ -53,7 +53,7 @@
                 <button
                     class="btn btn-link text-muted"
                     :class="{disabled: readOnly}"
-                    @click.prevent="onCloseClick"
+                    @click.prevent="onCancelClick"
                 ><?= e(trans('backend::lang.form.cancel')) ?></button>
             </div>
         </template>

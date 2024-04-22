@@ -48,7 +48,7 @@ oc.registerControl('searchinput', class extends oc.ControlBase {
     }
 
     // @todo this should be moved to the list widget
-    linkToListWidget(ev, context) {
+    linkToListWidget(ev) {
         var listId = $(this.element).closest('[data-list-linkage]').data('list-linkage');
         if (!listId) {
             return;
@@ -59,6 +59,6 @@ oc.registerControl('searchinput', class extends oc.ControlBase {
             return;
         }
 
-        context.options.data.allChecked = $widget.listWidget('getAllChecked');
+        ev.detail.context.options.data.allChecked = $widget.listWidget('getAllChecked');
     }
 });

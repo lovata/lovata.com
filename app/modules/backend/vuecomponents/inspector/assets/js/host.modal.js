@@ -26,6 +26,10 @@ oc.Modules.register('backend.component.inspector.host.modal', function () {
                 type: Array,
                 required: true
             },
+            liveMode: {
+                type: Boolean,
+                default: false
+            },
             data: {
                 type: Object,
                 required: true
@@ -117,6 +121,14 @@ oc.Modules.register('backend.component.inspector.host.modal', function () {
                 }
 
                 this.$refs.modal.hide();
+            },
+
+            onCancelClick: function onCancelClick() {
+                if (this.liveMode) {
+                    this.$refs.inspector.revertChanges();
+                }
+
+                this.onCloseClick();
             },
 
             onResized: function onResized() {

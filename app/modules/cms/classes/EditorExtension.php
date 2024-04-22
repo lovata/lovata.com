@@ -331,10 +331,10 @@ class EditorExtension extends ExtensionBase
         $user = BackendAuth::getUser();
 
         $section->addMenuItem(ItemDefinition::TYPE_TEXT, Lang::get('cms::lang.editor.refresh'), 'cms:refresh-navigator')
-            ->setIcon('octo-icon-refresh');
+            ->setIcon('icon-refresh');
 
         $createMenuItem = new ItemDefinition(ItemDefinition::TYPE_TEXT, Lang::get('cms::lang.editor.create'), 'cms:create');
-        $createMenuItem->setIcon('octo-icon-create');
+        $createMenuItem->setIcon('icon-create');
         $menuConfiguration = [
             'editor.cms_pages' => [
                 'label' => 'cms::lang.editor.page',

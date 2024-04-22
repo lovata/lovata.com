@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= Backend::url('system/mailtemplates/index/partials') ?>"><?= e(trans('system::lang.mail_templates.menu_partials_label')) ?></a></li>
+        <li class="breadcrumb-item"><a href="<?= Backend::url('system/mailtemplates/index/partials') ?>"><?= __("Mail Partials") ?></a></li>
         <li class="breadcrumb-item active" aria-current="page"><?= e(__($this->pageTitle)) ?></li>
     </ol>
 <?php Block::endPut() ?>

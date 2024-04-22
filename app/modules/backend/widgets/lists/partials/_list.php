@@ -6,7 +6,6 @@
     ];
 
     if ($useRowLink) $classes[] = 'list-rowlink';
-    if (!$showPagination) $classes[] = 'no-pagination';
 ?>
 <div
     class="control-list <?= implode(' ', $classes) ?>"

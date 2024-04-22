@@ -35,13 +35,10 @@
     }
 
     > .filter-setup {
-        vertical-align: middle;
         padding: 6px 0;
 
         > a {
             > span {
-                position: relative;
-                top: -2px;
                 margin-left: -2px;
                 margin-right: -2px;
                 display: block;
@@ -52,7 +49,8 @@
                 border-radius: 3px;
                 > i {
                     position: relative;
-                    top: 3px;
+                    top: 2px;
+                    font-size: 20px;
                 }
             }
 
@@ -65,6 +63,7 @@
 
     > .filter-group {
         display: inline-block;
+        vertical-align: middle;
     }
 
     > .filter-group > .filter-scope {
@@ -104,7 +103,7 @@
 
         &:after {
             font-size: 14px;
-            .icon(@angle-down);
+            .icon(@icon-angle-down);
         }
 
         &.active {
@@ -141,7 +140,7 @@
 
         &:after {
             font-size: 14px;
-            .icon(@angle-down);
+            .icon(@icon-angle-down);
         }
 
         &.active {
@@ -198,17 +197,17 @@
     }
 }
 
-.layout-row > .control-filter {
-    margin: 0 @padding-standard;
-    background-color: transparent;
-    border-top: none;
-}
+// .layout-row > .control-filter {
+//     margin: 0 @padding-standard;
+//     background-color: transparent;
+//     border-top: none;
+// }
 
-@media (max-width: @screen-xs-max) {
-    .layout-row > .control-filter {
-        margin: 0;
-    }
-}
+// @media (max-width: @screen-xs-max) {
+//     .layout-row > .control-filter {
+//         margin: 0;
+//     }
+// }
 
 .control-filter-popover {
     min-width: 275px;

@@ -6,6 +6,7 @@
     <backend-component-inspector-group
         :group-name="control.title"
         :obj="editedObject"
+        :parent-obj="obj"
         :controls="nestedControlProperties"
         :splitter-data="splitterData"
         :depth="depth"

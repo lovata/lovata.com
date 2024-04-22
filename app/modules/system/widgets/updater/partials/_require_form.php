@@ -6,7 +6,7 @@
             <button type="button" class="btn-close" data-dismiss="popup"></button>
         </div>
         <div class="modal-body">
-            <p class="form-text before-field">
+            <p>
                 <?= __("There are missing dependencies needed for the system to run correctly.") ?>
             </p>
             <div class="control-simplelist with-checkboxes" data-control="simplelist">
@@ -45,7 +45,7 @@
             </button>
             <button
                 type="button"
-                class="btn btn-default"
+                class="btn btn-secondary"
                 data-dismiss="popup">
                 <?= e(trans('backend::lang.form.cancel')) ?>
             </button>

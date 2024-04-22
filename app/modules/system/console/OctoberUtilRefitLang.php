@@ -3,6 +3,7 @@
 use File;
 use System;
 use Exception;
+use System\Models\PluginVersion;
 
 /**
  * OctoberUtilRefitLang is a dedicated class for the refit lang util command
@@ -67,6 +68,13 @@ trait OctoberUtilRefitLang
 
         foreach ($modules as $module) {
             $fileDir = base_path('modules/'.strtolower($module));
+            foreach ($locales as $locale) {
+                $this->refitLangJsonDelete($fileDir, $locale, $input);
+            }
+        }
+
+        foreach (PluginVersion::all() as $plugin) {
+            $fileDir = plugins_path(str_replace('.', '/', $plugin->code));
             foreach ($locales as $locale) {
                 $this->refitLangJsonDelete($fileDir, $locale, $input);
             }

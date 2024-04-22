@@ -122,7 +122,7 @@ The partial for your rendered popup should follow this structure:
         type="button"
         class="btn btn-default"
         data-dismiss="popup">
-        <?= e(trans('backend::lang.relation.close')) ?>
+        Close
     </button>
 </div>
 ```

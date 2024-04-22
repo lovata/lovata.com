@@ -1,0 +1,26 @@
+@import "../../../../assets/less/core/boot.less";
+
+@import "_dashboard-container.less";
+@import "_daterangepicker.less";
+
+.oc-dashboard {
+    @color-widget-skeleton: var(--bs-secondary-color);
+    @opacity-widget-skeleton: 0.5; 
+    @color-control-border: #bdc3c7;
+    @dashboard-max-row-widgets: 20;
+    @dashboard-gap-size: 20px;
+    @widget-body-padding: 17px;
+    
+    @import "_report-container.less";
+    @import "_toolbar.less";
+    @import "_row.less";
+    @import "_widget.less";
+}
+
+body.reportwidget-resize {
+    * {
+        user-select: none;
+    }
+
+    cursor: col-resize;
+}

@@ -12,6 +12,10 @@ oc.Modules.register('backend.component.inspector.panel', function () {
                 type: Object,
                 required: true
             },
+            parentObj: {
+                type: Object,
+                required: false
+            },
             inspectorUniqueId: {
                 type: String,
                 required: true

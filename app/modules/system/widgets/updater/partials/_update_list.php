@@ -59,7 +59,7 @@
                         <div class="update-item">
                             <div class="item-header">
                                 <h5>
-                                    <i class="icon-picture-o"></i>
+                                    <i class="icon-photo"></i>
                                     <?= e(array_get($theme, 'name', 'Unknown')) ?>
                                 </h5>
                             </div>

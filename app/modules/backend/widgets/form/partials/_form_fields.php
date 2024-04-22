@@ -3,7 +3,7 @@
 ?>
 <?php foreach ($fields as $field): ?>
     <?php if ($field->span === 'row' && !$rowOpen): $rowOpen = true; ?>
-        <div class="row">
+        <div class="row w-100">
     <?php endif ?>
     <?php if ($field->span !== 'row' && $rowOpen): $rowOpen = false; ?>
         </div>

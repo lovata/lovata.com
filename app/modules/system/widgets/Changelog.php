@@ -80,9 +80,9 @@ class Changelog extends WidgetBase
             $plugin = $manager->findByIdentifier($code);
             $path = $manager->getPluginPath($plugin);
 
-            $changelog = $this->getPluginVersionFile($path, 'updates/version.yaml');
-            if (!is_array($changelog)) {
-                $changelog = null;
+            $changelog = null;
+            if ($path) {
+                $changelog = (array) $this->getPluginVersionFile($path, 'updates/version.yaml');
             }
 
             $this->vars['changelog'] = $changelog;

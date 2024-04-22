@@ -1,6 +1,7 @@
 <backend-component-inspector-control-text
     v-if="control.type == 'string' || control.type == 'text'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :splitter-data="splitterData"
@@ -17,6 +18,7 @@
 <backend-component-inspector-control-dropdown
     v-if="control.type == 'dropdown'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :inspector-preferences="inspectorPreferences"
@@ -56,6 +58,7 @@
 <backend-component-inspector-control-table
     v-if="control.type == 'table'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :inspector-preferences="inspectorPreferences"
@@ -67,6 +70,7 @@
 <backend-component-inspector-control-object
     v-if="control.type == 'object'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :inspector-preferences="inspectorPreferences"
@@ -83,6 +87,7 @@
 <backend-component-inspector-control-set
     v-if="control.type == 'set'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :inspector-preferences="inspectorPreferences"
@@ -99,6 +104,7 @@
 <backend-component-inspector-control-objectlist
     v-if="control.type == 'objectList'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :inspector-preferences="inspectorPreferences"
@@ -115,6 +121,7 @@
 <backend-component-inspector-control-objectlist-records
     v-if="control.type == 'objectListRecords'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :inspector-preferences="inspectorPreferences"
@@ -132,6 +139,7 @@
 <backend-component-inspector-control-dictionary
     v-if="control.type == 'dictionary'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :inspector-preferences="inspectorPreferences"
@@ -148,6 +156,7 @@
 <backend-component-inspector-control-mediafinder
     v-if="control.type == 'mediafinder'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :splitter-data="splitterData"

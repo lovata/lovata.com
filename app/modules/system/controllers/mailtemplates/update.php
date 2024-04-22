@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= Backend::url('system/mailtemplates') ?>"><?= e(trans('system::lang.mail_templates.menu_label')) ?></a></li>
+        <li class="breadcrumb-item"><a href="<?= Backend::url('system/mailtemplates') ?>"><?= __("Mail Templates") ?></a></li>
         <li class="breadcrumb-item active" aria-current="page"><?= e(__($this->pageTitle)) ?></li>
     </ol>
 <?php Block::endPut() ?>
@@ -13,7 +13,7 @@
             <div class="scoreboard">
                 <div data-control="toolbar">
                     <div class="scoreboard-item title-value">
-                        <h4><?= e(trans('system::lang.mail_templates.template')) ?></h4>
+                        <h4><?= __("Template") ?></h4>
                         <p><?= e($formModel->code) ?></p>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                 </button>
                 <button
                     type="button"
-                    class="oc-icon-trash-o btn-icon danger pull-right"
+                    class="oc-icon-trash btn-icon danger pull-right"
                     data-request="onDelete"
                     data-load-indicator="<?= e(trans('system::lang.mail_templates.deleting')) ?>"
                     data-request-confirm="<?= e(trans('system::lang.mail_templates.delete_confirm')) ?>">

@@ -50,12 +50,12 @@ class ExportModelTest extends TestCase
         $response->send();
         $output = ob_get_clean();
 
-        $this->assertEquals("title,title2\nbar,foo\nbar2,foo2\n", $output, "CSV is not right!");
+        $this->assertEquals("\xEF\xBB\xBFtitle,title2\nbar,foo\nbar2,foo2\n", $output, "CSV is not right!");
 
         // Check file was deleted
         $filePath = temp_path('export/'.$csvName);
         $fileGotDeleted = !is_file($filePath);
-        $this->assertTrue($fileGotDeleted, "Export-CSV doesn't get deleted.");
+        $this->assertTrue($fileGotDeleted, "Export CSV temp file wasn't deleted.");
         if (!$fileGotDeleted) {
             unlink($filePath);
         }

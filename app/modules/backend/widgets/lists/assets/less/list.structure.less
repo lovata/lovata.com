@@ -104,10 +104,10 @@ table.table.data {
                 height: @tree-control-size;
 
                 &:after {
-                    .icon(@angle-right);
+                    .icon(@icon-angle-right);
                     position: absolute;
                     left: calc(100% - 15px);
-                    top: 2px;
+                    top: 5px;
                     width: @tree-control-size;
                     height: @tree-control-size;
                     font-size: 15px;
@@ -117,7 +117,7 @@ table.table.data {
             }
 
             &.is-expanded span:after {
-                .icon(@angle-down);
+                .icon(@icon-angle-down);
                 left: calc(100% - 17px);
             }
         }

@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= Backend::url('system/mailtemplates/index/layouts') ?>"><?= e(trans('system::lang.mail_templates.menu_layouts_label')) ?></a></li>
+        <li class="breadcrumb-item"><a href="<?= Backend::url('system/mailtemplates/index/layouts') ?>"><?= __("Mail Layouts") ?></a></li>
         <li class="breadcrumb-item active" aria-current="page"><?= e(__($this->pageTitle)) ?></li>
     </ol>
 <?php Block::endPut() ?>
@@ -13,7 +13,7 @@
             <div class="scoreboard">
                 <div data-control="toolbar">
                     <div class="scoreboard-item title-value">
-                        <h4><?= e(trans('system::lang.mail_templates.layout')) ?></h4>
+                        <h4><?= __("Layout") ?></h4>
                         <p><?= e($formModel->code) ?></p>
                     </div>
                 </div>
@@ -51,12 +51,12 @@
                         data-request="onResetDefault"
                         data-load-indicator="<?= e(trans('backend::lang.form.resetting')) ?>"
                         data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>">
-                        <?= e(trans('backend::lang.form.reset_default')) ?>
+                        <?= __("Reset to Default") ?>
                     </button>
                 <?php else: ?>
                     <button
                         type="button"
-                        class="oc-icon-trash-o btn-icon danger pull-right"
+                        class="oc-icon-trash btn-icon danger pull-right"
                         data-request="onDelete"
                         data-load-indicator="<?= e(trans('system::lang.mail_templates.deleting_layout')) ?>"
                         data-request-confirm="<?= e(trans('system::lang.mail_templates.delete_layout_confirm')) ?>">

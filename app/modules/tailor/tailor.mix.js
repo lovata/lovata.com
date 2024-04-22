@@ -11,7 +11,7 @@
 
 module.exports = (mix) => {
     // Tailor LESS
-    mix.less('modules/tailor/assets/less/october.tailor.less', 'modules/tailor/assets/css/');
+    mix.less('modules/tailor/assets/less/tailor.less', 'modules/tailor/assets/css/');
 
     // Component LESS
     mix.lessList('modules/tailor/vuecomponents');

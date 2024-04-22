@@ -36,9 +36,10 @@ class MailPartialNode extends TwigNode
         if ($this->hasNode('body')) {
             $compiler
                 ->addDebugInfo($this)
-                ->write('ob_start();')
+                ->write("\$systemPartialParams['body'] = implode('', iterator_to_array((function() use (\$context, \$blocks, \$macros) {")
                 ->subcompile($this->getNode('body'))
-                ->write("\$systemPartialParams['body'] = ob_get_clean();");
+                ->raw('return; yield "";})()));')
+            ;
         }
 
         for ($i = 1; $i < count($this->getNode('nodes')); $i++) {
@@ -49,7 +50,7 @@ class MailPartialNode extends TwigNode
         }
 
         $compiler
-            ->write("echo \System\Classes\MailManager::instance()->renderPartial(")
+            ->write("yield \System\Classes\MailManager::instance()->renderPartial(")
             ->subcompile($this->getNode('nodes')->getNode(0))
             ->write(", array_merge(\$context, ['__system_partial_params' => \$systemPartialParams], \$systemPartialParams)")
             ->write(");\n")

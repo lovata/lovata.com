@@ -49,15 +49,15 @@
                         <span class="nav-icon">
                             <div class="mainmenu-account-avatar">
                                 <img
-                                    src="<?= $this->user->getAvatarThumb(120, ['mode' => 'crop', 'extension' => 'png']) ?>"
+                                    src="<?= $this->user->getAvatarThumb(168, ['mode' => 'crop', 'extension' => 'png']) ?>"
                                     loading="lazy"
-                                    width="80"
-                                    height="80" />
+                                    width="84"
+                                    height="84" />
                             </div>
                         </span>
                         <?php if ($isVerticalMenu): ?>
                             <span class="nav-label">
-                                <?= e($this->user->full_name) ?>
+                                <?= e($this->user->full_name ?: $this->user->login) ?>
                             </span>
                         <?php endif ?>
                     </a>
@@ -91,7 +91,7 @@
     <?php endif ?>
 
     <ul class="mainmenu-items mainmenu-submenu-dropdown hover-effects" data-submenu-index="account">
-        <li class="mainmenu-item section-title">
+        <li class="mainmenu-item section-title section-user-title">
             <span class="nav-label"><?= e($this->user->full_name ?: $this->user->login) ?></span>
         </li>
         <?= $this->makeLayoutPartial('my_settings_menu_items', ['context' => $context]) ?>

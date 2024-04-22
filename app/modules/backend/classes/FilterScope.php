@@ -20,24 +20,24 @@ class FilterScope extends ScopeDefinition
     /**
      * getOptionsFromModel looks at the model for defined options.
      */
-    public function getOptionsFromModel($model, $fieldOptions)
+    public function getOptionsFromModel($model, $scopeOptions)
     {
         // Method name
-        if (is_string($fieldOptions)) {
-            $fieldOptions = $this->getOptionsFromModelAsString($model, $fieldOptions);
+        if (is_string($scopeOptions)) {
+            $scopeOptions = $this->getOptionsFromModelAsString($model, $scopeOptions);
         }
 
         // Cast collections to array
-        if ($fieldOptions instanceof Collection) {
-            $fieldOptions = $fieldOptions->all();
+        if ($scopeOptions instanceof Collection) {
+            $scopeOptions = $scopeOptions->all();
         }
 
         // Always be an array
-        if ($fieldOptions === null) {
-            return $fieldOptions = [];
+        if ($scopeOptions === null) {
+            return $scopeOptions = [];
         }
 
-        return $fieldOptions;
+        return $scopeOptions;
     }
 
     /**
@@ -52,9 +52,9 @@ class FilterScope extends ScopeDefinition
             count($staticMethod) === 2 &&
             is_callable($staticMethod)
         ) {
-            $fieldOptions = $staticMethod($model, $this);
+            $scopeOptions = $staticMethod($model, $this);
 
-            if (!is_array($fieldOptions)) {
+            if (!is_array($scopeOptions)) {
                 throw new SystemException(Lang::get('backend::lang.field.options_static_method_invalid_value', [
                     'class' => $staticMethod[0],
                     'method' => $staticMethod[1]
@@ -64,17 +64,17 @@ class FilterScope extends ScopeDefinition
         // Calling via $model->method
         else {
             if (!$this->objectMethodExists($model, $methodName)) {
-                throw new SystemException(Lang::get('backend::lang.field.options_method_not_exists', [
+                throw new SystemException(Lang::get('backend::lang.filter.options_method_not_exists', [
                     'model' => get_class($model),
                     'method' => $methodName,
-                    'field' => $this->fieldName
+                    'filter' => $this->fieldName
                 ]));
             }
 
-            $fieldOptions = $model->$methodName($this);
+            $scopeOptions = $model->$methodName($this);
         }
 
-        return $fieldOptions;
+        return $scopeOptions;
     }
 
     /**

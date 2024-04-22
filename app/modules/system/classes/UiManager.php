@@ -24,7 +24,6 @@ class UiManager
         $this->registerElement('button', \System\Classes\UiManager\Button::class);
         $this->registerElement('ajaxButton', \System\Classes\UiManager\AjaxButton::class);
         $this->registerElement('popupButton', \System\Classes\UiManager\PopupButton::class);
-        $this->registerElement('formToolbar', \System\Classes\UiManager\FormToolbar::class);
         $this->registerElement('searchInput', \System\Classes\UiManager\SearchInput::class);
         $this->registerElement('callout', \System\Classes\UiManager\Callout::class);
     }

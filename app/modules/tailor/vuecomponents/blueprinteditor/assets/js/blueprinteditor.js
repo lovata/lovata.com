@@ -7,7 +7,8 @@ Vue.component('tailor-editor-component-blueprint-editor', {
             this.trans('tailor::lang.blueprint.editor_yaml'),
             {},
             'content',
-            'backend-icon-background monaco-document yaml'
+            'backend-icon-background monaco-document yaml',
+            'blueprint.yaml'
         );
 
         return {
@@ -25,7 +26,7 @@ Vue.component('tailor-editor-component-blueprint-editor', {
             return [
                 {
                     type: 'button',
-                    icon: 'octo-icon-save',
+                    icon: 'icon-save-cloud',
                     label: this.trans('backend::lang.form.save'),
                     hotkey: 'ctrl+s, cmd+s',
                     tooltip: this.trans('backend::lang.form.save'),
@@ -34,7 +35,7 @@ Vue.component('tailor-editor-component-blueprint-editor', {
                 },
                 {
                     type: 'button',
-                    icon: 'octo-icon-database-flash',
+                    icon: 'icon-database-flash',
                     disabled: this.isNewDocument,
                     command: 'apply',
                     hotkey: 'ctrl+enter',
@@ -47,7 +48,7 @@ Vue.component('tailor-editor-component-blueprint-editor', {
                 },
                 {
                     type: 'button',
-                    icon: 'octo-icon-delete',
+                    icon: 'icon-delete',
                     disabled: this.isNewDocument,
                     command: 'delete',
                     hotkey: 'shift+option+d',
@@ -56,7 +57,7 @@ Vue.component('tailor-editor-component-blueprint-editor', {
                 },
                 {
                     type: 'button',
-                    icon: this.documentHeaderCollapsed ? 'octo-icon-angle-down' : 'octo-icon-angle-up',
+                    icon: this.documentHeaderCollapsed ? 'icon-angle-down-arrow' : 'icon-angle-up-arrow',
                     command: 'document:toggleToolbar',
                     fixedRight: true,
                     tooltip: this.trans('editor::lang.common.toggle_document_header')

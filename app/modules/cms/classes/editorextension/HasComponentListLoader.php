@@ -76,6 +76,10 @@ trait HasComponentListLoader
      */
     private function getComponentPluginIcon($manager, $componentObj)
     {
+        if ($icon = ComponentHelpers::getComponentIcon($componentObj)) {
+            return $icon;
+        }
+
         return $manager->findComponentOwnerDetails($componentObj)['icon'] ?? 'icon-puzzle-piece';
     }
 
@@ -108,16 +112,16 @@ trait HasComponentListLoader
         $propertyValues = json_encode($propertyValues, JSON_UNESCAPED_SLASHES);
 
         return [
-            'title' => ComponentHelpers::getComponentName($componentObj),
             'alias' => $alias,
+            'name' => $componentObj->name,
+            'title' => ComponentHelpers::getComponentName($componentObj),
             'icon' => $this->getComponentPluginIcon($manager, $componentObj),
+            'className' => get_class($componentObj),
             'description' => ComponentHelpers::getComponentDescription($componentObj),
+            'inspectorEnabled' => $componentObj->inspectorEnabled,
             'propertyConfig' => $propertyConfig,
             'propertyValues' => $propertyValues,
-            'inspectorEnabled' => $componentObj->inspectorEnabled,
-            'className' => get_class($componentObj),
-            'isHidden' => $componentObj->isHidden,
-            'name' => $componentObj->name
+            'isHidden' => $componentObj->isHidden
         ];
     }
 }

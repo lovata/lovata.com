@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputArgument;
  *
  * theme:copy theme-name new-theme-name
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ThemeCopy extends Command

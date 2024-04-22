@@ -53,7 +53,7 @@
                     font-size: 14px;
                     position: absolute;
                     left: 0;
-                    top: 0;
+                    top: 4px;
                 }
             }
 
@@ -70,6 +70,13 @@
                 line-height: 150%;
                 font-weight: 400;
                 color: white;
+
+                > span:first-child {
+                    display: none;
+                }
+                > span:last-child {
+                    display: block;
+                }
             }
 
             p {
@@ -86,7 +93,7 @@
                     right: 9px;
                     text-overflow: ellipsis;
                     overflow: hidden;
-                    font-weight: 500;
+                    font-weight: 600;
                     white-space: nowrap;
 
                     &:before {
@@ -161,11 +168,20 @@
             min-width: 170px;
             max-width: 340px;
             padding: 4px 26px 30px 10px;
-            .border-radius(4px);
+            border-radius: 4px;
 
             p {
                 display: block;
                 overflow-wrap: anywhere;
+            }
+        }
+
+        h3 {
+            > span:first-child {
+                display: block;
+            }
+            > span:last-child {
+                display: none;
             }
         }
     }
@@ -185,5 +201,9 @@ li.cms-transition-component-list-enter-active {
 
 li.cms-transition-component-list-enter {
     opacity: 0;
-    .transform(~'scale(1.1)');
+    transform: scale(1.1);
+}
+
+body.popover-open .remove-component {
+    pointer-events: none !important;
 }

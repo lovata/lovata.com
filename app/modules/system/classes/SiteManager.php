@@ -1,9 +1,11 @@
 <?php namespace System\Classes;
 
 use App;
+use Event;
+use Config;
 use Manifest;
+use System\Models\SiteGroup;
 use System\Models\SiteDefinition;
-use October\Rain\Database\Collection;
 use Exception;
 
 /**
@@ -43,12 +45,28 @@ class SiteManager
     }
 
     /**
+     * hasFeature returns true if a multisite feature is enabled
+     */
+    public function hasFeature(string $name = null): bool
+    {
+        if (!Config::get('multisite.enabled', true)) {
+            return false;
+        }
+
+        if (!$name) {
+            return true;
+        }
+
+        return (bool) Config::get("multisite.features.{$name}", false);
+    }
+
+    /**
      * getSiteFromRequest locates the site based on the hostname and URI
      */
     public function getSiteFromRequest(string $host, string $uri)
     {
         $sites = $this->listSites()
-            ->where('is_enabled', true)
+            ->isEnabled()
             ->filter(function($site) use ($host) {
                 return $site->matchesHostname($host);
             })
@@ -91,7 +109,7 @@ class SiteManager
      */
     public function getPrimarySite()
     {
-        return $this->listSites()->where('is_primary', true)->first();
+        return $this->listSites()->isPrimary()->first();
     }
 
     /**
@@ -107,7 +125,7 @@ class SiteManager
      */
     public function hasAnySite(): bool
     {
-        return $this->listSites()->where('is_enabled', true)->count() > 0;
+        return $this->listSites()->isEnabled()->count() > 0;
     }
 
     /**
@@ -115,7 +133,15 @@ class SiteManager
      */
     public function hasMultiSite(): bool
     {
-        return $this->listSites()->where('is_enabled', true)->count() > 1;
+        return $this->listSites()->isEnabled()->count() > 1;
+    }
+
+    /**
+     * hasSiteGroups
+     */
+    public function hasSiteGroups(): bool
+    {
+        return $this->listSites()->where('group', '<>', null)->unique('group')->count() > 1;
     }
 
     /**
@@ -123,15 +149,7 @@ class SiteManager
      */
     public function listEnabled()
     {
-        return $this->listSites()->where('is_enabled', true);
-    }
-
-    /**
-     * listSiteIds
-     */
-    public function listSiteIds()
-    {
-        return $this->listSites()->pluck('id')->all();
+        return $this->listSites()->isEnabled();
     }
 
     /**
@@ -150,10 +168,10 @@ class SiteManager
         }
         else {
             try {
-                $this->sites = SiteDefinition::all();
+                $this->sites = SiteDefinition::with('group')->get();
             }
             catch (Exception $ex) {
-                return new Collection([SiteDefinition::makeFallbackInstance()]);
+                return new SiteCollection([SiteDefinition::makeFallbackInstance()]);
             }
 
             Manifest::put(
@@ -166,18 +184,51 @@ class SiteManager
     }
 
     /**
+     * listSiteIds
+     */
+    public function listSiteIds()
+    {
+        return $this->listSites()->pluck('id')->all();
+    }
+
+    /**
+     * listSiteIdsInGroup
+     */
+    public function listSiteIdsInGroup($siteId = null)
+    {
+        return $this->listSites()->inSiteGroup($siteId)->pluck('id')->all();
+    }
+
+    /**
+     * listSiteIdsInLocale
+     */
+    public function listSiteIdsInLocale($siteId = null)
+    {
+        return $this->listSites()->inSiteLocale($siteId)->pluck('id')->all();
+    }
+
+    /**
      * listSitesFromManifest
      */
     protected function listSitesFromManifest($sites)
     {
         $items = [];
+
         foreach ($sites as $attributes) {
+            $group = null;
+            if ($groupAttrs = array_pull($attributes, 'group')) {
+                $group = new SiteGroup;
+                $group->attributes = $groupAttrs;
+            }
+
             $site = new SiteDefinition;
+            $site->setRelation('group', $group);
             $site->attributes = $attributes;
             $site->syncOriginal();
             $items[] = $site;
         }
-        return new Collection($items);
+
+        return new SiteCollection($items);
     }
 
     /**
@@ -186,10 +237,33 @@ class SiteManager
     protected function listSitesForManifest($sites)
     {
         $items = [];
+
         foreach ($sites as $site) {
-            $items[] = $site->attributes;
+            $store = $site->attributes;
+            $store['group'] = $site->group ? $site->group->attributes : null;
+            $items[] = $store;
         }
+
         return $items;
+    }
+
+    /**
+     * broadcastSiteChange is a generic event used when the site changes
+     */
+    protected function broadcastSiteChange($siteId)
+    {
+        /**
+         * @event site.changed
+         * Fires when the site has been changed.
+         *
+         * Example usage:
+         *
+         *     Event::listen('site.changed', function($id) {
+         *         \Log::info("Site has been changed to $id");
+         *     });
+         *
+         */
+        Event::fire('site.changed', [$siteId]);
     }
 
     /**
@@ -200,5 +274,13 @@ class SiteManager
         $this->sites = null;
         $this->siteIdCache = [];
         Manifest::forget(self::MANIFEST_SITES);
+    }
+
+    /**
+     * @deprecated
+     */
+    public function listSiteIdsInContext()
+    {
+        return $this->listSiteIdsInGroup();
     }
 }

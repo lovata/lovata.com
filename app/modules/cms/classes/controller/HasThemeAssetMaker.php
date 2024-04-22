@@ -25,12 +25,12 @@ trait HasThemeAssetMaker
             return '';
         }
 
-        $assetPath = $localPath ?: $this->assetLocalPath;
+        $assetPath = $localPath ?: base_path($this->assetPath);
 
-        return Url::to(CombineAssets::combine(
+        return CombineAssets::combine(
             $this->getMultipleThemeAssetPaths($assets),
             $assetPath
-        ));
+        );
     }
 
     /**
@@ -51,50 +51,66 @@ trait HasThemeAssetMaker
             return $fileName;
         }
 
-        return $this->getThemeAssetPath($fileName);
+        return $this->getThemeAssetRelativePath($fileName);
     }
 
     /**
      * getMultipleThemeAssetPaths checks combiner paths in the theme
      * and rewrites them to parent assets, if necessary
      */
-    protected function getMultipleThemeAssetPaths(array $urls): array
+    protected function getMultipleThemeAssetPaths(array $paths): array
     {
         $theme = $this->getTheme();
 
         if (!$theme->hasParentTheme()) {
-            return $urls;
+            return $paths;
         }
 
-        foreach ($urls as &$url) {
+        foreach ($paths as &$path) {
             // Combiner alias
-            if (substr($url, 0, 1) === '@') {
+            if (substr($path, 0, 1) === '@') {
                 continue;
             }
 
             // Path symbol
-            if (File::isPathSymbol($url)) {
+            if (File::isPathSymbol($path)) {
                 continue;
             }
 
             // Fully qualified local path
-            if (file_exists($url)) {
+            if (file_exists($path)) {
                 continue;
             }
 
             // Parent asset
-            if ($theme->useParentAsset($url)) {
-                $url = $theme->getParentTheme()->getPath().'/'.$url;
+            if ($theme->useParentAsset($path)) {
+                $path = $theme->getParentTheme()->getPath().'/'.$path;
             }
         }
 
-        return $urls;
+        return $paths;
     }
 
     /**
-     * getThemeAssetPath returns the public directory for theme assets
+     * getThemeAssetPath
      */
-    protected function getThemeAssetPath(string $relativePath = null): string
+    protected function getThemeAssetRelativePath(string $relativePath = null): string
+    {
+        $dirName = $this->getTheme()->getDirName();
+
+        // Build path
+        $path = "/themes/{$dirName}";
+        if ($relativePath !== null) {
+            $path .= '/' . $relativePath;
+        }
+
+        return $path;
+    }
+
+    /**
+     * getThemeAssetUrl returns the public directory for theme assets
+     */
+    protected function getThemeAssetUrl(string $relativePath = null): string
     {
         // Determine directory name for asset
         $theme = $this->getTheme();
@@ -108,18 +124,13 @@ trait HasThemeAssetMaker
             $dirName = $parentTheme->getDirName();
         }
 
-        // Configuration for theme asset location
-        $assetUrl = Config::get('system.themes_asset_url');
-
-        if (!$assetUrl) {
-            $assetUrl = Config::get('app.asset_url').'/themes';
-        }
+        // Configuration for theme asset location, default to relative path
+        $assetUrl = (string) Config::get('system.themes_asset_url') ?: '/themes';
 
         // Build path
         $path = $assetUrl . '/' . $dirName;
-
         if ($relativePath !== null) {
-            $path = $assetUrl . '/' . $dirName . '/' . $relativePath;
+            $path .= '/' . $relativePath;
         }
 
         return $path;

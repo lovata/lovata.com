@@ -3,9 +3,21 @@
 # ===================================
 
 columns:
+    id:
+        label: ID
+        invisible: true
+
+    group:
+        label: Group
+        relation: group
+        select: name
+        invisible: true
+
     name:
         label: Name
         searchable: true
+        type: partial
+        path: column_name
 
     theme:
         label: Theme

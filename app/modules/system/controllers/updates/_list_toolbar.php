@@ -1,38 +1,24 @@
 <div data-control="toolbar">
     <?php if (!$projectDetails): ?>
-        <a
-            href="javascript:;"
-            class="btn btn-primary oc-icon-bolt"
-            data-control="popup"
-            data-handler="onLoadProjectForm"
-        >
-            <?= e(__('Register Software')) ?>
+        <?= Ui::popupButton("Register Software", 'onLoadProjectForm')
+            ->primary()
+            ->icon('icon-bolt')
+        ?>
     <?php else: ?>
-        </a>
-        <a
-            href="javascript:;"
-            class="btn btn-primary oc-icon-refresh"
-            data-control="popup"
-            data-handler="<?= $this->updaterWidget->getEventHandler('onLoadUpdates') ?>"
-        >
-            <?= e(__('Check For Updates')) ?>
-        </a>
-        <a
-            href="<?= Backend::url('system/market') ?>"
-            class="btn btn-default oc-icon-plus">
-            <?= e(__('Install Packages')) ?>
-        </a>
+        <?= Ui::popupButton("Check For Updates", $this->updaterWidget->getEventHandler('onLoadUpdates'))
+            ->primary()
+            ->icon('icon-refresh')
+        ?>
+        <?= Ui::button("Install Packages", 'system/market')
+            ->icon('icon-plus')
+            ->secondary() ?>
     <?php endif ?>
     <?php if (System::hasModule('Cms')): ?>
-        <a
-            href="<?= Backend::url('cms/themes') ?>"
-            class="btn btn-default oc-icon-image">
-            <?= e(__('Manage Themes')) ?>
-        </a>
+        <?= Ui::button("Manage Themes", 'cms/themes')
+            ->icon('icon-image')
+            ->secondary() ?>
     <?php endif ?>
-    <a
-        href="<?= Backend::url('system/updates/manage') ?>"
-        class="btn btn-default oc-icon-puzzle-piece">
-        <?= e(__('Manage Plugins')) ?>
-    </a>
+        <?= Ui::button("Manage Plugins", 'system/updates/manage')
+            ->icon('icon-puzzle-piece')
+            ->secondary() ?>
 </div>

@@ -17,6 +17,7 @@
             ref="documentHeader"
             :subtitle-preset-remove-words="true"
             :data="documentData"
+            :is-new-document="isNewDocument"
             :document-icon="directDocumentIcon"
             :show-close-icon="isDirectDocumentMode"
             :disabled="processing"

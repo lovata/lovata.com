@@ -107,6 +107,14 @@
                         self.triggerEvent('popupError');
                         self.triggerEvent('error.oc.popup');
                     });
+                },
+                cancel: function() {
+                    if (self.isLoading) {
+                        self.hideLoading();
+                    }
+                    else {
+                        self.hide();
+                    }
                 }
             });
 
@@ -167,6 +175,8 @@
             self.hide();
             return false;
         });
+
+        oc.Events.dispatch('popup:show');
     }
 
     Popup.prototype.dispose = function() {
@@ -219,9 +229,18 @@
     }
 
     Popup.prototype.setContent = function(contents) {
+        var contentNode = $(contents);
+
+        // Set the popup size from the inner contents instead
+        // of needing it from the calling code
+        var $defaultSize = $('[data-popup-size]', contentNode);
+        if ($defaultSize.length > 0) {
+            this.$dialog.addClass('size-' + $defaultSize.data('popup-size'));
+        }
+
         this.setLoading(false);
         this.$modal.modal('show');
-        this.$content.html(contents);
+        this.$content.html(contentNode);
         this.triggerShowEvent();
 
         // Duplicate the popup object reference on to the first div
@@ -266,12 +285,19 @@
 
         this.isLoading = val;
 
-        var self = this;
         if (val) {
-            setTimeout(function() { self.$backdrop.addClass('loading'); }, 100);
+            setTimeout(() => {
+                if (this.$backdrop) {
+                    this.$backdrop.addClass('loading');
+                }
+            }, 100);
         }
         else {
-            setTimeout(function() { self.$backdrop.removeClass('loading'); }, 100);
+            setTimeout(() => {
+                if (this.$backdrop) {
+                    this.$backdrop.removeClass('loading');
+                }
+            }, 100);
         }
     }
 
@@ -291,7 +317,7 @@
         // Wait for animations to complete
         var self = this;
         setTimeout(function() { self.setBackdrop(false) }, 250);
-        setTimeout(function() { self.hide() }, 500);
+        setTimeout(function() { self.hide() }, 300);
     }
 
     Popup.prototype.triggerEvent = function(eventName, params) {
@@ -416,7 +442,7 @@
         }
     }
 
-    $(document).on('click.oc.popup', '[data-control="popup"]', function(event) {
+    $(document).on('click.oc.popup', '[data-control~="popup"]', function(event) {
         event.preventDefault();
 
         $(this).popup();
@@ -425,7 +451,7 @@
     // Popup loading indicator will only show if the handlers are an exact match.
     $(document)
         // Prevent subsequent requests while loading (mis-doubleclick)
-        .on('ajax:before-request', '[data-popup-load-indicator]', function(event) {
+        .on('ajax:setup', '[data-popup-load-indicator]', function(event) {
             if ($(this).data('request') !== event.detail.context.handler) return;
             if (!$(this).closest('.control-popup').hasClass('show')) event.preventDefault();
         })
@@ -444,5 +470,19 @@
             if ($(this).data('request') !== event.detail.context.handler) return;
             $(this).closest('.control-popup').popup('hideLoading');
         });
+
+    oc.popup = Popup;
+
+    // This function transfers the supplied variables as hidden form inputs,
+    // to any popup that is spawned within the supplied container. The spawned
+    // popup must contain a form element.
+    oc.popup.bindToPopups = (container, vars) => {
+        $(container).on('show.oc.popup', function(event, $trigger, $modal){
+            var $form = $('form', $modal)
+            $.each(vars, function(name, value){
+                $form.prepend($('<input />').attr({ type: 'hidden', name: name, value: value }));
+            });
+        });
+    }
 
 }(window.jQuery);

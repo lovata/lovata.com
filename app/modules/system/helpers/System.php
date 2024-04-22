@@ -65,7 +65,10 @@ class System
         }
 
         // System comes first
-        $result = array_unique(array_merge(['System'], $result));
+        if ($systemKey = array_search('System', $result)) {
+            unset($result[$systemKey]);
+            array_unshift($result, 'System');
+        }
 
         // Store result
         Manifest::put(self::MANIFEST_MODULES, $result);

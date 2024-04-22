@@ -20,6 +20,7 @@
             v-show="expanded"
             :controls="controls"
             :obj="obj"
+            :parent-obj="parentObj"
             :splitter-data="splitterData"
             :depth="depth + 1"
             :panel-update-data="panelUpdateData"

@@ -216,21 +216,15 @@ trait PageManagerRegistry
     /**
      * getPageManagerPageUrl
      */
-    protected static function getPageManagerPageUrl($pageCode, $record, $theme)
+    protected function getPageManagerPageUrl($pageCode, $record, $theme)
     {
-        $url = Cms::pageUrl($pageCode, [
-            'id' => $record->id,
-            'slug' => $record->slug,
-            'fullslug' => $record->fullslug
-        ]);
-
-        return $url;
+        return Cms::pageUrl($pageCode, $record->makePageUrlParams());
     }
 
     /**
-     * getPageManagerPageUrl
+     * getPageManagerSites
      */
-    protected static function getPageManagerSites($pageCode, $record, $theme): array
+    protected function getPageManagerSites($pageCode, $record, $theme): array
     {
         if (
             !Site::hasMultiSite() ||
@@ -258,11 +252,7 @@ trait PageManagerRegistry
                 continue;
             }
 
-            $url = Cms::siteUrl($page, $site, [
-                'id' => $otherRecord->id,
-                'slug' => $otherRecord->slug,
-                'fullslug' => $otherRecord->fullslug
-            ]);
+            $url = Cms::siteUrl($page, $site, $otherRecord->makePageUrlParams());
 
             $result[] = [
                 'url' => $url,

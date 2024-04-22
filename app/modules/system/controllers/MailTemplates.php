@@ -10,7 +10,7 @@ use ApplicationException;
 use Throwable;
 
 /**
- * Mail templates controller
+ * MailTemplates controller
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
@@ -18,7 +18,7 @@ use Throwable;
 class MailTemplates extends Controller
 {
     /**
-     * @var array Extensions implemented by this controller.
+     * @var array implement extensions by this controller.
      */
     public $implement = [
         \Backend\Behaviors\FormController::class,
@@ -40,7 +40,7 @@ class MailTemplates extends Controller
     ];
 
     /**
-     * @var array Permissions required to view this page.
+     * @var array requiredPermissions to view this page.
      */
     public $requiredPermissions = ['mail.templates'];
 
@@ -86,7 +86,7 @@ class MailTemplates extends Controller
 
             Mail::sendTo([$user->email => $user->full_name], $model->code);
 
-            Flash::success(trans('system::lang.mail_templates.test_success'));
+            Flash::success(__("Test message sent."));
         }
         catch (Throwable $ex) {
             throw new ApplicationException($ex->getMessage());

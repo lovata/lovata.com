@@ -1,5 +1,6 @@
 <?php namespace Cms\Models;
 
+use Site;
 use System;
 use BackendAuth;
 use Cms\Classes\Page;
@@ -16,6 +17,7 @@ use Exception;
  */
 class MaintenanceSetting extends SettingModel
 {
+    use \October\Rain\Database\Traits\Multisite;
     use \October\Rain\Database\Traits\Validation;
 
     /**
@@ -24,7 +26,7 @@ class MaintenanceSetting extends SettingModel
     public $settingsCode = 'cms_maintenance_settings';
 
     /**
-     * @var mixed settingsFields defitions
+     * @var mixed settingsFields definitions
      */
     public $settingsFields = 'fields.yaml';
 
@@ -32,6 +34,11 @@ class MaintenanceSetting extends SettingModel
      * @var array rules for validation
      */
     public $rules = [];
+
+    /**
+     * @var array propagatable fields
+     */
+    protected $propagatable = [];
 
     /**
      * initSettingsData initializes the seed data for this model. This only executes when the
@@ -128,5 +135,14 @@ class MaintenanceSetting extends SettingModel
         catch (Exception $ex) {
             return Theme::getActiveTheme();
         }
+    }
+
+    /**
+     * isMultisiteEnabled allows for programmatic toggling
+     * @return bool
+     */
+    public function isMultisiteEnabled()
+    {
+        return Site::hasFeature('cms_maintenance_setting');
     }
 }

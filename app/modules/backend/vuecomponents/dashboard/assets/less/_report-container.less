@@ -1,0 +1,57 @@
+.dashboard-report-container {
+    transition: margin 0.1s;
+    margin: 0;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        opacity: 0;
+        left: -25px;
+        top: 15px;
+        bottom: -30px;
+        border-left: 1px dashed @color-control-border;
+    }
+
+    &.edit-mode {
+        margin-left: 40px;
+
+        &::before {
+            opacity: 100%;
+        }
+    }
+
+    .row-controls {
+        position: absolute;
+
+        .edit-row-button {
+            width: 35px;
+            height: 35px;
+            user-select: none;
+            cursor: pointer;
+            border-radius: 38px;
+            border: 1px solid var(--oc-toolbar-border);
+            background-color: var(--oc-toolbar-bg);
+            position: absolute;
+            left: -42px;
+            top: 0;
+            transition: transform 0.05s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            &:focus {
+                border-color: @input-border-focus;
+            }
+
+            &.add-row i {
+                font-size: 22px;
+                color: #5F6368;
+            }
+        }
+    }
+
+    > .row-controls {
+        padding-bottom: 50px;
+    }
+}

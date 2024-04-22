@@ -16,9 +16,8 @@ oc.Modules.register('cms.widget.snippetlookup', function () {
 
             // Queue for the next control found in the popup
             addEventListener('snippetlookup:ready', function(ev) {
-                const searchControl = oc.fetchControl(ev.target);
-                if (searchControl) {
-                    searchControl.setContext(config.onInsert);
+                if (ev.target.snippetLookupInstance) {
+                    ev.target.snippetLookupInstance.setContext(config.onInsert);
                 }
             }, { once: true });
         }

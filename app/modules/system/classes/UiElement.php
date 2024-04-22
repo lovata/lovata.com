@@ -18,17 +18,16 @@ class UiElement extends ElementBase
     /**
      * __construct
      */
-    public function __construct($config = [])
+    public function __construct($body = null)
     {
         if (
-            is_string($config) ||
-            $config instanceof Closure ||
-            $config instanceof UiElement
+            is_string($body) ||
+            $body instanceof Closure ||
+            $body instanceof UiElement
         ) {
-            $this->body($config);
-            $config = [];
+            $this->body($body);
         }
 
-        parent::__construct($config);
+        parent::__construct([]);
     }
 }

@@ -17,6 +17,11 @@ class SitePicker extends ComponentModuleBase
     protected $sitesCache;
 
     /**
+     * @var array allSitesCache for multiple calls
+     */
+    protected $allSitesCache;
+
+    /**
      * componentDetails
      * @return array
      */
@@ -25,6 +30,7 @@ class SitePicker extends ComponentModuleBase
         return [
             'name' => 'Site Picker',
             'description' => 'Displays links for selecting a different site.',
+            'icon' => 'icon-globe'
         ];
     }
 
@@ -41,8 +47,16 @@ class SitePicker extends ComponentModuleBase
      */
     public function sites()
     {
-        if ($this->sitesCache !== null) {
-            return $this->sitesCache;
+        return $this->sitesCache ??= $this->allSites()->inSiteGroup();
+    }
+
+    /**
+     * allSites lazily loads the available sites
+     */
+    public function allSites()
+    {
+        if ($this->allSitesCache !== null) {
+            return $this->allSitesCache;
         }
 
         $sites = Site::listEnabled();
@@ -55,11 +69,11 @@ class SitePicker extends ComponentModuleBase
             ));
         }
 
-        return $this->sitesCache = $sites;
+        return $this->allSitesCache = $sites;
     }
 
     /**
-     * pageSites
+     * pageSites returns a CMS page for all available sites
      */
     public function pageSites($pageName, $params = [])
     {

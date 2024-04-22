@@ -2,6 +2,7 @@
 
 use File;
 use Cache;
+use System as SystemHelper;
 use System\Models\Parameter;
 use October\Rain\Composer\Manager as ComposerManager;
 
@@ -13,6 +14,23 @@ use October\Rain\Composer\Manager as ComposerManager;
  */
 trait ManagesProject
 {
+    /**
+     * canUpdateProject checks if composer is ready to access the gateway using authentication
+     */
+    public function canUpdateProject(): bool
+    {
+        return $this->requestProjectDetails($this->getComposerProjectKey())['is_active'] ?? false;
+    }
+
+    /**
+     * getComposerProjectKey returns the project key used by composer
+     */
+    public function getComposerProjectKey(): ?string
+    {
+        return ComposerManager::instance()
+            ->getAuthCredentials($this->getComposerUrl(false))['password'] ?? null;
+    }
+
     /**
      * getProjectKey locates the project key from the file system and seeds the parameter
      */
@@ -183,7 +201,8 @@ trait ManagesProject
 
         $data = $this->requestServerData('package/browse', [
             'type' => $type,
-            'page' => $page
+            'page' => $page,
+            'version' => SystemHelper::VERSION
         ]);
 
         // 60 minutes

@@ -10,17 +10,17 @@
                     <div class="tab-controls">
                         <?php if ($this->mode === 'radio'): ?>
                             <a href="javascript:;" class="backend-toolbar-button control-button" data-field-permission-toggle>
-                                <i class="octo-icon-check-multi"></i>
+                                <i class="icon-check-multi"></i>
                                 <span class="button-label"><?= e(trans('backend::lang.form.select_all')) ?></span>
                             </a>
                         <?php else: ?>
                             <a href="javascript:;" class="backend-toolbar-button control-button" data-field-permission-all>
-                                <i class="octo-icon-check-multi"></i>
+                                <i class="icon-check-multi"></i>
                                 <span class="button-label"><?= e(trans('backend::lang.form.select_all')) ?></span>
                             </a>
 
                             <a href="javascript:;" class="backend-toolbar-button control-button" style="display: none" data-field-permission-none>
-                                <i class="octo-icon-eraser"></i>
+                                <i class="icon-eraser"></i>
                                 <span class="button-label"><?= e(trans('backend::lang.form.select_none')) ?></span>
                             </a>
                         <?php endif ?>

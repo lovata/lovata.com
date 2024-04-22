@@ -12,6 +12,10 @@ oc.Modules.register('backend.component.inspector.controlhost', function () {
                 type: [Object, Array],
                 required: true
             },
+            parentObj: {
+                type: Object,
+                required: false
+            },
             splitterData: {
                 type: Object,
                 required: true

@@ -11,12 +11,12 @@
                 <a href="<?= Backend::url('system/settings/update/october/cms/maintenance_settings') ?>">
             <?php endif ?>
                 <?php if ($inMaintenance): ?>
-                    <i class="icon-circle warning"></i>
+                    <i class="icon-circle-full warning"></i>
                     <span class="text-warning">
                         <?= e(trans('cms::lang.dashboard.active_theme.maintenance')) ?>
                     </span>
                 <?php else: ?>
-                    <i class="icon-circle success"></i>
+                    <i class="icon-circle-full success"></i>
                     <span class="text-success">
                         <?= e(trans('cms::lang.dashboard.active_theme.online')) ?>
                     </span>

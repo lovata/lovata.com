@@ -1,0 +1,16 @@
+# ===================================
+#  List Behavior Config
+# ===================================
+
+title: Site Groups
+list: ~/modules/system/models/sitegroup/columns.yaml
+modelClass: System\Models\SiteGroup
+recordUrl: system/sitegroups/update/:id
+noRecordsMessage: backend::lang.list.no_records
+recordsPerPage: 20
+showSetup: true
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: backend::lang.list.search_prompt

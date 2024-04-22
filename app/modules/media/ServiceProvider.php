@@ -1,8 +1,10 @@
 <?php namespace Media;
 
+use Event;
 use Backend;
 use BackendAuth;
 use Media\Widgets\MediaManager;
+use Media\Helpers\MediaView as MediaViewHelper;
 use Backend\Classes\Controller as BackendController;
 use October\Rain\Support\ModuleServiceProvider;
 
@@ -18,6 +20,8 @@ class ServiceProvider extends ModuleServiceProvider
     {
         parent::register('media');
 
+        $this->registerSingletons();
+
         // Backend specific
         if ($this->app->runningInBackend()) {
             $this->registerGlobalInstance();
@@ -30,6 +34,17 @@ class ServiceProvider extends ModuleServiceProvider
     public function boot()
     {
         parent::boot('media');
+
+        $this->bootMediaViewEvents();
+    }
+
+    /**
+     * registerSingletons
+     */
+    protected function registerSingletons()
+    {
+        $this->app->singleton('media.views', \Media\Helpers\MediaView::class);
+        $this->app->singleton('media.library', \Media\Classes\MediaLibrary::class);
     }
 
     /**
@@ -100,6 +115,16 @@ class ServiceProvider extends ModuleServiceProvider
                 'media' => [\Media\Classes\MediaLibrary::class, 'url'],
             ]
         ];
+    }
+
+    /**
+     * bootMediaViewEvents
+     */
+    protected function bootMediaViewEvents()
+    {
+        Event::listen('cms.page.postProcessContent', function ($url, $page, &$content) {
+            $content = MediaViewHelper::instance()->processHtml($content);
+        });
     }
 
     /**

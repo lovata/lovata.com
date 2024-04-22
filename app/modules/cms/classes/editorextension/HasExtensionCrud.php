@@ -659,6 +659,10 @@ trait HasExtensionCrud
             $router = new Router($theme);
             $router->clearCache();
             CmsCompoundObject::clearCache($theme);
+
+            if (class_exists(\Tailor\Behaviors\PreviewController::class)) {
+                \Tailor\Behaviors\PreviewController::clearCache($theme);
+            }
         }
         elseif ($template instanceof Partial) {
             $theme = $this->getTheme();

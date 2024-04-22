@@ -5,6 +5,7 @@
     <backend-component-inspector-grouphost
         :controls="untabbedControls"
         :obj="obj"
+        :parent-obj="parentObj"
         :splitter-data="splitterData"
         :inspector-unique-id="inspectorUniqueId"
         :depth="0"
@@ -26,6 +27,7 @@
             <backend-component-inspector-grouphost
                 :controls="tabbedControls[tabInfo.key]"
                 :obj="obj"
+                :parent-obj="parentObj"
                 :splitter-data="splitterData"
                 :inspector-unique-id="inspectorUniqueId"
                 :depth="0"

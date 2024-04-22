@@ -233,7 +233,7 @@ oc.Modules.register('backend.component.tabs', function () {
                     return;
                 }
 
-                Vue.nextTick($.oc.octoberTooltips.clear, 1);
+                Vue.nextTick(oc.octoberTooltips.clear, 1);
 
                 if (tabIndex === null || !this.tabs.length) {
                     this.selectedTabKey = null;

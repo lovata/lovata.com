@@ -2,7 +2,7 @@
 #  List Behavior Config
 # ===================================
 
-title: system::lang.request_log.menu_label
+title: "Request Log"
 list: ~/modules/system/models/requestlog/columns.yaml
 modelClass: System\Models\RequestLog
 recordUrl: system/requestlogs/preview/:id

@@ -10,13 +10,13 @@
                     value=""
                 />
             </div>
-            <a href="javascript:;" class="drag-handle"><i class="octo-icon-list-reorder"></i></a>
+            <a href="javascript:;" class="drag-handle"><i class="icon-list-reorder"></i></a>
         <?php endif ?>
 
         <div class="file-data-container">
             <div class="file-data-container-inner">
                 <div class="icon-container">
-                    <i class="octo-icon-attachment"></i>
+                    <i class="icon-attachment"></i>
                 </div>
 
                 <div class="info">

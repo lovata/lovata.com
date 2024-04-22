@@ -2,12 +2,14 @@
 
 use October\Rain\Support\Facade;
 
+/**
+ * BackendMenu
+ * @see \Backend\Classes\NavigationManager
+ */
 class BackendMenu extends Facade
 {
     /**
-     * Get the registered name of the component.
-     *
-     * @see \Backend\Classes\NavigationManager
+     * getFacadeAccessor returns the registered name of the component
      * @return string
      */
     protected static function getFacadeAccessor()

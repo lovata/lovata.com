@@ -1,4 +1,3 @@
-
 <?php if ($outsideTabs->hasFields()): ?>
     <?= $this->makePartial('section', ['tabs' => $outsideTabs]) ?>
 <?php endif ?>

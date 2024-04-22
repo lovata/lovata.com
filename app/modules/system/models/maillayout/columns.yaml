@@ -3,11 +3,10 @@
 # ===================================
 
 columns:
-
     name:
-        label: system::lang.mail_templates.name
+        label: "Name"
         searchable: true
 
     code:
-        label: system::lang.mail_templates.code
+        label: "Code"
         searchable: true

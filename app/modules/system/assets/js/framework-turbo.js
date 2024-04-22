@@ -197,12 +197,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _util_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/events */ "./src/util/events.js");
-/* harmony import */ var _namespace__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./namespace */ "./src/core/namespace.js");
+/* harmony import */ var _util_wait__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/wait */ "./src/util/wait.js");
+/* harmony import */ var _namespace__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./namespace */ "./src/core/namespace.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_namespace__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_namespace__WEBPACK_IMPORTED_MODULE_2__["default"]);
 
 if (!window.oc) {
   window.oc = {};
@@ -210,18 +212,27 @@ if (!window.oc) {
 
 if (!window.oc.AjaxFramework) {
   // Namespace
-  window.oc.AjaxFramework = _namespace__WEBPACK_IMPORTED_MODULE_1__["default"]; // Request on element with builder
+  window.oc.AjaxFramework = _namespace__WEBPACK_IMPORTED_MODULE_2__["default"]; // Request on element with builder
 
-  window.oc.request = _namespace__WEBPACK_IMPORTED_MODULE_1__["default"].requestElement; // JSON parser
+  window.oc.request = _namespace__WEBPACK_IMPORTED_MODULE_2__["default"].requestElement; // JSON parser
 
-  window.oc.parseJSON = _namespace__WEBPACK_IMPORTED_MODULE_1__["default"].parseJSON; // Form serializer
+  window.oc.parseJSON = _namespace__WEBPACK_IMPORTED_MODULE_2__["default"].parseJSON; // Form serializer
 
-  window.oc.serializeJSON = _namespace__WEBPACK_IMPORTED_MODULE_1__["default"].serializeJSON; // Selector events
+  window.oc.serializeJSON = _namespace__WEBPACK_IMPORTED_MODULE_2__["default"].serializeJSON; // Selector events
 
-  window.oc.Events = _util_events__WEBPACK_IMPORTED_MODULE_0__.Events; // Boot controller
+  window.oc.Events = _util_events__WEBPACK_IMPORTED_MODULE_0__.Events; // Wait for a variable to exist
+
+  window.oc.waitFor = _util_wait__WEBPACK_IMPORTED_MODULE_1__.waitFor; // Fallback for turbo
+
+  window.oc.pageReady = _util_wait__WEBPACK_IMPORTED_MODULE_1__.domReady; // Fallback for turbo
+
+  window.oc.visit = function (url) {
+    return window.location.assign(url);
+  }; // Boot controller
+
 
   if (!isAMD() && !isCommonJS()) {
-    _namespace__WEBPACK_IMPORTED_MODULE_1__["default"].start();
+    _namespace__WEBPACK_IMPORTED_MODULE_2__["default"].start();
   }
 }
 
@@ -467,8 +478,10 @@ var RequestBuilder = /*#__PURE__*/function () {
     this.assignAsEval('afterUpdateFunc', 'requestAfterUpdate');
     this.assignAsEval('successFunc', 'requestSuccess');
     this.assignAsEval('errorFunc', 'requestError');
+    this.assignAsEval('cancelFunc', 'requestCancel');
     this.assignAsEval('completeFunc', 'requestComplete');
     this.assignAsData('progressBar', 'requestProgressBar');
+    this.assignAsData('message', 'requestMessage');
     this.assignAsData('confirm', 'requestConfirm');
     this.assignAsData('redirect', 'requestRedirect');
     this.assignAsData('loading', 'requestLoading');
@@ -543,6 +556,10 @@ var RequestBuilder = /*#__PURE__*/function () {
   }, {
     key: "assignAsEval",
     value: function assignAsEval(optionName, name) {
+      if (this.options[optionName] !== undefined) {
+        return;
+      }
+
       var attrVal;
 
       if (this.element.dataset[name]) {
@@ -567,6 +584,10 @@ var RequestBuilder = /*#__PURE__*/function () {
           parseJson = _ref$parseJson === void 0 ? false : _ref$parseJson,
           _ref$emptyAsTrue = _ref.emptyAsTrue,
           emptyAsTrue = _ref$emptyAsTrue === void 0 ? false : _ref$emptyAsTrue;
+
+      if (this.options[optionName] !== undefined) {
+        return;
+      }
 
       var attrVal;
 
@@ -612,7 +633,7 @@ var RequestBuilder = /*#__PURE__*/function () {
       }
 
       if (mergeValue) {
-        this.options[optionName] = _objectSpread(_objectSpread({}, this.options[optionName]), attrVal);
+        this.options[optionName] = _objectSpread(_objectSpread({}, this.options[optionName] || {}), attrVal);
       } else {
         this.options[optionName] = attrVal;
       }
@@ -893,8 +914,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "ActionsUpdateMode": () => (/* binding */ ActionsUpdateMode)
 /* harmony export */ });
 /* harmony import */ var _asset_manager__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./asset-manager */ "./src/request/asset-manager.js");
-/* harmony import */ var _util_http_request__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/http-request */ "./src/util/http-request.js");
-/* harmony import */ var _util_deferred__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../util/deferred */ "./src/util/deferred.js");
+/* harmony import */ var _util_deferred__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/deferred */ "./src/util/deferred.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -912,7 +938,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
 
 
 
@@ -935,6 +960,7 @@ var Actions = /*#__PURE__*/function () {
     this.context.success = this.success.bind(this);
     this.context.error = this.error.bind(this);
     this.context.complete = this.complete.bind(this);
+    this.context.cancel = this.cancel.bind(this);
   } // Options can override all public methods in this class
 
 
@@ -965,62 +991,83 @@ var Actions = /*#__PURE__*/function () {
     key: "start",
     value: function start(xhr) {
       this.invoke('markAsUpdating', [true]);
+
+      if (this.delegate.options.message) {
+        this.invoke('handleProgressMessage', [this.delegate.options.message, false]);
+      }
     }
   }, {
     key: "success",
     value: function success(data, responseCode, xhr) {
-      // Halt here if beforeUpdate() or data-request-before-update returns false
+      var _this = this;
+
+      var updatePromise = new _util_deferred__WEBPACK_IMPORTED_MODULE_1__.Deferred(); // Halt here if beforeUpdate() or data-request-before-update returns false
+
       if (this.invoke('beforeUpdate', [data, responseCode, xhr]) === false) {
-        return;
+        return updatePromise;
       } // Halt here if the error function returns false
 
 
       if (this.invokeFunc('beforeUpdateFunc', data) === false) {
-        return;
+        return updatePromise;
       } // Trigger 'ajaxBeforeUpdate' on the form, halt if event.preventDefault() is called
 
 
       if (!this.delegate.applicationAllowsUpdate(data, responseCode, xhr)) {
-        return;
-      }
+        return updatePromise;
+      } // Download file and continue with success response here since data is unusable
+
 
       if (this.delegate.options.download && data instanceof Blob) {
-        if (this.invoke('handleFileDownload', [data, xhr])) {
-          return;
-        }
-      }
+        this.invoke('handleFileDownload', [data, xhr]);
+        this.delegate.notifyApplicationRequestSuccess(data, responseCode, xhr);
+        this.invokeFunc('successFunc', data);
+        return updatePromise;
+      } // Dispatch flash messages
+
 
       if (this.delegate.options.flash && data['X_OCTOBER_FLASH_MESSAGES']) {
         for (var type in data['X_OCTOBER_FLASH_MESSAGES']) {
           this.invoke('handleFlashMessage', [data['X_OCTOBER_FLASH_MESSAGES'][type], type]);
         }
+      } // Browser event has halted the process
+
+
+      if (data['X_OCTOBER_DISPATCHES'] && this.invoke('handleBrowserEvents', [data['X_OCTOBER_DISPATCHES']])) {
+        return updatePromise;
       } // Proceed with the update process
 
 
-      var self = this,
-          updatePromise = this.invoke('handleUpdateResponse', [data, responseCode, xhr]);
+      updatePromise = this.invoke('handleUpdateResponse', [data, responseCode, xhr]);
       updatePromise.done(function () {
-        self.delegate.notifyApplicationRequestSuccess(data, responseCode, xhr);
-        self.invokeFunc('successFunc', data);
+        _this.delegate.notifyApplicationRequestSuccess(data, responseCode, xhr);
+
+        _this.invokeFunc('successFunc', data);
       });
       return updatePromise;
     }
   }, {
     key: "error",
     value: function error(data, responseCode, xhr) {
-      var errorMsg,
-          updatePromise = new _util_deferred__WEBPACK_IMPORTED_MODULE_2__.Deferred(),
-          self = this;
+      var _this2 = this;
 
-      if (window.ocUnloading !== undefined && window.ocUnloading || responseCode == _util_http_request__WEBPACK_IMPORTED_MODULE_1__.SystemStatusCode.userAborted) {
-        return;
+      var errorMsg,
+          updatePromise = new _util_deferred__WEBPACK_IMPORTED_MODULE_1__.Deferred();
+
+      if (window.ocUnloading !== undefined && window.ocUnloading) {
+        return updatePromise;
       } // Disable redirects
 
 
       this.delegate.toggleRedirect(false); // Error 406 is a "smart error" that returns response object that is
-      // processed in the same fashion as a successful response.
+      // processed in the same fashion as a successful response. The response
+      // may also dispatch events which can halt the process
 
       if (responseCode == 406 && data) {
+        if (data['X_OCTOBER_DISPATCHES'] && this.invoke('handleBrowserEvents', [data['X_OCTOBER_DISPATCHES']])) {
+          return updatePromise;
+        }
+
         errorMsg = data['X_OCTOBER_ERROR_MESSAGE'];
         updatePromise = this.invoke('handleUpdateResponse', [data, responseCode, xhr]);
       } // Standard error with standard response text
@@ -1031,21 +1078,21 @@ var Actions = /*#__PURE__*/function () {
 
       updatePromise.done(function () {
         // Capture the error message on the node
-        if (self.el !== document) {
-          self.el.setAttribute('data-error-message', errorMsg);
+        if (_this2.el !== document) {
+          _this2.el.setAttribute('data-error-message', errorMsg);
         } // Trigger 'ajaxError' on the form, halt if event.preventDefault() is called
 
 
-        if (!self.delegate.applicationAllowsError(data, responseCode, xhr)) {
+        if (!_this2.delegate.applicationAllowsError(data, responseCode, xhr)) {
           return;
         } // Halt here if the error function returns false
 
 
-        if (self.invokeFunc('errorFunc', data) === false) {
+        if (_this2.invokeFunc('errorFunc', data) === false) {
           return;
         }
 
-        self.invoke('handleErrorMessage', [errorMsg]);
+        _this2.invoke('handleErrorMessage', [errorMsg]);
       });
       return updatePromise;
     }
@@ -1055,15 +1102,27 @@ var Actions = /*#__PURE__*/function () {
       this.delegate.notifyApplicationRequestComplete(data, responseCode, xhr);
       this.invokeFunc('completeFunc', data);
       this.invoke('markAsUpdating', [false]);
+
+      if (this.delegate.options.message) {
+        this.invoke('handleProgressMessage', [null, true]);
+      }
+    }
+  }, {
+    key: "cancel",
+    value: function cancel() {
+      this.invokeFunc('cancelFunc');
     } // Custom function, requests confirmation from the user
 
   }, {
     key: "handleConfirmMessage",
     value: function handleConfirmMessage(message) {
-      var self = this;
-      var promise = new _util_deferred__WEBPACK_IMPORTED_MODULE_2__.Deferred();
+      var _this3 = this;
+
+      var promise = new _util_deferred__WEBPACK_IMPORTED_MODULE_1__.Deferred();
       promise.done(function () {
-        self.delegate.sendInternal();
+        _this3.delegate.sendInternal();
+      }).fail(function () {
+        _this3.invoke('cancel', []);
       });
       var event = this.delegate.notifyApplicationConfirmMessage(message, promise);
 
@@ -1072,9 +1131,19 @@ var Actions = /*#__PURE__*/function () {
       }
 
       if (message) {
-        return confirm(message);
+        var result = confirm(message);
+
+        if (!result) {
+          this.invoke('cancel', []);
+        }
+
+        return result;
       }
-    } // Custom function, display a flash message to the user
+    } // Custom function, display a progress message to the user
+
+  }, {
+    key: "handleProgressMessage",
+    value: function handleProgressMessage(message, isDone) {} // Custom function, display a flash message to the user
 
   }, {
     key: "handleFlashMessage",
@@ -1106,9 +1175,26 @@ var Actions = /*#__PURE__*/function () {
       var isFirstInvalidField = true;
 
       for (var fieldName in fields) {
-        var fieldNameRaw = fieldName.replace(/\.(\w+)/g, '[$1]'),
-            fieldNameArr = ('.' + fieldName).replace(/\.(\w+)/g, '[$1]');
-        var fieldNameOptions = ['[name="' + fieldNameRaw + '"]:not([disabled])', '[name="' + fieldNameRaw + '[]"]:not([disabled])', '[name$="' + fieldNameArr + '"]:not([disabled])', '[name$="' + fieldNameArr + '[]"]:not([disabled])'];
+        var fieldCheck,
+            fieldNameOptions = []; // field1[field2][field3]
+
+        fieldCheck = fieldName.replace(/\.(\w+)/g, '[$1]');
+        fieldNameOptions.push('[name="' + fieldCheck + '"]:not([disabled])');
+        fieldNameOptions.push('[name="' + fieldCheck + '[]"]:not([disabled])'); // [field1][field2][field3]
+
+        fieldCheck = ('.' + fieldName).replace(/\.(\w+)/g, '[$1]');
+        fieldNameOptions.push('[name$="' + fieldCheck + '"]:not([disabled])');
+        fieldNameOptions.push('[name$="' + fieldCheck + '[]"]:not([disabled])'); // field.0 → field[]
+
+        var fieldEmpty = fieldName.replace(/\.[0-9]+$/g, '');
+
+        if (fieldName !== fieldEmpty) {
+          fieldCheck = fieldEmpty.replace(/\.(\w+)/g, '[$1]');
+          fieldNameOptions.push('[name="' + fieldCheck + '[]"]:not([disabled])');
+          fieldCheck = ('.' + fieldEmpty).replace(/\.(\w+)/g, '[$1]');
+          fieldNameOptions.push('[name$="' + fieldCheck + '[]"]:not([disabled])');
+        }
+
         var fieldElement = this.delegate.formEl.querySelector(fieldNameOptions.join(', '));
 
         if (fieldElement) {
@@ -1123,6 +1209,28 @@ var Actions = /*#__PURE__*/function () {
           }
         }
       }
+    } // Custom function, handle a browser event coming from the server
+
+  }, {
+    key: "handleBrowserEvents",
+    value: function handleBrowserEvents(events) {
+      var _this4 = this;
+
+      if (!events || !events.length) {
+        return false;
+      }
+
+      var defaultPrevented = false;
+      events.forEach(function (dispatched) {
+        var event = _this4.delegate.notifyApplicationCustomEvent(dispatched.event, _objectSpread(_objectSpread({}, dispatched.data || {}), {}, {
+          context: _this4.context
+        }));
+
+        if (event.defaultPrevented) {
+          defaultPrevented = true;
+        }
+      });
+      return defaultPrevented;
     } // Custom function, redirect the browser to another location
 
   }, {
@@ -1166,14 +1274,15 @@ var Actions = /*#__PURE__*/function () {
         });
       }
     } // Custom function, handle any application specific response values
-    // Using a promisary object here in case injected assets need time to load
+    // Using a promissory object here in case injected assets need time to load
 
   }, {
     key: "handleUpdateResponse",
     value: function handleUpdateResponse(data, responseCode, xhr) {
-      var self = this,
-          updateOptions = this.options.update || {},
-          updatePromise = new _util_deferred__WEBPACK_IMPORTED_MODULE_2__.Deferred(); // Update partials and finish request
+      var _this5 = this;
+
+      var updateOptions = this.options.update || {},
+          updatePromise = new _util_deferred__WEBPACK_IMPORTED_MODULE_1__.Deferred(); // Update partials and finish request
 
       updatePromise.done(function () {
         var _loop = function _loop() {
@@ -1183,9 +1292,9 @@ var Actions = /*#__PURE__*/function () {
           var selectedEl = []; // If the update options has a _self, values like true and '^' will resolve to the partial element,
           // these values are also used to make AJAX partial handlers available without performing an update
 
-          if (updateOptions['_self'] && partial == self.options.partial && self.delegate.partialEl) {
+          if (updateOptions['_self'] && partial == _this5.options.partial && _this5.delegate.partialEl) {
             selector = updateOptions['_self'];
-            selectedEl = [self.delegate.partialEl];
+            selectedEl = [_this5.delegate.partialEl];
           } else {
             selectedEl = resolveSelectorResponse(selector, '[data-ajax-partial="' + partial + '"]');
           }
@@ -1208,12 +1317,13 @@ var Actions = /*#__PURE__*/function () {
               runScriptsOnFragment(el, data[partial]);
             } // Insert
             else {
-              self.delegate.notifyApplicationBeforeReplace(el);
+              _this5.delegate.notifyApplicationBeforeReplace(el);
+
               el.innerHTML = data[partial];
               runScriptsOnElement(el);
             }
 
-            self.delegate.notifyApplicationAjaxUpdate(el, data, responseCode, xhr);
+            _this5.delegate.notifyApplicationAjaxUpdate(el, data, responseCode, xhr);
           });
         };
 
@@ -1223,9 +1333,11 @@ var Actions = /*#__PURE__*/function () {
 
 
         setTimeout(function () {
-          self.delegate.notifyApplicationUpdateComplete(data, responseCode, xhr);
-          self.invoke('afterUpdate', [data, responseCode, xhr]);
-          self.invokeFunc('afterUpdateFunc', data);
+          _this5.delegate.notifyApplicationUpdateComplete(data, responseCode, xhr);
+
+          _this5.invoke('afterUpdate', [data, responseCode, xhr]);
+
+          _this5.invokeFunc('afterUpdateFunc', data);
         }, 0);
       }); // Handle redirect
 
@@ -1259,20 +1371,21 @@ var Actions = /*#__PURE__*/function () {
     value: function handleFileDownload(data, xhr) {
       if (this.options.browserTarget) {
         window.open(window.URL.createObjectURL(data), this.options.browserTarget);
-        return true;
+        return;
       }
 
       var fileName = typeof this.options.download === 'string' ? this.options.download : getFilenameFromHttpResponse(xhr);
 
-      if (fileName) {
-        var anchor = document.createElement('a');
-        anchor.href = window.URL.createObjectURL(data);
-        anchor.download = fileName;
-        anchor.target = '_blank';
-        anchor.click();
-        window.URL.revokeObjectURL(anchor.href);
-        return true;
+      if (!fileName) {
+        return;
       }
+
+      var anchor = document.createElement('a');
+      anchor.href = window.URL.createObjectURL(data);
+      anchor.download = fileName;
+      anchor.target = '_blank';
+      anchor.click();
+      window.URL.revokeObjectURL(anchor.href);
     } // Custom function, adds query data to the current URL
 
   }, {
@@ -2041,7 +2154,10 @@ var Request = /*#__PURE__*/function () {
     key: "start",
     value: function start() {
       // Setup
-      this.notifyApplicationAjaxSetup();
+      if (!this.applicationAllowsSetup()) {
+        return;
+      }
+
       this.initOtherElements();
       this.preprocessOptions(); // Prepare actions
 
@@ -2049,9 +2165,23 @@ var Request = /*#__PURE__*/function () {
 
       if (!this.validateClientSideForm() || !this.applicationAllowsRequest()) {
         return;
-      } // Prepare data
+      } // Confirm before sending
 
 
+      if (this.options.confirm && !this.actions.invoke('handleConfirmMessage', [this.options.confirm])) {
+        return;
+      } // Send request
+
+
+      this.sendInternal();
+      return this.options.async ? this.wrapInAsyncPromise(this.promise) : this.promise;
+    }
+  }, {
+    key: "sendInternal",
+    value: function sendInternal() {
+      var _this2 = this;
+
+      // Prepare data
       var dataObj = new _data__WEBPACK_IMPORTED_MODULE_2__.Data(this.options.data, this.el, this.formEl);
       var data;
 
@@ -2085,32 +2215,20 @@ var Request = /*#__PURE__*/function () {
       this.promise = new _util_deferred__WEBPACK_IMPORTED_MODULE_4__.Deferred({
         delegate: this.request
       });
-      this.isRedirect = this.options.redirect && this.options.redirect.length > 0; // Confirm before sending
+      this.isRedirect = this.options.redirect && this.options.redirect.length > 0; // Lifecycle events
 
-      if (this.options.confirm && !this.actions.invoke('handleConfirmMessage', [this.options.confirm])) {
-        return;
-      } // Send request
-
-
-      this.sendInternal();
-      return this.promise;
-    }
-  }, {
-    key: "sendInternal",
-    value: function sendInternal() {
-      var self = this;
       this.notifyApplicationBeforeSend();
       this.notifyApplicationAjaxPromise();
       this.promise.fail(function (data, responseCode, xhr) {
-        if (!self.isRedirect) {
-          self.notifyApplicationAjaxFail(data, responseCode, xhr);
+        if (!_this2.isRedirect) {
+          _this2.notifyApplicationAjaxFail(data, responseCode, xhr);
         }
       }).done(function (data, responseCode, xhr) {
-        if (!self.isRedirect) {
-          self.notifyApplicationAjaxDone(data, responseCode, xhr);
+        if (!_this2.isRedirect) {
+          _this2.notifyApplicationAjaxDone(data, responseCode, xhr);
         }
       }).always(function (data, responseCode, xhr) {
-        self.notifyApplicationAjaxAlways(data, responseCode, xhr);
+        _this2.notifyApplicationAjaxAlways(data, responseCode, xhr);
       });
       this.request.send();
     }
@@ -2124,6 +2242,12 @@ var Request = /*#__PURE__*/function () {
         this.options.redirect = redirectUrl;
         this.isRedirect = true;
       }
+    }
+  }, {
+    key: "applicationAllowsSetup",
+    value: function applicationAllowsSetup() {
+      var event = this.notifyApplicationAjaxSetup();
+      return !event.defaultPrevented;
     }
   }, {
     key: "applicationAllowsRequest",
@@ -2361,6 +2485,14 @@ var Request = /*#__PURE__*/function () {
           message: message
         }
       });
+    }
+  }, {
+    key: "notifyApplicationCustomEvent",
+    value: function notifyApplicationCustomEvent(name, data) {
+      return (0,_util__WEBPACK_IMPORTED_MODULE_6__.dispatch)(name, {
+        target: this.el,
+        detail: data
+      });
     } // HTTP request delegate
 
   }, {
@@ -2390,7 +2522,12 @@ var Request = /*#__PURE__*/function () {
   }, {
     key: "requestFailedWithStatusCode",
     value: function requestFailedWithStatusCode(statusCode, response) {
-      this.actions.invoke('error', [response, statusCode, this.request.xhr]);
+      if (statusCode == _util_http_request__WEBPACK_IMPORTED_MODULE_3__.SystemStatusCode.userAborted) {
+        this.actions.invoke('cancel', []);
+      } else {
+        this.actions.invoke('error', [response, statusCode, this.request.xhr]);
+      }
+
       this.actions.invoke('complete', [response, statusCode, this.request.xhr]);
       this.promise.reject(response, statusCode, this.request.xhr);
     }
@@ -2489,6 +2626,23 @@ var Request = /*#__PURE__*/function () {
           this.formEl.removeAttribute('data-ajax-progress');
         }
       }
+    }
+  }, {
+    key: "wrapInAsyncPromise",
+    value: function wrapInAsyncPromise(requestPromise) {
+      return new Promise(function (resolve, reject, onCancel) {
+        requestPromise.fail(function (data) {
+          reject(data);
+        }).done(function (data) {
+          resolve(data);
+        });
+
+        if (onCancel) {
+          onCancel(function () {
+            requestPromise.abort();
+          });
+        }
+      });
     }
   }], [{
     key: "DEFAULTS",
@@ -2725,9 +2879,11 @@ var Controller = /*#__PURE__*/function () {
     this.started = false;
     this.uniqueInlineScripts = [];
     this.currentVisit = null;
-    this.historyVisit = null; // Event handlers
+    this.historyVisit = null;
+    this.pageIsReady = false; // Event handlers
 
     this.pageLoaded = function () {
+      _this.pageIsReady = true;
       _this.lastRenderedLocation = _this.location;
 
       _this.notifyApplicationAfterPageLoad();
@@ -2798,6 +2954,23 @@ var Controller = /*#__PURE__*/function () {
     key: "isEnabled",
     value: function isEnabled() {
       return this.started && this.enabled;
+    }
+  }, {
+    key: "pageReady",
+    value: function pageReady() {
+      var _this2 = this;
+
+      return new Promise(function (resolve) {
+        if (!_this2.pageIsReady) {
+          addEventListener('render', function () {
+            return resolve();
+          }, {
+            once: true
+          });
+        } else {
+          resolve();
+        }
+      });
     }
   }, {
     key: "clearCache",
@@ -2910,14 +3083,14 @@ var Controller = /*#__PURE__*/function () {
   }, {
     key: "cacheSnapshot",
     value: function cacheSnapshot() {
-      var _this2 = this;
+      var _this3 = this;
 
       if (this.shouldCacheSnapshot()) {
         this.notifyApplicationBeforeCachingSnapshot();
         var snapshot = this.view.getSnapshot();
         var location = this.lastRenderedLocation || _location__WEBPACK_IMPORTED_MODULE_2__.Location.currentLocation;
         (0,_util__WEBPACK_IMPORTED_MODULE_5__.defer)(function () {
-          return _this2.cache.put(location, snapshot.clone());
+          return _this3.cache.put(location, snapshot.clone());
         });
       }
     } // Scrolling
@@ -2965,6 +3138,7 @@ var Controller = /*#__PURE__*/function () {
       this.pendingAssets--;
 
       if (this.pendingAssets === 0) {
+        this.pageIsReady = true;
         this.notifyApplicationAfterPageAndScriptsLoad();
         this.notifyApplicationAfterLoadScripts();
       }
@@ -2983,6 +3157,7 @@ var Controller = /*#__PURE__*/function () {
   }, {
     key: "viewAllowsImmediateRender",
     value: function viewAllowsImmediateRender(newBody, options) {
+      this.pageIsReady = false;
       this.notifyApplicationUnload();
       var event = this.notifyApplicationBeforeRender(newBody, options);
       return !event.defaultPrevented;
@@ -2997,10 +3172,10 @@ var Controller = /*#__PURE__*/function () {
   }, {
     key: "observeInlineScripts",
     value: function observeInlineScripts() {
-      var _this3 = this;
+      var _this4 = this;
 
       document.documentElement.querySelectorAll('script[data-turbo-eval-once]').forEach(function (el) {
-        return _this3.applicationHasSeenInlineScript(el);
+        return _this4.applicationHasSeenInlineScript(el);
       });
     }
   }, {
@@ -3143,6 +3318,7 @@ var Controller = /*#__PURE__*/function () {
       this.notifyApplicationAfterPageLoad(visit.getTimingMetrics());
 
       if (this.pendingAssets === 0) {
+        this.pageIsReady = true;
         this.notifyApplicationAfterPageAndScriptsLoad();
         this.notifyApplicationAfterLoadScripts();
       }
@@ -3682,7 +3858,9 @@ if (!window.oc.AjaxTurbo) {
 
   window.oc.visit = _namespace__WEBPACK_IMPORTED_MODULE_0__["default"].visit; // Enabled helper
 
-  window.oc.useTurbo = _namespace__WEBPACK_IMPORTED_MODULE_0__["default"].isEnabled; // Boot controller
+  window.oc.useTurbo = _namespace__WEBPACK_IMPORTED_MODULE_0__["default"].isEnabled; // Page ready helper
+
+  window.oc.pageReady = _namespace__WEBPACK_IMPORTED_MODULE_0__["default"].pageReady; // Boot controller
 
   if (!isAMD() && !isCommonJS()) {
     _namespace__WEBPACK_IMPORTED_MODULE_0__["default"].start();
@@ -3866,6 +4044,9 @@ var controller = new _controller__WEBPACK_IMPORTED_MODULE_0__.Controller();
   },
   isEnabled: function isEnabled() {
     return controller.isEnabled();
+  },
+  pageReady: function pageReady() {
+    return controller.pageReady();
   }
 });
 
@@ -5652,7 +5833,7 @@ var FormSerializer = /*#__PURE__*/function () {
       var currentTarget = obj,
           lastIndex = fieldArr.length - 1;
       fieldArr.forEach(function (prop, index) {
-        if (currentTarget[prop] === undefined) {
+        if (currentTarget[prop] === undefined || currentTarget[prop].constructor !== {}.constructor) {
           currentTarget[prop] = {};
         }
 
@@ -6420,6 +6601,64 @@ var JsonParser = /*#__PURE__*/function () {
 
   return JsonParser;
 }();
+
+/***/ }),
+
+/***/ "./src/util/wait.js":
+/*!**************************!*\
+  !*** ./src/util/wait.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "domReady": () => (/* binding */ domReady),
+/* harmony export */   "waitFor": () => (/* binding */ waitFor)
+/* harmony export */ });
+/**
+ * Function to wait for predicates.
+ * @param {function() : Boolean} predicate - A function that returns a bool
+ * @param {Number} [timeout] - Optional maximum waiting time in ms after rejected
+ */
+function waitFor(predicate, timeout) {
+  return new Promise(function (resolve, reject) {
+    var check = function check() {
+      if (!predicate()) {
+        return;
+      }
+
+      clearInterval(interval);
+      resolve();
+    };
+
+    var interval = setInterval(check, 100);
+    check();
+
+    if (!timeout) {
+      return;
+    }
+
+    setTimeout(function () {
+      clearInterval(interval);
+      reject();
+    }, timeout);
+  });
+}
+/**
+ * Function to wait for the DOM to be ready, if not already
+ */
+
+function domReady() {
+  return new Promise(function (resolve) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function () {
+        return resolve();
+      });
+    } else {
+      resolve();
+    }
+  });
+}
 
 /***/ })
 

@@ -446,8 +446,9 @@ class PageLookupItem extends Model
     }
 
     /**
-     * encodeSchema will encode an October CMS protocol, e.g.
-     * `('cms-page', 'about/home/index', ['target' => '_blank'])`
+     * encodeSchema will encode a link using the `october://` October CMS protocol schema, e.g.
+     *
+     *     PageLookupItem::encodeSchema('cms-page', 'about/home/index', ['target' => '_blank']);
      */
     public static function encodeSchema(string $type, string $reference = '', array $params = []): string
     {

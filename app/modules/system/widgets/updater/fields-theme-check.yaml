@@ -1,0 +1,31 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    install_strategy:
+        type: radio
+        default: copy
+        cssClass: pb-2
+        options:
+            copy: ["Make a Copy (Recommended)", "Take a copy of this theme to customize it and manually manage future updates."]
+            composer: ["Install with Composer", "Extend the theme using a child theme to preserve future updates from the theme author."]
+
+    seed_theme_data:
+        label: Seed Theme Data
+        comment: Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.
+        type: checkbox
+        default: true
+
+    _requirements_ruler:
+        type: ruler
+        cssClass: pb-3
+        hidden: true
+
+    install_requirements:
+        label: Theme Dependencies
+        commentAbove: Install the plugins used by this theme first. You can skip this and do it later via the System Updates settings.
+        type: checkboxlist
+        hidden: true
+        defaults: true
+        options: []

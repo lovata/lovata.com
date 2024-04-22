@@ -5,7 +5,7 @@ use Backend\Helpers\Inspector as InspectorHelper;
 /**
  * Component defines some component helpers for the CMS UI.
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class Component
@@ -81,6 +81,16 @@ class Component
     public static function getComponentName($component)
     {
         return __($component->componentDetails()['name'] ?? "Unnamed");
+    }
+
+    /**
+     * getComponentIcon returns a component icon.
+     * @param mixed $component The component object
+     * @return string
+     */
+    public static function getComponentIcon($component)
+    {
+        return $component->componentDetails()['icon'] ?? null;
     }
 
     /**

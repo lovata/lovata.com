@@ -65,18 +65,10 @@ class FileUpload extends FormWidgetBase
     /**
      * @var string Defines a mount point for the editor toolbar.
      * Must include a module name that exports the Vue application and a state element name.
-     * Format: module.name::stateElementName
+     * Format: stateElementName
      * Only works in Vue applications and form document layouts.
      */
     public $externalToolbarAppState = null;
-
-    /**
-     * @var string Defines an event bus for an external toolbar.
-     * Must include a module name that exports the Vue application and a state element name.
-     * Format: module.name::eventBus
-     * Only works in Vue applications and form document layouts.
-     */
-    public $externalToolbarEventBus = null;
 
     /**
      * @var array thumbOptions used for generating thumbnails
@@ -128,8 +120,7 @@ class FileUpload extends FormWidgetBase
             'thumbOptions',
             'useCaption',
             'deferredBinding',
-            'externalToolbarAppState',
-            'externalToolbarEventBus'
+            'externalToolbarAppState'
         ]);
 
         // @deprecated API
@@ -174,9 +165,9 @@ class FileUpload extends FormWidgetBase
         }
 
         $this->vars['name'] = $this->getFieldName();
-        $this->vars['size'] = $this->formField->size;
         $this->vars['fileList'] = $fileList = $this->getFileList();
         $this->vars['singleFile'] = $fileList->first();
+        $this->vars['size'] = $this->formField->size;
         $this->vars['displayMode'] = $this->getDisplayMode();
         $this->vars['emptyIcon'] = $this->getConfig('emptyIcon', 'icon-upload');
         $this->vars['imageHeight'] = $this->imageHeight;
@@ -187,7 +178,6 @@ class FileUpload extends FormWidgetBase
         $this->vars['cssDimensions'] = $this->getCssDimensions();
         $this->vars['useCaption'] = $this->useCaption;
         $this->vars['externalToolbarAppState'] = $this->externalToolbarAppState;
-        $this->vars['externalToolbarEventBus'] = $this->externalToolbarEventBus;
     }
 
     /**
@@ -217,7 +207,7 @@ class FileUpload extends FormWidgetBase
         $config = $this->makeConfig('~/modules/system/models/file/fields.yaml');
         $config->model = $this->getFileRecord() ?: $this->getRelationModel();
         $config->alias = $this->alias . $this->defaultAlias;
-        $config->arrayName = $this->getFieldName();
+        $config->arrayName = 'FileUploadWidget';
 
         $widget = $this->makeWidget(\Backend\Widgets\Form::class, $config);
         $widget->bindToController();
@@ -230,21 +220,52 @@ class FileUpload extends FormWidgetBase
      */
     protected function getFileList()
     {
-        $list = $this
-            ->getRelationObject()
-            ->withDeferred($this->getSessionKey())
-            ->orderBy('sort_order')
-            ->get()
-        ;
+        if ($eagerList = $this->getFileListFromRelation()) {
+            $list = $eagerList;
+        }
+        else {
+            $list = $this
+                ->getRelationObject()
+                ->withDeferred($this->getSessionKey())
+                ->orderBy('sort_order')
+                ->get()
+            ;
+        }
 
-        /*
-         * Decorate each file with thumb and custom download path
-         */
+        // Decorate each file with thumb and custom download path
         $list->each(function ($file) {
             $this->decorateFileAttributes($file);
         });
 
         return $list;
+    }
+
+    /**
+     * getFileListFromRelation loads the file list from the model relation in memory
+     * only if the request is not in a postback state
+     */
+    protected function getFileListFromRelation()
+    {
+        // Field name for this widget detected in postback
+        if (post($this->getFieldName()) !== null) {
+            return;
+        }
+
+        [$model, $attribute] = $this->resolveModelAttribute($this->valueFrom);
+        if (!$model->hasRelation($attribute)) {
+            return;
+        }
+
+        $value = $model->{$attribute};
+        if (!$value) {
+            return $model->newCollection();
+        }
+
+        if ($model->isRelationTypeSingular($attribute)) {
+            return $model->newCollection([$value]);
+        }
+
+        return $value;
     }
 
     /**
@@ -385,7 +406,7 @@ class FileUpload extends FormWidgetBase
         try {
             $formWidget = $this->getConfigFormWidget();
 
-            $file = $formWidget->model;
+            $file = $formWidget->getModel();
             if (!$file) {
                 throw new ApplicationException('Unable to find file, it may no longer exist');
             }
@@ -430,7 +451,7 @@ class FileUpload extends FormWidgetBase
             }
 
             $fileModel = $this->getRelationModel();
-            $uploadedFile = Input::file('file_data');
+            $uploadedFile = files('file_data');
 
             $validationRules = ['max:'.($this->maxFilesize * 1024)];
             if ($fileTypes = $this->getAcceptedFileTypes()) {
@@ -455,6 +476,19 @@ class FileUpload extends FormWidgetBase
             }
 
             $fileRelation = $this->getRelationObject();
+
+            // Check and clean vector files
+            // @deprecated v4 this should be moved to a post processing method on the file model
+            $extension = strtolower($uploadedFile->getClientOriginalExtension());
+            // @deprecated media.clean_vectors set default to true in v4
+            if ($extension === 'svg' && \Config::get('media.clean_vectors', false)) {
+                // getRealPath() can be empty for some environments (IIS)
+                $realPath = empty(trim($uploadedFile->getRealPath()))
+                    ? $uploadedFile->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getFileName()
+                    : $uploadedFile->getRealPath();
+
+                \File::put($realPath, \Html::cleanVector(\File::get($realPath)));
+            }
 
             $file = $fileModel;
             $file->data = $uploadedFile;

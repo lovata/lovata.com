@@ -1,6 +1,7 @@
 <?php namespace Cms\Classes;
 
 use Str;
+use File;
 use Lang;
 use Config;
 use October\Rain\Extension\Extendable;
@@ -81,6 +82,11 @@ abstract class ComponentBase extends Extendable implements CallsAnyMethod
     protected $externalPropertyNames = [];
 
     /**
+     * @var string componentGetPathCache
+     */
+    protected $componentGetPathCache;
+
+    /**
      * __construct the component, which takes in the page or layout code section object
      * and properties set by the page or layout.
      * @param CodeBase|null $cmsObject
@@ -96,8 +102,10 @@ abstract class ComponentBase extends Extendable implements CallsAnyMethod
         $this->properties = $this->validateProperties($properties);
 
         $className = Str::normalizeClassName(get_called_class());
-        $this->dirName = '/'.strtolower(str_replace('\\', '/', $className));
-        $this->assetPath = $this->getComponentAssetPath();
+        $this->dirName = strtolower(str_replace('\\', '/', $className));
+
+        $this->assetPath = $this->getComponentAssetRelativePath();
+        $this->assetUrlPath = $this->getComponentAssetUrlPath();
 
         parent::__construct();
     }
@@ -120,7 +128,11 @@ abstract class ComponentBase extends Extendable implements CallsAnyMethod
      */
     public function getPath()
     {
-        return strpos(static::class, 'App\\') === 0
+        if ($this->componentGetPathCache !== null) {
+            return $this->componentGetPathCache;
+        }
+
+        return $this->componentGetPathCache = strpos(static::class, 'App\\') === 0
             ? base_path($this->dirName)
             : plugins_path($this->dirName);
     }
@@ -372,16 +384,26 @@ abstract class ComponentBase extends Extendable implements CallsAnyMethod
     //
 
     /**
-     * getComponentAssetPath returns the public directory for the component assets
+     * getComponentAssetRelativePath
      */
-    protected function getComponentAssetPath(): string
+    protected function getComponentAssetRelativePath(): string
     {
-        $assetUrl = Config::get('system.plugins_asset_url');
+        $dirName = dirname(dirname($this->dirName));
 
-        if (!$assetUrl) {
-            $assetUrl = Config::get('app.asset_url').'/plugins';
-        }
+        return "/plugins/{$dirName}";
+    }
 
-        return $assetUrl . dirname(dirname($this->dirName));
+    /**
+     * getComponentAssetUrlPath returns the public directory for the component assets
+     */
+    protected function getComponentAssetUrlPath(): string
+    {
+        // Configuration for theme asset location, default to relative path
+        $assetUrl = (string) Config::get('system.plugins_asset_url') ?: '/plugins';
+
+        // Build path
+        $dirName = dirname(dirname($this->dirName));
+
+        return $assetUrl . '/' . $dirName;
     }
 }

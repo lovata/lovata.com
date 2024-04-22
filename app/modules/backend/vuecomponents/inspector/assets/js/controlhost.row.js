@@ -8,6 +8,10 @@ oc.Modules.register('backend.component.inspector.controlhost.row', function () {
                 type: [Object, Array],
                 required: true
             },
+            parentObj: {
+                type: Object,
+                required: false
+            },
             control: {
                 type: Object,
                 required: true
@@ -57,6 +61,57 @@ oc.Modules.register('backend.component.inspector.controlhost.row', function () {
                 result['width'] = sizePx;
 
                 return result;
+            },
+
+            rowVisible: function computeRowVisible() {
+                if (!this.control.visibility) {
+                    return true;
+                }
+
+                const visibility = this.control.visibility;
+                const sourceValue = $.oc.vueComponentHelpers.inspector.utils.getProperty(this.obj, visibility.source_property);
+
+                let visible = true;
+                if (typeof visibility === 'function') {
+                    visible = visibility(this.obj);
+                }
+                else {
+                    if (visibility.value !== '--any--') {
+                        if (Array.isArray(visibility.value)) {
+                            visible = visibility.value.includes(sourceValue)
+                        }
+                        else {
+                            visible = sourceValue == visibility.value;
+                        }
+                    }
+                    else {
+                        visible = !$.oc.vueComponentHelpers.inspector.utils.isValueEmpty(sourceValue);
+                    }
+
+                    if (visibility.inverse) {
+                        visible = !visible;
+                    }
+                }
+
+
+                if (visible) {
+                    const currentValue = $.oc.vueComponentHelpers.inspector.utils.getProperty(this.obj, this.control.property);
+                    if (currentValue === null) {
+                        $.oc.vueComponentHelpers.inspector.utils.setProperty(this.obj, this.control.property, this.control.default);
+                        this.$refs.editor.refreshDisplayedValue();
+                    }
+
+                    if (this.control.type === 'string' && !this.control.no_focus_on_visible) {
+                        Vue.nextTick(() => {
+                            this.$refs.editor.focusControl();
+                        });
+                    }
+                }
+                else {
+                    $.oc.vueComponentHelpers.inspector.utils.setProperty(this.obj, this.control.property, null);
+                }
+                
+                return visible;
             },
 
             controlColspan: function computeControlColspan() {

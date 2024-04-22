@@ -38,7 +38,7 @@ class UserGroups extends SettingsController
     /**
      * @var array Permissions required to view this page.
      */
-    public $requiredPermissions = ['admins.manage.groups'];
+    public $requiredPermissions = ['admins.groups'];
 
     /**
      * @var string settingsItemCode determines the settings code

@@ -65,6 +65,10 @@ class UserRole extends RoleBase
         if ($this->is_system) {
             $this->permissions = $this->getDefaultPermissions();
         }
+
+        if (is_array($this->permissions)) {
+            $this->permissions = static::applyPermissionPatches($this->permissions);
+        }
     }
 
     /**
@@ -103,5 +107,27 @@ class UserRole extends RoleBase
     public function getDefaultPermissions()
     {
         return RoleManager::instance()->listPermissionsForRole($this->code);
+    }
+
+    /**
+     * applyPermissionPatches replaces old permission codes with new ones. It leaves
+     * the old ones in place since there shouldn't be any harm in doing so.
+     */
+    public static function applyPermissionPatches(array $permissions): array
+    {
+        $toReplace = [
+            'admins.manage.roles' => 'admins.roles',
+            'admins.manage.groups' => 'admins.groups',
+        ];
+
+        foreach ($permissions as $key => $value) {
+            if (!isset($toReplace[$key])) {
+                continue;
+            }
+
+            $permissions[$toReplace[$key]] = $value;
+        }
+
+        return $permissions;
     }
 }

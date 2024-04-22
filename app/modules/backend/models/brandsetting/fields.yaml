@@ -143,6 +143,12 @@ tabs:
                 field: login_image_type
                 condition: value[custom]
 
+        show_light_switch:
+            label: Show Light Switch
+            comment: Allow users to toggle the color mode from the navigation.
+            tab: Colors
+            type: checkbox
+
         color_mode:
             label: Color Mode
             tab: Colors

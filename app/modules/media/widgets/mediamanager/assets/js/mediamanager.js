@@ -1,7 +1,7 @@
 /*
  * Media manager control class
  *
- * Dependences:
+ * Dependencies:
  * - Scrollpad (october.scrollpad.js)
  */
 +function ($) { "use strict";
@@ -147,7 +147,7 @@
         this.$el.on('click.item', '[data-type="media-item"]', this.proxy(this.onItemClick))
         this.$el.on('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch))
 
-        this.$el.on('change', '[data-control="sorting"]', this.proxy(this.onSortingChanged))
+        this.$el.on('change', '[data-control~="sorting"]', this.proxy(this.onSortingChanged))
         this.$el.on('input', '[data-control="search"]', this.proxy(this.onSearchChanged))
         this.$el.on('mediarefresh', this.proxy(this.refresh))
         this.$el.on('shown.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupShown))
@@ -156,8 +156,9 @@
         this.$el.on('hidden.oc.popup', '[data-command="move"]', this.proxy(this.onMovePopupHidden))
         this.$el.on('keydown', this.proxy(this.onKeyDown))
 
-        if (this.itemListElement)
+        if (this.itemListElement) {
             this.itemListElement.addEventListener('mousedown', this.proxy(this.onListMouseDown))
+        }
     }
 
     MediaManager.prototype.unregisterHandlers = function() {
@@ -168,7 +169,7 @@
         this.$el.off('click.item', this.proxy(this.onItemClick))
         this.$el.off('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch))
 
-        this.$el.off('change', '[data-control="sorting"]', this.proxy(this.onSortingChanged))
+        this.$el.off('change', '[data-control~="sorting"]', this.proxy(this.onSortingChanged))
         this.$el.off('keyup', '[data-control="search"]', this.proxy(this.onSearchChanged))
         this.$el.off('shown.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupShown))
         this.$el.off('hidden.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupHidden))
@@ -227,8 +228,8 @@
     //
 
     MediaManager.prototype.removeAttachedControls = function() {
-        this.$el.find('[data-control=toolbar]').toolbar('dispose')
-        this.$el.find('[data-control=sorting]').select2('destroy')
+        this.$el.find('[data-control=toolbar]').toolbar('dispose');
+        this.$el.find('[data-control~="sorting"]').select2('destroy');
     }
 
     //
@@ -833,7 +834,7 @@
             message = 'Error uploading file'
         }
 
-        $.oc.alert(message)
+        oc.alert(message)
     }
 
     //
@@ -911,16 +912,17 @@
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
 
         if (!items.length) {
-            $.oc.alert(this.options.deleteEmpty)
+            oc.alert(this.options.deleteEmpty)
             return
         }
 
-        $.oc.confirm(this.options.deleteConfirm, this.proxy(this.deleteConfirmation))
+        oc.confirm(this.options.deleteConfirm, this.proxy(this.deleteConfirmation))
     }
 
-    MediaManager.prototype.deleteConfirmation = function(confirmed) {
-        if (!confirmed)
-            return
+    MediaManager.prototype.deleteConfirmation = function(isConfirm) {
+        if (!isConfirm) {
+            return;
+        }
 
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
             paths = []
@@ -937,21 +939,24 @@
         }
 
         var data = {
-                paths: paths
-            }
+            paths: paths
+        };
 
-        $.oc.stripeLoadIndicator.show()
-        this.$form.request(this.options.alias+'::onDeleteItem', {
-            data: data
-        }).always(function() {
-            $.oc.stripeLoadIndicator.hide()
-        }).done(this.proxy(this.afterNavigate))
+        $.oc.stripeLoadIndicator.show();
+        this.$form
+            .request(this.options.alias+'::onDeleteItem', {
+                data: data
+            })
+            .always(function() {
+                $.oc.stripeLoadIndicator.hide()
+            })
+            .done(this.proxy(this.afterNavigate));
     }
 
     MediaManager.prototype.createFolder = function(ev) {
         $(ev.target).popup({
             content: this.$el.find('[data-control="new-folder-template"]').html()
-        })
+        });
     }
 
     MediaManager.prototype.onFolderPopupShown = function(ev, button, popup) {
@@ -990,7 +995,7 @@
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected')
 
         if (!items.length) {
-            $.oc.alert(this.options.moveEmpty)
+            oc.alert(this.options.moveEmpty)
             return
         }
 

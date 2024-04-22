@@ -36,7 +36,12 @@ class FieldManager
     protected $customFieldHints;
 
     /**
-     * @var System\Classes\PluginManager
+     * @var int mixinRewriteCount is an incremental number used for rewriting mixin field names.
+     */
+    protected $mixinRewriteCount = 0;
+
+    /**
+     * @var PluginManager
      */
     protected $pluginManager;
 
@@ -376,5 +381,21 @@ class FieldManager
         if (count($validationMessages) > 0) {
             $field->validationMessages($validationMessages);
         }
+    }
+
+    /**
+     * rewriteMixinNames changes the mixin field names to avoid collisions.
+     * Mixins are suffixed with a counter key.
+     */
+    public function rewriteMixinNames(array $fields): array
+    {
+        foreach ($fields as $code => $field) {
+            if (trim(strtolower($field['type'] ?? '')) === 'mixin') {
+                $fields[$code.$this->mixinRewriteCount++] = $field;
+                unset($fields[$code]);
+            }
+        }
+
+        return $fields;
     }
 }

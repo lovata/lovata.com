@@ -1,6 +1,6 @@
 <?php namespace Backend\Widgets\Filter;
 
-use Carbon\Carbon;
+use Date;
 use Exception;
 
 /**
@@ -78,8 +78,8 @@ trait HasLegacyDefinitions
     {
         try {
             return is_int($value)
-                ? Carbon::createFromTimestamp($value)
-                : Carbon::parse($value);
+                ? Date::createFromTimestamp($value)
+                : Date::parse($value);
         }
         catch (Exception $ex) {
             return $value;

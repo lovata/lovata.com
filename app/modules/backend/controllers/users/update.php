@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.user.menu_label')) ?></a></li>
+        <li class="breadcrumb-item"><a href="<?= Backend::url('backend/users') ?>"><?= __("Administrators") ?></a></li>
         <li class="breadcrumb-item active" aria-current="page"><?= e(__($this->pageTitle)) ?></li>
     </ol>
 <?php Block::endPut() ?>
@@ -54,7 +54,7 @@
                         <?php else: ?>
                             <button
                                 type="button"
-                                class="oc-icon-trash-o btn-icon danger pull-right"
+                                class="oc-icon-trash btn-icon danger pull-right"
                                 data-request="onDelete"
                                 data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
                                 data-request-confirm="<?= e(trans('backend::lang.user.delete_confirm')) ?>">
@@ -72,7 +72,7 @@
     <?php Block::endPut() ?>
 
     <?php Block::put('body') ?>
-        <?= Form::open(['class'=>'layout stretch']) ?>
+        <?= Form::open(['class'=>'position-relative h-100']) ?>
             <?= $this->makeLayout('form-with-sidebar') ?>
         <?= Form::close() ?>
     <?php Block::endPut() ?>

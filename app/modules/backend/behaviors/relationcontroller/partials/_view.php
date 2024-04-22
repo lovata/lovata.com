@@ -2,4 +2,8 @@
     <?= $relationViewFilterWidget->render() ?>
 <?php endif ?>
 
-<?= $relationViewWidget->render() ?>
+<?php if ($relationViewMode === 'single'): ?>
+    <?= $relationViewFormWidget->render() ?>
+<?php else: ?>
+    <?= $relationViewListWidget->render() ?>
+<?php endif ?>

@@ -37,6 +37,7 @@ class Resources extends ComponentModuleBase
         return [
             'name' => 'Resources',
             'description' => 'Reference assets and variables included on this page.',
+            'icon' => 'icon-cubes'
         ];
     }
 
@@ -92,7 +93,7 @@ class Resources extends ComponentModuleBase
     public function init()
     {
         $this->assetPath = $this->controller->assetPath;
-        $this->assetLocalPath = $this->controller->assetLocalPath;
+        $this->assetUrlPath = $this->controller->assetUrlPath;
         $this->jsDir = $this->guessAssetDirectory(['js', 'javascript'], $this->jsDir);
         $this->scssDir = $this->guessAssetDirectory(['scss', 'sass'], $this->scssDir);
     }

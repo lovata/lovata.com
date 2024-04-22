@@ -10,7 +10,7 @@
  * $.oc.sideNav.increaseCounter('cms/partials', 5); - increases the counter value for a particular menu item
  * $.oc.sideNav.dropCounter('cms/partials'); - drops the counter value for a particular menu item
  *
- * Dependences:
+ * Dependencies:
  * - Drag Scroll (october.dragscroll.js)
  */
 

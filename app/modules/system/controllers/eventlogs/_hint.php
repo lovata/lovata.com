@@ -1,4 +1,4 @@
 
 <p>
-    <?= e(trans('system::lang.event_log.hint')) ?>
+    <?= __("This log displays a list of potential errors that occur in the application, such as exceptions and debugging information.") ?>
 </p>

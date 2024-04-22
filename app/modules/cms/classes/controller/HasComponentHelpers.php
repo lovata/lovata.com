@@ -146,6 +146,14 @@ trait HasComponentHelpers
             }
         }
 
+        if ($this->partialStack) {
+            foreach ($this->partialStack->getComponents() as $component) {
+                if ($component->methodExists($handler)) {
+                    return $component;
+                }
+            }
+        }
+
         return null;
     }
 
@@ -166,6 +174,14 @@ trait HasComponentHelpers
         foreach ($this->layout->components as $component) {
             if (ComponentPartial::check($component, $partial)) {
                 return $component;
+            }
+        }
+
+        if ($this->partialStack) {
+            foreach ($this->partialStack->getComponents() as $component) {
+                if (ComponentPartial::check($component, $partial)) {
+                    return $component;
+                }
             }
         }
 

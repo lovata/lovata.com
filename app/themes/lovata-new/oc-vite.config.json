@@ -1,8 +1,0 @@
-{
-  "entrypoints": {
-    "paths": [
-        "assets/css/common.css",
-        "assets/js/index.js"
-    ]
-  }
-}

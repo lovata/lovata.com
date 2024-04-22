@@ -120,8 +120,13 @@ class BlueprintVerifier
         $fieldset = FieldManager::instance()->makeFieldset(['fields' => $fields]);
         $fieldset->validate();
 
-        // Check reserved field names
+        // Check invalid and reserved field names
         foreach ($fieldset->getAllFields() as $fieldName => $fieldObj) {
+            if (!preg_match('/^[a-zA-Z0-9\_]+$/', $fieldName)) {
+                $lineNo = $this->findLineFromKeyValPair($blueprint->content, $fieldName, '');
+                throw new BlueprintException($blueprint, "Invalid field name: {$fieldName}.", $lineNo);
+            }
+
             if (in_array($fieldName, $this->reservedFieldNames)) {
                 $lineNo = $this->findLineFromKeyValPair($blueprint->content, $fieldName, '');
                 throw new BlueprintException($blueprint, "Field name is reserved: {$fieldName}.", $lineNo);

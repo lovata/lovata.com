@@ -34,5 +34,6 @@ class Modal extends VueComponentBase
     {
         $this->registerSubcomponent('alert');
         $this->registerSubcomponent('confirm');
+        $this->registerSubcomponent('basic');
     }
 }

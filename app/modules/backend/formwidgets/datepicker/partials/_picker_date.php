@@ -1,6 +1,6 @@
 <!-- Date -->
 <div class="input-with-icon right-align">
-    <i class="icon icon-calendar-o"></i>
+    <i class="icon icon-calendar"></i>
     <input
         type="text"
         id="<?= $this->getId('date') ?>"

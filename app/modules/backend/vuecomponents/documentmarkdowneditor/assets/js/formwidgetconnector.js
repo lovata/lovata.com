@@ -28,7 +28,7 @@ oc.Modules.register('backend.component.documentmarkdowneditor.formwidgetconnecto
                     this.toolbarExtensionPoint,
                     {
                         type: 'button',
-                        icon: this.fullScreen ? 'octo-icon-fullscreen-collapse' : 'octo-icon-fullscreen',
+                        icon: this.fullScreen ? 'icon-fullscreen-collapse' : 'icon-fullscreen',
                         command: 'document:toggleFullscreen',
                         pressed: this.fullScreen,
                         fixedRight: true,
@@ -37,8 +37,8 @@ oc.Modules.register('backend.component.documentmarkdowneditor.formwidgetconnecto
                 ]
             },
 
-            externalToolbarEventBus: function computeExternalToolbarEventBus() {
-                return this.options.externalToolbarEventBus;
+            externalToolbarAppState: function computeExternalToolbarAppState() {
+                return this.options.externalToolbarAppState;
             },
 
             toolbarExtensionPointProxy: function computeToolbarExtensionPointProxy() {
@@ -46,14 +46,12 @@ oc.Modules.register('backend.component.documentmarkdowneditor.formwidgetconnecto
                     return this.toolbarExtensionPoint;
                 }
 
-                // Expected format: tailor.app::toolbarExtensionPoint
-                const parts = this.options.externalToolbarAppState.split('::');
-                if (parts.length !== 2) {
-                    throw new Error('Invalid externalToolbarAppState format. Expected format: module.name::stateElementName');
-                }
+                const point = $.oc.vueUtils.getToolbarExtensionPoint(
+                    this.options.externalToolbarAppState,
+                    this.textarea
+                );
 
-                const app = oc.Modules.import(parts[0]);
-                return app.state[parts[1]];
+                return point ? point.state : this.toolbarExtensionPoint;
             },
 
             hasExternalToolbar: function computeHasExternalToolbar() {

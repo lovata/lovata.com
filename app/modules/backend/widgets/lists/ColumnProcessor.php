@@ -20,26 +20,6 @@ trait ColumnProcessor
     }
 
     /**
-     * processAutoOrder applies a default sort order to all columns
-     */
-    protected function processAutoOrder(array &$columns)
-    {
-        // Apply incremental default orders
-        $orderCount = 0;
-        foreach ($columns as $column) {
-            if ($column->order !== -1) {
-                continue;
-            }
-            $column->order = ($orderCount += 100);
-        }
-
-        // Sort columns
-        uasort($columns, static function ($a, $b) {
-            return $a->order - $b->order;
-        });
-    }
-
-    /**
      * processPermissionCheck check if user has permissions to show the column
      * and removes it if permission is denied
      */
@@ -53,6 +33,49 @@ trait ColumnProcessor
                 $this->removeColumn($columnName);
             }
         }
+    }
+
+    /**
+     * processAutoOrder applies a default sort order to all columns
+     */
+    protected function processAutoOrder(array &$columns)
+    {
+        // Build before and after map
+        $beforeMap = $afterMap = [];
+        foreach ($columns as $column) {
+            if ($column->after && isset($columns[$column->after])) {
+                $afterMap[$column->columnName] = $columns[$column->after]->columnName;
+            }
+            elseif ($column->before && isset($columns[$column->before])) {
+                $beforeMap[$column->columnName] = $columns[$column->before]->columnName;
+            }
+        }
+
+        // Apply incremental default orders
+        $orderCount = 0;
+        foreach ($columns as $column) {
+            if (
+                $column->order !== -1 ||
+                isset($afterMap[$column->columnName]) ||
+                isset($beforeMap[$column->columnName])
+            ) {
+                continue;
+            }
+            $column->order = ($orderCount += 100);
+        }
+
+        // Apply before and after
+        foreach ($beforeMap as $from => $to) {
+            $columns[$from]->order = $columns[$to]->order - 1;
+        }
+        foreach ($afterMap as $from => $to) {
+            $columns[$from]->order = $columns[$to]->order + 1;
+        }
+
+        // Sort columns
+        uasort($columns, static function ($a, $b) {
+            return $a->order - $b->order;
+        });
     }
 
     /**

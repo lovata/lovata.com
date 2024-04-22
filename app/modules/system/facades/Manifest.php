@@ -16,7 +16,8 @@ use October\Rain\Support\Facade;
 class Manifest extends Facade
 {
     /**
-     * getFacadeAccessor gets the registered name of the component.
+     * getFacadeAccessor returns the registered name of the component
+     * @return string
      */
     protected static function getFacadeAccessor()
     {

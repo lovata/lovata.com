@@ -13,7 +13,7 @@
  * Events
  * - open.oc.list - this event is triggered on the list element when an item is clicked.
  *
- * Dependences: 
+ * Dependencies:
  * - Null
  */
 
@@ -58,12 +58,12 @@
         var $group = $(group);
 
         $group.attr('data-status') == 'expanded' ?
-            this.collapseGroup($group) : 
+            this.collapseGroup($group) :
             this.expandGroup($group)
     }
 
     FileList.prototype.collapseGroup = function(group) {
-        var 
+        var
             $list = $('> ul, > div.subitems', group),
             self = this;
 
@@ -81,7 +81,7 @@
     }
 
     FileList.prototype.expandGroup = function(group) {
-        var 
+        var
             $list = $('> ul, > div.subitems', group),
             self = this;
 
@@ -139,7 +139,7 @@
             var options = $.extend({}, FileList.DEFAULTS, $this.data(), typeof option == 'object' && option)
 
             if (!data) $this.data('oc.fileList', (data = new FileList(this, options)))
-            if (typeof option == 'string') { 
+            if (typeof option == 'string') {
                 var methodArgs = [];
                 for (var i=1; i<args.length; i++)
                     methodArgs.push(args[i])

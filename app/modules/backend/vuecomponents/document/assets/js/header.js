@@ -19,6 +19,10 @@ oc.Modules.register('backend.component.header', function () {
                 type: Boolean,
                 default: false
             },
+            isNewDocument: {
+                type: Boolean,
+                default: true
+            },
             subtitleLabel: String,
             disabled: Boolean,
             subtitlePresetType: {
@@ -63,7 +67,7 @@ oc.Modules.register('backend.component.header', function () {
             },
 
             onTitleInput: function onTitleInput() {
-                if (this.subtitleEdited || !this.subtitlePresetType || !this.subtitleProperty) {
+                if (!this.isNewDocument || this.subtitleEdited || !this.subtitlePresetType || !this.subtitleProperty) {
                     return;
                 }
 

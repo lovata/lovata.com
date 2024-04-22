@@ -1,0 +1,59 @@
+.form-with-sidebar {
+    .form-with-sidebar-canvas {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    > .form-sidebar {
+        width: 300px;
+        background: var(--bs-tertiary-bg);
+        border-left: 1px solid @primary-border;
+    }
+
+    &.sidebar-width-350 > .form-sidebar { width: 350px; }
+    &.sidebar-width-400 > .form-sidebar { width: 400px; }
+    &.sidebar-width-450 > .form-sidebar { width: 450px; }
+    &.sidebar-width-500 > .form-sidebar { width: 500px; }
+    &.sidebar-width-550 > .form-sidebar { width: 550px; }
+    &.sidebar-width-600 > .form-sidebar { width: 600px; }
+    &.sidebar-width-650 > .form-sidebar { width: 650px; }
+    &.sidebar-width-700 > .form-sidebar { width: 700px; }
+    &.sidebar-width-750 > .form-sidebar { width: 750px; }
+}
+
+@media (max-width: @screen-md) {
+    .form-with-sidebar {
+        flex-direction: column-reverse;
+
+        .form-with-sidebar-canvas {
+            position: relative;
+        }
+
+        > .form-contents {
+            height: auto;
+
+            .control-breadcrumb {
+                display: none;
+            }
+        }
+
+        > .form-sidebar {
+            width: 100% !important;
+            height: auto;
+            border-left: none;
+            border-bottom: 1px solid @primary-border;
+
+            .control-scrollbar {
+                overflow: visible;
+                height: auto;
+
+                .scrollbar-scrollbar {
+                    display: none !important;
+                }
+            }
+        }
+    }
+}

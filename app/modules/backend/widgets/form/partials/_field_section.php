@@ -1,7 +1,11 @@
 <!-- Section -->
 <div class="field-section">
     <?php if ($field->label): ?>
-        <h4><?= e(__($field->label)) ?></h4>
+        <?php if ($field->displayMode === 'simple'): ?>
+            <label><?= e(__($field->label)) ?></label>
+        <?php else: ?>
+            <h4><?= e(__($field->label)) ?></h4>
+        <?php endif ?>
     <?php endif ?>
 
     <?php if ($field->comment): ?>

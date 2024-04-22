@@ -15,6 +15,8 @@ class ServiceProvider extends ModuleServiceProvider
     public function register()
     {
         parent::register('editor');
+
+        $this->registerSingletons();
     }
 
     /**
@@ -23,6 +25,14 @@ class ServiceProvider extends ModuleServiceProvider
     public function boot()
     {
         parent::boot('editor');
+    }
+
+    /**
+     * registerSingletons
+     */
+    protected function registerSingletons()
+    {
+        $this->app->singleton('editor.extensions', \Editor\Classes\ExtensionManager::class);
     }
 
     /**

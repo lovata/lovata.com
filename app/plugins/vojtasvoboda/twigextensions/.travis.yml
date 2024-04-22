@@ -1,0 +1,22 @@
+language: php
+
+php:
+  - 8.0
+  - 8.1
+
+sudo: false
+
+before_script:
+  - git clone https://github.com/octobercms/october.git
+  - mkdir -p ./october/plugins/vojtasvoboda/twigextensions
+  - mv !(october) october/plugins/vojtasvoboda/twigextensions
+  - cd october
+  - composer self-update
+  - travis_retry composer install --no-interaction --prefer-source
+  - cd plugins/vojtasvoboda/twigextensions
+  - composer install
+
+script:
+  - ../../../vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+  - vendor/bin/parallel-lint . --exclude vendor
+  - vendor/bin/phpcs --standard=PSR2 --ignore=vendor --warning-severity=6 --colors .

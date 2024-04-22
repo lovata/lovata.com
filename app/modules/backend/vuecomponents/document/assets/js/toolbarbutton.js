@@ -11,6 +11,12 @@ oc.Modules.register('backend.component.toolbar.button', function () {
                 }
             },
 
+            command: function computeCommand() {
+                if (this.settings.command) {
+                    return this.settings.command;
+                }
+            },
+
             label: function computeLabel() {
                 var label = '';
 
@@ -102,7 +108,7 @@ oc.Modules.register('backend.component.toolbar.button', function () {
         },
         methods: {
             onClick: function onClick(ev, isHotkey, isMenuButton) {
-                Vue.nextTick($.oc.octoberTooltips.clear, 1);
+                Vue.nextTick(oc.octoberTooltips.clear, 1);
 
                 if (this.settings.disabled || this.toolbarDisabled || $(document.body).hasClass('drag')) {
                     ev.preventDefault();

@@ -24,7 +24,7 @@ class Fields
         return [
             [
                 'button' => "Snippet",
-                'icon' => 'octo-icon-code-snippet',
+                'icon' => 'icon-code-snippet',
                 'popupTitle' => "Define a Snippet Partial",
                 'useViewBag' => true,
                 'properties' => $this->defineSnippetFields()

@@ -18,10 +18,14 @@ oc.Modules.register('backend.component.dropdownmenu', function () {
             };
         },
         computed: {},
+        beforeDestroy: function beforeDestroy() {
+            $(document.body).off('.backenddropdownmenu', this.onKeyDown);
+        },
         methods: {
             showMenu: function showMenu(triggerElementOrEvent) {
                 this.visible = true;
                 this.$refs.sheet.show(triggerElementOrEvent);
+
                 $(document.body).on('keydown.backenddropdownmenu', this.onKeyDown);
 
                 var that = this;
@@ -35,9 +39,9 @@ oc.Modules.register('backend.component.dropdownmenu', function () {
             },
 
             hideMenu: function hideMenu(sheetHidden) {
-                $(document.body).off('.backenddropdownmenu');
+                $(document.body).off('.backenddropdownmenu', this.onKeyDown);
 
-                if (!sheetHidden) {
+                if (!sheetHidden && this.$refs.sheet) {
                     this.$refs.sheet.hide();
                 }
 

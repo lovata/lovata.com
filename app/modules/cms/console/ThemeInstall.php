@@ -15,7 +15,7 @@ use Exception;
  *
  * This adds a new theme by requesting it from the October marketplace.
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ThemeInstall extends Command

@@ -59,11 +59,10 @@ class RepeaterField extends ContentFieldBase
         $config = ['groupKeyFrom' => 'content_group'] + $this->getCleanFormConfig();
 
         if (isset($config['span']) && $config['span'] === 'adaptive') {
-            $config['externalToolbarAppState'] = 'tailor.app::toolbarExtensionPoint';
-            $config['externalToolbarEventBus'] = 'tailor.app::eventBus';
+            $config['externalToolbarAppState'] = 'toolbarExtensionPoint';
         }
 
-        $form->addFormField($this->fieldName, $this->label)->useConfig($config);
+        $field = $form->addFormField($this->fieldName, $this->label)->useConfig($config);
     }
 
     /**

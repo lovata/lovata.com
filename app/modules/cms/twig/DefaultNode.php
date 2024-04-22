@@ -26,7 +26,7 @@ class DefaultNode extends TwigNode
     {
         $compiler
             ->addDebugInfo($this)
-            ->write("echo '<!-- X_OCTOBER_DEFAULT_BLOCK_CONTENT -->';\n")
+            ->write("yield '<!-- X_OCTOBER_DEFAULT_BLOCK_CONTENT -->';\n")
         ;
     }
 }

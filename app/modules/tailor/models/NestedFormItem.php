@@ -12,6 +12,8 @@ use October\Contracts\Element\FormElement;
  */
 class NestedFormItem extends RepeaterItem
 {
+    use \October\Rain\Database\Traits\SimpleTree;
+
     /**
      * defineFormFields
      */

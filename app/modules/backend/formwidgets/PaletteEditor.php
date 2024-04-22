@@ -81,10 +81,18 @@ class PaletteEditor extends FormWidgetBase
             $lightColors = $this->getPaletteValue('light');
         }
 
+        // Ensure saved value are valid hex colors
+        $parseAsHex = function($arr) {
+            array_walk_recursive($arr, function(&$value) {
+                $value = '#' . preg_replace("/[^a-zA-Z0-9]+/", '', $value);
+            });
+            return $arr;
+        };
+
         return [
             'preset' => (string) $value,
-            'light' => (array) $lightColors,
-            'dark' => (array) $darkColors
+            'light' => $parseAsHex((array) $lightColors),
+            'dark' => $parseAsHex((array) $darkColors)
         ];
     }
 
@@ -123,7 +131,7 @@ class PaletteEditor extends FormWidgetBase
         );
 
         if ($colorMode === 'auto') {
-            $colorMode = $_COOKIE['admin_color_mode'] ?? 'light';
+            $colorMode = $_COOKIE['admin_color_mode_setting'] ?? 'light';
         }
 
         if (!in_array($colorMode, ['light', 'dark'])) {

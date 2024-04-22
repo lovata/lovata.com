@@ -17,11 +17,10 @@ oc.Modules.register('backend.vuecomponents.monacoeditor.modeldefinition', functi
 
         constructor(language, tabTitle, valueHolderObj, valueHolderProperty, iconCssClass, uriString) {
             if (!uriString) {
-                modelCounter++;
-                uriString = 'model-' + modelCounter;
+                uriString = 'model';
             }
 
-            this.uriString = uriString;
+            this.uriString = ++modelCounter + '-' + uriString;
             this.language = language;
             this.tabTitle = tabTitle;
             this.valueHolderObj = valueHolderObj;

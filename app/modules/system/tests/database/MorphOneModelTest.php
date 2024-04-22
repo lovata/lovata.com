@@ -131,7 +131,7 @@ class MorphOneModelTest extends PluginTestCase
         ]);
         Model::reguard();
 
-        $this->assertEquals($meta->id, $author->getRelationValue('meta'));
+        $this->assertEquals($meta->id, $author->getRelationSimpleValue('meta'));
     }
 
     public function testDeferredBinding()
@@ -162,7 +162,7 @@ class MorphOneModelTest extends PluginTestCase
         $this->assertEquals(1, $author->meta()->withDeferred($sessionKey)->count());
 
         // Commit deferred
-        $author->save(null, $sessionKey);
+        $author->save(['sessionKey' => $sessionKey]);
         $meta = Meta::find($metaId);
         $this->assertEquals(1, $author->meta()->count());
         $this->assertEquals($author->id, $meta->taggable_id);
@@ -179,7 +179,7 @@ class MorphOneModelTest extends PluginTestCase
         $this->assertEquals('Comment', $author->meta->meta_title);
 
         // Commit deferred
-        $author->save(null, $sessionKey);
+        $author->save(['sessionKey' => $sessionKey]);
         $meta = Meta::find($metaId);
         $this->assertEquals(0, $author->meta()->count());
         $this->assertNull($meta->taggable_id);

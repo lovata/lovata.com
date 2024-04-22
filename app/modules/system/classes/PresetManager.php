@@ -21,12 +21,10 @@ class PresetManager
     public function __construct()
     {
         $this->registerPreset('icons', [\System\Classes\PresetManager\Icons::class, 'icons']);
+        $this->registerPreset('phosphorIcons', [\System\Classes\PresetManager\Icons::class, 'phosphorIcons']);
         $this->registerPreset('locales', [\System\Classes\PresetManager\Locales::class, 'locales']);
         $this->registerPreset('flags', [\System\Classes\PresetManager\Locales::class, 'flags']);
         $this->registerPreset('timezones', [\System\Classes\PresetManager\Dates::class, 'timezones']);
-
-        // @deprecated
-        $this->registerPreset('localeIcons', [\System\Classes\PresetManager\Locales::class, 'flags']);
     }
 
     /**

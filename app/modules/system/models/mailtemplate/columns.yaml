@@ -3,21 +3,20 @@
 # ===================================
 
 columns:
-
     code:
-        label: system::lang.mail_templates.code
+        label: "Code"
         searchable: true
 
     subject:
-        label: system::lang.mail_templates.subject
+        label: "Subject"
         searchable: true
 
     description:
-        label: system::lang.mail_templates.description
+        label: "Description"
         searchable: true
 
     layout:
-        label: system::lang.mail_templates.layout
+        label: "Layout"
         relation: layout
         select: name
         sortable: false

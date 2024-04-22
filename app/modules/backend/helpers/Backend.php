@@ -199,10 +199,10 @@ class Backend
     /**
      * sizeToPixels converts a size name, e.g. large, small to a pixel size
      */
-    public function sizeToPixels($size)
+    public function sizeToPixels($size): int
     {
         if (is_numeric($size)) {
-            return $size;
+            return (int) $size;
         }
 
         switch ($size) {
@@ -220,6 +220,6 @@ class Backend
                 return 1200;
         }
 
-        return '';
+        return 0;
     }
 }

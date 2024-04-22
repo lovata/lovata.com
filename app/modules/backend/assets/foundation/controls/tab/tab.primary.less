@@ -17,8 +17,7 @@
             width: 100%;
             z-index: @zindex-tab - 1;
             content: ' ';
-            // border-bottom: 2px solid @tab-border;
-            background: transparent linear-gradient(90deg, @tab-border 90%, transparent 100%);
+            border-bottom: 2px solid @tab-border;
         }
 
         > li {
@@ -56,6 +55,8 @@
                     z-index: @zindex-tab;
 
                     > span {
+                        padding-top: 7px;
+                        margin-top: -4px;
                         border-top: 2px solid transparent;
                     }
 

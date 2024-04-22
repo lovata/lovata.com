@@ -1,50 +1,50 @@
-<div id="<?= $relationManageWidget->getId('managePopup') ?>">
+<div id="<?= $relationManageFormWidget->getId('managePopup') ?>">
     <?php if ($relationManageId): ?>
 
         <?= Form::ajax('onRelationManageUpdate', [
             'sessionKey' => $newSessionKey,
             'data-popup-load-indicator' => true,
-            'data-request-success' => "$.oc.relationBehavior.changed('" . e($relationField) . "', 'updated')",
+            'data-request-success' => "oc.relationBehavior.changed('" . e($relationField) . "', 'updated')",
         ]) ?>
-
             <!-- Passable fields -->
-            <input type="hidden" name="manage_id" value="<?= $relationManageId ?>" />
             <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
-            <input type="hidden" name="_relation_mode" value="form" />
-            <input type="hidden" name="_relation_session_key" value="<?= $relationSessionKey ?>" />
+            <input type="hidden" name="_relation_extra_config" value="<?= e(json_encode($relationExtraConfig)) ?>" />
+            <input type="hidden" name="_form_session_key" value="<?= $formSessionKey ?>" />
 
-            <div class="modal-header">
+            <div class="modal-header" data-popup-size="<?= $relationPopupSize ?? 950 ?>">
                 <h4 class="modal-title"><?= e($relationManageTitle) ?></h4>
                 <button type="button" class="btn-close" data-dismiss="popup"></button>
             </div>
 
             <div class="modal-body">
-                <?= $relationManageWidget->render(['preview' => $this->readOnly]) ?>
+                <?= $relationManageFormWidget->render(['preview' => $relationReadOnly]) ?>
             </div>
 
             <div class="modal-footer">
-                <?php if ($this->readOnly): ?>
+                <?php if ($relationReadOnly): ?>
                     <button
                         type="button"
-                        class="btn btn-default"
+                        class="btn btn-secondary"
                         data-dismiss="popup">
-                        <?= e(trans('backend::lang.relation.close')) ?>
+                        <?= e($this->relationGetMessage('buttonCloseForm')) ?>
                     </button>
                 <?php else: ?>
                     <button
                         type="submit"
                         class="btn btn-primary">
-                        <?= e(trans('backend::lang.relation.update')) ?>
+                        <?= e($this->relationGetMessage('buttonUpdateForm')) ?>
                     </button>
-                    <button
-                        type="button"
-                        class="btn btn-default"
-                        data-dismiss="popup">
-                        <?= e(trans('backend::lang.relation.cancel')) ?>
-                    </button>
+                    <span class="btn-text">
+                        <span class="button-separator"><?= __("or") ?></span>
+                        <a
+                            href="javascript:;"
+                            class="btn btn-link p-0"
+                            data-dismiss="popup">
+                            <?= e($this->relationGetMessage('buttonCancelForm')) ?>
+                        </a>
+                    </span>
                 <?php endif ?>
             </div>
-
         <?= Form::close() ?>
 
     <?php else: ?>
@@ -52,35 +52,37 @@
         <?= Form::ajax('onRelationManageCreate', [
             'sessionKey' => $newSessionKey,
             'data-popup-load-indicator' => true,
-            'data-request-success' => "$.oc.relationBehavior.changed('" . e($relationField) . "', 'created')",
+            'data-request-success' => "oc.relationBehavior.changed('" . e($relationField) . "', 'created')",
         ]) ?>
-
             <!-- Passable fields -->
             <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
-            <input type="hidden" name="_relation_mode" value="form" />
-            <input type="hidden" name="_relation_session_key" value="<?= $relationSessionKey ?>" />
+            <input type="hidden" name="_relation_extra_config" value="<?= e(json_encode($relationExtraConfig)) ?>" />
+            <input type="hidden" name="_form_session_key" value="<?= $formSessionKey ?>" />
 
-            <div class="modal-header">
+            <div class="modal-header" data-popup-size="<?= $relationPopupSize ?? 950 ?>">
                 <h4 class="modal-title"><?= e($relationManageTitle) ?></h4>
                 <button type="button" class="btn-close" data-dismiss="popup"></button>
             </div>
 
             <div class="modal-body">
-                <?= $relationManageWidget->render() ?>
+                <?= $relationManageFormWidget->render() ?>
             </div>
 
             <div class="modal-footer">
                 <button
                     type="submit"
                     class="btn btn-primary">
-                    <?= e(trans('backend::lang.relation.create')) ?>
+                    <?= e($this->relationGetMessage('buttonCreateForm')) ?>
                 </button>
-                <button
-                    type="button"
-                    class="btn btn-default"
-                    data-dismiss="popup">
-                    <?= e(trans('backend::lang.relation.cancel')) ?>
-                </button>
+                <span class="btn-text">
+                    <span class="button-separator"><?= __("or") ?></span>
+                    <a
+                        href="javascript:;"
+                        class="btn btn-link p-0"
+                        data-dismiss="popup">
+                        <?= e($this->relationGetMessage('buttonCancelForm')) ?>
+                    </a>
+                </span>
             </div>
         <?= Form::close() ?>
 
@@ -89,8 +91,9 @@
 </div>
 
 <script>
-    $.oc.relationBehavior.bindToPopups('#<?= $relationManageWidget->getId("managePopup") ?>', {
+    oc.popup.bindToPopups('#<?= $relationManageFormWidget->getId("managePopup") ?>', {
         _relation_field: '<?= $relationField ?>',
-        _relation_mode: 'form'
+        _relation_extra_config: '<?= e(json_encode($relationExtraConfig)) ?>',
+        _form_session_key: '<?= $formSessionKey ?>'
     });
 </script>

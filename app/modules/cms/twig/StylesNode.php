@@ -26,8 +26,8 @@ class StylesNode extends TwigNode
     {
         $compiler
             ->addDebugInfo($this)
-            ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->assetsFunction('css');\n")
-            ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock('styles');\n")
+            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->assetsFunction('css');\n")
+            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock('styles');\n")
         ;
     }
 }

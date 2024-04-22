@@ -10,7 +10,7 @@
     </li>
     <li role="presentation" class="nav-item <?= $currentFilter === Media\Classes\MediaLibraryItem::FILE_TYPE_IMAGE ? 'active' : '' ?>">
         <a href="#" class="nav-link" data-command="set-filter" data-filter="<?= Media\Classes\MediaLibraryItem::FILE_TYPE_IMAGE ?>">
-            <i class="icon-picture-o"></i>
+            <i class="icon-photo"></i>
 
             <?= e(trans('backend::lang.media.filter_images')) ?>
         </a>

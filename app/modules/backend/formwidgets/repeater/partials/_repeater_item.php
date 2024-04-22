@@ -1,10 +1,10 @@
 <?php
     $groupCode = $useGroups ? $this->getGroupCodeFromIndex($indexValue) : '';
     $itemTitle = $useGroups ? $this->getGroupItemConfig($groupCode, 'name') : '';
-    $itemIcon = $useGroups ? $this->getGroupItemConfig($groupCode, 'icon') : 'icon-sticky-note-o';
+    $itemIcon = $useGroups ? $this->getGroupItemConfig($groupCode, 'icon') : 'icon-sticky-note';
     $titleFrom = $useGroups ? $this->getGroupItemConfig($groupCode, 'titleFrom') : '';
     $itemDescription = $useGroups ? $this->getGroupItemConfig($groupCode, 'description') : '';
-    $useTabs = $useGroups ? $this->getGroupItemConfig($groupCode, 'useTabs') : $this->useTabs;
+    $useTabs = $useGroups ? $this->getGroupItemConfig($groupCode, 'useTabs', $this->useTabs) : $this->useTabs;
 ?>
 <li
     <?= $itemTitle ? 'data-item-title="'.e(__($itemTitle)).'"' : '' ?>
@@ -32,24 +32,24 @@
             </div>
             <div class="repeater-item-dropdown dropdown">
                 <a href="javascript:;" class="repeater-item-menu" data-bs-toggle="dropdown">
-                    <i class="octo-icon-cog"></i>
+                    <i class="icon-cog"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" role="menu"></ul>
             </div>
             <?php if ($showReorder): ?>
                 <div class="repeater-item-reorder">
                     <a href="javascript:;" class="repeater-item-handle <?= $this->getId('items') ?>-handle">
-                        <i class="octo-icon-list-reorder"></i>
+                        <i class="icon-list-reorder"></i>
                     </a>
                 </div>
             <?php endif ?>
         <?php else: ?>
             <div class="repeater-item-collapse">
                 <a href="javascript:;" class="repeater-item-menu is-closed" data-repeater-expand>
-                    <i class="octo-icon-angle-down"></i>
+                    <i class="icon-angle-down"></i>
                 </a>
                 <a href="javascript:;" class="repeater-item-menu is-open" data-repeater-collapse>
-                    <i class="octo-icon-angle-up"></i>
+                    <i class="icon-angle-up"></i>
                 </a>
             </div>
         <?php endif ?>
@@ -59,11 +59,10 @@
         data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
         data-refresh-data="'_repeater_index': '<?= $indexValue ?>', '_repeater_group': '<?= $groupCode ?>'"
     >
-        <?php if ($useTabs): ?>
-            <?= $widget->renderTabSection($widget->getTab('secondary')) ?>
-        <?php else: ?>
-            <?= $widget->renderFields($widget->getFields()) ?>
-        <?php endif ?>
+        <?= $widget->render([
+            'section' => $useTabs ? 'secondary' : 'outside',
+            'useContainer' => false
+        ]) ?>
         <input type="hidden" name="<?= $widget->arrayName ?>[_index]" value="<?= $indexValue ?>" />
         <?php if ($useGroups): ?>
             <input type="hidden" name="<?= $widget->arrayName ?>[<?= $groupKeyFrom ?>]" value="<?= $groupCode ?>" />

@@ -15,11 +15,20 @@ html .sidenav-tree {
 
 .sidenav-tree {
     width: 300px;
+    flex-shrink: 0;
     border-right: 1px solid @primary-border;
 
     // .scrollbar-scrollbar {
     //     display: none !important;
     // }
+
+    .sidenav-tree-scroll-canvas {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
 
     .settings-search-toolbar-item  {
         display: block;
@@ -89,7 +98,7 @@ html .sidenav-tree {
             h3 {
                 user-select: none;
                 font-size: @font-size-base;
-                font-weight: 500;
+                font-weight: 600;
                 padding: 9px 15px 7px 25px;
                 margin: 0;
                 position: relative;
@@ -102,7 +111,7 @@ html .sidenav-tree {
                     height: 10px;
                     left: 10px;
                     top: 10px;
-                    .icon(@angle-right);
+                    .icon(@icon-angle-right);
                     transform: rotate(90deg) translate(5px, -3px);
                     transition: all 0.1s ease;
                     font-size: 16px;
@@ -119,7 +128,7 @@ html .sidenav-tree {
                     position: relative;
                     padding: 10px 5px 15px 44px;
                     text-decoration: none !important;
-                    border-radius: @border-radius-base;
+                    border-radius: @border-radius-large;
 
                     i {
                         position: absolute;
@@ -187,14 +196,14 @@ html .sidenav-tree {
     }
 }
 
-.layout > .layout-cell.layout-container {
+.layout-container {
     .system-home-link.back-link-other {
         margin: -@padding-standard -@padding-standard @padding-standard -@padding-standard;
     }
 }
 
 body.slim-container {
-    .layout > .layout-cell.layout-container {
+    .layout-container {
         .system-home-link.back-link-other {
             margin: -@padding-standard 0 @padding-standard 0;
         }
@@ -202,7 +211,7 @@ body.slim-container {
 }
 
 body.compact-container {
-    .layout > .layout-cell.layout-container {
+    .layout-container {
         .system-home-link.back-link-other {
             margin: 0;
         }
@@ -213,17 +222,13 @@ body.compact-container {
     .sidenav-tree {
         border-right: none;
         width: 100%;
-        height: auto !important;
-        display: block !important;
-
-        > .layout {
-            display: none;
-        }
+        height: auto;
+        display: none !important;
     }
 
     body.has-sidenav-tree {
         #layout-body {
-            display: block !important;
+            display: block;
         }
     }
 }
@@ -236,10 +241,11 @@ body.sidenav-tree-expanded {
     }
 
     .sidenav-tree {
-        display: table-cell;
+        display: block !important;
         margin: 0 auto;
         border-right: none;
         border-left: none;
+        flex-shrink: inherit;
 
         width: auto;
         padding-top: 30px;
@@ -255,8 +261,8 @@ body.sidenav-tree-expanded {
             display: none !important;
         }
 
-        .layout-absolute {
-            position: relative !important;
+        .sidenav-tree-scroll-canvas {
+            position: relative;
         }
 
         ul.top-level > li > div.group {
@@ -282,16 +288,17 @@ body.sidenav-tree-expanded {
 
                 a {
                     background: @settings-item;
-                    padding-top: 10px;
-                    padding-right: 10px;
-                    padding-bottom: 10px;
+                    padding-top: 12px;
+                    padding-right: 15px;
+                    padding-bottom: 15px;
                     padding-left: 54px;
                     min-height: 100px;
                     height: 100%;
                     overflow: hidden;
 
                     i {
-                        top: 12px;
+                        top: 15px;
+                        left: 12px;
                         font-size: 28px;
                     }
                 }
@@ -379,13 +386,13 @@ body.sidenav-tree-expanded {
 @media (max-width: @screen-sm) {
     .sidenav-tree-expanded {
         .sidenav-tree {
-            > .layout {
-                display: table !important;
+            > .sidenav-tree-content {
+                // display: table !important;
             }
         }
 
         #layout-body {
-            display: none;
+            display: none !important;
         }
     }
 }

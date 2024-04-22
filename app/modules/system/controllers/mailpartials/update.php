@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= Backend::url('system/mailtemplates/index/partials') ?>"><?= e(trans('system::lang.mail_templates.menu_partials_label')) ?></a></li>
+        <li class="breadcrumb-item"><a href="<?= Backend::url('system/mailtemplates/index/partials') ?>"><?= __("Mail Partials") ?></a></li>
         <li class="breadcrumb-item active" aria-current="page"><?= e(__($this->pageTitle)) ?></li>
     </ol>
 <?php Block::endPut() ?>
@@ -13,7 +13,7 @@
             <div class="scoreboard">
                 <div data-control="toolbar">
                     <div class="scoreboard-item title-value">
-                        <h4><?= e(trans('system::lang.mail_templates.partial')) ?></h4>
+                        <h4><?= __("Partial") ?></h4>
                         <p><?= e($formModel->code) ?></p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                 </button>
                 <button
                     type="button"
-                    class="oc-icon-trash-o btn-icon danger pull-right"
+                    class="oc-icon-trash btn-icon danger pull-right"
                     data-request="onDelete"
                     data-load-indicator="<?= e(trans('system::lang.mail_templates.deleting_layout')) ?>"
                     data-request-confirm="<?= e(trans('system::lang.mail_templates.delete_layout_confirm')) ?>">

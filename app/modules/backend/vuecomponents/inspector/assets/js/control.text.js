@@ -110,7 +110,9 @@ oc.Modules.register('backend.component.inspector.control.text', function () {
             },
             presetValue: function onPresetValueChanged(value) {
                 if (value !== undefined) {
-                    this.setManagedValue(this.$refs.input.value);
+                    Vue.nextTick(() => {
+                        this.setManagedValue(this.$refs.input.value);
+                    });
                 }
             },
             'layoutUpdateData.updateValue': function onLayoutUpdateValueChanged() {

@@ -7,15 +7,14 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::table('deferred_bindings', function (Blueprint $table) {
-            $table->mediumText('pivot_data')->nullable()->after('slave_id');
-        });
+        if (!Schema::hasColumn('deferred_bindings', 'pivot_data')) {
+            Schema::table('deferred_bindings', function (Blueprint $table) {
+                $table->mediumText('pivot_data')->nullable();
+            });
+        }
     }
 
     public function down()
     {
-        Schema::table('deferred_bindings', function (Blueprint $table) {
-            $table->dropColumn('pivot_data');
-        });
     }
 };

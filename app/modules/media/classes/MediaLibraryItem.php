@@ -1,9 +1,9 @@
 <?php namespace Media\Classes;
 
+use Date;
 use File;
 use Config;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
-use Carbon\Carbon;
 
 /**
  * MediaLibraryItem represents a file or folder in the Media Library.
@@ -111,9 +111,9 @@ class MediaLibraryItem
         }
 
         if (!self::$imageExtensions) {
-            self::$imageExtensions = array_map('strtolower', Config::get('media.image_extensions', FileDefinitions::get('image_extensions')));
-            self::$videoExtensions = array_map('strtolower', Config::get('media.video_extensions', FileDefinitions::get('video_extensions')));
-            self::$audioExtensions = array_map('strtolower', Config::get('media.audio_extensions', FileDefinitions::get('audio_extensions')));
+            self::$imageExtensions = array_map('strtolower', FileDefinitions::get('image_extensions'));
+            self::$videoExtensions = array_map('strtolower', FileDefinitions::get('video_extensions'));
+            self::$audioExtensions = array_map('strtolower', FileDefinitions::get('audio_extensions'));
         }
 
         $extension = strtolower(pathinfo($this->path, PATHINFO_EXTENSION));
@@ -159,7 +159,7 @@ class MediaLibraryItem
             return null;
         }
 
-        return Carbon::createFromTimestamp($date)->toFormattedDateString();
+        return Date::createFromTimestamp($date)->toFormattedDateString();
     }
 
     /**

@@ -88,7 +88,7 @@ class User extends UserBase
      */
     public function getFullNameAttribute(): string
     {
-        return trim($this->first_name . ' ' . $this->last_name);
+        return "{$this->first_name} {$this->last_name}";
     }
 
     /**
@@ -165,7 +165,7 @@ class User extends UserBase
      */
     public function beforeCreate()
     {
-        if ($this->getOriginalPurgeValue('send_invite')) {
+        if ($this->send_invite) {
             $this->is_password_expired = true;
         }
     }
@@ -179,6 +179,16 @@ class User extends UserBase
 
         if ($this->send_invite) {
             $this->sendInvitation();
+        }
+    }
+
+    /**
+     * afterFetch event
+     */
+    public function afterFetch()
+    {
+        if (is_array($this->permissions)) {
+            $this->permissions = UserRole::applyPermissionPatches($this->permissions);
         }
     }
 
@@ -204,7 +214,7 @@ class User extends UserBase
     }
 
     /**
-     * sendInvitation sends an invitation to the user using template "backend::mail.invite"
+     * sendInvitation sends an invitation to the user using template "backend:invite"
      */
     public function sendInvitation()
     {
@@ -215,7 +225,7 @@ class User extends UserBase
             'link' => Backend::url('backend'),
         ];
 
-        Mail::send('backend::mail.invite', $data, function ($message) {
+        Mail::send('backend:invite', $data, function ($message) {
             $message->to($this->email, $this->full_name);
         });
     }
@@ -249,7 +259,7 @@ class User extends UserBase
     }
 
     /**
-     * createDefaultAdmin inserts a new administrator with the default featureset
+     * createDefaultAdmin inserts a new administrator with the default feature set
      */
     public static function createDefaultAdmin(array $data)
     {

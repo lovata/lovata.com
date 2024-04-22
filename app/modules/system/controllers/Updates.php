@@ -77,7 +77,7 @@ class Updates extends Controller
      */
     public function index()
     {
-        $this->addJs('/modules/system/assets/js/updates/updates.js');
+        $this->addJs('/modules/system/assets/js/pages/updates.js');
 
         $this->vars['currentVersion'] = UpdateManager::instance()->getCurrentVersion();
         $this->vars['projectDetails'] = UpdateManager::instance()->getProjectDetails();
@@ -101,7 +101,7 @@ class Updates extends Controller
      */
     public function manage()
     {
-        $this->pageTitle = 'Manage Plugins';
+        $this->pageTitle = "Manage Plugins";
         PluginManager::instance()->clearDisabledCache();
 
         $this->vars['canUpdate'] = BackendAuth::userHasAccess('general.backend.perform_updates');
