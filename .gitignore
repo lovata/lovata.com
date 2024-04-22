@@ -16,6 +16,7 @@ composer.phar
 /app/robots.txt
 /app/yandex*
 /app/google*
+app/storage/framework/cache/*
 docker-compose*
 
 # Framework ignores
