@@ -1,0 +1,67 @@
+.static-page {
+  @apply prose
+  max-w-none
+  prose-a:font-medium
+  prose-a:text-blue-600
+  prose-a:underline
+  hover:prose-a:no-underline
+
+  prose-p:text-gray-500
+  prose-p:leading-8
+  prose-p:text-lg
+  prose-p:m-0
+  prose-p:py-3
+
+  prose-strong:text-gray-900
+
+  prose-h2:mt-[44px]
+  prose-h2:mb-5
+  prose-h2:text-3xl
+  prose-h3:text-2xl
+  prose-h3:pb-2
+  prose-h3:mt-16
+  prose-h3:font-bold
+
+  prose-ul:py-1.5
+  prose-ul:pl-5
+  prose-ul:m-0
+  prose-ol:py-1.5
+  prose-ol:pl-5
+  prose-ol:m-0
+  prose-li:m-0
+  prose-li:py-2
+  prose-li:px-3
+  prose-li:text-lg
+  prose-li:text-gray-500
+
+  prose-blockquote:text-gray-900
+  prose-blockquote:text-lg
+  prose-blockquote:font-medium
+  prose-blockquote:leading-8
+
+  prose-img:max-w-full
+  prose-img:my-0
+  prose-img:pt-5
+
+  prose-table:w-full
+  prose-table:overflow-x-auto
+  prose-table:block
+  prose-table:md:table
+  prose-table:my-6
+  prose-tr:border-0
+  prose-th:text-xs
+  prose-th:font-medium
+  prose-th:tracking-[0.6px]
+  prose-th:text-gray-500
+  prose-th:uppercase
+  prose-th:px-6
+  prose-th:py-3
+  prose-th:bg-gray-50
+  prose-td:px-6
+  prose-td:py-3
+  prose-td:text-gray-500
+  prose-td:text-sm
+}
+
+
+

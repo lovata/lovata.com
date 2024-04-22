@@ -10,6 +10,9 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
+            container: {
+                center: true,
+            },
             colors: {
                 'black-white': "var(--black-white)",
                 'white-black': "var(--white-black)",
@@ -50,7 +53,9 @@ module.exports = {
             },
         }
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography'),
+    ],
 }
 
 
