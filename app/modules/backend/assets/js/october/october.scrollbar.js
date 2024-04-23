@@ -10,7 +10,7 @@
  * JavaScript API:
  * $('#area').scrollbar()
  *
- * Dependences:
+ * Dependencies:
  * - Mouse Wheel plugin (mousewheel.js)
  */
 +function ($) { "use strict";

@@ -63,7 +63,7 @@
                         href="<?= Backend::url('system/eventlogs') ?>"><?= $eventLog ?></a>
                 </li>
                 <li>
-                    <span class="status-icon"><i class="icon-file-o"></i></span>
+                    <span class="status-icon"><i class="icon-file"></i></span>
                     <span class="status-text">
                         <?= e(trans('backend::lang.dashboard.status.request_log')) ?>
                         <?php if ($requestLogMsg): ?>&nbsp;<a href="<?= Backend::url('system/settings/update/october/system/log_settings') ?>"><i class="icon-exclamation-triangle text-warning" title="<?= e(__('Disabled')) ?>" data-toggle="tooltip" data-placement="right"></i></a><?php endif ?>
@@ -85,7 +85,7 @@
         </div>
     <?php else: ?>
         <div class="callout callout-warning">
-            <div class="content"><?= e($error) ?></div>
+            <div class="content py-3"><?= e($error) ?></div>
         </div>
     <?php endif ?>
 </div>

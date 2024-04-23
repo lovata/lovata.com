@@ -35,19 +35,19 @@ trait HasExtensionAssetsState
             ItemDefinition::TYPE_TEXT,
             Lang::get('cms::lang.asset.new'),
             'cms:create-document@'.EditorExtension::DOCUMENT_TYPE_ASSET
-        )->setIcon('octo-icon-create');
+        )->setIcon('icon-create');
 
         $assetsNode->addRootMenuItem(
             ItemDefinition::TYPE_TEXT,
             Lang::get('cms::lang.asset.upload_files'),
             'cms:cms-asset-upload@'.EditorExtension::DOCUMENT_TYPE_ASSET
-        )->setIcon('octo-icon-upload');
+        )->setIcon('icon-upload');
 
         $assetsNode->addRootMenuItem(
             ItemDefinition::TYPE_TEXT,
             Lang::get('cms::lang.asset.create_directory'),
             'cms:cms-asset-create-directory'
-        )->setIcon('octo-icon-folder');
+        )->setIcon('icon-folder');
 
         $this->addDirectoryAssetsNodes('', $assetsNode, $theme);
     }

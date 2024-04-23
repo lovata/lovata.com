@@ -1,0 +1,72 @@
+
+//
+// Flexible layout system
+// --------------------------------------------------
+
+.layout {
+    .layout-cell() {
+        display: table-cell;
+        vertical-align: top;
+        height: 100%;
+
+        .layout-relative {
+            position: relative;
+            height: 100%;
+        }
+
+        .layout-absolute {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+        }
+
+        &.min-size {
+            width: 0;
+        }
+
+        &.min-height {
+            height: 0;
+        }
+
+        &.center {
+            text-align: center;
+        }
+
+        &.middle {
+            vertical-align: middle;
+        }
+    }
+
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+
+    > .layout-row {
+        display: table-row;
+        vertical-align: top;
+        height: 100%;
+
+        > .layout-cell {
+            .layout-cell();
+        }
+
+        &.min-size {
+            height: 0.1px;
+        }
+    }
+
+    > .layout-cell {
+        .layout-cell();
+    }
+}
+
+//
+// Screen specific
+//
+
+@media (max-width: @screen-sm) {
+    .hide-on-small {
+        display: none !important;
+    }
+}

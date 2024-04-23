@@ -21,7 +21,7 @@
                     container-css-class="fill-container"
                     :built-in-mode="true"
                     :toolbar-container="toolbarExtensionPointProxy"
-                    :external-toolbar-event-bus="externalToolbarEventBus"
+                    :external-toolbar-app-state="externalToolbarAppState"
                     :use-media-manager="useMediaManager"
                     :side-by-side="sideBySide"
                     @focus="onFocus"

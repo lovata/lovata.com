@@ -170,7 +170,7 @@ class TagList extends FormWidgetBase
             return $this->getLoadValueFromRelation($value);
         }
 
-        if ($this->mode === static::MODE_STRING) {
+        if (!is_array($value) && $this->mode === static::MODE_STRING) {
             return $this->getLoadValueFromString($value);
         }
 

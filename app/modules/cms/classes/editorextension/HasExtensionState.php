@@ -130,7 +130,7 @@ trait HasExtensionState
             ItemDefinition::TYPE_TEXT,
             Lang::get('cms::lang.page.create_new'),
             'cms:create-document@'.EditorExtension::DOCUMENT_TYPE_PAGE
-        )->setIcon('octo-icon-create');
+        )->setIcon('icon-create');
 
         $pagesNode->addRootMenuItem(ItemDefinition::TYPE_SEPARATOR);
 
@@ -239,7 +239,7 @@ trait HasExtensionState
             ItemDefinition::TYPE_TEXT,
             Lang::get('cms::lang.layout.create_new'),
             'cms:create-document@'.EditorExtension::DOCUMENT_TYPE_LAYOUT
-        )->setIcon('octo-icon-create');
+        )->setIcon('icon-create');
 
         foreach ($layouts as $layout) {
             $layoutPath = dirname($layout->fileName);
@@ -276,7 +276,7 @@ trait HasExtensionState
             ItemDefinition::TYPE_TEXT,
             Lang::get('cms::lang.partial.create_new'),
             'cms:create-document@'.EditorExtension::DOCUMENT_TYPE_PARTIAL
-        )->setIcon('octo-icon-create');
+        )->setIcon('icon-create');
 
         foreach ($partials as $partial) {
             $partialPath = dirname($partial->fileName);
@@ -313,7 +313,7 @@ trait HasExtensionState
             ItemDefinition::TYPE_TEXT,
             Lang::get('cms::lang.content.new'),
             'cms:create-document@'.EditorExtension::DOCUMENT_TYPE_CONTENT
-        )->setIcon('octo-icon-create');
+        )->setIcon('icon-create');
 
         foreach ($contents as $contentFile) {
             $contentPath = dirname($contentFile->fileName);
@@ -442,8 +442,9 @@ trait HasExtensionState
                 }
 
                 $componentName = trans($componentArr['name'] ?? '');
-                $componentDescription = trans($componentArr['description'] ?? '');
+                $componentIcon = $componentArr['icon'] ?? $ownerIcon;
                 $componentClassName = $componentArr['className'];
+                $componentDescription = trans($componentArr['description'] ?? '');
 
                 $componentNode = $ownerNode->addNode($componentName, $componentClassName);
                 $componentNode
@@ -457,14 +458,14 @@ trait HasExtensionState
                     'nodeSearchData' => $componentName.' '.$ownerName.' '.$componentDescription,
                     'componentData' => [
                         'alias' => $alias,
+                        'name' => $duplicateAlias ? $componentClassName : $alias,
+                        'title' => $componentName,
+                        'icon' => $componentIcon,
                         'className' => $componentClassName,
                         'description' => $componentDescription,
-                        'icon' => $ownerIcon,
                         'inspectorEnabled' => true,
-                        'name' => $duplicateAlias ? $componentClassName : $alias,
                         'propertyConfig' => ComponentHelpers::getComponentsPropertyConfig($component),
-                        'propertyValues' => ComponentHelpers::getComponentPropertyValues($component, true),
-                        'title' => $componentName
+                        'propertyValues' => ComponentHelpers::getComponentPropertyValues($component, true)
                     ]
                 ];
 

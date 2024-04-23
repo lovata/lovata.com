@@ -30,6 +30,7 @@ class Inspector extends VueComponentBase
         $this->addJs('vendor/ajv/ajv.min.js');
         $this->addJsBundle('js/dataschema.js');
         $this->addJsBundle('js/utils.js');
+        $this->addJsBundle('js/dataloader.js');
         $this->addJsBundle('js/host.js');
         $this->addJsBundle('js/control.base.js');
         $this->addJsBundle('js/control.table.base.js');
@@ -63,6 +64,7 @@ class Inspector extends VueComponentBase
         $this->registerSubcomponent('control.dictionary');
         $this->registerSubcomponent('control.objectlist');
         $this->registerSubcomponent('control.objectlist.records');
+        $this->registerSubcomponent('control.objectlist.recordtitle');
         $this->registerSubcomponent('control.autocomplete');
         $this->registerSubcomponent('control.mediafinder');
         $this->registerSubcomponent('host.modal');

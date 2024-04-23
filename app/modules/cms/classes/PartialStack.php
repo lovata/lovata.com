@@ -119,6 +119,33 @@ class PartialStack
     }
 
     /**
+     * getComponents returns all components registered in the partial stack
+     */
+    public function getComponents(): array
+    {
+        if (!$this->activePartial) {
+            return [];
+        }
+
+        $components = [];
+
+        $orderedStack = array_merge($this->partialStack, [$this->activePartial]);
+        foreach ($orderedStack as $stack) {
+            if (!is_array($stack['components'])) {
+                continue;
+            }
+
+            foreach ($stack['components'] as $componentInfo) {
+                if (isset($componentInfo['name']) && isset($componentInfo['obj'])) {
+                    $components[$componentInfo['name']] = $componentInfo['obj'];
+                }
+            }
+        }
+
+        return $components;
+    }
+
+    /**
      * findComponentFromStack locates a component by its alias from the supplied stack.
      */
     protected function findComponentFromStack($name, $stack)

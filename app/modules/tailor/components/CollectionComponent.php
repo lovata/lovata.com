@@ -17,7 +17,8 @@ class CollectionComponent extends ComponentModuleBase
     {
         return [
             'name' => 'Collection',
-            'description' => 'Displays a collection of entries.'
+            'description' => 'Displays a collection of entries.',
+            'icon' => 'icon-clone'
         ];
     }
 

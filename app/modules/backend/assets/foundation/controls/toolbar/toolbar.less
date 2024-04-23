@@ -18,6 +18,18 @@
     // &:before { left: -10px; }
     // &:after { right: -8px; }
 
+    .toolbar-divider {
+        margin-right: 1px;
+        display: inline-block;
+        height: 1em;
+        padding: 10px 0;
+        border-right: 1px solid @toolbar-border;
+        border-left: 1px solid @border-color;
+        width: 1px;
+        vertical-align: middle;
+        margin-right: 8px;
+    }
+
     .toolbar-item {
         position: relative;
         white-space: nowrap;
@@ -36,52 +48,72 @@
             &:after { right: 13px; }
         }
 
-        .btn, .btn-group, .dropdown {
-            white-space: nowrap;
-            float: none;
-            display: inline-block;
-            margin-right: 10px;
+        &.toolbar-setup {
+            width: 28px;
+            vertical-align: middle;
 
-            &:last-child {
-                margin-right: 0;
-            }
+            a {
+                padding: 8px 15px;
+                > span {
+                    display: block;
+                    color: @toolbar-color;
+                    // background: @toolbar-bg;
+                    width: 24px;
+                    height: 24px;
+                    text-align: center;
+                    border-radius: 3px;
 
-            &.standalone {
-                margin-right: 15px;
+                    &:before {
+                        .icon(@icon-text-format-ul);
+                        font-size: 14px;
+                        line-height: 24px;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                }
+
+                &:hover > span {
+                    color: @toolbar-hover-color;
+                    background: @toolbar-hover-bg;
+                }
             }
         }
+    }
 
-        .btn.btn-secondary,
-        .btn.btn-link {
-            .box-shadow(none);
-            .backend-toolbar-button();
+    .btn, .btn-group, .dropdown, .btn-container {
+        white-space: nowrap;
+        float: none;
+        display: inline-block;
+        margin-right: 10px;
 
-            color: @toolbar-color;
-            font-size: @font-size-base;
-            margin-right: 8px;
-            line-height: 30px;
-        }
-
-        .dropdown > .btn {
+        &:last-child {
             margin-right: 0;
         }
 
-        .btn-group {
-            > .btn, > .dropdown {
+        &.standalone {
+            margin-right: 15px;
+        }
+    }
+
+    .dropdown > .btn {
+        margin-right: 0;
+    }
+
+    .btn-group {
+        > .btn, > .dropdown {
+            margin-right: 0;
+            display: inline-block;
+            float: none;
+        }
+
+        .dropdown {
+            > .btn {
                 margin-right: 0;
-                display: inline-block;
-                float: none;
+                .border-right-radius(0);
             }
 
-            .dropdown {
-                > .btn {
-                    margin-right: 0;
-                    .border-right-radius(0);
-                }
-
-                &.last > .btn {
-                    .border-right-radius(@border-radius-base) !important;
-                }
+            &.last > .btn {
+                .border-right-radius(@border-radius-base) !important;
             }
         }
     }
@@ -110,7 +142,18 @@
     }
 }
 
-[data-control=toolbar] {
+.relation-toolbar .control-toolbar,
+.control-toolbar.toolbar-form {
+    .btn {
+        .backend-toolbar-button();
+        color: @toolbar-color;
+        font-size: @font-size-base;
+        margin-right: 8px;
+        line-height: 30px;
+    }
+}
+
+[data-control~=toolbar] {
     white-space: nowrap;
     width: 100%;
     overflow: hidden;
@@ -121,7 +164,7 @@
 }
 
 html.mobile {
-    [data-control=toolbar].is-native-drag {
+    [data-control~=toolbar].is-native-drag {
         overflow: auto;
         -webkit-overflow-scrolling: touch;
     }
@@ -131,6 +174,7 @@ html.mobile {
     padding: 0 5px;
     cursor: pointer;
     border: none;
+    border-radius: 100px;
     -webkit-appearance: none;
     font-size: (@font-size-base * 1.5);
     font-weight: @close-font-weight;
@@ -169,7 +213,46 @@ html.mobile {
 }
 
 //
-// Editor toolbar
+// Form Toolbar
+// --------------------------------------------------
+
+.control-toolbar.form-toolbar {
+    background-color: var(--oc-content-tab-content-bg);
+    border-radius: 6px;
+
+    .btn-outline-secondary {
+        --bs-btn-color: var(--bs-body-color);
+    }
+
+    .btn {
+        --bs-btn-padding-x: .5rem;
+        --bs-btn-padding-y: .4rem;
+        border: none;
+        font-size: @font-size-base;
+        margin-right: 8px;
+        // text-shadow: 1px 1px var(--oc-highlight-color);
+        transition: all 0.15s ease-in-out;
+
+        // Icon
+        &:before {
+            transition: color 0.15s ease-in-out;
+        }
+
+        &, &:before {
+            color: var(--bs-body-color);
+        }
+
+        &:hover, &:focus:hover, &:active, &:focus-visible {
+            // text-shadow: none;
+            &, &:before {
+                color: #fff;
+            }
+        }
+    }
+}
+
+//
+// Editor Toolbar
 // --------------------------------------------------
 
 @toolbar-editor-btn-size: 38px;
@@ -195,7 +278,7 @@ html.mobile {
             color: @color-toolbar-editor-btn;
             background: transparent;
             user-select: none;
-            .box-shadow(none);
+            box-shadow: none;
             text-shadow: none;
             border-radius: 0;
             font-size: 14px;
@@ -277,7 +360,7 @@ html.mobile {
             border: none;
             padding: 11px 13px 12px;
             height: auto;
-            .border-radius(0) !important;
+            border-radius: 0 !important;
 
             &.icon.search {
                 background-position: right -78px;

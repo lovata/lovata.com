@@ -22,6 +22,7 @@ use Exception;
 class SettingModel extends ExpandoModel
 {
     use \System\Traits\ConfigMaker;
+    use \System\Models\SettingModel\HasMultisite;
 
     /**
      * @var string table associated with the model
@@ -104,6 +105,7 @@ class SettingModel extends ExpandoModel
         $item = $model->getSettingsRecord();
         if (!$item) {
             $model->initSettingsData();
+            $model->fireEvent('model.initSettingsData');
             $item = $model;
         }
 
@@ -215,7 +217,10 @@ class SettingModel extends ExpandoModel
     {
         $key = 'system::setting.' . $this->settingsCode;
 
-        if ($this->isClassInstanceOf(\October\Contracts\Database\MultisiteInterface::class)) {
+        if (
+            $this->isClassInstanceOf(\October\Contracts\Database\MultisiteInterface::class) &&
+            $this->isMultisiteEnabled()
+        ) {
             $key .= '-' . ($this->site_id ?: Site::getSiteIdFromContext());
         }
 

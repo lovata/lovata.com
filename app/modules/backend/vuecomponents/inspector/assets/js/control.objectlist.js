@@ -34,11 +34,15 @@ oc.Modules.register('backend.component.inspector.control.objectlist', function (
                 editedObject: this.computeValue(),
                 nestedControlProperties: [
                     {
-                        'type': 'objectListRecords',
-                        'titleProperty': this.control.titleProperty
+                        type: 'objectListRecords',
+                        titleProperty: this.control.titleProperty,
+                        colorProperty: this.control.colorProperty,
+                        formatItemTitle: this.control.formatItemTitle,
+                        parentControl: this.control
                     }
                 ],
-                lang: {}
+                lang: {},
+                unwatches: []
             };
         },
         computed: {
@@ -208,7 +212,8 @@ oc.Modules.register('backend.component.inspector.control.objectlist', function (
                             beforeApplyCallback: function (inspectorData) {
                                 return that.addItem(inspectorData);
                             }
-                        }
+                        },
+                        this.obj
                     )
                     .then($.noop, $.noop);
             },
@@ -228,7 +233,8 @@ oc.Modules.register('backend.component.inspector.control.objectlist', function (
                             beforeApplyCallback: function (inspectorData) {
                                 return that.updateItem(inspectorData, key);
                             }
-                        }
+                        },
+                        this.obj
                     )
                     .then($.noop, $.noop);
             },
@@ -271,6 +277,17 @@ oc.Modules.register('backend.component.inspector.control.objectlist', function (
                 }
             }
 
+            if (Array.isArray(this.control.depends)) {
+                this.control.depends.forEach(dependsOn => {
+                    this.unwatches.push(
+                        this.$watch('obj.' + dependsOn, (newVal) => {
+                            this.editedObject = [];
+                            this.setManagedValue([]);
+                        })
+                    );
+                })
+            }
+
             this.$emit('hidefullwidthlabel');
             this.$emit('hidebottomborder');
 
@@ -285,6 +302,11 @@ oc.Modules.register('backend.component.inspector.control.objectlist', function (
                     this.updateValue(newValue);
                 }
             }
+        },
+        beforeDestroy: function () {
+            this.unwatches.forEach(unwatch => {
+                unwatch();
+            })
         },
         template: '#backend_vuecomponents_inspector_control_objectlist'
     });

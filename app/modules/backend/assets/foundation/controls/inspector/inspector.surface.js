@@ -343,7 +343,7 @@
 
         var span = document.createElement('span');
         span.setAttribute('data-tooltip-text', this.escapeJavascriptString(property.description));
-        span.setAttribute('class', 'info octo-icon-info with-tooltip');
+        span.setAttribute('class', 'info icon-info-circle-1 with-tooltip');
 
         return span;
     }

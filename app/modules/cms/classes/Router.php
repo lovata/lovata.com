@@ -1,13 +1,13 @@
 <?php namespace Cms\Classes;
 
 use Lang;
+use Date;
 use File;
 use Cache;
 use Event;
 use Config;
 use October\Rain\Router\Router as RainRouter;
 use October\Rain\Router\Helper as RouterHelper;
-use Carbon\Carbon;
 use Throwable;
 
 /**
@@ -321,7 +321,7 @@ class Router
         Cache::put(
             $cacheKey,
             base64_encode(serialize($urlMap)),
-            Carbon::now()->addMinutes(Config::get('cms.url_cache_ttl', 60))
+            Date::now()->addMinutes(Config::get('cms.url_cache_ttl', 60))
         );
     }
 
@@ -402,7 +402,7 @@ class Router
         Cache::put(
             $this->getUrlRouteCacheKey(),
             base64_encode(serialize($urlList)),
-            Carbon::now()->addMinutes(Config::get('cms.url_cache_ttl', 60))
+            Date::now()->addMinutes(Config::get('cms.url_cache_ttl', 60))
         );
     }
 

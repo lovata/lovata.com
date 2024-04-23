@@ -30,14 +30,14 @@ class ContentNode extends TwigNode
 
         for ($i = 1; $i < count($this->getNode('nodes')); $i++) {
             $compiler->write("\$context['__cms_content_params']['".$this->getAttribute('names')[$i-1]."'] = ");
-            $compiler->write('twig_escape_filter($this->env, ');
+            $compiler->write('Twig\Extension\EscaperExtension::escape($this->env, ');
             $compiler->subcompile($this->getNode('nodes')->getNode($i));
             $compiler->write(")");
             $compiler->write(";\n");
         }
 
         $compiler
-            ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->contentFunction(")
+            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->contentFunction(")
             ->subcompile($this->getNode('nodes')->getNode(0))
             ->write(", \$context['__cms_content_params']")
             ->write(", true")

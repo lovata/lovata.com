@@ -2,11 +2,22 @@
 #  List Behavior Config
 # ===================================
 
+# Manage Updates
+title: Manage Plugins
+
 list: ~/modules/system/models/pluginversion/columns_manage.yaml
+
 modelClass: System\Models\PluginVersion
+
+# There are no records in this view
 noRecordsMessage: backend::lang.list.no_records
+
 showSetup: false
 showCheckboxes: true
+defaultSort:
+    column: code
+    direction: asc
+
 recordOnClick: $.oc.listToggleChecked(this)
 
 toolbar:

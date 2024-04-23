@@ -7,7 +7,12 @@
             <tr v-for="(record, key) in obj">
                 <td class="no-sub-controls" :class="{clickable: !inspectorPreferences.readOnly}" @click.stop="onItemClick(key)">
                     <div class="clickable-data-container">
-                        <span v-text="getRecordTitle(record)"></span>
+                        <backend-component-inspector-control-objectlist-record-title
+                            :control="control"
+                            :record="record"
+                            :parent-obj="parentObj"
+                            :obj="obj"
+                        ></backend-component-inspector-control-objectlist-record-title>
                         <button v-if="!inspectorPreferences.readOnly" @click.stop.prevent="onRemoveItemClick(key)" class="remove-row-btn"></button>
                     </div>
                 </td>
@@ -19,7 +24,8 @@
         <a
             href="#"
             class="add-item-link"
-            :class="{disabled: inspectorPreferences.readOnly}"
+            :class="{disabled: inspectorPreferences.readOnly || !displayAddItem}"
+            :disabled="inspectorPreferences.readOnly || !displayAddItem"
             @click.stop.prevent="onAddItemClick"
             v-text="lang.addItem"
         ></a>

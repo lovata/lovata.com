@@ -1,6 +1,7 @@
 <?php namespace System\Controllers;
 
 use Lang;
+use Flash;
 use Backend;
 use Response;
 use BackendMenu;
@@ -16,7 +17,7 @@ use ApplicationException;
 use Exception;
 
 /**
- * Marketplace controller
+ * Market controller for installing projects, themes and plugins
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
@@ -25,17 +26,17 @@ use Exception;
 class Market extends Controller
 {
     /**
-     * @var array Permissions required to view this page.
+     * @var array requiredPermissions to view this page.
      */
     public $requiredPermissions = ['general.backend.perform_updates'];
 
     /**
-     * @var System\Widgets\Changelog
+     * @var System\Widgets\Changelog changelogWidget
      */
     protected $changelogWidget;
 
     /**
-     * @var System\Widgets\Updater
+     * @var System\Widgets\Updater updaterWidget
      */
     protected $updaterWidget;
 
@@ -73,9 +74,10 @@ class Market extends Controller
         try {
             // $this->bodyClass = 'compact-container';
             $this->pageTitle = 'Marketplace';
+            $this->pageSize = 1400;
 
-            $this->addJs('/modules/system/assets/js/market/market.js');
-            $this->addCss('/modules/system/assets/css/market/market.css');
+            $this->addJs('/modules/system/assets/js/pages/market.installprocess.js');
+            $this->addCss('/modules/system/assets/css/pages/market.css');
 
             $projectDetails = UpdateManager::instance()->getProjectDetails();
             $defaultTab = $projectDetails ? 'project' : 'plugins';
@@ -88,12 +90,16 @@ class Market extends Controller
         }
     }
 
+    /**
+     * plugin
+     */
     public function plugin($urlCode = null, $tab = null)
     {
         try {
             $this->pageTitle = 'system::lang.updates.details_title_plugin';
-            $this->addJs('/modules/system/assets/js/market/details.js');
-            $this->addCss('/modules/system/assets/css/market/details.css');
+            $this->pageSize = 950;
+            $this->addJs('/modules/system/assets/js/pages/market.details.js');
+            $this->addCss('/modules/system/assets/css/pages/market.css');
 
             $code = $this->slugToCode($urlCode);
             $product = new ProductDetail($code);
@@ -118,12 +124,16 @@ class Market extends Controller
         }
     }
 
+    /**
+     * theme
+     */
     public function theme($urlCode = null, $tab = null)
     {
         try {
             $this->pageTitle = 'system::lang.updates.details_title_theme';
-            $this->addJs('/modules/system/assets/js/market/details.js');
-            $this->addCss('/modules/system/assets/css/market/details.css');
+            $this->pageSize = 950;
+            $this->addJs('/modules/system/assets/js/pages/market.details.js');
+            $this->addCss('/modules/system/assets/css/pages/market.css');
 
             $code = $this->slugToCode($urlCode);
             $product = new ProductDetail($code, true);
@@ -142,6 +152,9 @@ class Market extends Controller
         }
     }
 
+    /**
+     * onBrowseProject
+     */
     public function onBrowseProject()
     {
         $project = UpdateManager::instance()->requestBrowseProject();
@@ -177,7 +190,7 @@ class Market extends Controller
             $theme['version'] = $theme['composer_version'] ?? '*';
             $theme['handler'] = $installed
                 ? $this->updaterWidget->getEventHandler('onRemoveTheme')
-                : $this->updaterWidget->getEventHandler('onInstallTheme');
+                : $this->updaterWidget->getEventHandler('onInstallThemeCheck');
 
             $products->add($theme);
         }
@@ -189,6 +202,9 @@ class Market extends Controller
         ];
     }
 
+    /**
+     * onSearchProducts
+     */
     public function onSearchProducts()
     {
         $searchType = get('search', 'plugin');
@@ -198,6 +214,9 @@ class Market extends Controller
         return $manager->requestServerData($serverUri, ['query' => get('query')]);
     }
 
+    /**
+     * onSelectProduct
+     */
     public function onSelectProduct()
     {
         $slug = $this->codeToSlug(post('code'));
@@ -205,6 +224,9 @@ class Market extends Controller
         return Backend::redirect('system/market/'.$type.'/'.$slug);
     }
 
+    /**
+     * onBrowsePackages
+     */
     public function onBrowsePackages()
     {
         $type = post('type', 'plugin');
@@ -218,6 +240,20 @@ class Market extends Controller
         }
 
         return ['result' => $packages];
+    }
+
+    /**
+     * onResetProductData removes orphaned product data from the database
+     * It only supports plugins at the moment.
+     */
+    public function onResetProductData()
+    {
+        if ($code = post('code')) {
+            UpdateManager::instance()->rollbackPlugin($code);
+            Flash::success(__("Data has been removed."));
+        }
+
+        return Backend::redirect('system/updates');
     }
 
     /**

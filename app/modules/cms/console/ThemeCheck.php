@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 /**
  * ThemeCheck checks for themes installed with composer and locks them
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ThemeCheck extends Command

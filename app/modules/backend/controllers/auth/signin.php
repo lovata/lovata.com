@@ -60,12 +60,14 @@
             <?= __('Login') ?>
         </button>
 
-        <p class="pull-right forgot-password">
+        <?php if (Config::get('backend.password_policy.allow_reset', true) === true): ?>
             <!-- Forgot password? -->
-            <a href="<?= Backend::url('backend/auth/restore') ?>">
-                <?= __('Forgot password?') ?>
-            </a>
-        </p>
+            <p class="pull-right forgot-password">
+                <a href="<?= Backend::url('backend/auth/restore') ?>">
+                    <?= __('Forgot password?') ?>
+                </a>
+            </p>
+        <?php endif ?>
 
     </div>
 <?= Form::close() ?>

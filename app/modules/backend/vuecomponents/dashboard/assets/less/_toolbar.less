@@ -1,0 +1,171 @@
+.dashboard-toolbar-container {
+    margin-bottom: 30px;
+    padding-top: 10px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .dashboards {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .dashboard-list {
+        position: relative;
+
+        .dropdown-items {
+            padding: 10px 0;
+            position: absolute;
+            z-index: @zindex-dropdown;
+            
+            .items-container {
+                box-shadow: @mobile-dropdown-shadow;
+                border-radius: 10px;
+                background: var(--bs-modal-bg);
+                border: @popup-border;
+                overflow: hidden;
+
+                a.dashboard-dropdown-item {
+                    padding: 10px 15px;
+                    text-decoration: none;
+                    display: flex;
+                    color: var(--bs-body-color);
+                    align-items: center;
+                    border-bottom: 1px solid var(--oc-primary-border);
+                    min-height: 36px;
+                    gap: 10px;
+                    white-space: nowrap;
+
+                    i {
+                        font-size: 22px;
+                    }
+
+                    &:last-child {
+                        border-bottom: 0;
+                    }
+
+                    &:hover {
+                        color: var(--oc-dropdown-hover-color);
+                        background-color: var(--oc-dropdown-hover-bg);
+                    }
+
+                    &.selected {
+                        background-color: var(--oc-selection);
+                        color: white;
+                        border-color: var(--oc-selection);
+                    }
+                }
+            }
+        }
+    }
+
+    .dashboard-toolbar-button {
+        padding: 7px 10px;
+        text-decoration: none;
+        display: flex;
+        color: @toolbar-color;
+        align-items: center;
+        background-color: var(--oc-toolbar-bg);
+        border: 1px solid var(--oc-primary-border);
+        min-height: 36px;
+        -webkit-appearance: none;
+        white-space: nowrap;
+
+        &[disabled] {
+            opacity: 0.6;
+        }
+
+        &.selected {
+            background-color: var(--oc-selection);
+            color: white;
+            border-color: var(--oc-selection);
+        }
+
+        &.primary {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+            color: white;
+        }
+
+        i {
+            font-size: 18px;
+
+            &:first-child {
+                margin-right: 5px;
+            }
+
+            &:last-child {
+                margin-left: 5px;
+            }
+
+            &:first-child:last-child {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+
+        &.dropdown {
+            i {
+                font-size: 14px;
+            }
+        }
+
+        &.stack {
+            text-align: left;
+            align-items: start;
+            flex-direction: column;
+
+            > div {
+                color: var(--bs-secondary-color);
+                font-weight: 500;
+            }
+        }
+    }
+
+    .dashboard-button-set {
+        display: flex;
+
+        .dashboard-toolbar-button {
+            margin: 0 0 0 -1px;
+
+            &.selected, &.primary {
+                z-index: 1;
+                position: relative;
+            }
+
+            &:first-child {
+                margin-left: 0;
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+            }
+
+            &:last-of-type {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+            } 
+        }
+    }
+
+    .dashboard-selector {
+        display: flex;
+        gap: 15px;
+    }
+
+    @media (max-width: @screen-sm) {
+        display: block;
+
+        .dashboard-selector {
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+    }
+
+    @media (max-width: @screen-xs) {
+        .manage-dashboard-controls {
+            .dashboard-toolbar-button {
+                flex: 1;
+            }
+        }
+    }
+}

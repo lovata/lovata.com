@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= Backend::url('backend/usergroups') ?>"><?= e(trans('backend::lang.user.group.menu_label')) ?></a></li>
+        <li class="breadcrumb-item"><a href="<?= Backend::url('backend/usergroups') ?>"><?= __("Manage Groups") ?></a></li>
         <li class="breadcrumb-item active" aria-current="page"><?= e(__($this->pageTitle)) ?></li>
     </ol>
 <?php Block::endPut() ?>
@@ -35,7 +35,7 @@
                 </button>
                 <button
                     type="button"
-                    class="oc-icon-trash-o btn-icon danger pull-right"
+                    class="oc-icon-trash btn-icon danger pull-right"
                     data-request="onDelete"
                     data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
                     data-request-confirm="<?= e(trans('backend::lang.user.group.delete_confirm')) ?>">

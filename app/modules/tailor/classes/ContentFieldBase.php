@@ -96,7 +96,8 @@ abstract class ContentFieldBase extends FieldDefinition
     }
 
     /**
-     * extendModelMultisite
+     * extendModelMultisite flags relations as propagatable and must come after
+     * the extendModelObject call
      */
     public function extendModelMultisite($model)
     {

@@ -45,18 +45,20 @@ tabs:
             label: backend::lang.user.role_field
             commentAbove: backend::lang.user.role_comment
             type: radio
+            permissions: admins.manage
 
         groups:
             label: backend::lang.user.groups
             commentAbove: backend::lang.user.groups_comment
             type: checkboxlist
             tab: backend::lang.user.groups
+            permissions: admins.manage
 
         permissions:
             context: [create, update]
             tab: backend::lang.user.permissions
             type: Backend\FormWidgets\PermissionEditor
-            permissions: admins.manage.roles
+            permissions: admins.roles
             trigger:
                 action: disable
                 field: is_superuser

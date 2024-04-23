@@ -118,6 +118,10 @@ trait NavigationRegistry
             if ($config = $this->buildNavigationConfig($blueprint)) {
                 $secondary[$blueprint->uuid] = $config;
             }
+
+            if ($config = $this->buildExtraNavigationConfig($blueprint)) {
+                $secondary += $config;
+            }
         }
 
         // Globals
@@ -128,6 +132,10 @@ trait NavigationRegistry
 
             if ($config = $this->buildNavigationConfig($blueprint)) {
                 $secondary[$blueprint->uuid] = $config;
+            }
+
+            if ($config = $this->buildExtraNavigationConfig($blueprint)) {
+                $secondary += $config;
             }
         }
 
@@ -177,7 +185,7 @@ trait NavigationRegistry
     }
 
     /**
-     * buildNavigationConfig
+     * buildNavigationConfig builds navigation config based on blueprint relationships
      */
     protected function buildNavigationConfig($blueprint, bool $isPrimary = false): ?array
     {
@@ -227,6 +235,38 @@ trait NavigationRegistry
     }
 
     /**
+     * buildExtraNavigationConfig used to inject manually specified navigation definitions
+     */
+    protected function buildExtraNavigationConfig($blueprint): ?array
+    {
+        if (!isset($blueprint->extraNavigation) || !is_array($blueprint->extraNavigation)) {
+            return null;
+        }
+
+        $extraConfig = [];
+        foreach ($blueprint->extraNavigation as $code => $definition) {
+            if (!is_array($definition)) {
+                continue;
+            }
+
+            $config = $definition;
+            $config['code'] = $code;
+            $config['uuid'] = $blueprint->uuid;
+            $config['handle'] = $blueprint->handle;
+            $config['hasPrimary'] = (bool) $blueprint->primaryNavigation;
+            $config['permissionCode'] = [$blueprint->getPermissionCodeName()];
+
+            if ($parentReference = $blueprint->navigation['parent'] ?? null) {
+                $config['parent'] = $parentReference;
+            }
+
+            $extraConfig[$blueprint->uuid.$code] = $config;
+        }
+
+        return $extraConfig;
+    }
+
+    /**
      * getNavigationContentMainMenu
      */
     public function getNavigationContentMainMenu(): array
@@ -239,10 +279,10 @@ trait NavigationRegistry
         return [
             'tailor' => [
                 'label' => 'Content',
-                'icon' => 'icon-pencil-square-o',
+                'icon' => 'icon-pencil-square',
                 'iconSvg' => 'modules/tailor/assets/images/tailor-icon.svg',
                 'url' => Backend::url('tailor/entries'),
-                'order' => 100,
+                'order' => 140,
                 'sideMenu' => $sideMenu,
                 'permissions' => $this->buildParentNavigationPermissions($sideMenu),
             ]
@@ -347,7 +387,9 @@ trait NavigationRegistry
         $permissions = [];
 
         foreach ($items as $item) {
-            $permissions = array_merge($permissions, (array) $item['permissions']);
+            if (isset($item['permissions']) && is_array($item['permissions'])) {
+                $permissions = array_merge($permissions, $item['permissions']);
+            }
         }
 
         return $permissions;

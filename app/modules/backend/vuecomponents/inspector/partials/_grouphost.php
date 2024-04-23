@@ -2,6 +2,7 @@
     <backend-component-inspector-controlhost
         :controls="groupedControls.ungrouped"
         :obj="obj"
+        :parent-obj="parentObj"
         :splitter-data="splitterData"
         :depth="depth"
         :panel-update-data="panelUpdateData"
@@ -17,6 +18,7 @@
         :key="groupName"
         :group-name="groupName"
         :obj="obj"
+        :parent-obj="parentObj"
         :controls="controls"
         :splitter-data="splitterData"
         :depth="depth"

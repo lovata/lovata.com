@@ -1,5 +1,6 @@
 <?php namespace Media\Classes;
 
+use App;
 use Url;
 use Str;
 use Lang;
@@ -13,15 +14,11 @@ use ApplicationException;
  * MediaLibrary provides abstraction level for the Media Library operations.
  * Implements the library caching features and security checks.
  *
- * @method static MediaLibrary instance()
- *
  * @package october\media
  * @author Alexey Bobkov, Samuel Georges
  */
 class MediaLibrary
 {
-    use \October\Rain\Support\Traits\Singleton;
-
     const SORT_BY_TITLE = 'title';
     const SORT_BY_SIZE = 'size';
     const SORT_BY_MODIFIED = 'modified';
@@ -56,31 +53,35 @@ class MediaLibrary
     protected $ignorePatterns;
 
     /**
-     * init this singleton.
+     * __construct this class
      */
-    protected function init()
+    public function __construct()
     {
         $this->storageUrl = rtrim(Config::get('filesystems.disks.media.url', '/storage/app/media'), '/');
-        $this->ignoreNames = Config::get('media.ignore_files', FileDefinitions::get('ignore_files'));
-        $this->ignorePatterns = Config::get('media.ignore_patterns', FileDefinitions::get('ignore_patterns'));
+        $this->ignoreNames = FileDefinitions::get('ignore_files');
+        $this->ignorePatterns = FileDefinitions::get('ignore_patterns');
+    }
+
+    /**
+     * instance creates a new instance of this singleton
+     */
+    public static function instance(): static
+    {
+        return App::make('media.library');
     }
 
     /**
      * setCacheKey as the cache key for this instance
-     *
-     * @param string $cacheKey
      */
-    public function setCacheKey($cacheKey)
+    public function setCacheKey(string $cacheKey)
     {
         $this->cacheKey = $cacheKey;
     }
 
     /**
      * getCacheKey as the cache key for this instance
-     *
-     * @return string
      */
-    public function getCacheKey()
+    public function getCacheKey(): string
     {
         return $this->cacheKey;
     }

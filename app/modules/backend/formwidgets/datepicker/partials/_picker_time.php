@@ -1,6 +1,6 @@
 <!-- Time -->
 <div class="input-with-icon right-align">
-    <i class="icon icon-clock-o"></i>
+    <i class="icon icon-clock"></i>
     <input
         type="text"
         id="<?= $this->getId('time') ?>"

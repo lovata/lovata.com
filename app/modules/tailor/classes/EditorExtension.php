@@ -178,10 +178,10 @@ class EditorExtension extends ExtensionBase
         $user = BackendAuth::getUser();
 
         $section->addMenuItem(ItemDefinition::TYPE_TEXT, Lang::get('tailor::lang.editor.refresh'), 'tailor:refresh-navigator')
-            ->setIcon('octo-icon-refresh');
+            ->setIcon('icon-refresh');
 
         $createMenuItem = new ItemDefinition(ItemDefinition::TYPE_TEXT, Lang::get('tailor::lang.editor.create'), 'tailor:create');
-        $createMenuItem->setIcon('octo-icon-create');
+        $createMenuItem->setIcon('icon-create');
 
         $menuConfiguration = [
             'editor.tailor_blueprints' => [

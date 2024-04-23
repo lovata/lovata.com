@@ -1,5 +1,6 @@
 <?php namespace Backend\Classes;
 
+use Html;
 use October\Rain\Element\Navigation\ItemDefinition;
 
 /**
@@ -9,6 +10,7 @@ use October\Rain\Element\Navigation\ItemDefinition;
  * @method MainMenuItem iconSvg(null|string $iconSvg) iconSvg
  * @method MainMenuItem counter(mixed $counter) counter
  * @method MainMenuItem counterLabel(null|string $counterLabel) counterLabel
+ * @method MainMenuItem attributes(array $attributes) attributes
  * @method MainMenuItem permissions(array $permissions) permissions
  * @method MainMenuItem sideMenu(SideMenuItem[] $sideMenu) sideMenu
  * @method MainMenuItem useDropdown(bool $useDropdown) useDropdown
@@ -69,5 +71,29 @@ class MainMenuItem extends ItemDefinition
     public function removeSideMenuItem(string $code)
     {
         unset($this->config['sideMenu'][$code]);
+    }
+
+    /**
+     * itemAttributes returns HTML attributes for the list item
+     */
+    public function itemAttributes(): string
+    {
+        if ($this->attributes === null) {
+            return '';
+        }
+
+        return Html::attributes(array_except($this->attributes, ['target']));
+    }
+
+    /**
+     * linkAttributes returns HTML for the anchor link
+     */
+    public function linkAttributes(): string
+    {
+        if (!isset($this->attributes['target'])) {
+            return '';
+        }
+
+        return Html::attributes(array_only($this->attributes, ['target']));
     }
 }

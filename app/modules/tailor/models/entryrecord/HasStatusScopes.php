@@ -1,6 +1,6 @@
 <?php namespace Tailor\Models\EntryRecord;
 
-use Carbon\Carbon;
+use Date;
 use Tailor\Classes\Scopes\DraftableScope;
 
 /**
@@ -29,7 +29,7 @@ trait HasStatusScopes
         }
 
         if ($this->published_at || $this->expired_at) {
-            $now = Carbon::now();
+            $now = Date::now();
 
             if ($this->published_at && $now < $this->published_at) {
                 return 'scheduled';
@@ -99,7 +99,7 @@ trait HasStatusScopes
      */
     public function scopeApplyPublishedStatus($query)
     {
-        $now = Carbon::now();
+        $now = Date::now();
 
         return $query->where('is_enabled', 1)
             ->where(function($q) use ($now) {
@@ -118,7 +118,7 @@ trait HasStatusScopes
      */
     public function scopeApplyScheduledStatus($query)
     {
-        $now = Carbon::now();
+        $now = Date::now();
 
         return $query->where('is_enabled', true)
             ->where('published_at', '>', $now)
@@ -130,7 +130,7 @@ trait HasStatusScopes
      */
     public function scopeApplyExpiredStatus($query)
     {
-        $now = Carbon::now();
+        $now = Date::now();
 
         return $query->where('is_enabled', true)
             ->where('expired_at', '<', $now)

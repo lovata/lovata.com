@@ -1,0 +1,1 @@
+<div v-html="loadedValue.current"></div>

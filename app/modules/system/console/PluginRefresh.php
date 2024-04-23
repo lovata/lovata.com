@@ -99,7 +99,8 @@ class PluginRefresh extends Command
         }
 
         $message = "This will DESTROY database tables for plugin [{$name}].";
-        if ($toVersion = $this->option('rollback')) {
+        if ($this->isRollback()) {
+            $toVersion = $this->option('rollback');
             $message = "This will DESTROY database tables for plugin [{$name}] up to version [{$toVersion}].";
         }
 
@@ -116,7 +117,7 @@ class PluginRefresh extends Command
     }
 
     /**
-     * handleRollback performs a database rollback
+     * handleRefresh performs a database rollback
      */
     protected function handleRefresh($name)
     {

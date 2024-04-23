@@ -18,7 +18,7 @@ oc.Modules.register('backend.vuecomponents.richeditordocumentconnector.utils', f
                 return defaultIconName || editorIconName;
             }
 
-            return 'octo-icon-' + component.iconMap[editorIconName];
+            return 'icon-' + component.iconMap[editorIconName];
         }
 
         addSeparator(component) {

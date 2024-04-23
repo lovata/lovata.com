@@ -154,7 +154,7 @@ class ErrorHandler extends ErrorHandlerBase
     public function handleDetailedError($exception)
     {
         // Ensure System view path is registered
-        View::addNamespace('system', base_path().'/modules/system/views');
+        View::addNamespace('system', base_path('modules/system/views'));
 
         return View::make('system::exception', ['exception' => $exception]);
     }
@@ -168,17 +168,17 @@ class ErrorHandler extends ErrorHandlerBase
     {
         // Access denied error
         if ($exception instanceof ForbiddenException) {
-            return __('Access Denied');
+            return $exception->getMessage() ?: __("Access Denied");
         }
 
         // Not found error
         if ($exception instanceof NotFoundHttpException) {
-            return __('Not Found');
+            return $exception->getMessage() ?: __("Not Found");
         }
 
         // ApplicationException never displays a detailed error
         if ($exception instanceof ApplicationException) {
-            return $exception->getMessage();
+            return $exception->getMessage() ?: __("An Error Occurred");
         }
 
         // ValidationException should be shown to user

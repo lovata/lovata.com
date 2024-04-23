@@ -12,7 +12,6 @@ use Backend\Classes\ControllerBehavior;
 use October\Rain\Router\Helper as RouterHelper;
 use ApplicationException;
 use ForbiddenException;
-use SystemException;
 use Exception;
 
 /**
@@ -36,7 +35,7 @@ use Exception;
  * values as either a YAML file, located in the controller view directory,
  * or directly as a PHP array.
  *
- * @see http://octobercms.com/docs/backend/forms Back-end form documentation
+ * @see https://docs.octobercms.com/3.x/extend/forms/form-controller.html Form Controller Documentation
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -44,6 +43,9 @@ class FormController extends ControllerBehavior
 {
     use \Backend\Traits\FormModelSaver;
     use \Backend\Behaviors\FormController\HasMultisite;
+    use \Backend\Behaviors\FormController\HasOverrides;
+    use \Backend\Behaviors\FormController\HasFormDesigns;
+    use \Backend\Behaviors\FormController\HasRenderers;
 
     /**
      * @var \Backend\Classes\Controller|FormController controller reference
@@ -84,10 +86,10 @@ class FormController extends ControllerBehavior
      * @var array customMessages contains default messages that you can override
      */
     protected $customMessages = [
-        'notFound' => 'backend::lang.form.not_found',
-        'flashCreate' => 'backend::lang.form.create_success',
-        'flashUpdate' => 'backend::lang.form.update_success',
-        'flashDelete' => 'backend::lang.form.delete_success',
+        'notFound' => "Form record with an ID of :id could not be found.",
+        'flashCreate' => ":name Created",
+        'flashUpdate' => ":name Updated",
+        'flashDelete' => ":name Deleted",
     ];
 
     /**
@@ -100,6 +102,20 @@ class FormController extends ControllerBehavior
 
         // Build configuration
         $this->setConfig($controller->formConfig, $this->requiredConfig);
+
+        if (!$this->isPopupDesign()) {
+            $this->hidePopupDesign();
+        }
+    }
+
+    /**
+     * beforeDisplay fires before the page is displayed and AJAX is executed.
+     */
+    public function beforeDisplay()
+    {
+        if ($this->isPopupDesign()) {
+            $this->beforeDisplayPopup();
+        }
     }
 
     /**
@@ -130,6 +146,9 @@ class FormController extends ControllerBehavior
         $config->model = $model;
         $config->arrayName = class_basename($model);
         $config->context = $context;
+        $config->surveyMode = $this->isSurveyDesign();
+        $config->sessionKey = post('_form_session_key');
+        $config->horizontalMode = $this->isHorizontalForm();
 
         // Make Form Widget and apply extensions
         $this->formWidget = $this->makeWidget(\Backend\Widgets\Form::class, $config);
@@ -182,6 +201,7 @@ class FormController extends ControllerBehavior
         $this->controller->vars['formModel'] = $model;
         $this->controller->vars['formContext'] = $this->formGetContext();
         $this->controller->vars['formRecordName'] = Lang::get($this->getConfig('name', 'backend::lang.model.name'));
+        $this->controller->vars['formSidebarWidth'] = $this->getDesignFormSize('sidebarSize');
     }
 
     //
@@ -196,14 +216,15 @@ class FormController extends ControllerBehavior
      */
     public function create($context = null)
     {
-        if (!$this->checkHasPermission('modelCreate')) {
+        if (!$this->controller->formCheckPermission('modelCreate')) {
             throw new ForbiddenException;
         }
 
         try {
             $this->context = strlen($context) ? $context : $this->getConfig('create[context]', FormField::CONTEXT_CREATE);
-            $this->controller->pageTitle = $this->controller->pageTitle
-                ?: $this->getLang('create[title]', 'backend::lang.form.create_title');
+            $this->controller->bodyClass ??= $this->getDesignBodyClass();
+            $this->controller->pageSize ??= $this->getDesignFormSize();
+            $this->controller->pageTitle ??= $this->getLang('create[title]', 'backend::lang.form.create_title');
 
             $model = $this->controller->formCreateModelObject();
             $model = $this->controller->formExtendModel($model) ?: $model;
@@ -227,7 +248,7 @@ class FormController extends ControllerBehavior
      */
     public function create_onSave($context = null)
     {
-        if (!$this->checkHasPermission('modelCreate')) {
+        if (!$this->controller->formCheckPermission('modelCreate')) {
             throw new ForbiddenException;
         }
 
@@ -257,6 +278,33 @@ class FormController extends ControllerBehavior
         }
     }
 
+    /**
+     * create_onCancel AJAX handler called from the create action and
+     * used for aborting record creation
+     *
+     * This handler will invoke the unique controller override
+     * `formAfterCancel`.
+     *
+     * @return mixed
+     */
+    public function create_onCancel($context = null)
+    {
+        $this->context = strlen($context) ? $context : $this->getConfig('create[context]', FormField::CONTEXT_CREATE);
+
+        $model = $this->controller->formCreateModelObject();
+        $model = $this->controller->formExtendModel($model) ?: $model;
+
+        $this->initForm($model);
+
+        $model->cancelDeferred($this->formWidget->getSessionKey());
+
+        $this->controller->formAfterCancel($model);
+
+        if ($redirect = $this->makeRedirect('cancel')) {
+            return $redirect;
+        }
+    }
+
     //
     // Update
     //
@@ -272,14 +320,15 @@ class FormController extends ControllerBehavior
      */
     public function update($recordId = null, $context = null)
     {
-        if (!$this->checkHasPermission('modelUpdate')) {
+        if (!$this->controller->formCheckPermission('modelUpdate')) {
             throw new ForbiddenException;
         }
 
         try {
             $this->context = strlen($context) ? $context : $this->getConfig('update[context]', FormField::CONTEXT_UPDATE);
-            $this->controller->pageTitle = $this->controller->pageTitle
-                ?: $this->getLang('update[title]', 'backend::lang.form.update_title');
+            $this->controller->bodyClass ??= $this->getDesignBodyClass();
+            $this->controller->pageSize ??= $this->getDesignFormSize();
+            $this->controller->pageTitle ??= $this->getLang('update[title]', 'backend::lang.form.update_title');
 
             $model = $this->controller->formFindModelObject($recordId);
 
@@ -312,7 +361,7 @@ class FormController extends ControllerBehavior
      */
     public function update_onSave($recordId = null, $context = null)
     {
-        if (!$this->checkHasPermission('modelUpdate')) {
+        if (!$this->controller->formCheckPermission('modelUpdate')) {
             throw new ForbiddenException;
         }
 
@@ -351,7 +400,7 @@ class FormController extends ControllerBehavior
      */
     public function update_onDelete($recordId = null)
     {
-        if (!$this->checkHasPermission('modelDelete')) {
+        if (!$this->controller->formCheckPermission('modelDelete')) {
             throw new ForbiddenException;
         }
 
@@ -366,6 +415,31 @@ class FormController extends ControllerBehavior
         Flash::success($this->getCustomLang('flashDelete'));
 
         if ($redirect = $this->makeRedirect('delete', $model)) {
+            return $redirect;
+        }
+    }
+
+    /**
+     * update_onCancel AJAX handler called from the update action and
+     * used for aborting existing record updates.
+     *
+     * This handler will invoke the unique controller override
+     * `formAfterCancel`.
+     *
+     * @param int $recordId Record identifier
+     * @return mixed
+     */
+    public function update_onCancel($recordId = null)
+    {
+        $this->context = $this->getConfig('update[context]', FormField::CONTEXT_UPDATE);
+        $model = $this->controller->formFindModelObject($recordId);
+        $this->initForm($model);
+
+        $model->cancelDeferred($this->formWidget->getSessionKey());
+
+        $this->controller->formAfterCancel($model);
+
+        if ($redirect = $this->makeRedirect('cancel')) {
             return $redirect;
         }
     }
@@ -385,14 +459,15 @@ class FormController extends ControllerBehavior
      */
     public function preview($recordId = null, $context = null)
     {
-        if (!$this->checkHasPermission('modelPreview')) {
+        if (!$this->controller->formCheckPermission('modelPreview')) {
             throw new ForbiddenException;
         }
 
         try {
             $this->context = strlen($context) ? $context : $this->getConfig('preview[context]', FormField::CONTEXT_PREVIEW);
-            $this->controller->pageTitle = $this->controller->pageTitle
-                ?: $this->getLang('preview[title]', 'backend::lang.form.preview_title');
+            $this->controller->bodyClass ??= $this->getDesignBodyClass();
+            $this->controller->pageSize ??= $this->getDesignFormSize();
+            $this->controller->pageTitle ??= $this->getLang('preview[title]', 'backend::lang.form.preview_title');
 
             $model = $this->controller->formFindModelObject($recordId);
             $this->initForm($model);
@@ -407,15 +482,14 @@ class FormController extends ControllerBehavior
     //
 
     /**
-     * Method to render the prepared form markup. This method is usually
-     * called from a view file.
+     * formRender the prepared form markup. This method is usually called from a view file.
      *
      *     <?= $this->formRender() ?>
      *
      * The first argument supports an array of render options. The supported
      * options can be found via the `render` method of the Form widget class.
      *
-     *     <?= $this->formRender(['preview' => true, section' => 'primary']) ?>
+     *     <?= $this->formRender(['preview' => true, 'section' => 'primary']) ?>
      *
      * @see Backend\Widgets\Form
      * @param array $options Render options
@@ -427,7 +501,63 @@ class FormController extends ControllerBehavior
             throw new ApplicationException(Lang::get('backend::lang.form.behavior_not_ready'));
         }
 
+        // Sections provided by the behavior, then use the widget as fallback
+        $section = $options['section'] ?? null;
+        switch (strtolower($section)) {
+            case 'buttons':
+                return $this->formMakePartial($this->isPopupDesign() ? 'popup_buttons' : 'buttons');
+        }
+
         return $this->formWidget->render($options);
+    }
+
+    /**
+     * formRenderDesign renders a preset form design as either:
+     * basic, custom, sidebar, document, popup
+     */
+    public function formRenderDesign($options = [])
+    {
+        if ($this->controller->hasFatalError()) {
+            return $this->formMakePartial($this->isPopupDesign() ? 'popup_error' : 'error', [
+                'fatalError' => $this->controller->getFatalError()
+            ]);
+        }
+
+        if (!isset($options['displayMode'])) {
+            $options['displayMode'] = $this->getDesignDisplayMode();
+        }
+
+        $this->vars['options'] = $options;
+
+        $displayMode = strtolower($options['displayMode'] ?? 'basic');
+        switch ($displayMode) {
+            case 'popup':
+            case 'sidebar':
+            case 'document':
+                return $this->formMakePartial("mode_{$displayMode}");
+
+            case 'custom':
+                return $this->formRender();
+
+            default:
+                return $this->formMakePartial('mode_basic');
+        }
+    }
+
+    /**
+     * formMakePartial is a controller accessor for making partials within this behavior.
+     * @param string $partial
+     * @param array $params
+     * @return string
+     */
+    public function formMakePartial($partial, $params = [])
+    {
+        $contents = $this->controller->makePartial('form_'.$partial, $params + $this->vars, false);
+        if (!$contents) {
+            $contents = $this->makePartial($partial, $params);
+        }
+
+        return $contents;
     }
 
     /**
@@ -596,148 +726,9 @@ class FormController extends ControllerBehavior
         return Lang::get($foundKey, $vars);
     }
 
-    /**
-     * checkHasPermission checks if a custom permission has been specified
-     */
-    protected function checkHasPermission(string $name)
-    {
-        $foundKey = $this->getConfig("permissions[{$name}]");
-
-        return $foundKey ? BackendAuth::userHasAccess($foundKey) : true;
-    }
-
     //
     // Pass-through Helpers
     //
-
-    /**
-     * formRenderField is a view helper to render a single form field.
-     *
-     *     <?= $this->formRenderField('field_name') ?>
-     *
-     * @param string $name Field name
-     * @param array $options (e.g. ['useContainer'=>false])
-     * @return string HTML markup
-     */
-    public function formRenderField($name, $options = [])
-    {
-        return $this->formWidget->renderField($name, $options);
-    }
-
-    /**
-     * formRefreshField is a view helper to render a field from AJAX based on their field names.
-     * @param array|string $names
-     */
-    public function formRefreshFields($names): array
-    {
-        $result = [];
-
-        foreach ((array) $names as $name) {
-            if (!$fieldObject = $this->formWidget->getField($name)) {
-                throw new SystemException("Field {$name} was not found in the form definitions.");
-            }
-
-            $result['#' . $fieldObject->getId('group')] = $this->formRenderField($name, ['useContainer' => false]);
-        }
-
-        return $result;
-    }
-
-    /**
-     * formRenderPreview is a view helper to render the form in preview mode.
-     *
-     *     <?= $this->formRenderPreview() ?>
-     *
-     * @return string The form HTML markup.
-     */
-    public function formRenderPreview()
-    {
-        return $this->formRender(['preview' => true]);
-    }
-
-    /**
-     * formHasOutsideFields is a view helper to check if a form tab has fields in the
-     * non-tabbed section (outside fields).
-     *
-     *     <?php if ($this->formHasOutsideFields()): ?>
-     *         <!-- Do something -->
-     *     <?php endif ?>
-     *
-     * @return bool
-     */
-    public function formHasOutsideFields()
-    {
-        return $this->formWidget->getTab('outside')->hasFields();
-    }
-
-    /**
-     * formRenderOutsideFields is a view helper to render the form fields belonging to the
-     * non-tabbed section (outside form fields).
-     *
-     *     <?= $this->formRenderOutsideFields() ?>
-     *
-     * @return string HTML markup
-     */
-    public function formRenderOutsideFields()
-    {
-        return $this->formRender(['section' => 'outside']);
-    }
-
-    /**
-     * formHasPrimaryTabs is a view helper to check if a form tab has fields in the
-     * primary tab section.
-     *
-     *     <?php if ($this->formHasPrimaryTabs()): ?>
-     *         <!-- Do something -->
-     *     <?php endif ?>
-     *
-     * @return bool
-     */
-    public function formHasPrimaryTabs()
-    {
-        return $this->formWidget->getTab('primary')->hasFields();
-    }
-
-    /**
-     * formRenderPrimaryTabs is a view helper to render the form fields belonging to the
-     * primary tabs section.
-     *
-     *     <?= $this->formRenderPrimaryTabs() ?>
-     *
-     * @return string HTML markup
-     */
-    public function formRenderPrimaryTabs()
-    {
-        return $this->formRender(['section' => 'primary']);
-    }
-
-    /**
-     * formHasSecondaryTabs is a view helper to check if a form tab has fields in the
-     * secondary tab section.
-     *
-     *     <?php if ($this->formHasSecondaryTabs()): ?>
-     *         <!-- Do something -->
-     *     <?php endif ?>
-     *
-     * @return bool
-     */
-    public function formHasSecondaryTabs()
-    {
-        return $this->formWidget->getTab('secondary')->hasFields();
-    }
-
-    /**
-     * formRenderSecondaryTabs is a view helper to render the form fields belonging to the
-     * secondary tabs section.
-     *
-     *     <?= $this->formRenderPrimaryTabs() ?>
-     *
-     * @return string HTML markup
-     */
-    public function formRenderSecondaryTabs()
-    {
-        return $this->formRender(['section' => 'secondary']);
-    }
 
     /**
      * formGetWidget returns the form widget used by this behavior.
@@ -784,7 +775,7 @@ class FormController extends ControllerBehavior
      */
     public function formGetConfig()
     {
-        $config = $this->makeConfig($this->controller->formConfig, $this->requiredConfig);
+        $config = $this->config;
 
         $config->modelClass = Str::normalizeClassName($config->modelClass);
 
@@ -800,76 +791,19 @@ class FormController extends ControllerBehavior
         $this->formWidget->setSaveDataOverride($key, $value);
     }
 
+    /**
+     * formCheckPermission checks if a custom permission has been specified
+     */
+    public function formCheckPermission(string $name)
+    {
+        $foundKey = $this->getConfig("permissions[{$name}]");
+
+        return $foundKey ? BackendAuth::userHasAccess($foundKey) : true;
+    }
+
     //
     // Overrides
     //
-
-    /**
-     * formGetRedirectUrl returns a URL based on supplied context,
-     * relative URLs are treated as backend URLs
-     * @param string $context
-     * @param Model $model
-     * @return string
-     */
-    public function formGetRedirectUrl($context = null, $model = null)
-    {
-    }
-
-    /**
-     * formBeforeSave is called before the creation or updating form is saved
-     * @param Model
-     */
-    public function formBeforeSave($model)
-    {
-    }
-
-    /**
-     * formAfterSave is called after the creation or updating form is saved
-     * @param Model
-     */
-    public function formAfterSave($model)
-    {
-    }
-
-    /**
-     * formBeforeCreate is called before the creation form is saved
-     * @param Model
-     */
-    public function formBeforeCreate($model)
-    {
-    }
-
-    /**
-     * formAfterCreate is called after the creation form is saved
-     * @param Model
-     */
-    public function formAfterCreate($model)
-    {
-    }
-
-    /**
-     * formBeforeUpdate is called before the updating form is saved
-     * @param Model
-     */
-    public function formBeforeUpdate($model)
-    {
-    }
-
-    /**
-     * formAfterUpdate is called after the updating form is saved
-     * @param Model
-     */
-    public function formAfterUpdate($model)
-    {
-    }
-
-    /**
-     * formAfterDelete called after the form model is deleted
-     * @param Model
-     */
-    public function formAfterDelete($model)
-    {
-    }
 
     /**
      * formFindModelObject finds a Model record by its primary identifier, used by update
@@ -905,88 +839,6 @@ class FormController extends ControllerBehavior
         $result = $this->controller->formExtendModel($result) ?: $result;
 
         return $result;
-    }
-
-    /**
-     * formCreateModelObject creates a new instance of a form model. This logic can
-     * be changed by overriding it in the controller.
-     * @return Model
-     */
-    public function formCreateModelObject()
-    {
-        return $this->createModel();
-    }
-
-    /**
-     * formExtendFieldsBefore is called before the form fields are defined
-     * @param Backend\Widgets\Form $host The hosting form widget
-     * @return void
-     */
-    public function formExtendFieldsBefore($host)
-    {
-    }
-
-    /**
-     * formExtendFields is called after the form fields are defined
-     * @param Backend\Widgets\Form $host The hosting form widget
-     * @param array $fields Array of all defined form field objects (\Backend\Classes\FormField)
-     * @return void
-     */
-    public function formExtendFields($host, $fields)
-    {
-    }
-
-    /**
-     * formExtendRefreshData is called before the form is refreshed, should return an array
-     * of additional save data.
-     * @param Backend\Widgets\Form $host The hosting form widget
-     * @param array $saveData Current save data
-     * @return array
-     */
-    public function formExtendRefreshData($host, $saveData)
-    {
-    }
-
-    /**
-     * formExtendRefreshFields is called when the form is refreshed, giving the opportunity
-     * to modify the form fields.
-     * @param Backend\Widgets\Form $host The hosting form widget
-     * @param array $fields Current form fields
-     * @return array
-     */
-    public function formExtendRefreshFields($host, $fields)
-    {
-    }
-
-    /**
-     * formExtendRefreshResults is called after the form is refreshed, should return an
-     * array of additional result parameters.
-     * @param Backend\Widgets\Form $host The hosting form widget
-     * @param array $result Current result parameters.
-     * @return array
-     */
-    public function formExtendRefreshResults($host, $result)
-    {
-    }
-
-    /**
-     * formExtendModel extends the supplied model used by create and update actions, the model can
-     * be altered by overriding it in the controller.
-     * @param Model $model
-     * @return Model
-     */
-    public function formExtendModel($model)
-    {
-    }
-
-    /**
-     * formExtendQuery extends the query used for finding the form model. Extra conditions
-     * can be applied to the query, for example, $query->withTrashed();
-     * @param October\Rain\Database\Builder $query
-     * @return void
-     */
-    public function formExtendQuery($query)
-    {
     }
 
     /**

@@ -17,7 +17,7 @@ class DatePickerField extends FallbackField
     public function defineListColumn(ListElement $list, $context = null)
     {
         $list->defineColumn($this->fieldName, $this->label)
-            ->displayAs('datetime')
+            ->displayAs($this->mode ?: 'datetime')
             ->shortLabel($this->shortLabel)
             ->useConfig($this->column ?: [])
         ;

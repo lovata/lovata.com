@@ -2,7 +2,7 @@
 #  List Behavior Config
 # ===================================
 
-title: system::lang.mail_partials.menu_label
+title: "Mail Partials"
 list: ~/modules/system/models/mailpartial/columns.yaml
 modelClass: System\Models\MailPartial
 recordUrl: system/mailpartials/update/:id

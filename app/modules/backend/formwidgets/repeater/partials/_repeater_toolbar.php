@@ -4,7 +4,7 @@
             href="javascript:;"
             data-repeater-cmd="add-group"
             data-attach-loading>
-            <i class="octo-icon-add-bold"></i>
+            <i class="icon-add-bold"></i>
             <?= e(__($prompt)) ?>
         </a>
     <?php else: ?>
@@ -13,7 +13,7 @@
             data-repeater-cmd="add"
             data-request="<?= $this->getEventHandler('onAddItem') ?>"
             data-attach-loading>
-            <i class="octo-icon-add-bold"></i>
+            <i class="icon-add-bold"></i>
             <?= e(__($prompt)) ?>
         </a>
     <?php endif ?>

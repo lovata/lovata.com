@@ -3,11 +3,10 @@
 # ===================================
 
 fields:
-
     url:
-        label: system::lang.request_log.url
+        label: URL
 
     referer:
-        label: system::lang.request_log.referer
+        label: Referers
         type: partial
         path: referer_field

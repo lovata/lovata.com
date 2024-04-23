@@ -15,7 +15,6 @@ use Exception;
  */
 class EditorSetting extends SettingModel
 {
-    use \System\Traits\ViewMaker;
     use \October\Rain\Database\Traits\Validation;
 
     /**
@@ -143,6 +142,7 @@ class EditorSetting extends SettingModel
      */
     public function initSettingsData()
     {
+        $this->html_toolbar_buttons = static::getBaseConfig('toolbar_buttons', '');
         $this->html_allow_empty_tags = static::getBaseConfig('allow_empty_tags', $this->defaultHtmlAllowEmptyTags);
         $this->html_allow_tags = static::getBaseConfig('allow_tags', $this->defaultHtmlAllowTags);
         $this->html_no_wrap_tags = static::getBaseConfig('no_wrap_tags', $this->defaultHtmlNoWrapTags);

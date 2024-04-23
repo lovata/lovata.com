@@ -1,4 +1,4 @@
-<div class="panel no-padding <?= $viewMode === Media\Widgets\MediaManager::VIEW_MODE_GRID ? '' : 'padding-top' ?>">
+<div class="media-panel no-padding <?= $viewMode === Media\Widgets\MediaManager::VIEW_MODE_GRID ? '' : 'padding-top' ?>">
     <input type="hidden" data-type="current-folder" value="<?= e($currentFolder) ?>"/>
     <input type="hidden" data-type="search-mode" value="<?= $searchMode ? 'true' : 'false' ?>"/>
     <div class="list-container">

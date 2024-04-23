@@ -1,6 +1,7 @@
 oc.Modules.register('backend.component.monacoeditor', function () {
     let environmentInitialized = false;
     let emmetInitialized = false;
+    let yamlInitialized = false;
 
     function initEnvironment(baseUrl) {
         if (environmentInitialized) {
@@ -12,21 +13,32 @@ oc.Modules.register('backend.component.monacoeditor', function () {
         require.config({
             paths: { vs: baseUrl + '/vs' }
         });
-        window.MonacoEnvironment = { getWorkerUrl: () => proxy };
 
         const proxy = URL.createObjectURL(
             new Blob(
-                [
-                    `
-                        self.MonacoEnvironment = {
-                            baseUrl: '${baseUrl}/'
-                        };
-                        importScripts('${baseUrl}/vs/base/worker/workerMain.js');
-                    `
-                ],
+                [`
+                    self.MonacoEnvironment = {
+                        baseUrl: '${baseUrl}/'
+                    };
+                    importScripts('${baseUrl}/vs/base/worker/workerMain.js');
+                `],
                 { type: 'text/javascript' }
             )
         );
+
+        // window.MonacoEnvironment = { getWorkerUrl: () => proxy };
+        window.MonacoEnvironment = {
+            getWorker: (moduleId, label) => {
+                switch (label) {
+                    case 'yaml':
+                        return new Worker(new URL('monaco-yaml/yaml.worker.min.js', baseUrl));
+                    case 'editorWorkerService':
+                        return new Worker(proxy);
+                    default:
+                        throw new Error(`Unknown label ${label}`);
+                }
+            }
+        };
     }
 
     function initEditor(component, options) {
@@ -35,9 +47,17 @@ oc.Modules.register('backend.component.monacoeditor', function () {
         });
 
         if (options.useEmmet && !emmetInitialized) {
-            emmetMonaco.emmetHTML(monaco);
-            emmetMonaco.emmetCSS(monaco);
+            emmetMonaco.emmetHTML(monaco, ["html", "twig", "php"]);
+            emmetMonaco.emmetCSS(monaco, ["css", "less", "scss"]);
             emmetInitialized = true;
+        }
+
+        if (options.yamlSchemas && !yamlInitialized) {
+            configureMonacoYaml(monaco, {
+                enableSchemaRequest: true,
+                schemas: options.yamlSchemas
+            });
+            yamlInitialized = true;
         }
 
         component.editor = monaco.editor.create(component.$refs.editorContainer, options);
@@ -174,7 +194,7 @@ oc.Modules.register('backend.component.monacoeditor', function () {
 
             updateLanguage: function updateLanguage(modelDefinition, value) {
                 const ref = this.findModelReferenceByUri(modelDefinition.uriString);
-                if (ref && ref.model.getLanguageIdentifier().language != value) {
+                if (ref && ref.model.getLanguageId() != value) {
                     monaco.editor.setModelLanguage(ref.model, value);
                 }
             },
@@ -352,6 +372,11 @@ oc.Modules.register('backend.component.monacoeditor', function () {
             options.unusualLineTerminators = 'auto';
             options.minimap = {
                 enabled: true
+            };
+            options.quickSuggestions = {
+                other: true,
+                comments: false,
+                strings: true
             };
 
             // Allows plugins to override the editor options

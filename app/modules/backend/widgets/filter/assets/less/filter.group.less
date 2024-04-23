@@ -8,7 +8,7 @@
     //     position: absolute;
     //     width: 16px;
     //     height: 16px;
-    //     content: @octo-icon-search;
+    //     content: @icon-search;
     //     right: 10px;
     //     top: 10px;
     //     font-size: 16px;
@@ -19,7 +19,7 @@
         border: none;
         border-bottom: 1px solid @color-filter-border;
         .border-bottom-radius(0);
-        .box-shadow(none);
+        box-shadow: none;
         background: transparent !important;
         padding-top: 6px;
         padding-bottom: 6px;
@@ -41,7 +41,7 @@
         }
 
         li {
-            .transition(~'color 0.6s, background-color 0.3s');
+            transition: color 0.6s, background-color 0.3s;
         }
 
         a {
@@ -72,7 +72,7 @@
         max-height: 200px;
         overflow: auto;
         a:before {
-            content: @octo-icon-plus;
+            content: @icon-plus;
         }
 
         li {
@@ -99,14 +99,15 @@
     }
 
     .filter-active-items {
-        font-weight: 600;
         border-top: 1px solid @color-filter-border;
-
         a {
+            font-weight: 600;
+            color: var(--bs-body-color);
+
             &:before {
                 background-color: @secondary-bg;
                 color: @text-color;
-                content: @octo-icon-cross;
+                content: @icon-cross;
                 left: -1px;
             }
 

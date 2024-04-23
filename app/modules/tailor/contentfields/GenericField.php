@@ -113,6 +113,10 @@ class GenericField extends ContentFieldBase
      */
     protected function getDefaultScopeDisplayType()
     {
+        if (is_array($this->scope) && isset($this->scope['type'])) {
+            return $this->scope['type'];
+        }
+
         switch ($this->type) {
             case 'checkbox':
             case 'switch':
@@ -132,6 +136,10 @@ class GenericField extends ContentFieldBase
      */
     protected function getDefaultColumnDisplayType()
     {
+        if (is_array($this->column) && isset($this->column['type'])) {
+            return $this->column['type'];
+        }
+
         switch ($this->type) {
             case 'checkbox':
             case 'switch':

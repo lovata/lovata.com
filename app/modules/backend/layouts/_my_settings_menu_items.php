@@ -3,8 +3,8 @@
 ?>
 <?php foreach ($mySettings as $category => $items): ?>
     <?php foreach ($items as $item): ?>
-        <li class="mainmenu-item">
-            <a href="<?= $item->url ?>">
+        <li class="mainmenu-item" <?= $item->itemAttributes() ?>>
+            <a href="<?= $item->url ?>" <?= $item->linkAttributes() ?>>
                 <?= $this->makeLayoutPartial('mainmenu_item', [
                     'item' => $item,
                     'noCounter' => true
@@ -18,7 +18,7 @@
 <li class="mainmenu-item">
     <a href="<?= Backend::url('backend/auth/signout') ?>">
         <span class="nav-icon">
-            <i class="octo-icon-exit"></i>
+            <i class="icon-exit"></i>
         </span>
         <span class="nav-label">
             <?= e(trans('backend::lang.account.sign_out')) ?>

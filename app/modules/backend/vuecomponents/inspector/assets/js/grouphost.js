@@ -12,6 +12,10 @@ oc.Modules.register('backend.component.inspector.grouphost', function () {
                 type: Object,
                 required: true
             },
+            parentObj: {
+                type: Object,
+                required: false
+            },
             splitterData: {
                 type: Object,
                 required: true

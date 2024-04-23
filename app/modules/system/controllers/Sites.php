@@ -1,11 +1,14 @@
 <?php namespace System\Controllers;
 
+use Site;
 use Config;
 use System;
 use BackendMenu;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
 use System\Models\SiteDefinition;
+use System\Models\SiteGroup;
+use NotFoundException;
 
 /**
  * Sites controller
@@ -50,13 +53,36 @@ class Sites extends Controller
     }
 
     /**
+     * beforeDisplay
+     */
+    public function beforeDisplay()
+    {
+        if (!Site::hasFeature()) {
+            throw new NotFoundException;
+        }
+    }
+
+    /**
      * index
      */
-    public function index($tab = null)
+    public function index()
     {
         SiteDefinition::syncPrimarySite();
 
+        $this->vars['useGroups'] = Site::hasSiteGroups();
+        $this->vars['groups'] = Site::hasSiteGroups() ? SiteGroup::all() : [];
+
         $this->asExtension('ListController')->index();
+    }
+
+    /**
+     * onRefreshList
+     */
+    public function onRefreshList()
+    {
+        return array_merge($this->listRefresh(), [
+            '#' . $this->getId('listTabs') => $this->makePartial('list_tabs')
+        ]);
     }
 
     /**
@@ -85,6 +111,11 @@ class Sites extends Controller
         if (!System::hasModule('Cms')) {
             $form->removeField('theme');
         }
+
+        // Remove group if not configured
+        if (!SiteGroup::isConfigured()) {
+            $form->removeField('group');
+        }
     }
 
     /**
@@ -95,6 +126,24 @@ class Sites extends Controller
         // Remove themes without module
         if (!System::hasModule('Cms')) {
             $list->removeColumn('theme');
+        }
+
+        // Remove group if not configured
+        if (!Site::hasSiteGroups()) {
+            $list->removeColumn('group');
+        }
+        elseif (!get('group')) {
+            $list->getColumn('group')->invisible(false);
+        }
+    }
+
+    /**
+     * listExtendQuery
+     */
+    public function listExtendQuery($query, $definition = null)
+    {
+        if ($groupId = get('group')) {
+            $query->where('group_id', $groupId);
         }
     }
 
@@ -107,10 +156,6 @@ class Sites extends Controller
 
         if (!$record->is_enabled) {
             $classes[] = 'disabled';
-        }
-
-        if ($record->is_primary) {
-            $classes[] = 'important';
         }
 
         if (count($classes) > 0) {

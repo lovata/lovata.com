@@ -21,8 +21,9 @@ class AttachManyModelTest extends PluginTestCase
         Model::reguard();
 
         $this->assertEmpty($user->photos);
-        $user->photos()->create(['data' => base_path() . '/modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png']);
-        $user->reloadRelations();
+
+        $user->photos()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $user->unsetRelations();
         $this->assertNotEmpty($user->photos);
 
         $photo = $user->photos->first();
@@ -39,8 +40,8 @@ class AttachManyModelTest extends PluginTestCase
         Model::reguard();
 
         $this->assertEmpty($user->photos);
-        $user->photos()->create(['data' => base_path() . '/modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png']);
-        $user->reloadRelations();
+        $user->photos()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $user->unsetRelations();
         $this->assertNotEmpty($user->photos);
 
         $photo = $user->photos->first();
@@ -58,8 +59,8 @@ class AttachManyModelTest extends PluginTestCase
         $user2 = User::create(['name' => 'Jerry', 'email' => 'jerry@email.tld']);
         Model::reguard();
 
-        $user1->photos()->create(['data' => base_path() . '/modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png']);
-        $user2->photos()->create(['data' => base_path() . '/modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png']);
+        $user1->photos()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $user2->photos()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
 
         $user1Photo = $user1->photos->first();
         $user1PhotoId = $user1Photo->id;

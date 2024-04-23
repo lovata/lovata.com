@@ -29,7 +29,8 @@ class SectionComponent extends ComponentModuleBase
     {
         return [
             'name' => 'Section',
-            'description' => 'Defines a website section with a supporting entry.'
+            'description' => 'Defines a website section with a supporting entry.',
+            'icon' => 'icon-columns'
         ];
     }
 
@@ -224,9 +225,17 @@ class SectionComponent extends ComponentModuleBase
             return;
         }
 
-        $params['id'] = $otherRecord->id;
-        $params['slug'] = $otherRecord->slug;
-        $params['fullslug'] = $otherRecord->fullslug;
+        if ($otherRecord instanceof \Tailor\Classes\BlueprintModel) {
+            $params = array_merge($params, $otherRecord->makePageUrlParams());
+        }
+        else {
+            $params = array_merge($params, [
+                'id' => $otherRecord->id,
+                'code' => $otherRecord->code,
+                'slug' => $otherRecord->slug,
+                'fullslug' => $otherRecord->fullslug,
+            ]);
+        }
 
         if ($paramName = $this->getEntryPointIdentifierParamName()) {
             $columnName = $this->getEntryPointIdentifierKey();

@@ -29,7 +29,7 @@
                     data-request="<?= $this->getEventHandler('onMakeLayoutDefault') ?>"
                     data-request-confirm="<?= __('Set the current layout as the default?') ?>"
                     tabindex="-1">
-                    <i class="icon-floppy-o"></i>
+                    <i class="icon-floppy"></i>
                     <?= __('Make Default') ?>
                 </a>
             </li>

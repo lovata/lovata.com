@@ -1,8 +1,12 @@
 <?php namespace System\Classes\UpdateManager;
 
+use Lang;
 use System;
-use October\Rain\Composer\Manager as ComposerManager;
+use System as SystemHelper;
+use Cms\Models\ThemeSeed;
 use Cms\Classes\Theme as CmsTheme;
+use October\Rain\Composer\Manager as ComposerManager;
+use October\Rain\Filesystem\Zip;
 use ApplicationException;
 
 /**
@@ -68,8 +72,10 @@ trait ManagesThemes
         }
 
         // Remove via composer
-        if ($composerCode = $this->themeManager->getComposerCode($name)) {
-            $composer = ComposerManager::instance();
+        $composer = ComposerManager::instance();
+        $composerCode = $this->themeManager->getComposerCode($name);
+
+        if ($composerCode && $composer->hasPackage($composerCode)) {
             $composer->remove([$composerCode]);
         }
 
@@ -90,5 +96,60 @@ trait ManagesThemes
     public function requestThemeContent(string $name): array
     {
         return $this->requestServerData('package/content', ['name' => $name, 'type' => 'theme']);
+    }
+
+    /**
+     * downloadTheme downloads a theme from the update server.
+     * @param string $name
+     * @param string $hash
+     */
+    public function downloadTheme($name)
+    {
+        $fileCode = $name . md5($name);
+
+        $this->requestServerFile('package/download', $fileCode, [
+            'type' => 'theme',
+            'name' => $name,
+            'version' => SystemHelper::VERSION
+        ]);
+    }
+
+    /**
+     * extractTheme extracts a theme after it has been downloaded.
+     */
+    public function extractTheme($name)
+    {
+        $fileCode = $name . md5($name);
+        $filePath = $this->getFilePath($fileCode);
+        $innerPath = str_replace('.', '-', strtolower($name));
+
+        if (!Zip::extract($filePath, themes_path($innerPath))) {
+            throw new ApplicationException(Lang::get('system::lang.zip.extract_failed', ['file' => $filePath]));
+        }
+
+        @unlink($filePath);
+    }
+
+    /**
+     * seedTheme seeds a theme blueprints, data and language files
+     */
+    public function seedTheme(string $name)
+    {
+        $themeName = str_replace('.', '-', strtolower($name));
+        if (!CmsTheme::exists($themeName)) {
+            throw new ApplicationException("Theme [$name] not found");
+        }
+
+        $theme = CmsTheme::load($themeName);
+        $model = new ThemeSeed;
+
+        // Seed everything
+        $allFolders = [
+            'blueprints' => true,
+            'data' => true,
+            'lang' => true,
+        ];
+
+        $model->seed($theme, ['folders' => $allFolders]);
     }
 }

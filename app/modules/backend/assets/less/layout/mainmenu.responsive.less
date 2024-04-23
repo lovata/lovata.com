@@ -241,8 +241,32 @@
                 }
             }
 
-            .mainmenu-item.section-title {
+            .mainmenu-item.section-user-title {
                 display: none;
+            }
+
+            .mainmenu-item {
+                &.divider {
+                    height: 1px;
+                    margin: 5px 0;
+                    background: rgba(255, 255, 255, 0.1);
+                }
+
+                &.section-title {
+                    color: white;
+                    padding: 7px 17px;
+                    white-space: nowrap;
+                    font-weight: 600;
+
+                    .nav-label {
+                        opacity: .5;
+                        margin-right: 0;
+                        display: block;
+                        overflow: hidden;
+                        max-width: 250px;
+                        vertical-align: middle;
+                    }
+                }
             }
         }
     }
@@ -262,7 +286,6 @@ body.responsive-submenu-displayed {
 
 body.responsive-menu-displayed {
     overflow: hidden;
-    position: fixed;
 
     #layout-mainmenu-responsive-container {
         width: 300px;

@@ -8,7 +8,7 @@
  * JavaScript API:
  * $('a#someElement').recordFinder({ option: 'value' })
  *
- * Dependences:
+ * Dependencies:
  * - Some other plugin (filename.js)
  */
 

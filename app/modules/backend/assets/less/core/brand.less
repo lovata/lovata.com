@@ -1,11 +1,37 @@
+// Nicer variables
+:root {
+    --oc-brand-primary:          var(--bs-primary);
+    --oc-brand-secondary:        var(--bs-secondary);
+    --oc-brand-success:          var(--bs-success);
+    --oc-brand-info:             var(--bs-info);
+    --oc-brand-warning:          var(--bs-warning);
+    --oc-brand-danger:           var(--bs-danger);
+    --oc-brand-light:            var(--bs-light);
+    --oc-brand-dark:             var(--bs-dark);
+
+    --oc-body-bg:                var(--bs-body-bg);
+    --oc-text-color:             var(--bs-body-color);
+    --oc-text-muted:             var(--bs-secondary-color);
+    --oc-link-color:             var(--bs-link-color);
+    --oc-link-hover-color:       var(--bs-link-hover-color);
+    --oc-heading-color:          var(--bs-heading-color);
+    --oc-emphasis-color:         var(--bs-emphasis-color);
+    --oc-border-color:           var(--bs-border-color);
+    --oc-popup-bg:               var(--bs-modal-bg);
+    --oc-backdrop-opacity:       var(--bs-backdrop-opacity);
+}
+
 // Defining RGB
 // Light Mode Notes:
 // - To produce rbg in LESS: @rgbColor: red(@hexColor), green(@hexColor), blue(@hexColor);
 :root, [data-bs-theme="light"] {
+    // --bs-border-color: #d7e1ea;
+    // --oc-border-focus: #72809d;
     --bs-emphasis-color: #333333;
-    --bs-border-color: #d7e1ea;
-    --oc-border-focus: #72809d;
+    --bs-border-color: #c4ced7;
     --bs-backdrop-opacity: 0.2;
+    --oc-border-focus: var(--oc-primary-active-bg);
+    --oc-highlight-color: white;
 
     //
     // Primary Colors
@@ -30,7 +56,7 @@
 
     --bs-secondary: #72809d;
     --bs-secondary-color: #72809d;
-    --oc-secondary-bg: #eeeff0;
+    --oc-secondary-bg: #d7e1ea;
     --oc-secondary-hover-bg: darken(#eeeff0, 5%);
     --oc-secondary-active-bg: darken(#eeeff0, 10%);
 
@@ -85,7 +111,8 @@
 
     --oc-toolbar-color: #536061;
     --oc-toolbar-bg: white;
-    --oc-toolbar-border: #ecf0f1;
+    // --oc-toolbar-border: #ecf0f1;
+    --oc-toolbar-border: #d7e1ea;
     --oc-toolbar-hover-color: black;
     --oc-toolbar-hover-bg: rgba(215,225,234,0.7);
 
@@ -106,8 +133,9 @@
     &,.table {
         --bs-table-color: #536061;
         --bs-table-bg: white;
-        --bs-table-striped-bg: #F7F9FB;
-        --bs-table-border-color: #ecf0f1;
+        --bs-table-striped-bg: #f7f9fb;
+        // --bs-table-border-color: #ecf0f1;
+        --bs-table-border-color: #d7e1ea;
         --bs-table-hover-bg: #fff5cb;
         --oc-table-active-bg: darken(#fff5cb, 5%);
     }
@@ -118,7 +146,6 @@
     }
 
     &,.breadcrumb {
-        --bs-breadcrumb-divider: "›";
         --bs-breadcrumb-item-padding-x: 0.4rem;
     }
 
@@ -135,6 +162,7 @@
     --bs-emphasis-color: white;
     --bs-border-color: #383a3e;
     --bs-backdrop-opacity: 0.5;
+    --oc-highlight-color: black;
 
     //
     // Primary Colors

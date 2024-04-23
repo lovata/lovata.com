@@ -26,7 +26,7 @@ class SystemController extends ControllerBase
     {
         try {
             if (!strpos($name, '-')) {
-                throw new ApplicationException(Lang::get('system::lang.combiner.not_found', ['name' => $name]));
+                throw new ApplicationException(__("The combiner file ':name' is not found.", ['name' => $name]));
             }
 
             $parts = explode('-', $name);
@@ -42,7 +42,7 @@ class SystemController extends ControllerBase
                 return Response::make($ex, 404);
             }
             else {
-                return Response::make('/* '.e($ex->getMessage()).' */', 404);
+                return Response::make('/* '.e(Lang::get('system::lang.page.custom_error.help')).' */', 404);
             }
         }
     }
@@ -56,7 +56,7 @@ class SystemController extends ControllerBase
     {
         try {
             if (!strpos($name, '-')) {
-                throw new ApplicationException(Lang::get('system::lang.resizer.not_found', ['name' => $name]));
+                throw new ApplicationException(__("The resizer file ':name' is not found.", ['name' => $name]));
             }
 
             $parts = explode('-', $name);
@@ -72,7 +72,7 @@ class SystemController extends ControllerBase
                 return Response::make($ex, 404);
             }
             else {
-                return Response::make('/* '.e($ex->getMessage()).' */', 404);
+                return Response::make('/* '.e(Lang::get('system::lang.page.custom_error.help')).' */', 404);
             }
         }
     }

@@ -382,5 +382,13 @@
         "docUrl": "https://docs.octobercms.com/3.x/markup/tag/content.html",
         "insertText": "content",
         "isNativeTwigFilter": false
+    },
+    {
+        "label": "link",
+        "hoverKeyword": "link",
+        "documentation": "cms::lang.intellisense.docs.link_filter",
+        "docUrl": "https://docs.octobercms.com/3.x/markup/filter/link.html",
+        "insertText": "link",
+        "isNativeTwigFilter": false
     }
 ]

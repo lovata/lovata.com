@@ -22,4 +22,16 @@ trait IsListElement
             'label' => $label
         ]);
     }
+
+    /**
+     * addColumnsFromModel from the model
+     */
+    protected function addColumnsFromModel()
+    {
+        if (!$this->model || !method_exists($this->model, 'defineListColumns')) {
+            return;
+        }
+
+        $this->model->defineListColumns($this);
+    }
 }

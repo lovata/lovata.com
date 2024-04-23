@@ -6,7 +6,6 @@
     data-input-name="<?= $field->getName() ?>"
     <?php if ($maxItems): ?>data-max-items="<?= $maxItems ?>"<?php endif ?>
     <?php if ($externalToolbarAppState): ?>data-external-toolbar-app-state="<?= e($externalToolbarAppState)?>"<?php endif ?>
-    <?php if ($externalToolbarEventBus): ?>data-external-toolbar-event-bus="<?= e($externalToolbarEventBus)?>"<?php endif ?>
     <?= $field->getAttributes() ?>
 >
     <div class="empty-state">
@@ -16,7 +15,7 @@
     <div class="mediafinder-control-container <?= $externalToolbarAppState ? 'external-toolbar' : null ?>">
         <div class="mediafinder-control-toolbar">
             <a href="javascript:;" class="backend-toolbar-button control-button toolbar-find-button">
-                <i class="octo-icon-common-file-star"></i>
+                <i class="icon-common-file-star"></i>
                 <span class="button-label"><?= __("Select") ?></span>
             </a>
 
@@ -24,7 +23,7 @@
                 class="backend-toolbar-button control-button toolbar-delete-selected populated-only"
                 disabled
             >
-                <i class="octo-icon-common-file-remove"></i>
+                <i class="icon-common-file-remove"></i>
                 <span class="button-label"><?= __("Delete Selected") ?> <span></span></span>
             </button>
         </div>

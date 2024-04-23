@@ -1,17 +1,19 @@
-<?= Form::open() ?>
+<?= Form::open([
+    'data-request-parent-form' => "#{$this->getId()}"
+]) ?>
     <div class="modal-header">
-        <h4 class="modal-title"><?= e(trans('backend::lang.list.setup_title')) ?></h4>
+        <h4 class="modal-title"><?= __("List Setup") ?></h4>
         <button type="button" class="btn-close" data-dismiss="popup"></button>
     </div>
     <div class="modal-body">
-        <p class="form-text before-field"><?= e(trans('backend::lang.list.setup_help')) ?></p>
+        <p class="form-text before-field"><?= __("Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.") ?></p>
 
         <div class="control-simplelist with-checkboxes is-sortable" data-control="simplelist">
             <ul>
                 <?php foreach ($columns as $key => $column): ?>
                     <li>
                         <span class="drag-handle" title="<?= __("Reorder") ?>">
-                            <i class="octo-icon-list-reorder"></i>
+                            <i class="icon-list-reorder"></i>
                         </span>
                         <div class="form-check">
                             <input
@@ -38,9 +40,9 @@
 
         <?php if ($this->showPagination): ?>
             <div class="form-group">
-                <label><?= e(trans('backend::lang.list.records_per_page')) ?></label>
+                <label><?= __("Records Per Page") ?></label>
                 <p class="form-text before-field">
-                    <?= e(trans('backend::lang.list.records_per_page_help')) ?>
+                    <?= __("Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.") ?>
                 </p>
                 <select class="form-control custom-select select-no-search" name="records_per_page">
                     <?php foreach ($perPageOptions as $optionValue): ?>
@@ -58,13 +60,14 @@
             data-request="<?= $this->getEventHandler('onApplySetup') ?>"
             data-dismiss="popup"
             data-stripe-load-indicator>
-            <?= e(trans('backend::lang.form.apply')) ?>
+            <?= __("Apply") ?>
         </button>
+        <span class="button-separator"><?= __("or") ?></span>
         <button
             type="button"
-            class="btn btn-default"
+            class="btn btn-link text-muted"
             data-dismiss="popup">
-            <?= e(trans('backend::lang.form.cancel')) ?>
+            <?= __("Cancel") ?>
         </button>
 
         <button
@@ -73,7 +76,7 @@
             data-request="<?= $this->getEventHandler('onResetSetup') ?>"
             data-dismiss="popup"
             data-stripe-load-indicator>
-            <?= e(trans('backend::lang.form.reset_default')) ?>
+            <?= __("Reset to Default") ?>
         </button>
     </div>
 <?= Form::close() ?>

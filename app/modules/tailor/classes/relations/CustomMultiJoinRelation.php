@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Builder;
 use October\Rain\Database\Relations\MorphToMany;
 
 /**
- * CustomMultiJoinRelation adds a field name, site identifier and relation morph.
+ * CustomMultiJoinRelation is used by tailor records, creating relationships
+ * to to other tailor records (entries fields).
  *
  * @package october\tailor
  * @author Alexey Bobkov, Samuel Georges
@@ -89,7 +90,7 @@ class CustomMultiJoinRelation extends MorphToMany
     {
         parent::addWhereConstraints();
 
-        $this->wherePivot($this->table.'.field_name', $this->fieldName);
+        $this->where($this->qualifyPivotColumn('field_name'), $this->fieldName);
 
         return $this;
     }
@@ -101,7 +102,7 @@ class CustomMultiJoinRelation extends MorphToMany
     {
         parent::addEagerConstraints($models);
 
-        $this->wherePivot($this->table.'.field_name', $this->fieldName);
+        $this->where($this->qualifyPivotColumn('field_name'), $this->fieldName);
     }
 
     /**
@@ -149,13 +150,5 @@ class CustomMultiJoinRelation extends MorphToMany
         ];
 
         return parent::attach($id, $attributes, $touch);
-    }
-
-    /**
-     * shouldSelect is modified to select all fields
-     */
-    protected function shouldSelect(array $columns = ['*'])
-    {
-        return array_merge($columns, $this->aliasedPivotColumns());
     }
 }

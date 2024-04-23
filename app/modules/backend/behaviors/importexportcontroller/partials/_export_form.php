@@ -3,7 +3,7 @@
 
         <?= Form::open(['id' => 'exportForm']) ?>
             <div class="modal-header">
-                <h4 class="modal-title"><?= e(__('Export progress')) ?></h4>
+                <h4 class="modal-title"><?= __("Export progress") ?></h4>
             </div>
 
             <div id="exportContainer">
@@ -12,7 +12,7 @@
                     <div class="loading-indicator-container">
                         <p>&nbsp;</p>
                         <div class="loading-indicator is-transparent">
-                            <div><?= e(__('Processing')) ?></div>
+                            <div><?= __("Processing") ?></div>
                             <span></span>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
         <div class="modal-footer">
             <button
                 type="button"
-                class="btn btn-default"
+                class="btn btn-secondary"
                 data-dismiss="popup">
                 <?= e(trans('backend::lang.form.close')) ?>
             </button>

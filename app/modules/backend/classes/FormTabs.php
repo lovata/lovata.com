@@ -164,11 +164,10 @@ class FormTabs extends FieldsetDefinition
     }
 
     /**
-     * getPaneId returns a value suitable for the pane id property.
-     * @param  string $suffix Specify a suffix string
+     * getPaneAnchorId returns a value suitable for the pane id property.
      * @return string
      */
-    public function getPaneId($index = null, $label = null, $suffix = null)
+    public function getPaneAnchorId($index = null, $label = null)
     {
         $id = $this->section . 'tab';
 
@@ -179,10 +178,46 @@ class FormTabs extends FieldsetDefinition
             $id .= '-' . $index;
         }
 
-        if ($suffix) {
-            $id .= '-'.$suffix;
+        return HtmlHelper::nameToId($id);
+    }
+
+    /**
+     * getPaneId
+     */
+    public function getPaneId($tabName)
+    {
+        if ($id = $this->getIdentifier($tabName)) {
+            return "pane-{$id}";
         }
 
-        return HtmlHelper::nameToId($id);
+        return null;
+    }
+
+    /**
+     * getTabId
+     */
+    public function getTabId($tabName)
+    {
+        if ($id = $this->getIdentifier($tabName)) {
+            return "tab-{$id}";
+        }
+
+        return null;
+    }
+
+    /**
+     * getIdentifier returns an API identifier for the specified tab
+     */
+    public function getIdentifier($tabName): ?string
+    {
+        return $this->config['identifiers'][$tabName] ?? null;
+    }
+
+    /**
+     * addIdentifier adds a new API identifier for the specified tab
+     */
+    public function addIdentifier($tabName, $identifier)
+    {
+        $this->config['identifiers'][$tabName] = $identifier;
     }
 }

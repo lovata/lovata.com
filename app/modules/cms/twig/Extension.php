@@ -336,23 +336,6 @@ class Extension extends TwigExtension
     }
 
     /**
-     * startBlock opens a layout block.
-     * @param string $name Specifies the block name
-     */
-    public function startBlock($name)
-    {
-        Block::startBlock($name);
-    }
-
-    /**
-     * setBlock sets a block value as a variable.
-     */
-    public function setBlock(string $name, $value)
-    {
-        Block::set($name, $value);
-    }
-
-    /**
      * displayBlock returns a layout block contents and removes the block.
      * @param string $name Specifies the block name
      * @param string $default The default placeholder contents.
@@ -387,10 +370,45 @@ class Extension extends TwigExtension
     }
 
     /**
-     * endBlock closes a layout block.
+     * setBlock sets a block name as a variable value.
+     */
+    public function setBlock(string $name, $value)
+    {
+        Block::set($name, $value);
+    }
+
+    /**
+     * yieldBlock yields the contents of a block by appending or overwriting,
+     * and storing its name alongside the content.
+     */
+    public function yieldBlock(string $name, $callable, $append = true)
+    {
+        $content = '';
+        foreach ($callable() as $value) {
+            $content .= $value;
+        }
+
+        if ($append) {
+            Block::append($name, $content);
+        }
+        else {
+            Block::set($name, $content);
+        }
+    }
+
+    /**
+     * @deprecated use yieldBlock
      */
     public function endBlock($append = true)
     {
         Block::endBlock($append);
+    }
+
+    /**
+     * @deprecated use yieldBlock
+     */
+    public function startBlock($name)
+    {
+        Block::startBlock($name);
     }
 }

@@ -4,18 +4,18 @@
  * Displays alert and confirmation dialogs
  *
  * JavaScript API:
- * $.oc.alert()
- * $.oc.confirm()
+ * oc.alert()
+ * oc.confirm()
  *
- * Dependences:
+ * Dependencies:
  * - Translations (october.lang.js)
  */
 (function($){
-    if ($.oc === undefined) {
-        $.oc = {};
+    if (window.oc === undefined) {
+        window.oc = {};
     }
 
-    $.oc.alert = function(message, title) {
+    oc.alert = function(message, title) {
         var messageTitle = typeof title !== 'string' ?  $.oc.lang.get('alert.error') : title;
 
         if (!$.oc.vueComponentHelpers || !$.oc.vueComponentHelpers.modalUtils) {
@@ -28,16 +28,29 @@
         });
     };
 
-    $.oc.confirm = function(message, callback, title) {
-        $.oc.confirmPromise(message, title).then(function () {
-            callback(true)
-        }, function () { });
+    oc.confirm = function(message, callback, title) {
+        oc.confirmPromise(message, title).then(function () {
+            callback(true);
+        }, function () {
+            callback(false);
+        });
     }
 
-    $.oc.confirmPromise = function(message, title) {
-        var messageTitle = typeof title !== 'string' ?  $.oc.lang.get('alert.confirm') : title;
+    oc.confirmPromise = function(message, title) {
+        var messageTitle = typeof title !== 'string'
+            ? $.oc.lang.get('alert.confirm')
+            : title;
+
         return $.oc.vueComponentHelpers.modalUtils.showConfirm(messageTitle, message, {});
     }
+
+    // @deprecated
+    if ($.oc === undefined) {
+        $.oc = {};
+    }
+    $.oc.alert = oc.alert;
+    $.oc.confirm = oc.confirm;
+    $.oc.confirmPromise = oc.confirmPromise;
 })(jQuery);
 
 /*
@@ -49,7 +62,7 @@ $(window).on('ajaxErrorMessage', function(event, message) {
         return;
     }
 
-    $.oc.alert(message);
+    oc.alert(message);
 
     // Prevent the default alert() message
     event.preventDefault();
@@ -60,7 +73,7 @@ $(window).on('ajaxConfirmMessage', function(event, message, promise) {
         return;
     }
 
-    $.oc.confirm(message, function(isConfirm) {
+    oc.confirm(message, function(isConfirm) {
         isConfirm ? promise.resolve() : promise.reject();
     });
 

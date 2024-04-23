@@ -17,18 +17,6 @@ function unregisterServiceWorkers() {
     }
 }
 
-// Persist site selection
-//
-addEventListener('ajax:setup', function(event) {
-    var siteId = $('meta[name="backend-site"]').attr('content');
-    if (siteId) {
-        var options = event.detail.context.options;
-        if (!options.headers) {
-            options.headers = {};
-        }
-        options.headers['X-SITE-ID'] = siteId;
-    }
-});
 
 // Path helpers
 //
@@ -122,8 +110,8 @@ $.oc.setColorModeTheme = function(theme) {
         var current = document.documentElement.getAttribute('data-bs-theme'),
             preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
-        if (current === 'auto' || preferred !== Cookies.get('admin_color_mode')) {
-            Cookies.set('admin_color_mode', preferred, { expires: 365, path: '/' });
+        if (current === 'auto' || preferred !== Cookies.get('admin_color_mode_setting')) {
+            Cookies.set('admin_color_mode_setting', preferred, { expires: 365, path: '/' });
             $.oc.setColorModeTheme(preferred);
         }
     }
@@ -137,3 +125,44 @@ $.oc.setColorModeTheme = function(theme) {
         });
     }
 })();
+
+// Color Switcher
+//
+
+oc.registerControl('color-mode-switcher', class extends oc.ControlBase {
+    init() {
+        this.$anchor = this.element.querySelector('a');
+        this.$label = this.element.querySelector('.nav-label');
+        this.$icon = this.element.querySelector('.nav-icon > i');
+    }
+
+    connect() {
+        this.listen('click', this.$anchor, this.onToggleSwitch)
+        this.updateUi();
+    }
+
+    onToggleSwitch() {
+        var current = this.getCurrentMode(),
+            preferred = current === 'dark' ? 'light' : 'dark';
+
+        $.oc.setColorModeTheme(preferred);
+
+        Cookies.set('admin_color_mode_user', preferred, { expires: 365, path: '/' });
+        this.updateUi();
+    }
+
+    updateUi() {
+        if (this.getCurrentMode() === 'dark') {
+            this.$label.innerText = this.element.dataset.langLightMode;
+            this.$icon.setAttribute('class', 'icon-sun');
+        }
+        else {
+            this.$label.innerText = this.element.dataset.langDarkMode;
+            this.$icon.setAttribute('class', 'icon-moon');
+        }
+    }
+
+    getCurrentMode() {
+        return document.documentElement.getAttribute('data-bs-theme');
+    }
+});

@@ -44,14 +44,6 @@
 }
 
 //
-// Make the focus ring and textarea fill the whole rich editor container
-//
-
-.fr-element {
-    height: 100%;
-}
-
-//
 // Rich Editor
 //
 
@@ -150,11 +142,6 @@
             }
         }
 
-        .fr-view,
-        textarea {
-            height: 100%;
-        }
-
         .fr-placeholder {
             top: 20px;
             left: 20px;
@@ -188,13 +175,13 @@
 
     figure[data-video] {
         &:before {
-            .icon(@video-camera);
+            .icon(@icon-video-camera);
         }
     }
 
     figure[data-audio] {
         &:before {
-            .icon(@volume-up);
+            .icon(@icon-volume-up);
         }
     }
 }

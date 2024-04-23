@@ -6,7 +6,7 @@
     <div class="content">
         <?php if ($this->showReorder): ?>
             <div class="drag-handle">
-                <i class="octo-icon-list-reorder"></i>
+                <i class="icon-list-reorder"></i>
             </div>
         <?php endif ?>
 
@@ -14,7 +14,7 @@
 
         <?php if ($this->showConfigure): ?>
             <a href="javascript:;"
-                class="octo-icon-cog widget-control edit-widget"
+                class="icon-cog widget-control edit-widget"
                 data-inspectable
                 data-inspector-title="<?= e(trans('backend::lang.dashboard.widget_inspector_title')) ?>"
                 data-inspector-description="<?= e(trans('backend::lang.dashboard.widget_inspector_description')) ?>"

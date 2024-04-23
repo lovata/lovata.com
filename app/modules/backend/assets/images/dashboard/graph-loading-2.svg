@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="400px" height="201px" viewBox="0 0 400 201" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>graph-loading-2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="graph-loading-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M0,100 L400,100" id="Path-3" stroke="#ECF0F1"></path>
+        <path d="M0,40 C41.1736936,40 60.5929713,160 100,160 C139.407029,160 167.556198,60 200,60 C240.66382,60 259.274837,180 300,180 C340.725163,180 362.245159,39.5 400,40" id="Path" stroke="#7F8C8D" transform="translate(200.000000, 109.998672) scale(-1, 1) translate(-200.000000, -109.998672) "></path>
+    </g>
+</svg>

@@ -9,7 +9,7 @@
  * JavaScript API:
  * $('.scoreboard .chart').barChart()
  *
- * Dependences:
+ * Dependencies:
  * - Raphaël (raphael-min.js)
  */
 +function ($) { "use strict";

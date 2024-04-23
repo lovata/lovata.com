@@ -6,7 +6,7 @@
                     <div class="btn-group offset-right">
                         <button type="button" class="btn btn-primary oc-icon-upload" data-control="upload"
                             ><?= e(trans('backend::lang.media.upload')) ?></button>
-                        <button type="button" class="btn btn-primary oc-icon-folder-o" data-command="create-folder"><?= e(trans('backend::lang.media.add_folder')) ?></button>
+                        <button type="button" class="btn btn-primary oc-icon-folder" data-command="create-folder"><?= e(trans('backend::lang.media.add_folder')) ?></button>
                     </div>
                 <?php endif ?>
 
@@ -14,7 +14,7 @@
 
                 <?php if ($this->checkHasPermission('mediaDelete')): ?>
                     <div class="btn-group offset-right">
-                        <button type="button" class="btn btn-default oc-icon-reply-all" data-command="move"
+                        <button type="button" class="btn btn-default oc-icon-mail-reply-all" data-command="move"
                             ><?= e(trans('backend::lang.media.move')) ?></button>
                         <button type="button" class="btn btn-default oc-icon-trash" data-command="delete"
                             ><?= e(trans('backend::lang.media.delete')) ?></button>
@@ -33,7 +33,7 @@
                         type="text"
                         name="search"
                         value="<?= e($searchTerm) ?>"
-                        class="form-control growable"
+                        class="form-control is-growable is-searchable"
                         placeholder="<?= e(trans('backend::lang.media.search')) ?>"
                         data-control="search"
                         autocomplete="off"

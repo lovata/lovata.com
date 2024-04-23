@@ -9,15 +9,6 @@ use Media\Classes\MediaLibrary;
 class MediaLibraryTest extends TestCase
 {
     /**
-     * setUp
-     */
-    public function setUp(): void
-    {
-        MediaLibrary::forgetInstance();
-        parent::setUp();
-    }
-
-    /**
      * testInvalidPathsOnValidatePath
      * @dataProvider invalidPathsProvider
      */

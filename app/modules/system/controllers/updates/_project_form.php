@@ -10,7 +10,7 @@
         <?php endif ?>
 
         <div class="form-group">
-            <span class="help-block pull-right">
+            <span class="form-text pull-right">
                 <a target="_blank" href="http://octobercms.com/help/site/projects#project-id"><?= __('How to find your License Key') ?></a>
             </span>
             <label class="form-label" for="projectId"><?= __('License Key') ?></label>

@@ -60,7 +60,7 @@ class Preference extends UserPreferenceModel
         $this->editor_auto_closing = $config->get('editor.auto_closing', true);
         $this->editor_use_hard_tabs = $config->get('editor.use_hard_tabs', false);
         $this->editor_display_indent_guides = $config->get('editor.display_indent_guides', false);
-        $this->editor_show_invisibles = $config->get('editor.show_invisibles', false);
+        $this->editor_show_invisibles = $config->get('editor.show_invisibles', true);
         $this->editor_show_print_margin = $config->get('editor.show_print_margin', false);
     }
 

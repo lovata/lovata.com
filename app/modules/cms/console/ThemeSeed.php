@@ -7,7 +7,7 @@ use Cms\Models\ThemeSeed as ThemeSeedModel;
 /**
  * ThemeSeed imports blueprints and seed files from a theme
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ThemeSeed extends Command

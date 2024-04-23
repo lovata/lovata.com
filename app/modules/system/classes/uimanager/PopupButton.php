@@ -5,22 +5,14 @@
  *
  * @method PopupButton ajaxHandler(string $ajaxHandler) ajaxHandler
  * @method PopupButton ajaxData(array $ajaxData) ajaxData
+ * @method PopupButton size(string $size) size of the popup
+ * @method PopupButton keyboard(bool $keyboard) keyboard can close the popup
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class PopupButton extends Button
+class PopupButton extends AjaxButton
 {
-    /**
-     * __construct
-     */
-    public function __construct($label = 'Button', $ajaxHandler = 'onAjax', $config = [])
-    {
-        $this->ajaxHandler($ajaxHandler);
-
-        parent::__construct($label, $config);
-    }
-
     /**
      * buildAttributes
      */
@@ -30,10 +22,16 @@ class PopupButton extends Button
 
         $attr['data-control'] = 'popup';
 
+        // Popup uses data-handler
+        unset($attr['data-request']);
         $attr['data-handler'] = $this->ajaxHandler;
 
-        if ($this->ajaxData !== null) {
-            $attr['data-request-data'] = $this->ajaxData;
+        if ($this->size !== null) {
+            $attr['data-size'] = $this->size;
+        }
+
+        if ($this->keyboard === false) {
+            $attr['data-keyboard'] = 'false';
         }
 
         return $attr;

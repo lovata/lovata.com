@@ -14,7 +14,7 @@
 
         <?php if ($field->translatable): ?>
             <span class="form-translatable <?= $field->label ? '' : 'no-label' ?>">
-                <i class="octo-icon-language-letters" data-bs-toggle="tooltip" data-bs-delay="300" title="<?= e($field->getTranslatableMessage()) ?>"></i>
+                <i class="icon-globe" data-bs-toggle="tooltip" data-bs-delay="300" title="<?= e($field->getTranslatableMessage()) ?>"></i>
             </span>
         <?php endif ?>
 

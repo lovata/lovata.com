@@ -13,7 +13,7 @@ use Illuminate\Console\Command;
  *
  * This completely deletes an existing theme, including all files and directories.
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ThemeRemove extends Command

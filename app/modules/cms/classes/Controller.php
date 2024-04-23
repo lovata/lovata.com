@@ -110,6 +110,11 @@ class Controller
     protected $partialWatcher;
 
     /**
+     * @var bool pageCycled
+     */
+    protected $pageCycled = false;
+
+    /**
      * __construct the controller.
      * @param \Cms\Classes\Theme $theme Specifies the CMS theme.
      * If the theme is not specified, the current active theme used.
@@ -121,8 +126,8 @@ class Controller
             throw new CmsException(Lang::get('cms::lang.theme.active.not_found'));
         }
 
-        $this->assetPath = $this->getThemeAssetPath();
-        $this->assetLocalPath = $this->theme->getPath();
+        $this->assetPath = $this->getThemeAssetRelativePath();
+        $this->assetUrlPath = $this->getThemeAssetUrl();
         $this->router = new Router($this->theme);
         $this->initTwigEnvironment();
 
@@ -155,8 +160,10 @@ class Controller
             $page = null;
         }
 
+        $originalPageFound = !!$page;
+
         // Maintenance mode
-        if (MaintenanceSetting::isEnabled()) {
+        if (MaintenanceSetting::isEnabled() && !Cms::urlHasException($url, 'maintenance')) {
             if (!Request::ajax()) {
                 $this->setStatusCode(503);
             }
@@ -249,10 +256,13 @@ class Controller
             $result = $event;
         }
 
-        /*
-         * Prepare and return response
-         * @see \System\Traits\ResponseMaker
-         */
+        // Log the pageview
+        if ($originalPageFound && !App::runningUnitTests()) {
+            TrafficLogger::logPageview();
+        }
+
+        // Prepare and return response
+        // @see \System\Traits\ResponseMaker
         return $this->makeResponse($result);
     }
 
@@ -276,17 +286,25 @@ class Controller
             throw new CmsException(Lang::get('cms::lang.page.not_found_name', ['name'=>$pageFile]));
         }
 
-        return $controller->runPage($page, false);
+        return $controller->runPage($page, ['render' => true]);
     }
 
     /**
      * runPage runs a page directly from its object and supplied parameters.
      * @param \Cms\Classes\Page $page
-     * @param bool $useAjax
+     * @param array $options
      * @return string
      */
-    public function runPage($page, $useAjax = true)
+    public function runPage($page, $options = [])
     {
+        // Process options
+        extract(array_merge([
+            'capture' => false,
+            'render' => false
+        ], (array) $options));
+
+        $useAjax = !($capture || $render);
+
         // If the page doesn't refer any layout, create the fallback layout.
         // Otherwise load the layout specified in the page.
         if (!$page->layout) {
@@ -298,6 +316,7 @@ class Controller
 
         $this->page = $page;
         $this->layout = $layout;
+        $this->pageCycled = false;
 
         // The 'this' variable is reserved for default variables.
         $this->vars['this'] = new ThisVariable([
@@ -409,7 +428,9 @@ class Controller
         // Render the layout
         $result = $this->renderLayoutContents();
 
-        return $result;
+        if (!$capture) {
+            return $result;
+        }
     }
 
     /**
@@ -418,7 +439,9 @@ class Controller
      */
     public function pageCycle()
     {
-        return $this->execPageCycle();
+        if (!$this->pageCycled) {
+            $this->execPageCycle();
+        }
     }
 
     /**
@@ -428,6 +451,8 @@ class Controller
      */
     protected function execPageCycle()
     {
+        $this->pageCycled = true;
+
         /**
          * @event cms.page.start
          * Fires before all of the page & layout lifecycle handlers are run
@@ -518,29 +543,31 @@ class Controller
      */
     protected function postProcessResult($page, $url, $content)
     {
-        $content = MediaViewHelper::instance()->processHtml($content);
-
         /**
-         * @event cms.page.postprocess
+         * @event cms.page.postProcessContent
          * Provides opportunity to hook into the post-processing of page HTML code before being sent to the client. `$dataHolder` = {content: $htmlContent}
          *
          * Example usage:
          *
-         *     Event::listen('cms.page.postprocess', function ((\Cms\Classes\Controller) $controller, (string) $url, (\Cms\Classes\Page) $page, (object) $dataHolder) {
-         *         $dataHolder->content = str_replace('<a href=', '<a rel="nofollow" href=', $dataHolder->content);
+         *     Event::listen('cms.page.postProcessContent', function ((\Cms\Classes\Controller) $controller, (string) $url, (\Cms\Classes\Page) $page, (string) &$content) {
+         *         $content = str_replace('<a href=', '<a rel="nofollow" href=', $dataHolder->content);
          *     });
          *
          * Or
          *
-         *     $controller->bindEvent('page.postprocess', function ((string) $url, (\Cms\Classes\Page) $page, (object) $dataHolder) {
-         *         $dataHolder->content = 'My custom content';
+         *     $controller->bindEvent('page.postProcessContent', function ((string) $url, (\Cms\Classes\Page) $page, (string) &$content) {
+         *         $content = 'My custom content';
          *     });
          *
          */
+        $this->fireSystemEvent('cms.page.postProcessContent', [$url, $page, &$content]);
+
+        // @deprecated this event will be removed in a later version
         $dataHolder = (object) ['content' => $content];
         $this->fireSystemEvent('cms.page.postprocess', [$url, $page, $dataHolder]);
+        $content = $dataHolder->content;
 
-        return $dataHolder->content;
+        return $content;
     }
 
     //
@@ -717,7 +744,12 @@ class Controller
             return $this->combineAssets($url);
         }
 
-        return Url::asset($this->getThemeAssetPath($url));
+        $themeUrl = $this->getThemeAssetUrl($url);
+        if (Config::get('system.themes_asset_url')) {
+            return $themeUrl;
+        }
+
+        return Url::toRelative($themeUrl);
     }
 
     /**

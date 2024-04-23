@@ -68,14 +68,14 @@ oc.Modules.register('tailor.editor.extension.documentcontroller.blueprint', func
             if (payload.nodeData.userData.isFolder || payload.nodeData.userData.topLevel) {
                 payload.menuItems.push({
                     type: 'text',
-                    icon: 'octo-icon-create',
+                    icon: 'icon-create',
                     items: blueprintItems,
                     label: this.trans('tailor::lang.blueprint.new')
                 });
 
                 payload.menuItems.push({
                     type: 'text',
-                    icon: 'octo-icon-upload',
+                    icon: 'icon-upload',
                     command: new EditorCommand('tailor:tailor-blueprint-upload@' + this.documentType, {
                         path: parentPath
                     }),
@@ -84,7 +84,7 @@ oc.Modules.register('tailor.editor.extension.documentcontroller.blueprint', func
 
                 payload.menuItems.push({
                     type: 'text',
-                    icon: 'octo-icon-folder',
+                    icon: 'icon-folder',
                     command: 'tailor:tailor-blueprint-create-directory@' + parentPath,
                     label: this.trans('tailor::lang.blueprint.create_directory')
                 });
@@ -100,7 +100,7 @@ oc.Modules.register('tailor.editor.extension.documentcontroller.blueprint', func
 
             payload.menuItems.push({
                 type: 'text',
-                icon: 'octo-icon-terminal',
+                icon: 'icon-terminal',
                 command: new EditorCommand('tailor:tailor-blueprint-rename@' + parentPath, {
                     fileName: payload.nodeData.userData.fileName
                 }),
@@ -109,7 +109,7 @@ oc.Modules.register('tailor.editor.extension.documentcontroller.blueprint', func
 
             payload.menuItems.push({
                 type: 'text',
-                icon: 'octo-icon-delete',
+                icon: 'icon-delete',
                 command: new EditorCommand('tailor:tailor-blueprint-delete@' + parentPath, {
                     itemsDetails: payload.itemsDetails
                 }),

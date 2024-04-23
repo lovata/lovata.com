@@ -17,7 +17,7 @@ oc.Modules.register('editor.extension.documentcomponent.base', function() {
     }
 
     const DocumentComponentBase = {
-        mixins: [$.oc.vueHotkeyMixin],
+        mixins: [oc.vueHotkeyMixin],
         props: {
             componentData: Object
         },
@@ -185,7 +185,8 @@ oc.Modules.register('editor.extension.documentcomponent.base', function() {
                     this.documentMetadata = data.metadata;
 
                     return data;
-                } catch (error) {
+                }
+                catch (error) {
                     if (!suppressGlobalDocumentError) {
                         this.$emit('tabfatalerror');
                     }
@@ -211,7 +212,8 @@ oc.Modules.register('editor.extension.documentcomponent.base', function() {
                     this.processing = false;
 
                     return data;
-                } catch (error) {
+                }
+                catch (error) {
                     if (!suppressGlobalDocumentError) {
                         if (error.status === 0) {
                             this.errorLoadingDocument = 'Error connecting to the server.';

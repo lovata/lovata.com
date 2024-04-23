@@ -27,7 +27,7 @@
         <div class="enabled-controls" v-show="state.current.enabled">
             <div class="date-section">
                 <p v-show="!showPublishDate">
-                    <i class="octo-icon-calendar-check"></i>
+                    <i class="icon-calendar-check"></i>
                     <span @click="onShowPublishDateClick"><?= e(__('Schedule publish date')) ?></span>
                 </p>
 
@@ -38,7 +38,7 @@
 
             <div class="date-section">
                 <p v-show="!showExpiryDate">
-                    <i class="octo-icon-calendar-disable"></i>
+                    <i class="icon-calendar-disable"></i>
                     <span @click="onShowExpiryDateClick"><?= e(__('Set expiry date')) ?></span>
                 </p>
 

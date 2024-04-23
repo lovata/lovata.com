@@ -1,5 +1,6 @@
 <?php namespace Backend\Classes;
 
+use Html;
 use October\Rain\Element\Navigation\ItemDefinition;
 
 /**
@@ -12,7 +13,6 @@ use October\Rain\Element\Navigation\ItemDefinition;
  * @method SideMenuItem attributes(array $attributes) attributes
  * @method SideMenuItem permissions(array $permissions) permissions
  * @method SideMenuItem itemType(string $itemType) itemType
- * @method SideMenuItem buttonActiveOn(string $buttonActiveOn) buttonActiveOn
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
@@ -70,5 +70,29 @@ class SideMenuItem extends ItemDefinition
     public function removePermission(string $permission)
     {
         unset($this->config['permissions'][$permission]);
+    }
+
+    /**
+     * itemAttributes returns HTML attributes for the list item
+     */
+    public function itemAttributes(): string
+    {
+        if ($this->attributes === null) {
+            return '';
+        }
+
+        return Html::attributes(array_except($this->attributes, ['target']));
+    }
+
+    /**
+     * linkAttributes returns HTML for the anchor link
+     */
+    public function linkAttributes(): string
+    {
+        if (!isset($this->attributes['target'])) {
+            return '';
+        }
+
+        return Html::attributes(array_only($this->attributes, ['target']));
     }
 }

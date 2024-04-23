@@ -1,0 +1,133 @@
+.report-row {
+    margin-bottom: 0;
+
+    &.no-widgets {
+        margin-bottom: @dashboard-gap-size;
+    }
+
+    &.equal-height-widgets {
+        align-items: stretch;
+    }
+
+    &.widget-doesnt-fit-animation {
+        -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+        animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    }
+
+    .row-widgets {
+        margin: 0 -(@dashboard-gap-size / 2);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        transition: transform 0.2s;
+    }
+
+    &.reordering {
+        .row-widgets {
+            transform: scale(1.002);
+        }
+    }
+
+    .add-widget-button {
+        border-radius: 10px;
+        border: 1px solid var(--oc-toolbar-border);
+        background-color: var(--oc-toolbar-bg);
+        height: 58px;
+        margin: 19px;
+        display: flex;
+        gap: 5px;
+        padding: 0 10px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        > i {
+            font-size: 28px;
+            color: #5F6368;
+        }
+
+        > span {
+
+        }
+    }
+}
+
+.reorder-row-list-move {
+    transition: transform 0.2s;
+}
+
+.edit-mode {
+    .report-row {
+        &.no-widgets {
+            .row-widgets {
+                margin: 0 (@dashboard-gap-size / 2);
+                min-height: 100px;
+                border-radius: 10px;;
+                border: 2px dashed #ECF0F1;
+            }
+        }
+    }
+}
+
+.responsive-mode {
+    .report-row {
+
+    }
+}
+
+@-webkit-keyframes shake-horizontal {
+    0%,
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translateX(-10px);
+        transform: translateX(-10px);
+    }
+    20%,
+    40%,
+    60% {
+        -webkit-transform: translateX(10px);
+        transform: translateX(10px);
+    }
+    80% {
+        -webkit-transform: translateX(8px);
+        transform: translateX(8px);
+    }
+    90% {
+        -webkit-transform: translateX(-8px);
+        transform: translateX(-8px);
+    }
+}
+@keyframes shake-horizontal {
+    0%,
+    100% {
+        -webkit-transform: translateX(0);
+        transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70% {
+        -webkit-transform: translateX(-10px);
+        transform: translateX(-10px);
+    }
+    20%,
+    40%,
+    60% {
+        -webkit-transform: translateX(10px);
+        transform: translateX(10px);
+    }
+    80% {
+        -webkit-transform: translateX(8px);
+        transform: translateX(8px);
+    }
+    90% {
+        -webkit-transform: translateX(-8px);
+        transform: translateX(-8px);
+    }
+}

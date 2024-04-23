@@ -1,5 +1,6 @@
 <?php namespace Cms\FormWidgets;
 
+use Url;
 use Cms\Models\PageLookupItem;
 use Backend\Classes\FormWidgetBase;
 
@@ -88,7 +89,7 @@ class PageFinder extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['value'] = $this->getLoadValue();
+        $this->vars['value'] = $this->getKeyValue();
         $this->vars['field'] = $this->formField;
         $this->vars['nameValue'] = $this->getNameValue();
         $this->vars['descriptionValue'] = $this->getDescriptionValue();
@@ -127,7 +128,7 @@ class PageFinder extends FormWidgetBase
     public function getNameValue()
     {
         if ($this->showReference) {
-            return $this->getLoadValue();
+            return $this->getKeyValue();
         }
 
         $reference = $this->getLookupItemValue();
@@ -147,6 +148,11 @@ class PageFinder extends FormWidgetBase
             return '';
         }
 
+        $linkUrl = $this->getKeyValue();
+        if (str_starts_with($linkUrl, 'october://')) {
+            return Url::makeRelative($this->getLookupItemValue()->url ?? '');
+        }
+
         return $this->getLookupItemValue()->url ?? '';
     }
 
@@ -159,7 +165,15 @@ class PageFinder extends FormWidgetBase
             return $this->lookupItem;
         }
 
-        return $this->lookupItem = PageLookupItem::resolveFromSchema((string) $this->getLoadValue());
+        return $this->lookupItem = PageLookupItem::resolveFromSchema((string) $this->getKeyValue());
+    }
+
+    /**
+     * getKeyValue
+     */
+    public function getKeyValue()
+    {
+        return $this->formField->value ??= $this->getLoadValue();
     }
 
     /**

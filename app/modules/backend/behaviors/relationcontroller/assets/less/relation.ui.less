@@ -1,13 +1,25 @@
 .relation-behavior {
+
     &.relation-view-multi, &.relation-view-single {
-        margin-bottom: 20px;
-        border-radius: @input-border-radius;
         border: 1px solid @input-border;
+        border-radius: @input-border-radius;
+        // border-top: 1px solid @input-border;
+        // border-bottom: 1px solid @input-border;
+        margin-bottom: 20px;
         background: @input-bg;
         overflow: hidden;
 
+        .relation-manager {
+            // border-top: 1px solid var(--oc-border-color);
+        }
+
+        .control-filter {
+            border-top: none;
+        }
+
         .relation-toolbar .control-toolbar {
             padding: 0;
+            border-bottom: 1px solid var(--oc-border-color);
 
             .loading-indicator-container.size-input-text .loading-indicator > span {
                 top: 7px;
@@ -30,6 +42,14 @@
                     border-right: none;
                     padding-top: 8px;
                     padding-bottom: 8px;
+                }
+            }
+
+            .toolbar-item.toolbar-setup {
+                border-left: 1px solid var(--oc-border-color);
+                width: 35px;
+                a > span {
+                    margin-left: 5px;
                 }
             }
         }

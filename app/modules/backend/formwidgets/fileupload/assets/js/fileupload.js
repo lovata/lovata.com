@@ -65,18 +65,20 @@
         this.$el.on('click', 'input[data-record-selector]', this.proxy(this.onClickCheckbox));
         this.$el.on('change', 'input[data-record-selector]', this.proxy(this.onSelectionChanged));
 
-        this.initToolbarExtensionPoint();
-        this.initExternalToolbarEventBus();
-        this.mountExternalToolbarEventBusEvents();
-
         this.bindUploader();
 
         if (this.options.isSortable) {
             this.bindSortable();
         }
 
-        this.extendExternalToolbar();
         this.isLoaded = true;
+
+        // External toolbar
+        setTimeout(() => {
+            this.initToolbarExtensionPoint();
+            this.mountExternalToolbarEventBusEvents();
+            this.extendExternalToolbar();
+        }, 0);
     }
 
     FileUpload.prototype.dispose = function() {
@@ -119,29 +121,16 @@
             return;
         }
 
-        // Expected format: tailor.app::toolbarExtensionPoint
-        const parts = this.options.externalToolbarAppState.split('::');
-        if (parts.length !== 2) {
-            throw new Error('Invalid externalToolbarAppState format. Expected format: module.name::stateElementName');
+        const point = $.oc.vueUtils.getToolbarExtensionPoint(
+            this.options.externalToolbarAppState,
+            this.$el.get(0),
+            'both'
+        );
+
+        if (point) {
+            this.toolbarExtensionPoint = point.state;
+            this.externalToolbarEventBusObj = point.bus;
         }
-
-        const app = oc.Modules.import(parts[0]);
-        this.toolbarExtensionPoint = app.state[parts[1]];
-    }
-
-    FileUpload.prototype.initExternalToolbarEventBus = function() {
-        if (!this.options.externalToolbarEventBus) {
-            return;
-        }
-
-        // Expected format: tailor.app::eventBus
-        const parts = this.options.externalToolbarEventBus.split('::');
-        if (parts.length !== 2) {
-            throw new Error('Invalid externalToolbarEventBus format. Expected format: module.name::stateElementName');
-        }
-
-        const module = oc.Modules.import(parts[0]);
-        this.externalToolbarEventBusObj = module.state[parts[1]];
     }
 
     FileUpload.prototype.mountExternalToolbarEventBusEvents = function() {
@@ -192,7 +181,7 @@
 
         $buttons.each(function() {
             var $button = $(this),
-                $icon = $button.find('i[class^=octo-icon]');
+                $icon = $button.find('i[class^=icon]');
 
             that.toolbarExtensionPoint.push(
                 {
@@ -525,7 +514,11 @@
             $button = $(ev.target).closest('.toolbar-clear-file'),
             $currentObject = $('.upload-object:first', this.$filesContainer);
 
-        $.oc.confirm($button.attr('data-request-confirm'), function() {
+        oc.confirm($button.attr('data-request-confirm'), function(isConfirm) {
+            if (!isConfirm) {
+                return;
+            }
+
             self.removeObjectInternal($form, $button, $currentObject);
         });
 
@@ -539,7 +532,11 @@
             $button = $(ev.target).closest('.toolbar-delete-selected'),
             $currentObjects = $('.upload-object:has(input[data-record-selector]:checked)', this.$filesContainer);
 
-        $.oc.confirm($button.attr('data-request-confirm'), function() {
+        oc.confirm($button.attr('data-request-confirm'), function(isConfirm) {
+            if (!isConfirm) {
+                return;
+            }
+
             $currentObjects.addClass('is-loading');
 
             $currentObjects.each(function() {

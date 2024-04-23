@@ -1,4 +1,4 @@
-+(function($) {
++(function() {
     'use strict';
 
     class KeyCondition {
@@ -145,11 +145,11 @@
         }
     });
 
-    if ($.oc === undefined) {
-        $.oc = {}
+    if (window.oc === undefined) {
+        window.oc = {}
     }
 
-    $.oc.vueHotkeyMixin = {
+    window.oc.vueHotkeyMixin = {
         data: function() {
             return {
                 componentHotkeys: {}
@@ -168,5 +168,4 @@
             });
         }
     };
-})($);
-
+})();

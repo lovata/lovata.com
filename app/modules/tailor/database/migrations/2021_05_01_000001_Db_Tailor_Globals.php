@@ -38,6 +38,7 @@ return new class extends Migration
             $table->string('content_group')->nullable();
             $table->mediumText('content_value')->nullable();
             $table->text('content_spawn_path')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->integer('sort_order')->nullable();
             $table->timestamps();
             $table->index(['host_id', 'host_field'], $table->getTable().'_idx');

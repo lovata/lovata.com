@@ -10,7 +10,7 @@
                     value=""
                 />
             </div>
-            <a href="javascript:;" class="drag-handle"><i class="octo-icon-list-reorder"></i></a>
+            <a href="javascript:;" class="drag-handle"><i class="icon-list-reorder"></i></a>
         <?php endif ?>
 
         <div class="file-data-container">

@@ -39,9 +39,10 @@ class PartialNode extends TwigNode
         if ($this->hasNode('body')) {
             $compiler
                 ->addDebugInfo($this)
-                ->write('ob_start();')
+                ->write("\$cmsPartialParams['body'] = implode('', iterator_to_array((function() use (\$context, \$blocks, \$macros) {")
                 ->subcompile($this->getNode('body'))
-                ->write("\$cmsPartialParams['body'] = ob_get_clean();");
+                ->raw('return; yield "";})()));')
+            ;
         }
 
         for ($i = 1; $i < count($this->getNode('nodes')); $i++) {
@@ -53,18 +54,18 @@ class PartialNode extends TwigNode
 
         $isAjax = $options['isAjax'] ?? false;
         if ($isAjax) {
-            $compiler->write("echo '<div data-ajax-partial=\"'.")
+            $compiler->write("yield '<div data-ajax-partial=\"'.")
                 ->subcompile($this->getNode('nodes')->getNode(0))
                 ->write(".'\">';".PHP_EOL);
         }
 
         $isLazy = $options['hasLazy'] ?? false;
         if ($isLazy) {
-            $compiler->write("echo '<div data-request=\"onAjax\" data-request-update=\"_self: true\" data-auto-submit>'.(\$cmsPartialParams['body'] ?? '').'</div>';");
+            $compiler->write("yield '<div data-request=\"onAjax\" data-request-update=\"_self: true\" data-auto-submit>'.(\$cmsPartialParams['body'] ?? '').'</div>';");
         }
         else {
             $compiler
-                ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->partialFunction(")
+                ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->partialFunction(")
                 ->subcompile($this->getNode('nodes')->getNode(0))
             ;
 
@@ -82,7 +83,7 @@ class PartialNode extends TwigNode
         }
 
         if ($isAjax) {
-            $compiler->write("echo '</div>';".PHP_EOL);
+            $compiler->write("yield '</div>';".PHP_EOL);
         }
     }
 }

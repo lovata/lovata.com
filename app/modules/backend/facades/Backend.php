@@ -16,6 +16,7 @@ use October\Rain\Support\Facade;
  * @method static \Carbon\Carbon makeCarbon(mixed $value, bool $throwException = true)
  * @method static string date(mixed $dateTime, array $options = [])
  * @method static string dateTime(mixed $dateTime, array $options = [])
+ * @method static int sizeToPixels(mixed $size)
  *
  * @see \Backend\Helpers\Backend
  */

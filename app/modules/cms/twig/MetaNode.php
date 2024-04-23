@@ -26,7 +26,7 @@ class MetaNode extends TwigNode
     {
         $compiler
             ->addDebugInfo($this)
-            ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock('meta');\n")
+            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock('meta');\n")
         ;
     }
 }

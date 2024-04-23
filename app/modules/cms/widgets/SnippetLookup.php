@@ -1,7 +1,6 @@
 <?php namespace Cms\Widgets;
 
 use Str;
-use Lang;
 use Input;
 use Cms\Classes\Theme;
 use Cms\Classes\SnippetManager;

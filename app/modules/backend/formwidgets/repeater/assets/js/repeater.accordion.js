@@ -5,46 +5,42 @@
  * - data-control="repeateraccordion" - enables the plugin on an element
  * - data-option="value" - an option with a value
  *
- * JavaScript API:
- * RepeaterFormWidgetAccordion.getOrCreateInstance(el);
  */
 'use strict';
 
 oc.Modules.register('backend.formwidget.repeater.accordion', function() {
     const BaseClass = oc.Modules.import('backend.formwidget.repeater.base');
 
-    class RepeaterFormWidgetAccordion extends BaseClass
-    {
-        constructor(element, config) {
-            super(element, config);
-        }
-
+    oc.registerControl('repeateraccordion', class RepeaterFormWidgetAccordion extends BaseClass {
         init() {
             // Overrides
             this.selectorToolbar = '> .field-repeater-toolbar:first';
             this.selectorHeader = '> .field-repeater-items > .field-repeater-item > .repeater-header';
             this.selectorSortable = '> .field-repeater-items';
             this.selectorChecked = '> .field-repeater-items > .field-repeater-item > .repeater-header input[type=checkbox]:checked';
+            super.init();
+        }
 
+        connect() {
             // Items
             var headSelect = this.selectorHeader;
+            this.$el = $(this.element);
             this.$el.on('click', headSelect, this.proxy(this.clickItemHeader));
             this.$el.on('click', headSelect + ' [data-repeater-expand]', this.proxy(this.toggleCollapse));
             this.$el.on('click', headSelect + ' [data-repeater-collapse]', this.proxy(this.toggleCollapse));
 
             this.applyExpandedItems();
-
-            super.init();
+            super.connect();
         }
 
-        dispose() {
+        disconnect() {
             // Items
             var headSelect = this.selectorHeader;
             this.$el.off('click', headSelect, this.proxy(this.clickItemHeader));
             this.$el.off('click', headSelect + ' [data-repeater-expand]', this.proxy(this.toggleCollapse));
             this.$el.off('click', headSelect + ' [data-repeater-collapse]', this.proxy(this.toggleCollapse));
 
-            super.dispose();
+            super.disconnect();
         }
 
         clickItemHeader(ev) {
@@ -148,13 +144,6 @@ oc.Modules.register('backend.formwidget.repeater.accordion', function() {
             $('[data-repeater-expand]', $list).closest('li').toggle($item.hasClass('collapsed'));
             $('[data-repeater-collapse]', $list).closest('li').toggle(!$item.hasClass('collapsed'));
         }
-    }
-
-    addEventListener('render', function() {
-        document.querySelectorAll('[data-control=repeateraccordion]').forEach(function(el) {
-            RepeaterFormWidgetAccordion.getOrCreateInstance(el);
-        });
     });
 
-    return RepeaterFormWidgetAccordion;
 });

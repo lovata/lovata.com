@@ -57,9 +57,11 @@ trait ManagesPlugins
         }
 
         // Remove via composer
-        if ($composerCode = $this->pluginManager->getComposerCode($name)) {
+        $composer = ComposerManager::instance();
+        $composerCode = $this->pluginManager->getComposerCode($name);
+
+        if ($composerCode && $composer->hasPackage($composerCode)) {
             $this->rollbackPlugin($name);
-            $composer = ComposerManager::instance();
             $composer->remove([$composerCode]);
         }
 

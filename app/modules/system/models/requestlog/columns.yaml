@@ -4,15 +4,15 @@
 
 columns:
     status_code:
-        label: system::lang.request_log.status_code
+        label: Status
         searchable: true
         width: 100px
 
     url:
-        label: system::lang.request_log.url
+        label: URL
         searchable: true
         cssClass: column-break-word
 
     count:
-        label: system::lang.request_log.count
+        label: Counter
         width: 150px

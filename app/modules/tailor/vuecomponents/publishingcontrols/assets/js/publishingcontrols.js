@@ -2,8 +2,6 @@
  * Tailor entry publishing controls Vue component
  */
 oc.Modules.register('tailor.publishingcontrols', function () {
-    let domTools = oc.Modules.import('tailor.publishingcontrols.domtools');
-
     Vue.component('tailor-component-publishingcontrols', {
         props: {
             modelName: {
@@ -68,32 +66,28 @@ oc.Modules.register('tailor.publishingcontrols', function () {
                 this.$refs.popover.hide();
             },
 
-            makeFieldName(fieldName) {
-                return this.modelName + "[" + fieldName + "]";
-            },
-
             getStateFromDom() {
                 let result = {};
 
-                let enabledFormGroup = domTools.findFormGroup(this.makeFieldName('is_enabled'));
+                let enabledFormGroup = this.domTools.findFormGroup('is_enabled');
                 if (enabledFormGroup) {
                     result.enabled = enabledFormGroup.find('input[type=checkbox]').is(':checked');
                 }
 
-                let slugFormGroup = domTools.findFormGroup(this.makeFieldName('slug'));
+                let slugFormGroup = this.domTools.findFormGroup('slug');
                 if (slugFormGroup) {
                     result.slug = slugFormGroup.find('input[type=text]').val().trim();
                 }
 
-                let publishedDateFormGroup = domTools.findFormGroup(this.makeFieldName('published_at'));
-                let expiryDateFormGroup = domTools.findFormGroup(this.makeFieldName('expired_at'));
+                let publishedDateFormGroup = this.domTools.findFormGroup('published_at');
+                let expiryDateFormGroup = this.domTools.findFormGroup('expired_at');
                 if (publishedDateFormGroup && expiryDateFormGroup) {
                     result.publishDate = publishedDateFormGroup.find('input[type=text]').val().trim();
                     result.expiryDate = expiryDateFormGroup.find('input[type=text]').val().trim();
                 }
 
                 if (this.entryState.initial.showTreeControls) {
-                    let parentIdFormGroup = domTools.findFormGroup(this.makeFieldName('parent_id'));
+                    let parentIdFormGroup = this.domTools.findFormGroup('parent_id');
                     if (parentIdFormGroup) {
                         result.parentId = parentIdFormGroup.find('select').val().trim();
                     }
@@ -103,8 +97,8 @@ oc.Modules.register('tailor.publishingcontrols', function () {
             },
 
             hasDateControls() {
-                return domTools.findFormGroup(this.makeFieldName('published_at')) &&
-                    domTools.findFormGroup(this.makeFieldName('expired_at'));
+                return this.domTools.findFormGroup('published_at') &&
+                    this.domTools.findFormGroup('expired_at');
             },
 
             synchStateFromDom(isInit, ev) {
@@ -127,8 +121,8 @@ oc.Modules.register('tailor.publishingcontrols', function () {
             },
 
             moveDateControls() {
-                let publishedEl = domTools.findFormGroup(this.makeFieldName('published_at'));
-                let expiredEl = domTools.findFormGroup(this.makeFieldName('expired_at'));
+                let publishedEl = this.domTools.findFormGroup('published_at');
+                let expiredEl = this.domTools.findFormGroup('expired_at');
 
                 if (expiredEl && publishedEl) {
                     $(this.$refs.publishDate).append(publishedEl);
@@ -140,7 +134,7 @@ oc.Modules.register('tailor.publishingcontrols', function () {
                 setTimeout(_ => {
                     this.synchStateFromDom(true);
 
-                    let slugEl = domTools.findFormGroup(this.makeFieldName('slug'));
+                    let slugEl = this.domTools.findFormGroup('slug');
                     if (slugEl) {
                         slugEl.find('input[type=text]').on('change keyup paste', ev => this.synchStateFromDom(false, ev));
                     }
@@ -151,8 +145,10 @@ oc.Modules.register('tailor.publishingcontrols', function () {
                     }
 
                     if (this.entryState.initial.showTreeControls) {
-                        formGroup = domTools.findFormGroup(this.makeFieldName('parent_id'));
-                        formGroup.find('select').on('change', _ => this.synchStateFromDom());
+                        formGroup = this.domTools.findFormGroup('parent_id');
+                        if (formGroup) {
+                            formGroup.find('select').on('change', _ => this.synchStateFromDom());
+                        }
                     }
                 }, 1)
             },
@@ -160,7 +156,7 @@ oc.Modules.register('tailor.publishingcontrols', function () {
             initDomListeners() {
                 this.moveDateControls();
 
-                let formGroup = domTools.findFormGroup(this.makeFieldName('is_enabled'));
+                let formGroup = this.domTools.findFormGroup('is_enabled');
                 if (formGroup) {
                     formGroup.find('input[type=checkbox]').on('change', _ => this.synchStateFromDom());
                 }
@@ -168,7 +164,7 @@ oc.Modules.register('tailor.publishingcontrols', function () {
 
             onRemovePublishDateClick() {
                 this.showPublishDate = false;
-                let formGroup = domTools.findFormGroup(this.makeFieldName('published_at'));
+                let formGroup = this.domTools.findFormGroup('published_at');
                 formGroup.find('input[type=text]').val('');
                 formGroup.find('input[type=hidden]').val('');
                 this.synchStateFromDom();
@@ -176,7 +172,7 @@ oc.Modules.register('tailor.publishingcontrols', function () {
 
             onRemoveExpiryDateClick() {
                 this.showExpiryDate = false;
-                let formGroup = domTools.findFormGroup(this.makeFieldName('expired_at'));
+                let formGroup = this.domTools.findFormGroup('expired_at');
                 formGroup.find('input[type=text]').val('');
                 formGroup.find('input[type=hidden]').val('');
                 this.synchStateFromDom();
@@ -185,7 +181,7 @@ oc.Modules.register('tailor.publishingcontrols', function () {
             onShowPublishDateClick() {
                 this.showPublishDate = true;
                 Vue.nextTick(_ => {
-                    let formGroup = domTools.findFormGroup(this.makeFieldName('published_at'));
+                    let formGroup = this.domTools.findFormGroup('published_at');
                     formGroup.find('input[type=text]').trigger('click');
                 });
             },
@@ -193,7 +189,7 @@ oc.Modules.register('tailor.publishingcontrols', function () {
             onShowExpiryDateClick() {
                 this.showExpiryDate = true;
                 Vue.nextTick(_ => {
-                    let formGroup = domTools.findFormGroup(this.makeFieldName('expired_at'));
+                    let formGroup = this.domTools.findFormGroup('expired_at');
                     formGroup.find('input[type=text]').trigger('click');
                 });
             },
@@ -209,11 +205,14 @@ oc.Modules.register('tailor.publishingcontrols', function () {
         },
         mounted: function onMounted() {
             Vue.nextTick(() => {
-                $(this.$refs.enabled).append(domTools.findFormGroup(this.makeFieldName('is_enabled')));
-                $(this.$refs.slug).append(domTools.findFormGroup(this.makeFieldName('slug')));
+                this.domTools = oc.Modules.import('tailor.publishingcontrols.domtools').newDomTools();
+                this.domTools.setForm(this.$el.closest('form'), this.modelName);
+
+                $(this.$refs.enabled).append(this.domTools.findFormGroup('is_enabled'));
+                $(this.$refs.slug).append(this.domTools.findFormGroup('slug'));
 
                 if (this.entryState.initial.showTreeControls) {
-                    $(this.$refs.parentId).append(domTools.findFormGroup(this.makeFieldName('parent_id')));
+                    $(this.$refs.parentId).append(this.domTools.findFormGroup('parent_id'));
                 }
 
                 this.initDomListeners();

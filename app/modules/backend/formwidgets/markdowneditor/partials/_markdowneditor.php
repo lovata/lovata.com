@@ -10,7 +10,6 @@
         data-legacy-mode="<?= $legacyMode ? 1 : 0 ?>"
         data-lang-fullscreen="<?= e(trans('backend::lang.form.toggle_full_screen')) ?>"
         <?php if ($externalToolbarAppState): ?>data-external-toolbar-app-state="<?= e($externalToolbarAppState)?>"<?php endif ?>
-        <?php if ($externalToolbarEventBus): ?>data-external-toolbar-event-bus="<?= e($externalToolbarEventBus)?>"<?php endif ?>
         <?php if ($useMediaManager): ?>data-use-media-manager="true"<?php endif ?>
         <?php if (!$sideBySide): ?>data-side-by-side="false"<?php endif ?>
         data-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>">

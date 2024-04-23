@@ -1,0 +1,106 @@
+.dashboard-report-widget-chart {
+    .widget-chart-container {
+        position: relative;
+        width: 100%;
+        height: 250px;
+
+        &.error {
+            display: none!important;
+        }
+
+        canvas {
+            height: 250px!important;
+            width: 100%!important;
+        }
+    }
+
+    &.loading {
+        .widget-chart-container {
+            canvas {
+                display: none!important;
+            }
+
+            &:before, &:after {
+                content: '';
+                position: absolute;
+                width: 200%;
+                height: 100%;
+                top: 0;
+                z-index: 0;
+            }
+    
+            &:before {
+                background: transparent url('../../../../assets/images/dashboard/graph-loading-1.svg') repeat-x 0 50%;
+                -webkit-animation: board-widget-graph-animation 8s infinite alternate ease-in-out;
+                animation: board-widget-graph-animation 8s infinite alternate ease-in-out;
+            }
+    
+            &:after {
+                background: transparent url('../../../../assets/images/dashboard/graph-loading-2.svg') repeat-x 0 50%;
+                -webkit-animation: board-widget-graph-animation 8s infinite alternate-reverse ease-in-out;
+                animation: board-widget-graph-animation 8s infinite alternate-reverse ease-in-out;
+            }
+        }
+    }
+
+    .widget-error {
+        margin: 30px auto;
+        max-width: 400px;
+        text-align: center;
+
+        span.ph {
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 56px;
+        }
+    }
+
+    .totals {
+        display: flex;
+        gap: 25px;
+        flex-direction: row;
+
+        .total-cell {
+            text-align: right;
+            
+            .total-name {
+                font-weight: 500;
+                display: flex;
+                gap: 5px;
+                align-items: center;
+                justify-content: flex-end;
+
+                .total-color {
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 6px;
+                    border: 1px solid white;
+                }
+            }
+
+            .skeleton-container {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                
+                .data-skeleton {
+                    background-color: @color-widget-skeleton;
+                    opacity: @opacity-widget-skeleton;
+                    border-radius: 40px;
+    
+                    &.skeleton-name {
+                        height: 14px;
+                        margin: 3px 0;
+                        width: 60px;
+                        margin-bottom: 9px;
+                    }
+    
+                    &.skeleton-value {
+                        height: 28px;
+                        width: 40px;
+                    }
+                }
+            }
+        }
+    }
+}

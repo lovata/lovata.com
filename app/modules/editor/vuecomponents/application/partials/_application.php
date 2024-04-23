@@ -1,5 +1,5 @@
 <div
-    class="layout-cell layout-relative"
+    class="position-relative h-100"
     :class="{'application-sidebar-hidden': sidebarHidden || isDirectDocumentMode}"
     data-lang-reveal-in-sidebar="<?= e(trans('editor::lang.common.reveal_in_sidebar')) ?>"
     v-oc-hotkey:[quickViewHotkey]="onShowQuickAccess"

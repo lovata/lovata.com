@@ -5,50 +5,31 @@
  * - data-control="colorpicker" - enables the plugin on an element
  * - data-data-locker="input#locker" - Input element to store and restore the chosen color
  *
- * JavaScript API:
- * PaletteEditorFormWidget.getOrCreateInstance(el, { dataLocker: 'input#locker' })
+ * Config:
+ * - colorModeSelector: '#selector'
  */
 
 'use strict';
 
-class PaletteEditorFormWidget extends oc.FoundationPlugin
-{
-    constructor(element, config) {
-        super(element, config);
-
+oc.registerControl('paletteeditor', class extends oc.ControlBase {
+    init() {
         this.presetDefinitions = window.backendPaletteEditorFormWidgetPresetDefinitions;
         this.isUserEvent = true;
 
         this.$presetSelect = this.element.querySelector('[data-palette-preset-selection]');
         this.$previewStylesheet = this.element.querySelector('[data-palette-stylesheet]');
         this.$activeColorModeSelector = this.element.querySelector('[data-palette-color-mode]');
-        this.$colorModeSelector = document.querySelector(this.config.colorModeSelector);
-
-        oc.Events.on(document, 'change', this.config.colorModeSelector, this.proxy(this.onChangeColorMode));
-        oc.Events.on(this.element, 'change', '[data-palette-preset-selection]', this.proxy(this.onChangePreset));
-        oc.Events.on(this.element, 'change', '.field-colorpicker input.form-control', this.proxy(this.onChangeColorPicker));
-        oc.Events.on(this.element, 'click', '.palette-show-custom', this.proxy(this.onClickCustomPalette));
-
-        this.markDisposable();
+        this.$colorModeSelector = document.querySelector(this.config.colorModeSelector || '#selector');
     }
 
-    dispose() {
-        oc.Events.off(document, 'change', this.config.colorModeSelector, this.proxy(this.onChangeColorMode));
-        oc.Events.off(this.element, 'change', '[data-palette-preset-selection]', this.proxy(this.onChangePreset));
-        oc.Events.off(this.element, 'change', '.field-colorpicker input.form-control', this.proxy(this.onChangeColorPicker));
-        oc.Events.off(this.element, 'click', '.palette-show-custom', this.proxy(this.onClickCustomPalette));
-
-        super.dispose();
-    }
-
-    static get DATANAME() {
-        return 'ocPaletteEditor';
-    }
-
-    static get DEFAULTS() {
-        return {
-            colorModeSelector: '#selector',
+    connect() {
+        if (this.$colorModeSelector) {
+            this.listen('change', this.$colorModeSelector, this.onChangeColorMode);
         }
+
+        this.listen('change', '[data-palette-preset-selection]', this.onChangePreset);
+        this.listen('change', '.field-colorpicker input.form-control', this.onChangeColorPicker);
+        this.listen('click', '.palette-show-custom', this.onClickCustomPalette);
     }
 
     onChangePreset(event) {
@@ -134,10 +115,4 @@ class PaletteEditorFormWidget extends oc.FoundationPlugin
         oc.Events.dispatch(eventName, detail);
         this.isUserEvent = true;
     }
-}
-
-addEventListener('render', function() {
-    document.querySelectorAll('[data-control=paletteeditor]').forEach(function(el) {
-        PaletteEditorFormWidget.getOrCreateInstance(el);
-    });
 });

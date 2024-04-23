@@ -2,6 +2,7 @@
 
 use Illuminate\Console\Command;
 use System\Helpers\Cache as CacheHelper;
+use System\Classes\UpdateManager;
 use October\Rain\Composer\Manager as ComposerManager;
 use Exception;
 
@@ -32,6 +33,11 @@ class OctoberUpdate extends Command
     {
         $composer = ComposerManager::instance();
         $composer->setOutputCommand($this, $this->input);
+
+        if (!UpdateManager::instance()->canUpdateProject()) {
+            $this->output->error(__("License is unpaid or has expired. Please visit octobercms.com to obtain a license."));
+            exit(1);
+        }
 
         $this->output->section(__('Updating package manager'));
         try {

@@ -26,8 +26,8 @@ class ScriptsNode extends TwigNode
     {
         $compiler
             ->addDebugInfo($this)
-            ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->assetsFunction('js');\n")
-            ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock('scripts');\n")
+            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->assetsFunction('js');\n")
+            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock('scripts');\n")
         ;
     }
 }

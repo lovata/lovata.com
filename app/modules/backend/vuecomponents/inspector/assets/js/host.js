@@ -1,12 +1,16 @@
 oc.Modules.register('backend.component.inspector.inspectorhost', function () {
     var InspectorHost = function () {
-        this.showModal = function showModal(title, obj, dataSchema, uniqueId, options) {
+        this.showModal = function showModal(title, obj, dataSchema, uniqueId, options, parentObj) {
             if (typeof title !== 'string' || !title.length) {
                 throw new Error('Inspector title is a required string');
             }
 
             if (typeof obj !== 'object') {
-                throw new Error('Inspector Object be an object');
+                throw new Error('Inspector Object must be an object');
+            }
+
+            if (parentObj !== undefined && typeof parentObj !== 'object') {
+                throw new Error('Inspector Parent Object must be an object');
             }
 
             if (!$.isArray(dataSchema)) {
@@ -41,6 +45,10 @@ oc.Modules.register('backend.component.inspector.inspectorhost', function () {
                 if (options.beforeApplyCallback && typeof options.beforeApplyCallback !== 'function') {
                     throw new Error('options.beforeApplyCallback must be a function');
                 }
+
+                if (options.liveMode && typeof options.liveMode !== 'boolean') {
+                    throw new Error('options.liveMode must be boolean');
+                }
             }
 
             options = options || {};
@@ -54,12 +62,14 @@ oc.Modules.register('backend.component.inspector.inspectorhost', function () {
                         description: options.description || '',
                         dataSchema: dataSchema,
                         data: {
-                            obj: obj
+                            obj: obj,
+                            parentObj: parentObj
                         },
                         buttonText: options.buttonText,
                         size: options.size || 'normal',
                         uniqueId: uniqueId,
-                        resizableWidth: options.resizableWidth
+                        resizableWidth: options.resizableWidth,
+                        liveMode: options.liveMode
                     }
                 }),
                     applyClicked = false;

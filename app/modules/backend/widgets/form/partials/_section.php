@@ -24,7 +24,9 @@
             <?= $tabs->linkable ? 'data-linkable' : '' ?>
             <?php if (iterator_count($tabs) === 1): ?>data-single-tab<?php endif ?>
             data-control="tab">
-            <?= $this->makePartial('form_tabs', ['tabs' => $tabs]) ?>
+            <?= $this->makePartial($this->surveyMode ? 'form_tabs_survey' : 'form_tabs', [
+                'tabs' => $tabs
+            ]) ?>
         </div>
 
     <?php endif ?>

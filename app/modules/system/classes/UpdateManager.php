@@ -1,12 +1,12 @@
 <?php namespace System\Classes;
 
 use App;
+use Date;
 use File;
 use Event;
 use Schema;
 use Config;
 use System as SystemHelper;
-use Carbon\Carbon;
 use Cms\Classes\ThemeManager;
 use System\Models\Parameter;
 use System\Models\PluginVersion;
@@ -15,15 +15,12 @@ use Exception;
 /**
  * UpdateManager handles the CMS install and update process.
  *
- * @method static UpdateManager instance()
- *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
 class UpdateManager
 {
     use \System\Traits\NoteMaker;
-    use \October\Rain\Support\Traits\Singleton;
     use \System\Classes\UpdateManager\ManagesApp;
     use \System\Classes\UpdateManager\ManagesModules;
     use \System\Classes\UpdateManager\ManagesPlugins;
@@ -57,49 +54,33 @@ class UpdateManager
     protected $versionManager;
 
     /**
-     * @var \Illuminate\Database\Migrations\Migrator
-     */
-    protected $migrator;
-
-    /**
-     * @var \Illuminate\Database\Migrations\DatabaseMigrationRepository
-     */
-    protected $repository;
-
-    /**
      * @var int migrateCount number of migrations that occurred.
      */
     protected $migrateCount = 0;
 
     /**
-     * Initialize this singleton.
+     * __construct this class
      */
-    protected function init()
+    public function __construct()
     {
         $this->pluginManager = PluginManager::instance();
-        $this->themeManager = class_exists(ThemeManager::class) ? ThemeManager::instance() : null;
+        $this->themeManager = SystemHelper::hasModule('Cms') ? ThemeManager::instance() : null;
         $this->versionManager = VersionManager::instance();
         $this->tempDirectory = temp_path();
         $this->baseDirectory = base_path();
-        $this->bindContainerObjects();
 
-        /*
-         * Ensure temp directory exists
-         */
+        // Ensure temp directory exists
         if (!File::isDirectory($this->tempDirectory)) {
             File::makeDirectory($this->tempDirectory, 0755, true);
         }
     }
 
     /**
-     * These objects are "soft singletons" and may be lost when
-     * the IoC container reboots. This provides a way to rebuild
-     * for the purposes of unit testing.
+     * instance creates a new instance of this singleton
      */
-    public function bindContainerObjects()
+    public static function instance(): static
     {
-        $this->migrator = App::make('migrator');
-        $this->repository = App::make('migration.repository');
+        return App::make('system.updater');
     }
 
     /**
@@ -111,7 +92,7 @@ class UpdateManager
 
         $firstUp = !Schema::hasTable($this->getMigrationTableName());
         if ($firstUp) {
-            $this->repository->createRepository();
+            $this->getRepository()->createRepository();
             $this->note('Migration table created');
         }
 
@@ -182,9 +163,10 @@ class UpdateManager
         }
 
         // Retry period not passed, skipping.
-        if (!$force
-            && ($retryTimestamp = Parameter::get('system::update.retry'))
-            && Carbon::createFromTimeStamp($retryTimestamp)->isFuture()
+        if (
+            !$force &&
+            ($retryTimestamp = Parameter::get('system::update.retry')) &&
+            Date::createFromTimeStamp($retryTimestamp)->isFuture()
         ) {
             return (array) Parameter::get('system::update.versions');
         }
@@ -209,7 +191,7 @@ class UpdateManager
 
         // Remember update count, set retry date
         Parameter::set('system::update.versions', $versions);
-        Parameter::set('system::update.retry', Carbon::now()->addHours(24)->timestamp);
+        Parameter::set('system::update.retry', Date::now()->addHours(24)->timestamp);
 
         return $versions;
     }
@@ -283,6 +265,9 @@ class UpdateManager
      */
     public function uninstall()
     {
+        // Rollback app
+        $this->getMigrator()->reset([app_path('database/migrations')]);
+
         // Rollback plugins
         $plugins = array_reverse($this->pluginManager->getPlugins());
         foreach ($plugins as $name => $plugin) {
@@ -290,20 +275,14 @@ class UpdateManager
         }
 
         // Register module migration files
-        $paths = [
-            app_path('database/migrations')
-        ];
+        $paths = [];
 
         foreach (SystemHelper::listModules() as $module) {
-            $paths[] = base_path() . '/modules/'.strtolower($module).'/database/migrations';
+            $paths[] = base_path('modules/'.strtolower($module).'/database/migrations');
         }
 
         // Rollback modules
-        if (isset($this->notesOutput)) {
-            $this->migrator->setOutput($this->notesOutput);
-        }
-
-        $this->migrator->reset($paths);
+        $this->getMigrator()->reset($paths);
 
         Schema::dropIfExists($this->getMigrationTableName());
     }
@@ -322,5 +301,39 @@ class UpdateManager
     protected function getComposerVersionConstraint($versionStr)
     {
         return $versionStr ? '^'.$versionStr : '*';
+    }
+
+    /**
+     * getMigrator returns the migrator service
+     * @return \Illuminate\Database\Migrations\Migrator
+     */
+    protected function getMigrator()
+    {
+        $migrator = App::make('migrator');
+
+        if (isset($this->notesOutput)) {
+            $migrator->setOutput($this->notesOutput);
+        }
+
+        return $migrator;
+    }
+
+    /**
+     * getRepository returns the migrator repository
+     * @return \Illuminate\Database\Migrations\DatabaseMigrationRepository
+     */
+    protected function getRepository()
+    {
+        return App::make('migration.repository');
+    }
+
+    /**
+     * getFilePath calculates a file path for a file code
+     * @param string $fileCode
+     * @return string
+     */
+    protected function getFilePath($fileCode)
+    {
+        return temp_path(md5($fileCode) . '.arc');
     }
 }

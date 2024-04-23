@@ -1,5 +1,7 @@
-<div class="fileupload-config-form">
-    <?= Form::open() ?>
+<div id="<?= $this->getId('popup') ?>" class="fileupload-config-form">
+    <?= Form::open([
+        'data-request-parent-form' => "#{$this->getId()}"
+    ]) ?>
         <input type="hidden" name="file_id" value="<?= $file->id ?>" />
         <input type="hidden" name="fileupload_flag" value="1" />
 
@@ -29,17 +31,27 @@
                 class="btn btn-primary"
                 data-request="<?= $this->getEventHandler('onSaveAttachmentConfig') ?>"
                 data-popup-load-indicator>
-                <?= e(trans('backend::lang.form.save')) ?>
+                <?= __("Save") ?>
             </button>
-            <button
-                type="button"
-                class="btn btn-default"
-                data-dismiss="popup">
-                <?= e(trans('backend::lang.form.cancel')) ?>
-            </button>
+            <span class="btn-text">
+                <span class="button-separator"><?= __("or") ?></span>
+                <a
+                    href="javascript:;"
+                    class="btn btn-link p-0"
+                    data-dismiss="popup">
+                    <?= __("Cancel") ?>
+                </a>
+            </span>
             <a href="<?= $file->pathUrl ?>" class="pull-right btn btn-link fileupload-url-button" target="_blank">
                 <i class="oc-icon-link"></i><?= __("Attachment URL") ?>
             </a>
         </div>
     <?= Form::close() ?>
 </div>
+
+<script>
+    setTimeout(
+        function(){ $('#<?= $this->getId('popup') ?> input.form-control:first').focus() },
+        310
+    )
+</script>

@@ -1,4 +1,4 @@
-<div class="panel no-padding-bottom border-top">
+<div class="media-panel pb-0 border-top">
     <div class="form-buttons">
         <div class="pull-right">
             <button

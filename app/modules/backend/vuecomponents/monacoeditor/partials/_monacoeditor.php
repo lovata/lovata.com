@@ -15,7 +15,7 @@
         ></backend-component-tabs>
     </div>
 
-    <div class="flex-layout-item stretch layout-relative" style="overflow: hidden">
+    <div class="flex-layout-item stretch position-relative h-100" style="overflow: hidden">
         <div
             class="flex-layout-column fill-container"
             :class="editorContainerCssClass"

@@ -8,7 +8,7 @@
  * JavaScript API:
  * $('div#someElement').groupFilter({ dataLocker: 'input#locker' })
  *
- * Dependences:
+ * Dependencies:
  * - Some other plugin (filename.js)
  */
 

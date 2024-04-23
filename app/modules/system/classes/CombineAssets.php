@@ -3,6 +3,7 @@
 use App;
 use Url;
 use File;
+use Site;
 use Lang;
 use Event;
 use Cache;
@@ -33,15 +34,11 @@ use DateTime;
  * - cms.enable_asset_minify - Compress assets using minification
  * - cms.enable_asset_deep_hashing - Advanced caching of imports
  *
- * @method static CombineAssets instance()
- *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
 class CombineAssets
 {
-    use \October\Rain\Support\Traits\Singleton;
-
     /**
      * @var array jsExtensions is a list of known JavaScript extensions.
      */
@@ -84,14 +81,9 @@ class CombineAssets
     public $useDeepHashing = false;
 
     /**
-     * @var array callbacks cache of registration callbacks.
+     * __construct this class
      */
-    protected static $callbacks = [];
-
-    /**
-     * init is a singleton constructor
-     */
-    public function init()
+    public function __construct()
     {
         // Default config
         $this->useCache = Config::get('cms.enable_asset_cache', false);
@@ -123,11 +115,32 @@ class CombineAssets
         $this->registerAlias('framework.bundle.js', '~/modules/system/assets/js/framework-bundle.min.js');
         $this->registerAlias('framework.bundle', '~/modules/system/assets/css/framework-extras.css');
         $this->registerAlias('framework.bundle.css', '~/modules/system/assets/css/framework-extras.css');
+    }
 
-        // Deferred registration logic
-        foreach (static::$callbacks as $callback) {
-            $callback($this);
-        }
+    /**
+     * instance creates a new instance of this singleton
+     */
+    public static function instance(): static
+    {
+        return App::make('system.combiner');
+    }
+
+    /**
+     * registerCallback registers a callback function that defines bundles.
+     * The callback function should register bundles by calling the manager's
+     * `registerBundle` method. This instance is passed to the callback
+     * function as an argument. Usage:
+     *
+     *     CombineAssets::registerCallback(function ($combiner) {
+     *         $combiner->registerBundle('~/modules/backend/assets/less/october.less');
+     *     });
+     *
+     * @deprecated this will be removed in a later version
+     * @param callable $callback A callable function.
+     */
+    public static function registerCallback(callable $callback)
+    {
+        App::extendInstance('system.combiner', $callback);
     }
 
     /**
@@ -151,12 +164,12 @@ class CombineAssets
      *     CombineAssets::combine($assets, base_path('plugins/acme/blog'));
      *
      * @param array $assets Collection of assets
-     * @param string $localPath Prefix all assets with this path (optional)
+     * @param string $pathPrefix Prefix all assets with this path (optional)
      * @return string URL to contents.
      */
-    public static function combine($assets = [], $localPath = null)
+    public static function combine($assets = [], $basePath = null)
     {
-        return self::instance()->prepareRequest($assets, $localPath);
+        return self::instance()->prepareRequest($assets, $basePath);
     }
 
     /**
@@ -175,21 +188,21 @@ class CombineAssets
      *
      * @param array $assets Collection of assets
      * @param string $destination Write the combined file to this location
-     * @param string $localPath Prefix all assets with this path (optional)
+     * @param string $pathPrefix Prefix all assets with this path (optional)
      * @return void
      */
-    public function combineToFile($assets, $destination, $localPath = null)
+    public function combineToFile($assets, $destination, $basePath = null)
     {
-        // Prefix all assets
-        if ($localPath) {
-            if (substr($localPath, -1) !== '/') {
-                $localPath = $localPath.'/';
+        // Prefix all assets with base path
+        if ($basePath) {
+            if (substr($basePath, -1) !== '/') {
+                $basePath = $basePath.'/';
             }
-            $assets = array_map(function ($asset) use ($localPath) {
+            $assets = array_map(function ($asset) use ($basePath) {
                 if (substr($asset, 0, 1) === '@') {
                     return $asset;
                 }
-                return $localPath.$asset;
+                return $basePath.$asset;
             }, $assets);
         }
 
@@ -213,7 +226,7 @@ class CombineAssets
     {
         $cacheInfo = $this->getCache($cacheKey);
         if (!$cacheInfo) {
-            throw new ApplicationException(Lang::get('system::lang.combiner.not_found', ['name'=>$cacheKey]));
+            throw new ApplicationException(__("The combiner file ':name' is not found.", ['name' => e($cacheKey)]));
         }
 
         // Ensure defaults
@@ -224,13 +237,14 @@ class CombineAssets
             'files' => null,
             'path' => null,
             'extension' => null,
-            'theme' => null
+            'site' => null,
+            'theme' => null,
         ];
 
-        $this->setActiveTheme($cacheInfo['theme']);
+        $this->setActiveSiteContext($cacheInfo['site'], $cacheInfo['theme']);
         $this->setLocalPath($cacheInfo['path']);
 
-        // Analyse cache information
+        // Analyze cache information
         $lastModifiedTime = gmdate("D, d M Y H:i:s \G\M\T", $cacheInfo['lastMod']);
         $mimeType = $cacheInfo['extension'] === 'css'
             ? 'text/css'
@@ -323,16 +337,16 @@ class CombineAssets
      * prepareRequest combines asset file references of a single type to produce
      * a URL reference to the combined contents.
      * @param array $assets List of asset files.
-     * @param string $localPath File extension, used for aesthetic purposes only.
-     * @return string URL to contents.
+     * @param string $basePath
+     * @return string
      */
-    protected function prepareRequest(array $assets, $localPath = null)
+    protected function prepareRequest(array $assets, $basePath = null)
     {
-        if (substr($localPath, -1) !== '/') {
-            $localPath = $localPath.'/';
+        if ($basePath !== null && substr($basePath, -1) !== '/') {
+            $basePath = $basePath.'/';
         }
 
-        $this->setLocalPath($localPath);
+        $this->setLocalPath($basePath);
 
         [$assets, $extension] = $this->prepareAssets($assets);
 
@@ -351,9 +365,10 @@ class CombineAssets
                 'etag' => $cacheKey,
                 'lastMod' => $lastMod,
                 'files' => $assets,
-                'path' => $this->localPath,
+                'path' => $basePath,
                 'extension' => $extension,
-                'theme' => Config::get('cms.active_theme')
+                'site' => Site::getSiteIdFromContext(),
+                'theme' => Config::get('cms.active_theme'),
             ];
 
             $this->putCache($cacheKey, $cacheInfo);
@@ -400,17 +415,24 @@ class CombineAssets
         $actionExists = Route::getRoutes()->getByAction($combineAction) !== null;
 
         if ($actionExists) {
-            return Url::action($combineAction, [$outputFilename], false);
+            $result = Url::action($combineAction, [$outputFilename], false);
+        }
+        else {
+            $result = '/combine/'.$outputFilename;
         }
 
-        return '/combine/'.$outputFilename;
+        return Url::toRelative($result);
     }
 
     /**
-     * setActiveTheme
+     * setActiveSiteContext sets the theme and site, if provided
      */
-    protected function setActiveTheme($theme = null)
+    protected function setActiveSiteContext($siteId = null, $theme = null)
     {
+        if ($siteId && Site::hasFeature('system_asset_combiner')) {
+            Site::setActiveSiteId($siteId);
+        }
+
         if ($theme) {
             Config::set('cms.active_theme', $theme);
         }
@@ -448,27 +470,6 @@ class CombineAssets
 
         $path = str_replace('.', '-', $path).'/';
         return $path;
-    }
-
-    //
-    // Registration
-    //
-
-    /**
-     * Registers a callback function that defines bundles.
-     * The callback function should register bundles by calling the manager's
-     * `registerBundle` method. This instance is passed to the callback
-     * function as an argument. Usage:
-     *
-     *     CombineAssets::registerCallback(function ($combiner) {
-     *         $combiner->registerBundle('~/modules/backend/assets/less/october.less');
-     *     });
-     *
-     * @param callable $callback A callable function.
-     */
-    public static function registerCallback(callable $callback)
-    {
-        self::$callbacks[] = $callback;
     }
 
     //
@@ -511,7 +512,7 @@ class CombineAssets
     //
 
     /**
-     * Registers bundle.
+     * registerBundle
      * @param string|array $files Files to be registered to bundle
      * @param string $destination Destination file will be compiled to.
      * @param string $extension Extension name. Eg: css
@@ -557,7 +558,7 @@ class CombineAssets
     }
 
     /**
-     * Returns bundles.
+     * getBundles returns bundles.
      * @param string $extension Extension name. Eg: css
      * @return self
      */
@@ -579,7 +580,7 @@ class CombineAssets
     //
 
     /**
-     * Register an alias to use for a longer file reference.
+     * registerAlias to use for a longer file reference.
      * @param string $alias Alias name. Eg: framework
      * @param string $file Path to file to use for alias
      * @param string $extension Extension name. Eg: css
@@ -603,7 +604,7 @@ class CombineAssets
     }
 
     /**
-     * Clears any registered aliases.
+     * resetAliases clears any registered aliases.
      * @param string $extension Extension name. Eg: css
      * @return self
      */
@@ -620,7 +621,7 @@ class CombineAssets
     }
 
     /**
-     * Returns aliases.
+     * getAliases returns aliases.
      * @param string $extension Extension name. Eg: css
      * @return self
      */
@@ -642,7 +643,7 @@ class CombineAssets
     //
 
     /**
-     * Stores information about a asset collection against
+     * putCache stores information about a asset collection against
      * a cache identifier.
      * @param string $cacheKey Cache identifier.
      * @param array $cacheInfo List of asset files.
@@ -664,7 +665,7 @@ class CombineAssets
     }
 
     /**
-     * Look up information about a cache identifier.
+     * getCache looks up information about a cache identifier.
      * @param string $cacheKey Cache identifier
      * @return array Cache information
      */
@@ -680,7 +681,7 @@ class CombineAssets
     }
 
     /**
-     * Builds a unique string based on assets
+     * getCacheKey builds a unique string based on assets
      * @param array $assets Asset files
      * @return string Unique identifier
      */
@@ -691,6 +692,10 @@ class CombineAssets
         // Deep hashing
         if ($this->useDeepHashing) {
             $cacheKey .= $this->getAssetic()->getDeepHashFromAssets($assets);
+        }
+
+        if (Site::hasFeature('system_asset_combiner')) {
+            $cacheKey .= Site::getSiteIdFromContext();
         }
 
         /**
@@ -710,8 +715,7 @@ class CombineAssets
     }
 
     /**
-     * Resets the combiner cache
-     * @return void
+     * resetCache resets the combiner cache
      */
     public static function resetCache()
     {
@@ -729,12 +733,11 @@ class CombineAssets
     }
 
     /**
-     * Adds a cache identifier to the index store used for
-     * performing a reset of the cache.
+     * putCacheIndex adds a cache identifier to the index store used for
+     * performing a reset of the cache. Returns false if identifier is already in store
      * @param string $cacheKey Cache identifier
-     * @return bool Returns false if identifier is already in store
      */
-    protected function putCacheIndex($cacheKey)
+    protected function putCacheIndex($cacheKey): bool
     {
         $index = [];
 

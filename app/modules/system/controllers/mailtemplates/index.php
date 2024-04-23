@@ -2,17 +2,17 @@
     <ul class="nav nav-tabs">
         <li class="<?= $activeTab == 'templates' ? 'active' : '' ?>">
             <a href="#templates" data-tab-url="<?= Backend::url('system/mailtemplates/index/templates') ?>">
-                <?= e(trans('system::lang.mail_templates.templates')) ?>
+                <?= __("Templates") ?>
             </a>
         </li>
         <li class="<?= $activeTab == 'layouts' ? 'active' : '' ?>">
             <a href="#layouts" data-tab-url="<?= Backend::url('system/mailtemplates/index/layouts') ?>">
-                <?= e(trans('system::lang.mail_templates.layouts')) ?>
+                <?= __("Layouts") ?>
             </a>
         </li>
         <li class="<?= $activeTab == 'partials' ? 'active' : '' ?>">
             <a href="#partials" data-tab-url="<?= Backend::url('system/mailtemplates/index/partials') ?>">
-                <?= e(trans('system::lang.mail_templates.partials')) ?>
+                <?= __("Partials") ?>
             </a>
         </li>
     </ul>

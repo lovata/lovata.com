@@ -11,7 +11,7 @@
                 name="code"
                 id="pluginSearchInput"
                 class="product-search-input search-input-lg typeahead"
-                placeholder="<?= e(trans('system::lang.plugins.search')) ?>"
+                placeholder="<?= __("search plugins to install...") ?>"
                 data-search-type="plugin"
                 />
             <i class="icon icon-search"></i>

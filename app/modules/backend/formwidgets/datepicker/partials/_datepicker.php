@@ -47,7 +47,7 @@
             id="<?= $field->getId() ?>"
             value="<?= e($value) ?>"
             data-datetime-value
-            />
+        />
 
     </div>
 

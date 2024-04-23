@@ -43,6 +43,11 @@ class ProductDetail
     public $canInstall = false;
 
     /**
+     * @var bool canResetData is used by orphaned plugins to remove data
+     */
+    public $canResetData = false;
+
+    /**
      * @var string name for product
      */
     public $name;
@@ -237,9 +242,8 @@ class ProductDetail
         $this->name = $plugin->code;
         $this->currentVersion = $plugin->version;
         $this->author = 'Unknown';
-        $this->contentHtml = Lang::get('system::lang.plugins.unknown_plugin');
-        $this->upgradeHtml = Lang::get('system::lang.plugins.unknown_plugin');
-        $this->licenseHtml = Lang::get('system::lang.plugins.unknown_plugin');
+        $this->canResetData = true;
+        $this->contentHtml = __("Plugin has been removed from the file system.");
 
         return true;
     }

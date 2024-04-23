@@ -40,7 +40,7 @@
 
         &:after {
             position: absolute;
-            .icon(@search);
+            .icon(@icon-search);
             right: 16px;
             top: 12px;
             color: #95a5a6;
@@ -129,7 +129,7 @@
         padding: @padding-base-vertical 6px;
         line-height: @line-height-base;
         white-space: nowrap;
-        font-weight: 500;
+        font-weight: 600;
     }
 
     &.select2-container--focus,
@@ -150,7 +150,8 @@
         //
         .select2-selection .select2-selection__arrow b {
             &:before {
-                .icon(@angle-up);
+                .icon(@icon-angle-up);
+                line-height: inherit;
             }
         }
 

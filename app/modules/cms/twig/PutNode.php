@@ -31,9 +31,9 @@ class PutNode extends TwigNode
             $blockName = $names->getNode(0);
             $compiler
                 ->addDebugInfo($this)
-                ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->startBlock(")
+                ->write("\$this->env->getExtension(\Cms\Twig\Extension::class)->yieldBlock(")
                 ->raw("'".$blockName->getAttribute('name')."'")
-                ->write(");\n")
+                ->write(", function() use (\$context, \$blocks, \$macros) {\n")
             ;
 
             $isOverwrite = strtolower($this->getAttribute('endType')) == 'overwrite';
@@ -42,7 +42,7 @@ class PutNode extends TwigNode
 
             $compiler
                 ->addDebugInfo($this)
-                ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->endBlock(")
+                ->write("return; yield '';}, ")
                 ->raw($isOverwrite ? 'false' : 'true')
                 ->write(");\n")
             ;
@@ -57,7 +57,7 @@ class PutNode extends TwigNode
 
                 $compiler
                     ->addDebugInfo($this)
-                    ->write("echo \$this->env->getExtension(\Cms\Twig\Extension::class)->setBlock(")
+                    ->write("\$this->env->getExtension(\Cms\Twig\Extension::class)->setBlock(")
                     ->raw("'".$name->getAttribute('name')."'")
                     ->raw(', ')
                     ->subcompile($value)

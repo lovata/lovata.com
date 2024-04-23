@@ -3,7 +3,9 @@
 use Url;
 use Lang;
 use Http;
+use Date;
 use Config;
+use System;
 use Request;
 use System\Models\Parameter;
 use System\Models\PluginVersion;
@@ -68,6 +70,34 @@ trait HasGatewayAccess
     }
 
     /**
+     * requestServerFile downloads a file from the update server.
+     * @param string $uri
+     * @param string $fileCode
+     * @param array $postData
+     */
+    public function requestServerFile($uri, $fileCode, $postData = [])
+    {
+        $filePath = $this->getFilePath($fileCode);
+
+        $result = $this->makeHttpRequest($this->createServerUrl($uri), $postData);
+
+        if ($result->status() === 404) {
+            throw new ApplicationException(Lang::get('system::lang.server.response_not_found'));
+        }
+
+        if ($result->status() !== 200) {
+            throw new ApplicationException(
+                strlen($contents = $result->body())
+                ? $contents
+                : Lang::get('system::lang.server.response_empty')
+            );
+        }
+
+        // Guzzle response
+        file_put_contents($filePath, $result->toPsrResponse()->getBody());
+    }
+
+    /**
      * Set the API security for all transmissions.
      * @param string $key    API Key
      * @param string $secret API Secret
@@ -109,11 +139,11 @@ trait HasGatewayAccess
         $postData['protocol_version'] = '2.0';
         $postData['client'] = 'October CMS';
         $postData['server'] = base64_encode(json_encode([
+            'october' => System::VERSION,
             'php' => PHP_VERSION,
             'url' => Url::to('/'),
             'ip' => Request::ip(),
-            'since' => PluginVersion::orderBy('created_at')->value('created_at')
-        ]));
+        ] + Parameter::getGatewayServiceData()));
 
         // Include project key if available
         if ($projectKey = Parameter::get('system::project.key')) {

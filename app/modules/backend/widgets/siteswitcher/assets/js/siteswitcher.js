@@ -4,27 +4,9 @@
 'use strict';
 
 oc.Modules.register('backend.widget.siteswitcher', function() {
-    class SiteSwitcherWidget extends oc.FoundationPlugin
-    {
-        constructor(element, config) {
-            super(element, config);
-
-            oc.Events.on(this.element, 'click', 'a[data-siteswitcher-link]', this.proxy(this.onClickLink));
-            this.markDisposable();
-        }
-
-        dispose() {
-            oc.Events.off(this.element, 'click', 'a[data-siteswitcher-link]', this.proxy(this.onClickLink));
-            super.dispose();
-        }
-
-        static get DATANAME() {
-            return 'ocSiteSwitcherWidget';
-        }
-
-        static get DEFAULTS() {
-            return {
-            }
+    oc.registerControl('siteswitcher', class extends oc.ControlBase {
+        connect() {
+            this.listen('click', 'a[data-siteswitcher-link]', this.onClickLink);
         }
 
         onClickLink(ev) {
@@ -42,18 +24,18 @@ oc.Modules.register('backend.widget.siteswitcher', function() {
         onClickHandler(ev) {
             ev.preventDefault();
 
-            var self = this;
             var $anchor = ev.target.closest('a');
-            oc.request($anchor, $anchor.dataset.handler).done(function(data) {
+            oc.request($anchor, $anchor.dataset.handler).done((data) => {
                 oc.Events.dispatch('backend:hidemenus');
-
                 if (data.confirm) {
-                    $.oc.confirm(data.confirm, function() {
-                        oc.visit(self.makeAnchorLink($anchor));
+                    oc.confirm(data.confirm, (isConfirm) => {
+                        if (isConfirm) {
+                            oc.visit(this.makeAnchorLink($anchor));
+                        }
                     });
                 }
                 else {
-                    oc.visit(self.makeAnchorLink($anchor));
+                    oc.visit(this.makeAnchorLink($anchor));
                 }
             });
         }
@@ -61,11 +43,5 @@ oc.Modules.register('backend.widget.siteswitcher', function() {
         makeAnchorLink($anchor) {
             return $anchor.href + window.location.hash;
         }
-    }
-
-    addEventListener('render', function() {
-        document.querySelectorAll('[data-control=siteswitcher]').forEach(function(el) {
-            SiteSwitcherWidget.getOrCreateInstance(el);
-        });
     });
 });

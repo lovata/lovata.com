@@ -12,7 +12,7 @@
                                 data-toggle="tooltip"
                                 data-delay="300"
                                 data-placement="right"
-                                title="<?= e(trans('backend::lang.import_export.ignore_this_column')) ?>"
+                                title="<?= __("Ignore this column") ?>"
                                 onclick="$.oc.importBehavior.ignoreFileColumn(this)"
                             >
                                 <i class="icon-close"></i>
@@ -27,14 +27,14 @@
                         </span>
                     </div>
                     <div class="import-column-bindings">
-                        <ul data-empty-text="<?= e(trans('backend::lang.import_export.drop_column_here')) ?>"></ul>
+                        <ul data-empty-text="<?= __("Drop column here...") ?>"></ul>
                     </div>
                 </li>
             <?php endforeach ?>
         </ul>
     <?php else: ?>
         <p class="upload-prompt">
-            <?= e(trans('backend::lang.import_export.upload_valid_csv')) ?>
+            <?= __("Please upload a valid CSV file.") ?>
         </p>
     <?php endif ?>
 </div>

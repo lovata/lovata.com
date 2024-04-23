@@ -23,7 +23,7 @@
     <div class="layout-row whiteboard">
         <div class="layout">
             <div class="layout-row">
-                <div class="layout-cell panel w-200 border-right" data-control="left-sidebar">
+                <div class="layout-cell media-panel w-200 border-right" data-control="left-sidebar">
                     <?= $this->makePartial('left-sidebar') ?>
                 </div>
                 <div class="layout-cell">
@@ -48,7 +48,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="layout-cell w-300 panel border-left no-padding <?= !$sidebarVisible ? 'oc-hide' : null ?>" data-control="preview-sidebar">
+                                        <div class="layout-cell w-300 media-panel border-left no-padding <?= !$sidebarVisible ? 'oc-hide' : null ?>" data-control="preview-sidebar">
                                             <!-- Right sidebar -->
                                             <?= $this->makePartial('right-sidebar') ?>
                                         </div>

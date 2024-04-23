@@ -10,13 +10,7 @@ Vue.component('cmd-object-component-list-component', {
         },
 
         componentIcon: function computeComponentIcon() {
-            var result = this.component.icon;
-
-            if (result.substring(0, 3) !== 'oc-') {
-                result = 'oc-' + result;
-            }
-
-            return result;
+            return this.component.icon;
         },
 
         inspectorTitle: function computeInspectorTitle() {

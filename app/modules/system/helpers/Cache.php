@@ -8,14 +8,18 @@ use Config;
 /**
  * Cache helper
  *
- * @method static Cache instance()
- *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
 class Cache
 {
-    use \October\Rain\Support\Traits\Singleton;
+    /**
+     * instance creates a new instance of this singleton
+     */
+    public static function instance(): static
+    {
+        return App::make('system.cacher');
+    }
 
     /**
      * clear from the console command

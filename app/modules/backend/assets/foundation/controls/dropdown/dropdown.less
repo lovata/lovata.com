@@ -30,6 +30,7 @@
             display: block;
             color: @dropdown-link-color;
             position: relative;
+            white-space: nowrap;
             text-decoration: none;
 
             &:hover, &:active, &:focus:active {
@@ -59,7 +60,7 @@
                     position: absolute;
                     font-size: 14px;
                     left: 9px;
-                    top: 8px;
+                    top: 14px;
                     color: @dropdown-link-color-fade;
                 }
             }
@@ -121,16 +122,17 @@
 }
 
 // Adjustment for octo-icons
-.control-dropdown.dropdown-menu > li {
-    a, button {
-        > i[class^="octo-icon-"] {
-            font-size: 16px;
-            position: relative;
-            top: 2px;
-            left: -2px;
-        }
-    }
-}
+// @deprecated
+// .control-dropdown.dropdown-menu > li {
+//     a, button {
+//         > i[class^="octo-icon-"] {
+//             font-size: 16px;
+//             position: relative;
+//             top: 2px;
+//             left: -2px;
+//         }
+//     }
+// }
 
 html:not(.user-touch) {
     .control-dropdown.dropdown-menu > li {

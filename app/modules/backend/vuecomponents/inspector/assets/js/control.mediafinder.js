@@ -98,17 +98,17 @@ oc.Modules.register('backend.component.inspector.control.mediafinder', function 
                     },
                     onInsert: function (items) {
                         if (!items.length) {
-                            $.oc.alert($.oc.lang.get('mediamanager.invalid_file_empty_insert'))
+                            oc.alert($.oc.lang.get('mediamanager.invalid_file_empty_insert'))
                             return
                         }
 
                         if (items.length > 1) {
-                            $.oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
+                            oc.alert($.oc.lang.get('mediamanager.invalid_file_single_insert'))
                             return
                         }
 
                         if (mediaType === 'image' && items[0].documentType !== 'image') {
-                            $.oc.alert(
+                            oc.alert(
                                 $.oc.lang.get(
                                     'mediamanager.invalid_image_invalid_insert',
                                     that.lang.errorNotImage

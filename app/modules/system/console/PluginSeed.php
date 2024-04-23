@@ -66,7 +66,7 @@ class PluginSeed extends Command
         $manager = PluginManager::instance();
         $name = $manager->normalizeIdentifier($this->argument('namespace'));
 
-        $file = str_replace('\\_', '/', Str::snake($class)) . '.php';
+        $file = str_replace('\\_', '/', $class) . '.php';
         $path = $manager->getPluginPath($name) . '/updates/seeders/' . $file;
 
         if (is_file($path)) {

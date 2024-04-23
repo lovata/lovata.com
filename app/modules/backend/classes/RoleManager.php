@@ -1,6 +1,7 @@
 <?php namespace Backend\Classes;
 
 use App;
+use Event;
 use System;
 use System\Classes\PluginManager;
 use October\Rain\Exception\SystemException;
@@ -8,34 +9,28 @@ use October\Rain\Exception\SystemException;
 /**
  * RoleManager manages the backend roles and permissions.
  *
- * @method static RoleManager instance()
- *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
 class RoleManager
 {
-    use \October\Rain\Support\Traits\Singleton;
+    /**
+     * @var array|null permissions registered.
+     */
+    protected $permissions;
 
     /**
-     * @var array callbacks for registration.
+     * @var array|null permissionRoles is a list of registered permission roles.
      */
-    protected $callbacks = [];
+    protected $permissionRoles;
 
     /**
-     * @var array permissions registered.
+     * instance creates a new instance of this singleton
      */
-    protected $permissions = [];
-
-    /**
-     * @var array permissionRoles is a list of registered permission roles.
-     */
-    protected $permissionRoles = false;
-
-    /**
-     * @var array permissionCache of registered permissions.
-     */
-    protected $permissionCache = false;
+    public static function instance(): static
+    {
+        return App::make('backend.roles');
+    }
 
     /**
      * registerCallback registers a callback function that defines authentication permissions.
@@ -47,74 +42,30 @@ class RoleManager
      *         $manager->registerPermissions([...]);
      *     });
      *
+     * @deprecated this will be removed in a later version
      * @param callable $callback A callable function.
      */
     public function registerCallback(callable $callback)
     {
-        $this->callbacks[] = $callback;
+        App::extendInstance('backend.roles', $callback);
     }
 
     /**
-     * registerPermissions registers the back-end permission items.
-     * The argument is an array of the permissions. The array keys represent the
-     * permission codes, specific for the plugin/module. Each element in the
-     * array should be an associative array with the following keys:
-     * - label - specifies the menu label localization string key, required.
-     * - order - a position of the item in the menu, optional.
-     * - comment - a brief comment that describes the permission, optional.
-     * - tab - assign this permission to a tabbed group, optional.
-     * @param string $owner Specifies the permissions' owner plugin or module in the format Author.Plugin
-     * @param array $definitions An array of the menu item definitions.
+     * init this class items
      */
-    public function registerPermissions($owner, array $definitions)
+    public function init()
     {
-        foreach ($definitions as $code => $definition) {
-            $permission = new RolePermission(array_merge($definition, [
-                'code' => $code,
-                'owner' => $owner
-            ]));
-
-            $this->permissions[] = $permission;
+        if ($this->permissions === null) {
+            $this->loadPermissions();
         }
     }
 
     /**
-     * removePermission removes a single back-end permission. Where owner specifies the
-     * permissions' owner plugin or module in the format Author.Plugin. Where code is
-     * the permission to remove.
+     * loadItems from modules and plugins
      */
-    public function removePermission(string $owner, string $code)
+    protected function loadPermissions()
     {
-        if (!$this->permissions) {
-            throw new SystemException('Unable to remove permissions before they are loaded.');
-        }
-
-        $ownerPermissions = array_filter($this->permissions, function ($permission) use ($owner) {
-            return $permission->owner === $owner;
-        });
-
-        foreach ($ownerPermissions as $key => $permission) {
-            if ($permission->code === $code) {
-                unset($this->permissions[$key]);
-            }
-        }
-        
-        $this->permissionCache = $this->permissions;
-    }
-
-    /**
-     * listPermissions returns a list of the registered permissions items.
-     */
-    public function listPermissions(): array
-    {
-        if ($this->permissionCache !== false) {
-            return $this->permissionCache;
-        }
-
-        // Load external items
-        foreach ($this->callbacks as $callback) {
-            $callback($this);
-        }
+        $this->permissions = [];
 
         // Load module items
         foreach (System::listModules() as $module) {
@@ -142,6 +93,19 @@ class RoleManager
             }
         }
 
+        /**
+         * @event backend.roles.extendPermissions
+         * Provides an opportunity to manipulate the permissions
+         *
+         * Example usage:
+         *
+         *     Event::listen('backend.roles.extendPermissions', function ((\Backend\Classes\RoleManager) $manager) {
+         *         $manager->registerPermissions(...)
+         *     });
+         *
+         */
+        Event::fire('backend.roles.extendPermissions', [$this]);
+
         // Sort permission items
         usort($this->permissions, function ($a, $b) {
             if ($a->order === $b->order) {
@@ -150,8 +114,66 @@ class RoleManager
 
             return $a->order > $b->order ? 1 : -1;
         });
+    }
 
-        return $this->permissionCache = $this->permissions;
+    /**
+     * registerPermissions registers the back-end permission items.
+     * The argument is an array of the permissions. The array keys represent the
+     * permission codes, specific for the plugin/module. Each element in the
+     * array should be an associative array with the following keys:
+     * - label - specifies the menu label localization string key, required.
+     * - order - a position of the item in the menu, optional.
+     * - comment - a brief comment that describes the permission, optional.
+     * - tab - assign this permission to a tabbed group, optional.
+     * @param string $owner Specifies the permissions' owner plugin or module in the format Author.Plugin
+     * @param array $definitions An array of the menu item definitions.
+     */
+    public function registerPermissions($owner, array $definitions)
+    {
+        $this->init();
+
+        foreach ($definitions as $code => $definition) {
+            if ($definition && is_array($definition)) {
+                $permission = new RolePermission(array_merge($definition, [
+                    'code' => $code,
+                    'owner' => $owner
+                ]));
+
+                $this->permissions[] = $permission;
+            }
+        }
+    }
+
+    /**
+     * removePermission removes a single back-end permission. Where owner specifies the
+     * permissions' owner plugin or module in the format Author.Plugin. Where code is
+     * the permission to remove.
+     */
+    public function removePermission(string $owner, string $code)
+    {
+        if ($this->permissions === null) {
+            throw new SystemException('Unable to remove permissions before they are loaded.');
+        }
+
+        $ownerPermissions = array_filter($this->permissions, function ($permission) use ($owner) {
+            return $permission->owner === $owner;
+        });
+
+        foreach ($ownerPermissions as $key => $permission) {
+            if ($permission->code === $code) {
+                unset($this->permissions[$key]);
+            }
+        }
+    }
+
+    /**
+     * listPermissions returns a list of the registered permissions items.
+     */
+    public function listPermissions(): array
+    {
+        $this->init();
+
+        return $this->permissions;
     }
 
     /**
@@ -172,7 +194,7 @@ class RoleManager
      */
     public function listPermissionsForRole($role, $includeOrphans = true): array
     {
-        if ($this->permissionRoles === false) {
+        if ($this->permissionRoles === null) {
             $this->permissionRoles = [];
 
             foreach ($this->listPermissions() as $permission) {
@@ -202,5 +224,14 @@ class RoleManager
     public function hasPermissionsForRole($role): bool
     {
         return !!$this->listPermissionsForRole($role, false);
+    }
+
+    /**
+     * resetCache resets any memory or cache involved with the sites
+     */
+    public function resetCache()
+    {
+        $this->permissions = null;
+        $this->permissionRoles = null;
     }
 }

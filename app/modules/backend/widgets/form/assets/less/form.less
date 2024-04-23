@@ -66,7 +66,8 @@
         box-shadow: none;
     }
 
-    &.growable {
+    &.growable, // @deprecated
+    &.is-growable {
         width: 110px;
         //.transition(width 0.2s);
         &:focus,
@@ -89,6 +90,10 @@
             }
         }
     }
+
+    &.is-searchable {
+        border-radius: 100px;
+    }
 }
 
 .search-input-container {
@@ -107,18 +112,16 @@
 
 .form-group {
     position: relative;
+    box-sizing: border-box;
 
     &:empty {
         display: none;
     }
 
-    &,
-    &.layout-item {
+    &, &.layout-item {
         padding-bottom: @padding-standard;
         margin-bottom: 0;
     }
-
-    .box-sizing(border-box);
 
     &.is-required {
         > label:after {
@@ -148,10 +151,10 @@
         margin-left: 2px;
 
         i {
-            font-size: 17px;
+            font-size: 16px;
             position: absolute;
             top: 2px;
-            left: 3px;
+            left: 4px;
         }
 
         &.no-label {
@@ -261,13 +264,25 @@
     }
 }
 
+.form-horizontal {
+    .col-horizontal {
+        width: 155px;
+    }
+
+    .form-group {
+        &.checkbox-field {
+            padding-bottom: 20px;
+        }
+    }
+}
+
 .form-group-preview {
     .form-control {
         background-color: @input-disabled-bg;
         height: auto;
         min-height: 38px;
         word-break: break-word;
-        .box-shadow(none);
+        box-shadow: none;
     }
 
     .custom-checkbox,
@@ -278,12 +293,17 @@
     }
 }
 
+.col-form-label,
+.form-label {
+    font-weight: 600;
+}
+
 .form-text {
     margin-bottom: 0;
 
     &.before-field {
-        margin-top: 0;
-        margin-bottom: 10px;
+        margin-top: -.135rem;
+        margin-bottom: .385rem;
     }
 }
 
@@ -353,9 +373,8 @@
         > h4:before {
             // Icon
             display: inline-block;
-            .icon-FontAutumn();
             vertical-align: baseline;
-            content: @chevron-up;
+            .icon(@icon-chevron-up);
 
             font-size: 12px;
             margin: 2px 8px 0;
@@ -503,9 +522,14 @@
     .clearfix();
     padding-bottom: @padding-standard;
     font-size: 0;
+    width: 100%;
+
+    &.is-horizontal {
+        padding-left: 155px;
+    }
 
     .btn {
-        margin-right: 15px;
+        margin-right: 7px;
 
         &.no-margin-right {
             margin-right: 0;
@@ -513,7 +537,7 @@
     }
 
     .btn-group {
-        margin-right: 10px;
+        margin-right: 7px;
 
         .btn {
             margin-right: 0;
@@ -522,7 +546,7 @@
 
     .pull-right {
         margin-right: 0;
-        margin-left: 10px;
+        margin-left: 7px;
     }
 
     &.buttons-offset {
@@ -536,6 +560,12 @@ body.slim-container {
     }
 }
 
+body .modal-footer {
+    .form-buttons {
+        padding: 0;
+    }
+}
+
 @media (max-width: @form-breakpoint-max) {
     .form-group {
         &.span-left,
@@ -544,6 +574,10 @@ body.slim-container {
             clear: none;
         }
     }
+}
+
+body.compact-container .form-fatal-error {
+    padding: 1rem @padding-standard 0 @padding-standard;
 }
 
 //
@@ -562,7 +596,7 @@ body.slim-container {
 // Controls inside toolbar
 //
 
-[data-control=toolbar] {
+[data-control~=toolbar] {
     .form-control {
         display: inline-block;
         margin-right: 15px;

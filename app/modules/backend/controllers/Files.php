@@ -79,7 +79,7 @@ class Files extends Controller
         }
 
         if (
-            (class_exists('\League\Flysystem\AwsS3v3\AwsS3Adapter') && $adapter instanceof \League\Flysystem\AwsS3v3\AwsS3Adapter) ||
+            (class_exists('\League\Flysystem\AwsS3v3\AwsS3V3Adapter') && $adapter instanceof \League\Flysystem\AwsS3v3\AwsS3V3Adapter) ||
             (class_exists('\League\Flysystem\Rackspace\RackspaceAdapter') && $adapter instanceof \League\Flysystem\Rackspace\RackspaceAdapter) ||
             method_exists($adapter, 'getTemporaryUrl')
         ) {

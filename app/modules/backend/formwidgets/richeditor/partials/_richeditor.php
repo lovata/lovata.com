@@ -6,7 +6,7 @@
         id="<?= $this->getId() ?>"
         class="field-richeditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?> <?= $legacyMode ? '' : 'vue-mode' ?>"
         <?php if ($fullPage): ?>data-fullpage="true"<?php endif ?>
-        <?php if ($inlineMode): ?>data-inline-mode="true"<?php endif ?>
+        <?php if ($useLineBreaks): ?>data-use-line-breaks="true"<?php endif ?>
         <?php if ($readOnly): ?>data-read-only="true"<?php endif ?>
         <?php if ($useMediaManager): ?>data-use-media-manager="true"<?php endif ?>
         <?php if ($editorLang): ?>data-editor-lang="<?= $editorLang ?>"<?php endif ?>
@@ -24,9 +24,9 @@
         <?php if (isset($paragraphFormats)): ?>data-paragraph-format="<?= e(json_encode($paragraphFormats)) ?>"<?php endif ?>
         <?php if (isset($tableStyles)): ?>data-table-styles="<?= e(json_encode($tableStyles)) ?>"<?php endif ?>
         <?php if (isset($tableCellStyles)): ?>data-table-cell-styles="<?= e(json_encode($tableCellStyles)) ?>"<?php endif ?>
+        <?php if (isset($editorOptions)): ?>data-editor-options="<?= e(json_encode($editorOptions)) ?>"<?php endif ?>
         <?php if ($showMargins): ?>data-show-margins="true"<?php endif ?>
         <?php if ($externalToolbarAppState): ?>data-external-toolbar-app-state="<?= e($externalToolbarAppState)?>"<?php endif ?>
-        <?php if ($externalToolbarEventBus): ?>data-external-toolbar-event-bus="<?= e($externalToolbarEventBus)?>"<?php endif ?>
         data-lang-fullscreen="<?= e(trans('backend::lang.form.toggle_full_screen')) ?>"
         data-legacy-mode="<?= $legacyMode ? 1 : 0 ?>"
         data-ace-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>"

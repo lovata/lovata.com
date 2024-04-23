@@ -207,6 +207,22 @@ class ContentSchema extends Model
     }
 
     /**
+     * getPruneFields returns fields that should be pruned after migration
+     */
+    public function getPruneFields(): array
+    {
+        return $this->droppedFields;
+    }
+
+    /**
+     * setPrunedColumn removes a column after pruning it
+     */
+    public function setPrunedColumn(string $fieldName)
+    {
+        unset($this->droppedFields[$fieldName]);
+    }
+
+    /**
      * isMetaDirty returns true if there are proposed meta changes
      */
     public function isMetaDirty($value = null)

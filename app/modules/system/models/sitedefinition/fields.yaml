@@ -3,7 +3,7 @@
 # ===================================
 
 tabs:
-    defaultTab: Configuration
+    defaultTab: Site Definition
     fields:
         _primary_site_hint:
             type: hint
@@ -27,6 +27,11 @@ tabs:
 
         _ruler1:
             type: ruler
+
+        group:
+            label: Site Group
+            type: relation
+            required: true
 
         name:
             label: Name
@@ -67,11 +72,13 @@ tabs:
             span: full
 
         is_custom_url:
+            tab: Configuration
             label: Custom application URL
             comment: Override the application URL when this site is active.
             type: checkbox
 
         app_url:
+            tab: Configuration
             span: full
             placeholder: "https://"
             cssClass: field-indent
@@ -81,12 +88,14 @@ tabs:
                 condition: checked
 
         is_prefixed:
+            tab: Configuration
             label: Use a CMS route prefix
             comment: A prefix can identify this site when using a shared hostname.
             type: checkbox
             span: full
 
         route_prefix:
+            tab: Configuration
             span: full
             placeholder: /
             cssClass: field-indent
@@ -96,12 +105,14 @@ tabs:
                 condition: checked
 
         is_host_restricted:
+            tab: Configuration
             label: Define matching hostnames
             comment: Specify domain names and patterns that must be used to serve this site.
             type: checkbox
             span: full
 
         allow_hosts:
+            tab: Configuration
             type: datatable
             cssClass: field-indent
             trigger:
@@ -113,11 +124,13 @@ tabs:
                     title: Hostname
 
         is_role_restricted:
+            tab: Configuration
             label: Define administrator roles
             comment: Restrict access to this site to only administrator with the following roles.
             type: checkbox
 
         allow_roles:
+            tab: Configuration
             type: taglist
             cssClass: field-indent
             options: true
@@ -128,11 +141,13 @@ tabs:
                 condition: checked
 
         is_styled:
+            tab: Configuration
             label: Display a style for this site
             comment: To help identify this site, display a color in the admin panel.
             type: checkbox
 
         color_background:
+            tab: Configuration
             type: colorpicker
             availableColors: ['#16a085', '#27ae60', '#2980b9', '#8e44ad', '#2b3e50', '#f39c12', '#d35400', '#c0392b', '#bdc3c7', '#7f8c8d']
             cssClass: field-indent
@@ -143,6 +158,7 @@ tabs:
                 condition: checked
 
         color_foreground:
+            tab: Configuration
             type: colorpicker
             availableColors: ['#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#34495e', '#f1c40f', '#e67e22', '#e74c3c', '#ecf0f1', '#95a5a6']
             span: right

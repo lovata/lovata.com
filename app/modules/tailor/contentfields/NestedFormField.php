@@ -37,7 +37,7 @@ class NestedFormField extends ContentFieldBase
     public function validateConfig()
     {
         if ($this->fieldsetConfig === null) {
-            throw new SystemException('Repeater must specify either a "form" or "group" property for the form fields');
+            throw new SystemException('NestedForm must specify either a "form" property for the form fields');
         }
     }
 

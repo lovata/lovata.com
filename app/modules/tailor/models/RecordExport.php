@@ -28,6 +28,7 @@ class RecordExport extends ExportModel
         $host->defineColumn('content_group', 'Entry Type');
 
         if ($this->isEntryStructure()) {
+            $host->defineColumn('fullslug', 'Full Slug');
             $host->defineColumn('parent_id', 'Parent');
         }
 
@@ -71,7 +72,7 @@ class RecordExport extends ExportModel
                 $value = $this->encodeRepeaterItems($model, $attr);
             }
             else {
-                $value = $model->getRelationValue($attr);
+                $value = $model->getRelationSimpleValue($attr);
             }
         }
         else {

@@ -54,12 +54,13 @@
         text-align: center;
         margin: -2px 2px;
 
-        [class^="octo-icon"] {
-            position: relative;
-            top: 1px;
-        }
+        // @deprecated
+        // [class^="octo-icon"] {
+        //     position: relative;
+        //     top: 1px;
+        // }
 
-        .octo-icon-list-reorder {
+        .icon-list-reorder {
             font-size: 24px;
         }
     }
@@ -111,6 +112,15 @@
             background-image: url('../../../../../backend/assets/images/no-blocks.svg');
             background-repeat: no-repeat;
             background-position: center center;
+        }
+    }
+}
+
+// Fixes popups in fullscreen mode getting blocked by the overflow
+body.component-backend-document-fullscreen {
+    .form-group.span-adaptive {
+        > .field-repeater {
+            overflow: inherit;
         }
     }
 }

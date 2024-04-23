@@ -1,35 +1,31 @@
 <?php if (!$this->fatalError): ?>
 
     <?= Form::open(['class'=>'layout']) ?>
-
         <div class="layout-row">
             <?= $this->formRender() ?>
         </div>
 
         <div class="form-buttons">
-            <div class="loading-indicator-container">
-                <button
-                    type="submit"
-                    data-request="onSave"
-                    data-request-data="redirect:0"
-                    data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
-                    class="btn btn-primary">
-                    <?= e(trans('backend::lang.form.save')) ?>
-                </button>
+            <div data-control="loader-container">
+                <?= Ui::ajaxButton("Save Changes", 'onSave')
+                    ->primary()
+                    ->ajaxData(['redirect' => false])
+                    ->hotkey('ctrl+s', 'cmd+s')
+                    ->loadingMessage(__("Saving...")) ?>
 
                 <span class="btn-text">
-                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('system/settings') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                    <span class="button-separator"><?= __("or") ?></span>
+                    <?= Ui::button("Cancel", 'system/settings')
+                        ->textLink() ?>
                 </span>
 
-                <button
-                    type="button"
-                    class="btn btn-danger pull-right"
-                    data-request="onResetDefault"
-                    data-load-indicator="<?= e(trans('backend::lang.form.resetting')) ?>"
-                    data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>">
-                    <?= e(trans('backend::lang.form.reset_default')) ?>
-                </button>
+                <span class="pull-right btn-text">
+                    <?= Ui::ajaxButton("Reset to Default", 'onResetDefault')
+                        ->textLink()
+                        ->ajaxData(['redirect' => false])
+                        ->confirmMessage(__("Are you sure?"))
+                        ->loadingMessage(__("Resetting...")) ?>
+                </span>
             </div>
         </div>
     <?= Form::close() ?>

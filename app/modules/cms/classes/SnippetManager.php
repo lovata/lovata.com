@@ -11,7 +11,7 @@ use System\Classes\PluginManager;
 /**
  * SnippetManager returns information about snippets based on partials and components.
  *
- * @package rainlab\pages
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class SnippetManager
@@ -169,9 +169,10 @@ class SnippetManager
     protected static function getPartialMapCacheKey($theme)
     {
         $key = crc32($theme->getPath()).'snippet-partial-map';
+
         /**
          * @event pages.snippet.getPartialMapCacheKey
-         * Enables modifying the key used to reference cached RainLab.Pages partial maps
+         * Enables modifying the key used to reference cached partial maps
          *
          * Example usage:
          *
@@ -181,6 +182,7 @@ class SnippetManager
          *
          */
         Event::fire('pages.snippet.getPartialMapCacheKey', [&$key]);
+
         return $key;
     }
 
@@ -214,8 +216,7 @@ class SnippetManager
             $result[$snippetCode] = $partial->getFileName();
         }
 
-        $comboConfig = Config::get('cms.template_cache_ttl', 10);
-        $expiresAt = now()->addMinutes($comboConfig);
+        $expiresAt = now()->addMinutes(Config::get('cms.template_cache_ttl', 10));
         Cache::put($key, serialize($result), $expiresAt);
 
         return $result;

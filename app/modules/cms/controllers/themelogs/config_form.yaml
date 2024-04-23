@@ -3,7 +3,7 @@
 # ===================================
 
 # Record name
-name: system::lang.event_log.menu_label
+name: "Event Log"
 
 # Model Form Field configuration
 form: ~/modules/cms/models/themelog/fields.yaml

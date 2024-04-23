@@ -17,5 +17,15 @@
             </div>
         <?php endif ?>
 
+        <!-- List Setup -->
+        <?php if ($setupHandler): ?>
+            <div class="toolbar-item toolbar-setup">
+                <a href="javascript:;"
+                    title="<?= __("List Setup") ?>"
+                    data-control="popup"
+                    data-handler="<?= $setupHandler ?>"><span></span></a>
+            </div>
+        <?php endif ?>
+
     </div>
 </div>

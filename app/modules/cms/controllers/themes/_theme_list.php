@@ -1,17 +1,17 @@
 <?php foreach ($themes as $index => $theme): ?>
 
-    <div id="themeListItem-<?= $theme->getId() ?>" class="layout-row min-size <?= $theme->isActiveTheme() ? 'active' : null ?>">
+    <div id="themeListItem-<?= $theme->getId() ?>" class="d-flex theme-item <?= $theme->isActiveTheme() ? 'active' : null ?>">
         <?= $this->makePartial('theme_list_item', ['theme' => $theme]) ?>
     </div>
 
 <?php endforeach ?>
 
 <?php if (BackendAuth::userHasAccess('cms.themes.create')): ?>
-    <div class="layout-row links">
-        <div class="layout-cell theme-thumbnail">
+    <div class="d-flex theme-item theme-item-links">
+        <div class="theme-thumbnail">
             <!-- Spacer -->
         </div>
-        <div class="layout-cell theme-description">
+        <div class="theme-description">
             <a
                 class="create-new-theme"
                 data-control="popup"

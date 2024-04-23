@@ -19,9 +19,11 @@
         "romanov/clearcachewidget-plugin": "^1.3",
         "vdlp/oc-redirect-plugin": "^3.1",
         "blakejones/magicforms-plugin": "^1.6",
-        "lovata/vitejsintegration": "0.1.0-dev",
         "bizmark/quicksilver-plugin": "^3.2",
-        "offline/oc-sentry-plugin": "^2.1"
+        "offline/oc-sentry-plugin": "^2.1",
+        "october/drivers-plugin": "^2.0",
+        "vojtasvoboda/twigextensions-plugin": "^2.0",
+        "offline/oc-vite-plugin": "^2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5|^9.0"
@@ -73,15 +75,6 @@
         "lovata/formit-plugin": {
             "type": "path",
             "url": "./plugins/lovata/formit"
-        },
-        "lovata/vitejsintegration": {
-            "type": "path",
-            "url": "./plugins/lovata/vitejsintegration",
-            "options": {
-                "versions": {
-                    "lovata/vitejsintegration": "0.1.0-dev"
-                }
-            }
         }
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 /**
  * ThemeClear caches the system themes
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ThemeClear extends Command

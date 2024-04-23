@@ -49,10 +49,10 @@ class FrameworkNode extends TwigNode
             $jsScript = 'framework-turbo';
         }
 
-        $compiler->write("echo '<script src=\"' . Request::getBasePath() . '/modules/system/assets/js/".$jsScript."'.(\$_minify ? '.min' : '').'.js\"></script>'.PHP_EOL;" . PHP_EOL);
+        $compiler->write("yield '<script src=\"' . Request::getBasePath() . '/modules/system/assets/js/".$jsScript."'.(\$_minify ? '.min' : '').'.js\"></script>'.PHP_EOL;" . PHP_EOL);
 
         if ($cssFile) {
-            $compiler->write("echo '<link rel=\"stylesheet\" property=\"stylesheet\" href=\"' . Request::getBasePath() .'/modules/system/assets/css/".$cssFile.".css\">'.PHP_EOL;" . PHP_EOL);
+            $compiler->write("yield '<link rel=\"stylesheet\" property=\"stylesheet\" href=\"' . Request::getBasePath() .'/modules/system/assets/css/".$cssFile.".css\">'.PHP_EOL;" . PHP_EOL);
         }
 
         $compiler->write('unset($_minify);' . PHP_EOL);

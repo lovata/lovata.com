@@ -50,11 +50,6 @@ abstract class PluginTestCase extends TestCase
      */
     public function setUp(): void
     {
-        // Force reload of October CMS singletons
-        PluginManager::forgetInstance();
-        UpdateManager::forgetInstance();
-        VersionManager::forgetInstance();
-
         // Reset locals
         $this->pluginTestCaseMigratedPlugins = [];
         $this->pluginTestCaseLoadedPlugins = [];
@@ -104,7 +99,8 @@ abstract class PluginTestCase extends TestCase
             if (
                 !$reflectClass->isInstantiable() ||
                 !$reflectClass->isSubclassOf(\October\Rain\Database\Model::class) ||
-                $reflectClass->isSubclassOf(\October\Rain\Database\Pivot::class)
+                $reflectClass->isSubclassOf(\October\Rain\Database\Pivot::class) ||
+                $reflectClass->isSubclassOf(\PHPUnit\Framework\MockObject\MockObject::class)
             ) {
                 continue;
             }

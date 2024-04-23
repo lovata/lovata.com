@@ -31,6 +31,7 @@ class Entries extends WildcardController
     public $implement = [
         \Backend\Behaviors\ListController::class,
         \Backend\Behaviors\FormController::class,
+        \Backend\Behaviors\RelationController::class,
         \Tailor\Behaviors\PreviewController::class,
         \Tailor\Behaviors\VersionController::class,
         \Tailor\Behaviors\DraftController::class
@@ -47,7 +48,7 @@ class Entries extends WildcardController
     public $formConfig = 'config_form.yaml';
 
     /**
-     * @var Blueprint activeSource
+     * @var \Tailor\Classes\Blueprint\EntryBlueprint activeSource
      */
     protected $activeSource;
 
@@ -55,6 +56,18 @@ class Entries extends WildcardController
      * @var string actionMethod is the action method to call
      */
     protected $actionMethod;
+
+    /**
+     * @var array customMessages contains default messages that you can override
+     */
+    protected $customMessages = [
+        'buttonCreate' => "Create :name",
+        'buttonUpdate' => "Update :name",
+        'titleIndexList' => "Manage :name Entries",
+        'titlePreviewForm' => "Preview :name",
+        'titleCreateForm' => "Create :name",
+        'titleUpdateForm' => "Update :name",
+    ];
 
     /**
      * beforeDisplay
@@ -112,8 +125,9 @@ class Entries extends WildcardController
         }
 
         if ($this->actionMethod) {
-            $this->addJs('/modules/tailor/assets/js/tailor-app.base.js');
-            $this->addJs('/modules/tailor/assets/js/tailor-entry.js');
+            $this->addJs('/modules/tailor/assets/js/vue-entry-header-controls.js');
+            $this->addJs('/modules/tailor/assets/js/vue-entry-document.js');
+            $this->addJs('/modules/tailor/assets/js/preview-tracker.js');
 
             $this->registerVueComponent(\Backend\VueComponents\Document::class);
             $this->registerVueComponent(\Backend\VueComponents\DropdownMenuButton::class);
@@ -125,6 +139,8 @@ class Entries extends WildcardController
         }
 
         $this->asExtension('ListController')->index();
+
+        $this->setPageTitleFromMessage('titleIndexList', "Manage Entries");
 
         $this->prepareVars();
     }
@@ -203,7 +219,7 @@ class Entries extends WildcardController
 
         $this->bodyClass = 'compact-container';
 
-        $this->pageTitle = 'Create Entry';
+        $this->setPageTitleFromMessage('titleCreateForm', "Create Entry");
 
         $this->asExtension('FormController')->create();
 
@@ -219,7 +235,7 @@ class Entries extends WildcardController
     {
         $this->bodyClass = 'compact-container';
 
-        $this->pageTitle = 'Update Entry';
+        $this->setPageTitleFromMessage('titleUpdateForm', "Update Entry");
 
         if ($this->isVersionMode()) {
             $response = $this->asExtension('VersionController')->update($recordId);
@@ -266,12 +282,13 @@ class Entries extends WildcardController
         $this->vars['entityName'] = $this->activeSource->name ?? '';
         $this->vars['activeSource'] = $this->activeSource;
         $this->vars['initialState'] = $this->makeInitialState($model);
+        $this->vars['langState'] = $this->makeLangState();
     }
 
     /**
      * makeInitialState
      */
-    public function makeInitialState($model)
+    public function makeInitialState($model): array
     {
         if (!$model) {
             return [];
@@ -290,7 +307,7 @@ class Entries extends WildcardController
             'statusCode' => $model->status_code,
             'hasPreviewPage' => $this->hasPreviewPage(),
             'statusCodeOptions' => Arr::trans($model->getStatusCodeOptions()),
-            'showTreeControls' => $this->isSectionStructured() && $this->activeSource->hasTree(),
+            'showTreeControls' => $this->isSectionStructured() && $this->activeSource->hasTree() && !$model->trashed(),
             'fullSlug' => $model->fullslug,
             'canDelete' => $this->hasSourcePermission('delete'),
             'canPublish' => $this->hasSourcePermission('publish'),
@@ -316,6 +333,35 @@ class Entries extends WildcardController
         }
 
         return $initialState;
+    }
+
+    /**
+     * makeLangState
+     */
+    public function makeLangState()
+    {
+        return [
+            'form_save' => e(Lang::get('backend::lang.form.save')),
+            'form_delete' => e(Lang::get('backend::lang.form.delete')),
+            'form_restore' => e(Lang::get('backend::lang.form.restore')),
+            'form_error' => e(Lang::get('backend::lang.form.error')),
+            'form_confirm_delete' => e(Lang::get('backend::lang.form.confirm_delete')),
+            'form_save_close' => e(Lang::get('backend::lang.form.save_and_close')),
+            'force_delete' => __('Delete Forever'),
+            'force_delete_confirm' => __('Do you really want to delete this permanently?'),
+            'save_draft' => __('Save Draft'),
+            'discard_draft' => __('Discard Draft'),
+            'discard_draft_confirm' => __('Do you really want to discard the draft?'),
+            'save_apply_draft' => __('Save & Apply Draft'),
+            'delete_entry_confirm' => __('Do you really want to delete the record? It will also delete all drafts if any exist.'),
+            'create_draft' => __('Create New Draft'),
+            'select_draft' => __('Select Draft to Edit'),
+            'edit_primary_record' => __('Edit the Primary Record'),
+            'unnamed_draft' => __('Unnamed draft'),
+            'draft_notes' => __('Notes'),
+            'confirm_create_draft' => __('The document has unsaved changes. Do you want to discard them and proceed with creating a new draft?'),
+            'preview' => __('Preview'),
+        ];
     }
 
     /**
@@ -422,7 +468,7 @@ class Entries extends WildcardController
         if ($model = $this->formFindModelObject($recordId)) {
             $model->forceDelete();
 
-            Flash::success(Lang::get('backend::lang.form.delete_success'));
+            Flash::success(__(":name Deleted"));
 
             if ($redirect = $this->makeRedirect('delete', $model)) {
                 return $redirect;
@@ -435,8 +481,15 @@ class Entries extends WildcardController
      */
     public function onChangeEntryType()
     {
-        $this->formGetWidget()->setFormValues();
+        // Relation Controller
+        if (post('_relation_field')) {
+            $widget = $this->relationGetManageFormWidget();
+            $this->onRelationManageForm();
+            $widget->setFormValues();
+            return ['#'.$widget->getId('managePopup') => $this->relationMakePartial('manage_form')];
+        }
 
+        $this->formGetWidget()->setFormValues();
         return ['#entryPrimaryTabs' => $this->makePartial('primary_tabs')];
     }
 
@@ -445,21 +498,45 @@ class Entries extends WildcardController
      */
     public function listGetConfig($definition)
     {
+        $section = $this->activeSource;
+
         $config = $this->asExtension('ListController')->listGetConfig($definition);
 
         if ($this->isSectionStructured()) {
             $config->structure = [
-                'maxDepth' => $this->activeSource->getMaxDepth(),
-                'showTree' => $this->activeSource->hasTree(),
-            ] + ((array) $this->activeSource->structure);
+                'maxDepth' => $section->getMaxDepth(),
+                'showTree' => $section->hasTree(),
+            ] + ((array) $section->structure);
         }
 
         // Each source needs its own session store
         $config->widgetAlias = camel_case(
-            $definition . '-' . $this->activeSource->handleSlug
+            $definition . '-' . $section->handleSlug
         );
 
         return $config;
+    }
+
+    /**
+     * relationExtendManageWidget
+     */
+    public function relationExtendManageWidget($widget, $field, $model)
+    {
+        $model = $widget->getModel();
+
+        // Entry type switching
+        if ($model instanceof \Tailor\Classes\BlueprintModel && ($entryType = post('EntryRecord[content_group]'))) {
+            $model->setBlueprintGroup($entryType);
+        }
+
+        // Disable adaptive fields
+        $widget->bindEvent('form.extendFields', function ($fields) {
+            foreach ($fields as $field) {
+                if ($field->span === 'adaptive') {
+                    $field->span('full')->externalToolbarAppState(null);
+                }
+            }
+        });
     }
 
     /**
@@ -588,7 +665,7 @@ class Entries extends WildcardController
         $model = $model->withTrashed()->find($recordId);
 
         if (!$model) {
-            throw new ApplicationException(Lang::get('backend::lang.form.not_found', [
+            throw new ApplicationException(__("Form record with an ID of :id could not be found.", [
                 'class' => EntryRecord::class, 'id' => $recordId
             ]));
         }
@@ -757,6 +834,29 @@ class Entries extends WildcardController
         else {
             BackendMenu::setContext('October.Tailor', 'tailor');
         }
+    }
+
+    /**
+     * setPageTitleMessage
+     */
+    protected function setPageTitleFromMessage(string $message, string $defaultMessage = 'Tailor')
+    {
+        $section = $this->activeSource;
+
+        if (!$section) {
+            $this->pageTitle = $defaultMessage;
+            return;
+        }
+
+        $vars = [
+            'name' => $section->name
+        ];
+
+        $this->pageTitle = $section->getMessage(
+            $message,
+            $this->customMessages[$message] ?? $defaultMessage,
+            $vars
+        );
     }
 
     /**

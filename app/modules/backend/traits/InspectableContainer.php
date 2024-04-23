@@ -52,7 +52,13 @@ trait InspectableContainer
             $propertyMethodName .= ucfirst($part);
         }
 
-        $methodName = 'get'.$propertyMethodName.'Options';
+        // Find options method
+        $propertyConfig = $obj->defineProperties()[$property] ?? [];
+        $optionsMethod = $propertyConfig['optionsMethod'] ?? ($propertyConfig['options'] ?? null);
+        $methodName = is_string($optionsMethod)
+            ? $optionsMethod
+            : 'get'.$propertyMethodName.'Options';
+
         if (method_exists($obj, $methodName)) {
             $options = $obj->$methodName();
         }

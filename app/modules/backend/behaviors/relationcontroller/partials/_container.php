@@ -1,7 +1,10 @@
 <div
     id="<?= $this->relationGetId() ?>"
-    data-request-data="_relation_field: '<?= $relationField ?>', _relation_extra_config: '<?= e(base64_encode(json_encode($relationExtraConfig))) ?>'"
-    class="relation-behavior relation-view-<?= $relationViewMode ?>">
+    data-control="relation-controller"
+    data-request-data="_relation_field: '<?= $relationField ?>', _relation_extra_config: '<?= e(json_encode($relationExtraConfig)) ?>'"
+    class="relation-behavior relation-view-<?= $relationViewMode ?>"
+    <?php if ($externalToolbarAppState): ?>data-external-toolbar-app-state="<?= e($externalToolbarAppState)?>"<?php endif ?>
+>
 
     <?php if ($toolbar = $this->relationRenderToolbar()): ?>
         <!-- Relation Toolbar -->

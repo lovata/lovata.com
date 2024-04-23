@@ -20,15 +20,15 @@ class ImportModelDbTest extends PluginTestCase
         $model = new ExampleDbImportModel;
         $sessionKey = uniqid('session_key', true);
 
-        $file1 = FileModel::create([
-            'data' => base_path().'/modules/backend/tests/fixtures/reference/file1.txt',
-            'is_public' => false,
-        ]);
+        $file1 = new FileModel;
+        $file1->is_public = false;
+        $file1->fromFile(base_path('modules/backend/tests/fixtures/reference/file1.txt'));
+        $file1->save();
 
-        $file2 = FileModel::create([
-            'data' => base_path().'/modules/backend/tests/fixtures/reference/file2.txt',
-            'is_public' => false,
-        ]);
+        $file2 = new FileModel;
+        $file2->is_public = false;
+        $file2->fromFile(base_path('modules/backend/tests/fixtures/reference/file2.txt'));
+        $file2->save();
 
         $model->import_file()->add($file1, $sessionKey);
         $model->import_file()->add($file2, $sessionKey);

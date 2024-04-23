@@ -102,7 +102,7 @@ oc.Modules.register('cms.editor.intellisense.clickhandler.template', function() 
             };
 
             if (this.canManagePartials) {
-                this.makeLinks(model, /\{%\s+partial\s+("|')([a-zA-Z0-9\-\/_]+)\1/gm, result.links, 'cms-partial');
+                this.makeLinks(model, /\{%\s+(?:partial|ajaxPartial)\s+("|')([a-zA-Z0-9\-\/_]+)\1/gm, result.links, 'cms-partial');
             }
 
             if (this.canManageContent) {

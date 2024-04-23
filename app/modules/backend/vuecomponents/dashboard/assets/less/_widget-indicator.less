@@ -1,0 +1,168 @@
+.dashboard-report-widget-indicator {
+    .flex-display();
+    .flex-direction-column();
+
+    .indicator-body {
+        padding: @widget-body-padding @widget-body-padding 11px;
+        .flex-display();
+        .flex-direction-row();
+        gap: 15px;
+
+        .indicator-details {
+            min-width: 0;
+        }
+
+        p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        h3 {
+            margin: -1px 0 0 0;
+        }
+
+        p {
+            color: @headings-color;
+            font-size: 24px;
+            margin: -4px 0 0 0;
+        }
+
+        .widget-error {
+            display: flex;
+            max-width: 100%;
+
+            span.ph {
+                display: inline-block;
+                margin-right: 15px;
+                font-size: 40px;
+            }
+
+            p {
+                font-size: 14px;
+                white-space: normal;
+            }
+        }
+    }
+
+    .indicator-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        flex-shrink: 0;
+        color: white;
+        .flex-display();
+        align-items: center;
+        position: relative;
+        justify-content: center;
+
+        i:before {
+            font-size: 32px;
+        }
+
+        &.status-info {
+            background-color: #6A6CF7;
+        }
+
+        &.status-important {
+            background-color: #F1C40F;
+        }
+
+        &.status-success {
+            background-color: #87C00D;
+        }
+
+        &.status-warning {
+            background-color: #D6301D;
+        }
+
+        &.status-disabled {
+            background-color: #BDC3C7;
+        }
+
+        .icon-complication {
+            position: absolute;
+
+            &.up {
+                width: 18px;
+                height: 18px;
+                top: -9px;
+                right: -9px;
+                display: block;
+                background: url('../../../../assets/images/dashboard/complication-level-up.svg') no-repeat;
+            }
+        }
+    }
+
+    .indicator-link-container {
+        padding: 10px 17px;
+        background-color: var(--oc-sidebar-bg);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &.disabled {
+            color: #BDC3C7;
+        }
+    }
+
+    &.loading {
+        .indicator-icon {
+            background-color: @color-widget-skeleton;
+            opacity: @opacity-widget-skeleton;
+            i {
+                display: none;
+            }
+        }
+
+        .indicator-link {
+            > span {
+                .flex-display();
+
+                &:before {
+                    content: '';
+                    margin: 3px 0;
+                    border-radius: 40px;
+                    width: 60%;
+                    background-color: @color-widget-skeleton;
+                    opacity: @opacity-widget-skeleton;
+                }
+            }
+        }
+
+        .indicator-body {
+            .indicator-details {
+                width: 100%;
+
+                h3, p {
+                    position: relative;
+                    .flex-display();
+                    .flex-direction-row();
+
+                    &:before, &:after {
+                        border-radius: 40px;
+                        background-color: @color-widget-skeleton;
+                        opacity: @opacity-widget-skeleton;
+                    }
+
+                    &:before {
+                        content: '';
+                        width: 30%;
+                    }
+                }
+
+                h3:after {
+                    content: '';
+                    width: 20%;
+                }
+
+                p {
+                    &:before {
+                        width: 80%;
+                        margin: 10px 0 6px 0;
+                    }
+                }
+            }
+        }
+    }
+}

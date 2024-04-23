@@ -1,6 +1,6 @@
 <?= Block::put('body') ?>
     <?php if (!$this->fatalError): ?>
-        <div class="layout-cell layout-relative" id="page-container">
+        <div class="position-relative h-100" id="page-container">
             <editor-component-application :store="store" :custom-logo="'<?= e($customLogo) ?>'" ref="application">
             </editor-component-application>
         </div>

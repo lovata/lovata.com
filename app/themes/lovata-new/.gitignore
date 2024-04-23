@@ -1,5 +1,7 @@
 /node_modules
-manifest.json
-vite.hot
 /build
-/bundle
+/assets/build
+/assets/build_new
+/assets/build_temp
+vite.hot
+.vite

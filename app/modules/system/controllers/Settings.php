@@ -39,7 +39,7 @@ class Settings extends Controller
             $this->requiredPermissions = ['preferences'];
         }
 
-        $this->addCss('/modules/system/assets/css/settings/settings.css', 'global');
+        $this->addCss('/modules/system/assets/css/pages/settings.css', 'global');
 
         BackendMenu::setContext('October.System', 'system', 'settings');
     }
@@ -85,7 +85,7 @@ class Settings extends Controller
             }
 
             $this->pageTitle = $item->label;
-            $this->vars['formSize'] = $item->size;
+            $this->pageSize = Backend::sizeToPixels($item->size) ?: null;
 
             if ($item->context == 'mysettings') {
                 $this->vars['parentLink'] = Backend::url('system/settings/mysettings');

@@ -23,7 +23,7 @@
 
             <div class="palette-show-custom">
                 <a href="javascript:;">
-                    <i class="octo-icon-magic-wand"></i>
+                    <i class="icon-magic-wand"></i>
                     <?= __("Create a Custom Palette") ?>
                 </a>
             </div>

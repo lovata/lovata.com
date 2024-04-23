@@ -5,8 +5,7 @@ use Backend\Classes\FormWidgetBase;
 use ApplicationException;
 
 /**
- * Color picker
- * Renders a color picker field.
+ * ColorPicker renders a color picker field.
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
@@ -166,6 +165,18 @@ class ColorPicker extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        return strlen($value) ? $value : null;
+        if (!strlen($value)) {
+            return null;
+        }
+
+        return $this->parseAsHex($value);
+    }
+
+    /**
+     * parseAsHex ensures saved value is a valid hex color
+     */
+    protected function parseAsHex($value)
+    {
+        return '#' . preg_replace("/[^a-zA-Z0-9]+/", '', $value);
     }
 }

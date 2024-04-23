@@ -129,7 +129,7 @@
                                                             oc-icon-plus"                                  \
                                                             data-cmd="create-item">'+oc.lang.get('inspector.add')+'</button> \
                                                         <button type="button" class="btn btn-default       \
-                                                            empty oc-icon-trash-o"                         \
+                                                            empty oc-icon-trash"                         \
                                                             data-cmd="delete-item"></button>               \
                                                     </div>                                                 \
                                                 </div>                                                     \

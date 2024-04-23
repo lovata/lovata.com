@@ -6,5 +6,7 @@
     <?= $field->getAttributes('container') ?>
     id="<?= $field->getId('group') ?>"><?=
     /* Must be on the same line for :empty selector */
-    trim($this->makePartial('field', ['field' => $field]))
+    trim($this->makePartial($this->horizontalMode ? 'horizontal_field' : 'field', [
+        'field' => $field
+    ]))
 ?></div>

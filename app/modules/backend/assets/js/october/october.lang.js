@@ -18,6 +18,18 @@ window.oc.lang = (function(lang, messages) {
         lang.loadedMessages = messages[locale];
     }
 
+    lang.set = function(name, value) {
+        if (name.constructor === {}.constructor) {
+            lang.loadedMessages = {
+                ...name,
+                ...lang.loadedMessages
+            };
+        }
+        else {
+            lang.loadedMessages[name] = value;
+        }
+    }
+
     lang.get = function(name, defaultValue) {
         if (!name) {
             return;

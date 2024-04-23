@@ -1,9 +1,9 @@
 .flyout-container {
-    > .flyout {
+    > .flyout-content {
         overflow: hidden;
         width: 0;
         left: 0!important;
-        .transition(width 0.1s);
+        transition: width 0.1s;
     }
 }
 
@@ -14,7 +14,7 @@
     z-index: 5000;
     position: absolute;
     background-color: rgba(0,0,0,0);
-    .transition(background-color 0.3s);
+    transition: background-color 0.3s;
 }
 
 .flyout-toggle {

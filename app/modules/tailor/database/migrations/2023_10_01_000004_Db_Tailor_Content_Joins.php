@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string('field_name')->nullable()->index();
             $table->integer('site_id')->nullable()->index();
 
-            $table->index(['parent_id', 'parent_type'], $table->getTable().'_pidx');
-            $table->index(['relation_id', 'relation_type'], $table->getTable().'_ridx');
+            $table->index(['parent_id', 'parent_type', 'field_name'], $table->getTable().'_pidx');
+            $table->index(['relation_id', 'relation_type', 'field_name'], $table->getTable().'_ridx');
         });
     }
 

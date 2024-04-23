@@ -2,16 +2,13 @@
 
 use Db;
 use App;
+use Date;
 use File;
 use Yaml;
-use Carbon\Carbon;
-use October\Rain\Database\Updater;
 use Exception;
 
 /**
  * VersionManager manages the versions and database updates for plugins
- *
- * @method static VersionManager instance()
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
@@ -19,7 +16,6 @@ use Exception;
 class VersionManager
 {
     use \System\Traits\NoteMaker;
-    use \October\Rain\Support\Traits\Singleton;
 
     /**
      * Value when no updates are found.
@@ -53,20 +49,19 @@ class VersionManager
     protected $pluginManager;
 
     /**
-     * init
+     * __construct this class
      */
-    protected function init()
+    public function __construct()
     {
         $this->pluginManager = PluginManager::instance();
     }
 
     /**
-     * getUpdater returns the updater service
-     * @return \October\Rain\Database\Updater
+     * instance creates a new instance of this singleton
      */
-    public function getUpdater()
+    public static function instance(): static
     {
-        return App::make('db.updater');
+        return App::make('system.versions');
     }
 
     /**
@@ -336,6 +331,10 @@ class VersionManager
 
         $position = array_search($version, array_keys($versions));
 
+        if ($position === false) {
+            $position = -1;
+        }
+
         return array_slice($versions, ++$position);
     }
 
@@ -435,13 +434,13 @@ class VersionManager
             Db::table('system_plugin_versions')->insert([
                 'code' => $code,
                 'version' => $version,
-                'created_at' => new Carbon
+                'created_at' => Date::now()
             ]);
         }
         elseif ($version && $currentVersion) {
             Db::table('system_plugin_versions')->where('code', $code)->update([
                 'version' => $version,
-                'created_at' => new Carbon
+                'created_at' => Date::now()
             ]);
         }
         elseif ($currentVersion) {
@@ -461,7 +460,7 @@ class VersionManager
             'type' => self::HISTORY_TYPE_COMMENT,
             'version' => $version,
             'detail' => $comment,
-            'created_at' => new Carbon
+            'created_at' => Date::now()
         ]);
     }
 
@@ -498,7 +497,7 @@ class VersionManager
                 'type' => self::HISTORY_TYPE_SCRIPT,
                 'version' => $version,
                 'detail' => $script,
-                'created_at' => new Carbon
+                'created_at' => Date::now()
             ]);
         }
         catch (Exception $ex) {
@@ -603,5 +602,14 @@ class VersionManager
         }
 
         return [$comments, $scripts];
+    }
+
+    /**
+     * getUpdater returns the updater service
+     * @return \October\Rain\Database\Updater
+     */
+    protected function getUpdater()
+    {
+        return App::make('db.updater');
     }
 }

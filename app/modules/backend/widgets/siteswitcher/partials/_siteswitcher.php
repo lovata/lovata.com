@@ -10,7 +10,7 @@
                 </span>
             <?php else: ?>
                 <span class="nav-icon">
-                    <i class="octo-icon-globe"></i>
+                    <i class="icon-globe-site"></i>
                 </span>
             <?php endif ?>
 
@@ -26,7 +26,7 @@
             target="_blank"
             rel="noopener noreferrer"
             <?php if (!$isVerticalMenu): ?>
-                data-tooltip-text="<?= e(trans('backend::lang.tooltips.preview_website')) ?>"
+                data-tooltip-text="<?= __("Preview the Website") ?>"
             <?php endif ?>
         >
             <?php if ($editSite->is_styled): ?>
@@ -38,13 +38,13 @@
                 </span>
             <?php else: ?>
                 <span class="nav-icon">
-                    <i class="octo-icon-location-target"></i>
+                    <i class="icon-location-target"></i>
                 </span>
             <?php endif ?>
 
             <?php if ($isVerticalMenu && !$editSite->is_styled): ?>
                 <span class="nav-label">
-                    <?= e(trans('backend::lang.tooltips.preview_website')) ?>
+                    <?= __("Preview the Website") ?>
                 </span>
             <?php endif ?>
         </a>

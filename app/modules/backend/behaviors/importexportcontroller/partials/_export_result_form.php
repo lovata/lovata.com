@@ -2,8 +2,8 @@
 
     <div class="modal-body">
         <p>
-            <?= e(trans('backend::lang.import_export.processing_successful_line1')) ?>
-            <?= e(trans('backend::lang.import_export.processing_successful_line2')) ?>
+            <?= __("File export process completed!") ?>
+            <?= __("The browser will now redirect to the file download.") ?>
         </p>
     </div>
     <div class="modal-footer">
@@ -11,8 +11,14 @@
             href="<?= $returnUrl ?>"
             class="btn btn-success"
             data-dismiss="popup">
-            <?= e(trans('backend::lang.form.complete')) ?>
+            <?= __("Complete") ?>
         </a>
+        <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="popup">
+            <?= __("Close") ?>
+        </button>
     </div>
 
     <script> window.location = '<?= $fileUrl ?>'; </script>
@@ -25,9 +31,9 @@
     <div class="modal-footer">
         <button
             type="button"
-            class="btn btn-default"
+            class="btn btn-secondary"
             data-dismiss="popup">
-            <?= e(trans('backend::lang.form.close')) ?>
+            <?= __("Close") ?>
         </button>
     </div>
 

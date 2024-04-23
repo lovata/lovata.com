@@ -189,10 +189,19 @@ class ListStructure extends Lists
             return $this->onRefresh();
         }
 
-        // Diable structure when sorting
+        // Disable structure when sorting
         $this->disableStructure();
 
         return parent::onSort();
+    }
+
+    /**
+     * onShowStructure
+     */
+    public function onShowStructure()
+    {
+        $this->enableStructure();
+        return $this->onRefresh();
     }
 
     /**
@@ -299,7 +308,7 @@ class ListStructure extends Lists
         if (!$this->model->isClassInstanceOf(\October\Contracts\Database\TreeInterface::class)) {
             $modelClass = get_class($this->model);
             throw new ApplicationException(
-                "To display list as a tree, the model {$modelClass} must implement methods found in October\Contracts\Database\TreeInterface"
+                "To display list as a tree, the model {$modelClass} must implement methods found in October\Contracts\Database\TreeInterface, or set showTree to false"
             );
         }
     }
@@ -329,6 +338,10 @@ class ListStructure extends Lists
         $item = $this->model->newQueryWithoutScopes()->find($itemId);
         if (!$item) {
             return;
+        }
+
+        if ($this->fireSystemEvent('backend.list.beforeReorderStructure', [$item], true) === false) {
+            return $this->onRefresh();
         }
 
         if ($this->model->isClassInstanceOf(\October\Contracts\Database\NestedSetInterface::class)) {

@@ -2,17 +2,9 @@
 // Chart
 // --------------------------------------------------
 
-@color-status-list-text:                     #7e8c8d;
-
-@color-chart-tooltip-bg:                     #000000;
-@color-chart-tooltip-text:                   #ffffff;
-
-@color-scoreboard-title:                     var(--bs-emphasis-color);
-@color-scoreboard-description:               var(--bs-secondary-color);
-@color-scoreboard-body:                      var(--bs-body-color);
-@color-scoreboard-icon:                      #e5a91a;
-@color-scoreboard-positive:                  #95b753;
-@color-scoreboard-negative:                  #cc3300;
+@color-status-list-text:          #7e8c8d;
+@color-chart-tooltip-bg:          #000000;
+@color-chart-tooltip-text:        #ffffff;
 
 .control-chart-non-centered() {
     text-align: left;
@@ -180,13 +172,6 @@
 }
 
 .title-value {
-    h4 {
-        font-size: 12px;
-        font-weight: 400;
-        text-transform: uppercase;
-        margin: 0;
-    }
-
     span.goal-meter-indicator {
         float: left;
         height: 24px;
@@ -215,51 +200,6 @@
             > span {
                 background: @color-scoreboard-negative;
             }
-        }
-    }
-
-    p {
-        color: @color-scoreboard-body;
-        margin: 0;
-        font-size: 28px;
-        line-height: 41px;
-
-        &:before {
-            color: @color-scoreboard-icon;
-            font-size: 22px;
-        }
-
-        &.success {
-            color: @color-scoreboard-positive;
-        }
-        &.danger {
-            color: @color-scoreboard-negative;
-        }
-
-        &.negative, &.positive {
-            &:after {
-                font-size: 17px;
-                vertical-align: top;
-                position: relative;
-                top: -3px;
-                left: 5px;
-            }
-        }
-
-        &.negative {
-            color: @color-scoreboard-negative;
-            &:after{.icon(@angle-double-down)};
-        }
-        &.positive {
-            color: @color-scoreboard-positive;
-            &:after{.icon(@angle-double-up)};
-        }
-
-        &.description {
-            color: @color-scoreboard-description;
-            font-weight: 300;
-            line-height: 100%;
-            font-size: 13px;
         }
     }
 }

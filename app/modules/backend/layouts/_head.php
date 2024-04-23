@@ -36,7 +36,6 @@
         Backend::skinAsset('assets/vendor/bootstrap/bootstrap.min.js'),
         Backend::skinAsset('assets/js/vendor-min.js'),
         Backend::skinAsset('assets/js/october-min.js'),
-        Backend::skinAsset('assets/js/foundation-min.js'),
         Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js'),
     ];
 ?>

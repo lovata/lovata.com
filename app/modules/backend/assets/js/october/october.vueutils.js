@@ -194,6 +194,22 @@
                 top: offset1.top - offset2.top
             }
         };
+
+        this.getToolbarExtensionPoint = function (source, element) {
+            // Expected source format: eventBus::toolbarExtensionPoint
+            let parts = source.split('::');
+            if (parts.length !== 2) {
+                parts = ['eventBus', parts[0]];
+            }
+
+            const vueApp = oc.VueApp.getFromElement(element);
+            if (vueApp) {
+                return {
+                    bus: vueApp.getState(parts[0]),
+                    state: vueApp.getState(parts[1])
+                };
+            }
+        };
     };
 
     $.oc.vueUtils = new VueUtils();

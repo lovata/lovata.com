@@ -54,7 +54,7 @@ class PageManager
     public static function processLinks($markup): string
     {
         $searches = $replaces = [];
-        if (preg_match_all('/="(october:\/\/.*?[^"])"/i', $markup, $matches)) {
+        if (preg_match_all('/="(october:\/\/.*?[^"])(?:#[^"]+)?"/i', $markup, $matches)) {
             foreach ($matches[0] as $index => $search) {
                 $ocUrl = $matches[1][$index] ?? null;
                 if (!$ocUrl) {

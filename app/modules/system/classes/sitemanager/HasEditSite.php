@@ -46,14 +46,6 @@ trait HasEditSite
     }
 
     /**
-     * setEditSite
-     */
-    public function setEditSite($site)
-    {
-        $this->setEditSiteId($site->id);
-    }
-
-    /**
      * setEditSiteId
      */
     public function setEditSiteId($id)
@@ -73,7 +65,17 @@ trait HasEditSite
          *     });
          *
          */
-        Event::fire('system.site.setEditSite', compact('id'));
+        Event::fire('system.site.setEditSite', [$id]);
+
+        $this->broadcastSiteChange($id);
+    }
+
+    /**
+     * setEditSite
+     */
+    public function setEditSite($site)
+    {
+        $this->setEditSiteId($site->id);
     }
 
     /**
@@ -81,7 +83,7 @@ trait HasEditSite
      */
     public function getAnyEditSite()
     {
-        return $this->listEditEnabled()->where('is_primary', true)->first()
+        return $this->listEditEnabled()->isPrimary()->first()
             ?: $this->listEditEnabled()->first();
     }
 
@@ -90,7 +92,7 @@ trait HasEditSite
      */
     public function hasAnyEditSite(): bool
     {
-        return $this->listEditSites()->where('is_enabled_edit', true)->count() > 0;
+        return $this->listEditSites()->isEnabledEdit()->count() > 0;
     }
 
     /**
@@ -98,7 +100,7 @@ trait HasEditSite
      */
     public function hasMultiEditSite(): bool
     {
-        return $this->listEditSites()->where('is_enabled_edit', true)->count() > 1;
+        return $this->listEditSites()->isEnabledEdit()->count() > 1;
     }
 
     /**
@@ -106,7 +108,7 @@ trait HasEditSite
      */
     public function listEditEnabled()
     {
-        return $this->listEditSites()->where('is_enabled_edit', true);
+        return $this->listEditSites()->isEnabledEdit();
     }
 
     /**

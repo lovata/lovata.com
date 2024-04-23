@@ -80,7 +80,7 @@
                         data-tooltip-text="<?= e(trans('backend::lang.tabs.full_screen')) ?>"
                         @click.stop.prevent="onToggleFullscreen"
                     >
-                        <i :class="{'octo-icon-fullscreen': !isFullScreen, 'octo-icon-fullscreen-collapse': isFullScreen}"></i>
+                        <i :class="{'icon-fullscreen': !isFullScreen, 'icon-fullscreen-collapse': isFullScreen}"></i>
                     </button>
                 </div>
             </div>

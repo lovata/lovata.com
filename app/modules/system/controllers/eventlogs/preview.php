@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= Backend::url('system/eventlogs') ?>"><?= e(trans('system::lang.event_log.menu_label')) ?></a></li>
+        <li class="breadcrumb-item"><a href="<?= Backend::url('system/eventlogs') ?>"><?= __("Event Log") ?></a></li>
         <li class="breadcrumb-item active" aria-current="page"><?= e(__($this->pageTitle)) ?></li>
     </ol>
 <?php Block::endPut() ?>
@@ -10,15 +10,15 @@
     <div class="scoreboard">
         <div data-control="toolbar">
             <div class="scoreboard-item title-value">
-                <h4><?= e(trans('system::lang.event_log.id_label')) ?></h4>
+                <h4><?= __("Event ID") ?></h4>
                 <p>#<?= $formModel->id ?></p>
             </div>
             <div class="scoreboard-item title-value">
-                <h4><?= e(trans('system::lang.event_log.level')) ?></h4>
+                <h4><?= __("Level") ?></h4>
                 <p><?= $formModel->level ?></p>
             </div>
             <div class="scoreboard-item title-value">
-                <h4><?= e(trans('system::lang.event_log.created_at')) ?></h4>
+                <h4><?= __("Date & Time") ?></h4>
                 <p><?= $formModel->created_at->toDayDateTimeString() ?></p>
             </div>
         </div>
@@ -36,6 +36,6 @@
 
 <p>
     <a href="<?= Backend::url('system/eventlogs') ?>" class="btn btn-default oc-icon-chevron-left">
-        <?= e(trans('system::lang.event_log.return_link')) ?>
+        <?= __("Return to Event Log") ?>
     </a>
 </p>

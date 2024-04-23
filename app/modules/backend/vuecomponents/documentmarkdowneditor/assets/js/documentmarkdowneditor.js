@@ -26,23 +26,23 @@ oc.Modules.register('backend.component.documentmarkdowneditor', function () {
                 default: false
             },
             value: String,
-            externalToolbarEventBus: String
+            externalToolbarAppState: String
         },
         data: function() {
-            const imageDropdownItems = [
-                {
-                    command: 'oc-upload-image',
-                    label: 'command_upload_from_computer'
-                }
-            ];
-            const fileDropdownItems = [
-                {
-                    command: 'oc-upload-file',
-                    label: 'command_upload_from_computer'
-                }
-            ];
+            const imageDropdownItems = [];
+            const fileDropdownItems = [];
 
             if (this.useMediaManager) {
+                imageDropdownItems.push({
+                    command: 'oc-upload-image',
+                    label: 'command_upload_from_computer'
+                });
+
+                fileDropdownItems.push({
+                    command: 'oc-upload-file',
+                    label: 'command_upload_from_computer'
+                });
+
                 imageDropdownItems.push({
                     command: 'oc-browse-image',
                     label: 'browse'
@@ -144,7 +144,7 @@ oc.Modules.register('backend.component.documentmarkdowneditor', function () {
                     {
                         name: 'snippet',
                         action: 'snippet',
-                        className: 'fa fa-newspaper-o',
+                        className: 'fa fa-newspaper',
                         title: oc.lang.get('markdowneditor.snippet')
                     },
                     {
@@ -156,7 +156,7 @@ oc.Modules.register('backend.component.documentmarkdowneditor', function () {
                     {
                         name: 'image',
                         action: EasyMDE.drawImage,
-                        className: 'fa fa-picture-o',
+                        className: 'fa fa-picture',
                         title: oc.lang.get('markdowneditor.image')
                     },
                     {
@@ -227,12 +227,12 @@ oc.Modules.register('backend.component.documentmarkdowneditor', function () {
                     code: 'text-code-block',
                     'unordered-list': 'text-format-ul',
                     'ordered-list': 'text-format-ol',
-                    'clean-block': 'eraser',
+                    'clean-block': 'text-eraser',
                     image: 'text-image',
                     table: 'text-insert-table',
                     'horizontal-rule': 'horizontal-line',
                     'side-by-side': 'window-split',
-                    snippet: 'newspaper-o'
+                    snippet: 'newspaper'
                 }
             };
 
@@ -260,18 +260,16 @@ oc.Modules.register('backend.component.documentmarkdowneditor', function () {
             },
 
             externalToolbarEventBusObj: function computeExternalToolbarEventBusObj() {
-                if (!this.externalToolbarEventBus) {
+                if (!this.externalToolbarAppState) {
                     return null;
                 }
 
-                // Expected format: tailor.app::eventBus
-                const parts = this.externalToolbarEventBus.split('::');
-                if (parts.length !== 2) {
-                    throw new Error('Invalid externalToolbarEventBus format. Expected format: module.name::stateElementName');
-                }
+                const point = $.oc.vueUtils.getToolbarExtensionPoint(
+                    this.externalToolbarAppState,
+                    this.$el
+                );
 
-                const module = oc.Modules.import(parts[0]);
-                return module.state[parts[1]];
+                return point ? point.bus : null;
             },
 
             hasExternalToolbar: function computeHasExternalToolbar() {
@@ -430,8 +428,6 @@ oc.Modules.register('backend.component.documentmarkdowneditor', function () {
         },
         mounted: function onMounted() {
             this.editorId = $.oc.domIdManager.generate('markdowneditor');
-            this.$on('toolbarcmd', this.onToolbarCommand);
-
             this.editor = new EasyMDE({
                 element: this.$refs.textarea,
                 toolbar: this.defaultButtons,
@@ -477,19 +473,22 @@ oc.Modules.register('backend.component.documentmarkdowneditor', function () {
             this.editor.codemirror.on('focus', this.onFocus);
             this.editor.codemirror.on('blur', this.onBlur);
             $(window).on('oc.updateUi', this.refresh);
+            this.$on('toolbarcmd', this.onToolbarCommand);
 
-            if (this.hasExternalToolbar) {
-                this.extendExternalToolbar();
-            }
-            else {
-                this.extendToolbar();
-            }
+            Vue.nextTick(() => {
+                if (this.hasExternalToolbar) {
+                    this.extendExternalToolbar();
+                }
+                else {
+                    this.extendToolbar();
+                }
 
-            this.mountEventBus();
+                this.mountEventBus();
 
-            if (this.sideBySide) {
-                this.enableSideBySide();
-            }
+                if (this.sideBySide) {
+                    this.enableSideBySide();
+                }
+            });
         },
         beforeDestroy: function beforeDestroy() {
             if (this.editor) {

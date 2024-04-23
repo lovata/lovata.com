@@ -1,8 +1,9 @@
 <div id="relationManagePivotPopup">
     <?= Form::open() ?>
         <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+        <input type="hidden" name="_relation_extra_config" value="<?= e(json_encode($relationExtraConfig)) ?>" />
 
-        <div class="modal-header">
+        <div class="modal-header" data-popup-size="<?= $relationPopupSize ?? 950 ?>">
             <h4 class="modal-title"><?= e($relationManageTitle) ?></h4>
             <button type="button" class="btn-close" data-dismiss="popup"></button>
         </div>
@@ -18,28 +19,37 @@
             <?php if ($relationManageFilterWidget): ?>
                 <?= $relationManageFilterWidget->render() ?>
             <?php endif ?>
-            <?= $relationManageWidget->render() ?>
+            <?= $relationManageListWidget->render() ?>
         </div>
 
         <div class="modal-footer">
-            <?php if ($relationManageWidget->showCheckboxes): ?>
+            <?php if ($relationManageListWidget->showCheckboxes): ?>
                 <button
                     type="button"
                     class="btn btn-primary"
                     data-control="popup"
                     data-handler="onRelationManageAddPivot"
-                    data-size="<?= $this->popupSize ?>"
                     data-dismiss="popup"
                     data-stripe-load-indicator>
-                    <?= e(trans('backend::lang.relation.add_selected')) ?>
+                    <?= e($this->relationGetMessage('buttonAddMany')) ?>
+                </button>
+                <span class="btn-text">
+                    <span class="button-separator"><?= __("or") ?></span>
+                    <a
+                        href="javascript:;"
+                        class="btn btn-link p-0"
+                        data-dismiss="popup">
+                        <?= e($this->relationGetMessage('buttonCancelForm')) ?>
+                    </a>
+                </span>
+            <?php else: ?>
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="popup">
+                    <?= e($this->relationGetMessage('buttonCloseForm')) ?>
                 </button>
             <?php endif ?>
-            <button
-                type="button"
-                class="btn btn-default"
-                data-dismiss="popup">
-                <?= e(trans('backend::lang.relation.cancel')) ?>
-            </button>
         </div>
     <?= Form::close() ?>
 </div>

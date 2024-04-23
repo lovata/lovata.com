@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
 
         $this->call(\Backend\Database\Seeds\SeedSetupAdmin::class, true);
 
+        // @vuedashboard
+        // $this->call(\Backend\Database\Seeds\DefaultDashboard::class, true);
+
         Model::reguard();
     }
 }

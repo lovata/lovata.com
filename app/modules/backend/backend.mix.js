@@ -10,9 +10,6 @@
  */
 
 module.exports = (mix) => {
-    // Foundation
-    mix.js(['modules/backend/assets/foundation/foundation.js'], 'modules/backend/assets/js/foundation-min.js');
-
     // Backend LESS
     mix.less('modules/backend/assets/less/october.less', 'modules/backend/assets/css/');
     mix.less('modules/backend/behaviors/relationcontroller/assets/less/relation.less', 'modules/backend/behaviors/relationcontroller/assets/css/');
@@ -59,6 +56,7 @@ module.exports = (mix) => {
         ...require('./assets/foundation/scripts/build.js').map(name => `modules/backend/assets/foundation/scripts/${name}`),
         ...require('./assets/foundation/controls/build.js').map(name => `modules/backend/assets/foundation/controls/${name}`),
         ...require('./assets/foundation/migrate/build.js').map(name => `modules/backend/assets/foundation/migrate/${name}`),
+        ...require('./assets/js/vueapp/build.js').map(name => `modules/backend/assets/js/vueapp/${name}`),
         ...require('./assets/js/build.js').map(name => `modules/backend/assets/js/${name}`),
     ], 'modules/backend/assets/js/october-min.js');
 
@@ -68,4 +66,25 @@ module.exports = (mix) => {
         'modules/backend/formwidgets/repeater/assets/js/repeater.builder.js',
         'modules/backend/formwidgets/repeater/assets/js/repeater.accordion.js'
     ], 'modules/backend/formwidgets/repeater/assets/js/repeater-min.js');
+
+    // Monaco Editor
+    // Disabled for performance, and some files are manually pruned
+    // mix
+    //     .js(
+    //         'modules/backend/vuecomponents/monacoeditor/assets/vendor/monaco-yaml/monaco-yaml.js',
+    //         'modules/backend/vuecomponents/monacoeditor/assets/vendor/monaco-yaml/monaco-yaml.min.js'
+    //     )
+    //     // This must be compiled without compression in terser options
+    //     // .js(
+    //     //     'modules/backend/vuecomponents/monacoeditor/assets/vendor/monaco-yaml/yaml.worker.js',
+    //     //     'modules/backend/vuecomponents/monacoeditor/assets/vendor/monaco-yaml/yaml.worker.min.js'
+    //     // )
+    //     .copy(
+    //         'node_modules/emmet-monaco-es/dist/emmet-monaco.min.js',
+    //         'modules/backend/vuecomponents/monacoeditor/assets/vendor/emmet-monaco-es'
+    //     )
+    //     .copy(
+    //         'node_modules/monaco-editor/min',
+    //         'modules/backend/vuecomponents/monacoeditor/assets/vendor/monaco'
+    //     );
 };

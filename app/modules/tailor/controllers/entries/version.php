@@ -18,15 +18,15 @@
             <?= $this->formRenderPrimaryTabs() ?>
         </div>
 
-        <?= Ui::formToolbar(
-
-            Ui::ajaxButton()
-                ->label('Restore this Version')
-                ->ajaxHandler('onRestoreVersion')
-                ->loadingMessage(trans('backend::lang.form.saving_name', ['name'=>$entityName]))
-                ->primary()
-
-        ) ?>
+        <div class="form-buttons">
+            <div class="loading-indicator-container">
+                <?= Ui::ajaxButton()
+                    ->label('Restore this Version')
+                    ->ajaxHandler('onRestoreVersion')
+                    ->loadingMessage(trans('backend::lang.form.saving_name', ['name'=>$entityName]))
+                    ->primary() ?>
+            </div>
+        </div>
 
     <?php Block::endPut() ?>
 

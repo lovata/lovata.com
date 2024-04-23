@@ -5,27 +5,27 @@
         <div class="scoreboard">
             <div data-control="toolbar">
                 <div class="scoreboard-item title-value">
-                    <h4><?= e(trans('backend::lang.import_export.created')) ?></h4>
+                    <h4><?= __("Created") ?></h4>
                     <p><?= $importResults->created ?></p>
                 </div>
                 <div class="scoreboard-item title-value">
-                    <h4><?= e(trans('backend::lang.import_export.updated')) ?></h4>
+                    <h4><?= __("Updated") ?></h4>
                     <p><?= $importResults->updated ?></p>
                 </div>
                 <?php if ($importResults->skippedCount): ?>
                     <div class="scoreboard-item title-value">
-                        <h4><?= e(trans('backend::lang.import_export.skipped')) ?></h4>
+                        <h4><?= __("Skipped") ?></h4>
                         <p><?= $importResults->skippedCount ?></p>
                     </div>
                 <?php endif ?>
                 <?php if ($importResults->warningCount): ?>
                     <div class="scoreboard-item title-value">
-                        <h4><?= e(trans('backend::lang.import_export.warnings')) ?></h4>
+                        <h4><?= __("Warnings") ?></h4>
                         <p><?= $importResults->warningCount ?></p>
                     </div>
                 <?php endif ?>
                 <div class="scoreboard-item title-value">
-                    <h4><?= e(trans('backend::lang.import_export.errors')) ?></h4>
+                    <h4><?= __("Errors") ?></h4>
                     <p><?= $importResults->errorCount ?></p>
                 </div>
             </div>
@@ -34,9 +34,9 @@
         <?php if ($importResults->hasMessages): ?>
             <?php
                 $tabs = [
-                    'skipped' => trans('backend::lang.import_export.skipped_rows'),
-                    'warnings' => trans('backend::lang.import_export.warnings'),
-                    'errors' => trans('backend::lang.import_export.errors'),
+                    'skipped' => __("Skipped Rows"),
+                    'warnings' => __("Warnings"),
+                    'errors' => __("Errors"),
                 ];
 
                 if (!$importResults->skippedCount) unset($tabs['skipped']);
@@ -56,17 +56,15 @@
                 <div class="tab-content">
                     <?php $count = 0; foreach ($tabs as $code => $tab): ?>
                         <div class="tab-pane <?= $count++ == 0 ? 'active' : '' ?>">
-                            <div class="list-preview">
-                                <div class="control-simplelist is-divided is-scrollable size-small" data-control="simplelist">
-                                    <ul>
-                                        <?php foreach ($importResults->{$code} as $row => $message): ?>
-                                            <li>
-                                                <strong><?= e(trans('backend::lang.import_export.row', ['row' => $row + $sourceIndexOffset])) ?></strong>
-                                                - <?= e($message) ?>
-                                            </li>
-                                        <?php endforeach ?>
-                                    </ul>
-                                </div>
+                            <div class="control-simplelist is-divided is-scrollable size-small" data-control="simplelist">
+                                <ul>
+                                    <?php foreach ($importResults->{$code} as $row => $message): ?>
+                                        <li>
+                                            <strong><?= e(trans('backend::lang.import_export.row', ['row' => $row + $sourceIndexOffset])) ?></strong>
+                                            - <?= e($message) ?>
+                                        </li>
+                                    <?php endforeach ?>
+                                </ul>
                             </div>
                         </div>
                     <?php endforeach ?>
@@ -80,8 +78,14 @@
             href="<?= $returnUrl ?>"
             class="btn btn-success"
             data-dismiss="popup">
-            <?= e(trans('backend::lang.form.complete')) ?>
+            <?= __("Complete") ?>
         </a>
+        <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="popup">
+            <?= __("Close") ?>
+        </button>
     </div>
 
 <?php else: ?>
@@ -92,9 +96,9 @@
     <div class="modal-footer">
         <button
             type="button"
-            class="btn btn-default"
+            class="btn btn-secondary"
             data-dismiss="popup">
-            <?= e(trans('backend::lang.form.close')) ?>
+            <?= __("Close") ?>
         </button>
     </div>
 

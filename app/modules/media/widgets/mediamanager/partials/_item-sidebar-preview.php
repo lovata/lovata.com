@@ -1,7 +1,7 @@
 <div data-control="media-preview-container"></div>
 
 <script type="text/template" data-control="audio-template">
-    <div class="panel no-padding-bottom">
+    <div class="media-panel pb-0">
         <audio src="{src}" controls>
             <div class="media-player-fallback panel-embedded">Your browser doesn't support HTML5 audio.</div>
         </audio>
@@ -10,7 +10,7 @@
 
 <script type="text/template" data-control="video-template">
     <video src="{src}" controls preload="metadata">
-        <div class="panel media-player-fallback">Your browser doesn't support HTML5 video.</div>
+        <div class="media-panel media-player-fallback">Your browser doesn't support HTML5 video.</div>
     </video>
 </script>
 

@@ -11,7 +11,7 @@
 
 module.exports = (mix) => {
     // Theme Selector
-    mix.less('modules/cms/assets/less/october.theme-selector.less', 'modules/cms/assets/css/');
+    mix.less('modules/cms/assets/less/themes.less', 'modules/cms/assets/css/');
 
     // Component LESS
     mix.lessList('modules/cms/widgets');

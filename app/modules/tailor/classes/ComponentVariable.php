@@ -32,7 +32,13 @@ class ComponentVariable implements IteratorAggregate, ArrayAccess, CallsAnyMetho
     protected $record;
 
     /**
-     * @var bool isRecordLoaded
+     * @var bool hasBlueprint will be set to false if the blueprint is missing, and strict
+     * component configuration is disabled.
+     */
+    public $hasBlueprint = true;
+
+    /**
+     * @var bool isRecordLoaded is an internal marker
      */
     protected $isRecordLoaded = false;
 
@@ -74,6 +80,7 @@ class ComponentVariable implements IteratorAggregate, ArrayAccess, CallsAnyMetho
         }
         catch (Exception $ex) {
             if (!Config::get('cms.strict_components', false)) {
+                $this->hasBlueprint = false;
                 return null;
             }
 
@@ -91,6 +98,7 @@ class ComponentVariable implements IteratorAggregate, ArrayAccess, CallsAnyMetho
         }
         catch (Exception $ex) {
             if (!Config::get('cms.strict_components', false)) {
+                $this->hasBlueprint = false;
                 return null;
             }
 

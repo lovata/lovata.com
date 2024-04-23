@@ -9,7 +9,6 @@
     data-unique-id="<?= $this->getId() ?>"
     data-max-filesize="<?= $maxFilesize ?>"
     <?php if ($externalToolbarAppState): ?>data-external-toolbar-app-state="<?= e($externalToolbarAppState)?>"<?php endif ?>
-    <?php if ($externalToolbarEventBus): ?>data-external-toolbar-event-bus="<?= e($externalToolbarEventBus)?>"<?php endif ?>
     <?php if ($maxFiles): ?>data-max-files="<?= $maxFiles ?>"<?php endif ?>
     <?php if ($useCaption): ?>data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"<?php endif ?>
     <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
@@ -25,7 +24,7 @@
     <div class="uploader-control-container <?= $externalToolbarAppState ? 'external-toolbar' : null ?>">
         <div class="uploader-control-toolbar">
             <a href="javascript:;" class="backend-toolbar-button control-button toolbar-upload-button">
-                <i class="octo-icon-common-file-upload"></i>
+                <i class="icon-common-file-upload"></i>
                 <span class="button-label"><?= __("Upload") ?></span>
             </a>
 
@@ -36,7 +35,7 @@
                 data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
                 disabled
             >
-                <i class="octo-icon-common-file-remove"></i>
+                <i class="icon-common-file-remove"></i>
                 <span class="button-label"><?= __("Delete Selected") ?> <span></span></span>
             </button>
         </div>

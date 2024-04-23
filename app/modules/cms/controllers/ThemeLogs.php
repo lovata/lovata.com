@@ -10,7 +10,7 @@ use Cms\Models\ThemeLog;
 /**
  * ThemeLogs controller
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 class ThemeLogs extends Controller
@@ -82,9 +82,9 @@ class ThemeLogs extends Controller
 
     public function preview($id)
     {
-        $this->addCss('/modules/cms/assets/css/themelogs/template-diff.css');
+        $this->addCss('/modules/cms/assets/css/themelogs.css');
         $this->addJs('/modules/cms/assets/vendor/jsdiff/diff.js');
-        $this->addJs('/modules/cms/assets/js/themelogs/template-diff.js');
+        $this->addJs('/modules/cms/assets/js/themelogs.templatediff.js');
 
         return $this->asExtension('FormController')->preview($id);
     }

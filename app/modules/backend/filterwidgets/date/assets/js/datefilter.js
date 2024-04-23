@@ -8,7 +8,7 @@
  * JavaScript API:
  * $('div#someElement').dateFilter({ dataLocker: 'input#locker' })
  *
- * Dependences:
+ * Dependencies:
  * - Some other plugin (filename.js)
  */
 
@@ -87,9 +87,16 @@
 
     DateFilter.prototype.getDatePickerValue = function($datepicker) {
         var rawValue = $datepicker.val();
-
         if (rawValue !== '') {
             rawValue = moment(rawValue, this.getDateFormat());
+        }
+
+        // Look at the locker for the default value
+        if (!rawValue) {
+            rawValue = this.getDataLocker($datepicker)
+            if (rawValue !== '') {
+                rawValue = moment(rawValue, this.dbDateFormat);
+            }
         }
 
         return rawValue;

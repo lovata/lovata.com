@@ -13,26 +13,26 @@ use ApplicationException;
  * Useful in models for generating a "url" attribute, automatically linked
  * to a primary component used in the active theme. For example:
  *
- *    use \Cms\Traits\UrlMaker;
+ *     use \Cms\Traits\UrlMaker;
  *
- *    protected $urlComponentName = 'blogPost';
+ *     protected $urlComponentName = 'blogPost';
  *
  * When declared in a model, the above will result in `$model->url` magically
  * linking to the component that declares `isPrimary = 1` in configuration.
  *
- *    [blogPost]
- *    isPrimary = "1"
+ *     [blogPost]
+ *     isPrimary = "1"
  *
  * The parameters passed to the component are supplied when overriding the
  * method `getUrlParams` also within the model.
  *
- *    public function getUrlParams()
- *    {
- *        return [
- *            'id' => $this->id,
- *            'hash' => $this->hash,
- *        ];
- *    }
+ *     public function getUrlParams()
+ *     {
+ *         return [
+ *             'id' => $this->id,
+ *             'hash' => $this->hash,
+ *         ];
+ *     }
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges

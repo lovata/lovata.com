@@ -3,22 +3,44 @@
 use Url;
 use Site;
 use Model;
-use Config;
 use Cms\Classes\Theme;
 use Backend\Models\User;
 use Backend\Models\UserRole;
 use System\Helpers\Preset as PresetHelper;
-use System\Helpers\DateTime as DateTimeHelper;
+use System\Classes\SiteCollection;
 use ValidationException;
 
 /**
  * SiteDefinition
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $code
+ * @property int $sort_order
+ * @property bool $is_custom_url
+ * @property string $app_url
+ * @property string $theme
+ * @property string $locale
+ * @property string $timezone
+ * @property bool $is_host_restricted
+ * @property array $allow_hosts
+ * @property bool $is_prefixed
+ * @property string $route_prefix
+ * @property bool $is_styled
+ * @property string $color_foreground
+ * @property string $color_background
+ * @property bool $is_role_restricted
+ * @property array $allow_roles
+ * @property bool $is_primary
+ * @property bool $is_enabled
+ * @property bool $is_enabled_edit
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
 class SiteDefinition extends Model
 {
+    use \System\Models\SiteDefinition\HasModelAttributes;
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\Sortable;
 
@@ -38,6 +60,13 @@ class SiteDefinition extends Model
     public $rules = [
         'code' => 'required',
         'name' => 'required',
+    ];
+
+    /**
+     * @var array belongsTo
+     */
+    public $belongsTo = [
+        'group' => SiteGroup::class
     ];
 
     /**
@@ -76,7 +105,9 @@ class SiteDefinition extends Model
             'code' => 'english',
             'is_primary' => true,
             'is_enabled' => true,
-            'is_enabled_edit' => true
+            'is_enabled_edit' => true,
+            'group_id' => null,
+            'group' => null,
         ];
         $site->syncOriginal();
         return $site;
@@ -94,6 +125,10 @@ class SiteDefinition extends Model
         if ($this->is_prefixed && (substr($this->route_prefix, 0, 1) !== '/' || $this->route_prefix === '/')) {
             throw new ValidationException(['route_prefix' => __("Route prefix must start with a forward slash (/)")]);
         }
+
+        if ($this->is_host_restricted && !$this->isAllowHostsValid()) {
+            throw new ValidationException(['allow_hosts' => __("Please specify a valid hostname")]);
+        }
     }
 
     /**
@@ -102,34 +137,6 @@ class SiteDefinition extends Model
     public function afterSave()
     {
         Site::resetCache();
-    }
-
-    /**
-     * getActiveColorAttribute
-     */
-    public function getActiveColorAttribute()
-    {
-        if ($this->is_styled) {
-            return [$this->color_background, $this->color_foreground];
-        }
-
-        return null;
-    }
-
-    /**
-     * getStatusCodeAttribute
-     */
-    public function getStatusCodeAttribute()
-    {
-        if ($this->is_enabled) {
-            return 'enabled';
-        }
-
-        if ($this->is_enabled_edit) {
-            return 'editable';
-        }
-
-        return 'disabled';
     }
 
     /**
@@ -145,58 +152,11 @@ class SiteDefinition extends Model
     }
 
     /**
-     * getBaseUrlAttribute
-     */
-    public function getBaseUrlAttribute()
-    {
-        $appUrl = $this->is_custom_url ? $this->app_url : Url::to('/');
-        $prefix = $this->is_prefixed ? $this->route_prefix : '';
-
-        return rtrim($appUrl . $prefix, '/');
-    }
-
-    /**
-     * getHardLocaleAttribute will always return a locale code no matter what
-     */
-    public function getHardLocaleAttribute()
-    {
-        if ($this->locale) {
-            return $this->locale;
-        }
-
-        return Config::get('app.original_locale', Config::get('app.locale', 'en'));
-    }
-
-    /**
-     * getUrlAttribute
-     */
-    public function getUrlAttribute()
-    {
-        if ($this->urlOverride !== null) {
-            return $this->urlOverride;
-        }
-
-        return $this->base_url;
-    }
-
-    /**
      * setUrlOverride
      */
     public function setUrlOverride(string $url)
     {
         $this->urlOverride = $url;
-    }
-
-    /**
-     * getFlagIconAttribute
-     */
-    public function getFlagIconAttribute()
-    {
-        if (!$this->locale || $this->locale === 'custom') {
-            return '';
-        }
-
-        return PresetHelper::flags()[$this->locale][1] ?? '';
     }
 
     /**
@@ -213,6 +173,23 @@ class SiteDefinition extends Model
         }
 
         return $hosts;
+    }
+
+    /**
+     * isAllowHostsValid returns true if the allowable host names are valid
+     */
+    protected function isAllowHostsValid(): bool
+    {
+        foreach ($this->getAllowHostsAsArray() as $domain) {
+            if (!preg_match(
+                '/^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$/',
+                str_replace('*', 'x', $domain)
+            )) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -428,5 +405,14 @@ class SiteDefinition extends Model
         }
 
         return false;
+    }
+
+    /**
+     * newCollection instance.
+     * @return \System\Classes\SiteCollection
+     */
+    public function newCollection(array $models = [])
+    {
+        return new SiteCollection($models);
     }
 }

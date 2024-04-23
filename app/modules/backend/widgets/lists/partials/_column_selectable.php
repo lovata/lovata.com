@@ -1,7 +1,7 @@
 <?php
 if (is_array($value)) {
     $selectedValues = array_map(function ($value) use ($fieldOptions) {
-        return $fieldOptions[$value];
+        return $fieldOptions[$value] ?? $value;
     }, $value);
 }
 else {
@@ -20,9 +20,12 @@ $isComplex = is_array(array_first($selectedValues));
             <?php else: ?>
                 <i class="<?= $selectedValue[1] ?>"></i>
             <?php endif ?>
-            <?= e(__($selectedValue[0])) ?>
+            <?= $column->getDisplayValue($selectedValue[0]) ?>
         </span>
     <?php endforeach ?>
 <?php else: ?>
-    <?= e(implode(', ', Arr::trans($selectedValues))) ?>
+    <?= e(implode(', ', $column->valueTrans
+        ? Arr::trans($selectedValues)
+        : $selectedValues
+    )) ?>
 <?php endif ?>

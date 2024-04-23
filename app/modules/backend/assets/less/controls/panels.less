@@ -1,15 +1,12 @@
 @panel-border-color: @primary-border;
 
-div.panel {
-
+// @deprecated div.panel is used by builder
+div.panel,
+div.media-panel {
     padding: 20px;
 
     &.no-padding {
         padding: 0;
-    }
-
-    &.no-padding-bottom {
-        padding-bottom: 0;
     }
 
     &.padding-top {
@@ -40,19 +37,20 @@ div.panel {
         border-top: 1px solid @panel-border-color;
     }
 
-    /*
-     * Panel sections
-     */
-
-    h3.section, > label {
-        text-transform: uppercase;
+    // Panel sections
+    h3.section,
+    > label {
         color: @primary-color;
         font-size: 13px;
         font-weight: 600;
-        margin: 0 0 15px 0;
     }
 
     > label {
         margin-bottom: 5px;
+    }
+
+    // Selector group
+    .nav.selector-group {
+        margin: 0 -20px 20px -20px;
     }
 }

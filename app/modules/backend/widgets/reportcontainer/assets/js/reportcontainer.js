@@ -81,7 +81,11 @@
 
         this.$el.on('click', '.content > button[data-remove-widget]', function() {
             var $btn = $(this);
-            $.oc.confirm($.oc.lang.get('alert.widget_remove_confirm'), function() {
+            oc.confirm($.oc.lang.get('alert.widget_remove_confirm'), function(isConfirm) {
+                if (!isConfirm) {
+                    return;
+                }
+
                 self.$form.request(self.alias + '::onRemoveWidget', {
                     data: {
                         'alias': $('[data-widget-alias]', $btn.closest('div.content')).val()

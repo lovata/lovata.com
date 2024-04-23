@@ -4,8 +4,10 @@ use Lang;
 use Backend;
 use BackendAuth;
 use Backend\Classes\ControllerBehavior;
+use Illuminate\Database\Eloquent\MassAssignmentException;
 use ApplicationException;
 use ForbiddenException;
+use Exception;
 
 /**
  * ImportExportController adds features for importing and exporting data.
@@ -27,11 +29,11 @@ use ForbiddenException;
  */
 class ImportExportController extends ControllerBehavior
 {
+    use \Backend\Behaviors\ImportExportController\ActionImport;
+    use \Backend\Behaviors\ImportExportController\ActionExport;
+    use \Backend\Behaviors\ImportExportController\HasListExport;
     use \Backend\Behaviors\ImportExportController\CanFormatCsv;
     use \Backend\Behaviors\ImportExportController\CanFormatJson;
-    use \Backend\Behaviors\ImportExportController\HasImportMode;
-    use \Backend\Behaviors\ImportExportController\HasExportMode;
-    use \Backend\Behaviors\ImportExportController\HasListExport;
 
     /**
      * @inheritDoc
@@ -65,7 +67,19 @@ class ImportExportController extends ControllerBehavior
      */
     public function beforeDisplay()
     {
-        // Import form widgets
+        if ($this->controller->getAction() === 'import') {
+            $this->beforeDisplayImport();
+        }
+        elseif ($this->controller->getAction() === 'export') {
+            $this->beforeDisplayExport();
+        }
+    }
+
+    /**
+     * beforeDisplayImport loads the import form widgets
+     */
+    public function beforeDisplayImport()
+    {
         if ($this->importUploadFormWidget = $this->makeImportUploadFormWidget()) {
             $this->importUploadFormWidget->bindToController();
         }
@@ -73,8 +87,13 @@ class ImportExportController extends ControllerBehavior
         if ($this->importOptionsFormWidget = $this->makeImportOptionsFormWidget()) {
             $this->importOptionsFormWidget->bindToController();
         }
+    }
 
-        // Export form widgets
+    /**
+     * beforeDisplayExport loads the export form widgets
+     */
+    public function beforeDisplayExport()
+    {
         if ($this->exportFormatFormWidget = $this->makeExportFormatFormWidget()) {
             $this->exportFormatFormWidget->bindToController();
         }
@@ -83,6 +102,146 @@ class ImportExportController extends ControllerBehavior
             $this->exportOptionsFormWidget->bindToController();
         }
     }
+
+    //
+    // Import
+    //
+
+    /**
+     * import action
+     */
+    public function import()
+    {
+        if ($response = $this->checkPermissionsForType('import')) {
+            return $response;
+        }
+
+        $this->addJs('js/october.import.js');
+        $this->addCss('css/import.css');
+
+        $this->controller->pageTitle = $this->controller->pageTitle
+            ?: Lang::get($this->getConfig('import[title]', 'Import Records'));
+
+        $this->prepareImportVars();
+    }
+
+    /**
+     * onImport
+     */
+    public function onImport()
+    {
+        try {
+            $this->actionImport();
+        }
+        catch (MassAssignmentException $ex) {
+            $this->controller->handleError(new ApplicationException(Lang::get(
+                'backend::lang.model.mass_assignment_failed',
+                ['attribute' => $ex->getMessage()]
+            )));
+        }
+        catch (Exception $ex) {
+            $this->controller->handleError($ex);
+        }
+
+        return $this->importExportMakePartial('import_result_form');
+    }
+
+    /**
+     * onImportLoadColumnSampleForm
+     */
+    public function onImportLoadColumnSampleForm()
+    {
+        $this->actionImportLoadColumnSampleForm();
+
+        return $this->importExportMakePartial('column_sample_form');
+    }
+
+    /**
+     * onImportLoadForm
+     */
+    public function onImportLoadForm()
+    {
+        try {
+            if (!$this->isCustomFileFormat()) {
+                $this->checkRequiredImportColumns();
+            }
+        }
+        catch (Exception $ex) {
+            $this->controller->handleError($ex);
+        }
+
+        return $this->importExportMakePartial('import_form');
+    }
+
+    //
+    // Export
+    //
+
+    /**
+     * export action
+     */
+    public function export()
+    {
+        if ($response = $this->checkPermissionsForType('export')) {
+            return $response;
+        }
+
+        if ($response = $this->checkUseListExportMode()) {
+            return $response;
+        }
+
+        $this->addJs('js/october.export.js');
+        $this->addCss('css/export.css');
+
+        $this->controller->pageTitle = $this->controller->pageTitle
+            ?: Lang::get($this->getConfig('export[title]', 'Export Records'));
+
+        $this->prepareExportVars();
+    }
+
+    /**
+     * download action
+     */
+    public function download($name, $outputName = null)
+    {
+        $this->controller->pageTitle = $this->controller->pageTitle
+            ?: Lang::get($this->getConfig('export[title]', 'Export Records'));
+
+        return $this->exportGetModel()->download($name, $outputName);
+    }
+
+    /**
+     * onExport
+     */
+    public function onExport()
+    {
+        try {
+            $this->actionExport();
+        }
+        catch (MassAssignmentException $ex) {
+            $this->controller->handleError(new ApplicationException(Lang::get(
+                'backend::lang.model.mass_assignment_failed',
+                ['attribute' => $ex->getMessage()]
+            )));
+        }
+        catch (Exception $ex) {
+            $this->controller->handleError($ex);
+        }
+
+        return $this->importExportMakePartial('export_result_form');
+    }
+
+    /**
+     * onExportLoadForm
+     */
+    public function onExportLoadForm()
+    {
+        return $this->importExportMakePartial('export_form');
+    }
+
+    //
+    // Internals
+    //
 
     /**
      * importExportMakePartial controller accessor for making partials within this behavior.
@@ -150,7 +309,7 @@ class ImportExportController extends ControllerBehavior
 
         $modelClass = $this->getConfig($type.'[modelClass]');
         if (!$modelClass) {
-            throw new ApplicationException(Lang::get('backend::lang.import_export.missing_model_class_error', [
+            throw new ApplicationException(__("Please specify the modelClass property for :type", [
                 'type' => $type
             ]));
         }

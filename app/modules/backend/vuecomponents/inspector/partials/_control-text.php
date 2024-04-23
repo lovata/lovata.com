@@ -22,6 +22,7 @@
         v-bind:id="controlId"
         v-bind:placeholder="control.placeholder"
         v-bind:readonly="inspectorPreferences.readOnly"
+        @keydown.enter.stop
         @input="updateValue"
         @focus="$emit('focus', $event)"
         @blur="$emit('blur', $event)"

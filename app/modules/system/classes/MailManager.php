@@ -1,6 +1,7 @@
 <?php namespace System\Classes;
 
 use App;
+use Arr;
 use System;
 use Markdown;
 use System\Models\MailPartial;
@@ -12,17 +13,13 @@ use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
 /**
  * MailManager manages Mail sending functions
  *
- * @method static MailManager instance()
- *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
  */
 class MailManager
 {
-    use \October\Rain\Support\Traits\Singleton;
-
     /**
-     * @var array A cache of customised mail templates.
+     * @var array A cache of customized mail templates.
      */
     protected $templateCache = [];
 
@@ -47,9 +44,30 @@ class MailManager
     protected $isHtmlRenderMode = false;
 
     /**
-     * @var array Cache of registration callbacks.
+     * instance creates a new instance of this singleton
      */
-    protected static $callbacks = [];
+    public static function instance(): static
+    {
+        return App::make('system.mailer');
+    }
+
+    /**
+     * registerCallback registers a callback function that defines mail templates.
+     * The callback function should register templates by calling the manager's
+     * registerMailTemplates() function. Thi instance is passed to the
+     * callback function as an argument. Usage:
+     *
+     *     MailManager::registerCallback(function ($manager) {
+     *         $manager->registerMailTemplates([...]);
+     *     });
+     *
+     * @deprecated this will be removed in a later version
+     * @param callable $callback A callable function.
+     */
+    public static function registerCallback(callable $callback)
+    {
+        App::extendInstance('system.mailer', $callback);
+    }
 
     /**
      * addContentFromEvent handles adding content from the `mailer.beforeAddContent` event
@@ -307,11 +325,6 @@ class MailManager
      */
     public function loadRegisteredTemplates()
     {
-        // Load external templates
-        foreach (static::$callbacks as $callback) {
-            $callback($this);
-        }
-
         // Registration logic
         $registrar = function($provider) {
             if (is_array($templates = $provider->registerMailTemplates())) {
@@ -370,6 +383,18 @@ class MailManager
     }
 
     /**
+     * getViewPathForTemplate returns a view path for a registered template
+     */
+    public function getViewPathForTemplate($code): ?string
+    {
+        if ($this->registeredTemplates === null) {
+            $this->loadRegisteredTemplates();
+        }
+
+        return $this->registeredTemplates[$code] ?? null;
+    }
+
+    /**
      * listRegisteredPartials returns a list of the registered partials.
      * @return array
      */
@@ -396,23 +421,6 @@ class MailManager
     }
 
     /**
-     * registerCallback registers a callback function that defines mail templates.
-     * The callback function should register templates by calling the manager's
-     * registerMailTemplates() function. Thi instance is passed to the
-     * callback function as an argument. Usage:
-     *
-     *     MailManager::registerCallback(function ($manager) {
-     *         $manager->registerMailTemplates([...]);
-     *     });
-     *
-     * @param callable $callback A callable function.
-     */
-    public static function registerCallback(callable $callback)
-    {
-        self::$callbacks[] = $callback;
-    }
-
-    /**
      * registerMailTemplates registers mail views and manageable templates.
      */
     public function registerMailTemplates(array $definitions)
@@ -421,12 +429,9 @@ class MailManager
             $this->registeredTemplates = [];
         }
 
-        // Prior sytax where (key) code => (value) description
-        if (!isset($definitions[0])) {
-            $definitions = array_keys($definitions);
+        if (Arr::isList($definitions)) {
+            $definitions = array_combine($definitions, $definitions);
         }
-
-        $definitions = array_combine($definitions, $definitions);
 
         $this->registeredTemplates = $definitions + $this->registeredTemplates;
     }

@@ -16,6 +16,7 @@ use Backend\Models\User as UserModel;
 use System\Classes\UpdateManager;
 use ApplicationException;
 use ValidationException;
+use NotFoundException;
 use Exception;
 
 /**
@@ -157,6 +158,10 @@ class Auth extends Controller
      */
     public function restore()
     {
+        if (!$this->checkCanReset()) {
+            throw new NotFoundException;
+        }
+
         try {
             if ($this->checkPostbackFlag()) {
                 return $this->handleSubmitRestore();
@@ -202,7 +207,7 @@ class Auth extends Controller
                 'link' => $link,
             ];
 
-            Mail::send('backend::mail.restore', $data, function ($message) use ($user) {
+            Mail::send('backend:restore', $data, function ($message) use ($user) {
                 $message->to($user->email, $user->full_name)->subject(__('Password Reset'));
             });
         }
@@ -216,6 +221,10 @@ class Auth extends Controller
      */
     public function reset($userId = null, $code = null)
     {
+        if (!$this->checkCanReset()) {
+            throw new NotFoundException;
+        }
+
         try {
             if ($this->checkPostbackFlag()) {
                 return $this->handleSubmitReset();
@@ -405,5 +414,13 @@ class Auth extends Controller
         }
 
         return true;
+    }
+
+    /**
+     * checkCanReset password via self service
+     */
+    protected function checkCanReset(): bool
+    {
+        return (bool) Config::get('backend.password_policy.allow_reset', true);
     }
 }

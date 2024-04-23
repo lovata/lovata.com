@@ -5,24 +5,27 @@
  * - data-control="colorpicker" - enables the plugin on an element
  * - data-data-locker="input#locker" - Input element to store and restore the chosen color
  *
- * JavaScript API:
- * ColorPickerFormWidget.getOrCreateInstance(el, { dataLocker: 'input#locker' })
+ * Config:
+ * - showAlpha: false
+ * - allowEmpty: false
+ * - dataLocker: null
+ * - disabled: false
+ *
  */
 
 'use strict';
 
-class ColorPickerFormWidget extends oc.FoundationPlugin
-{
-    constructor(element, config) {
-        super(element, config);
-
-        this.$el = $(element);
+oc.registerControl('colorpicker', class extends oc.ControlBase {
+    init() {
+        this.$el = $(this.element);
         this.$dataLocker  = $(this.config.dataLocker, this.$el);
         this.$colorList = $('> ul', this.$el);
         this.$customColor = $('[data-custom-color]', this.$el);
         this.$customColorSpan = $('> span', this.$customColor);
         this.originalColor = this.$customColor.data('hexColor');
+    }
 
+    connect() {
         if (!this.config.disabled) {
             this.$colorList.on('click', '> li', this.proxy(this.onSelectColor));
         }
@@ -45,11 +48,9 @@ class ColorPickerFormWidget extends oc.FoundationPlugin
         };
 
         this.$dataLocker.one('change', this.proxy(this.triggerNativeChange));
-
-        this.markDisposable();
     }
 
-    dispose() {
+    disconnect() {
         if (!this.config.disabled) {
             this.$colorList.off('click', '> li', this.proxy(this.onSelectColor));
         }
@@ -65,21 +66,6 @@ class ColorPickerFormWidget extends oc.FoundationPlugin
         }
 
         this.$dataLocker.off('change', this.proxy(this.triggerNativeChange));
-
-        super.dispose();
-    }
-
-    static get DATANAME() {
-        return 'ocColorPicker';
-    }
-
-    static get DEFAULTS() {
-        return {
-            showAlpha: false,
-            allowEmpty: false,
-            dataLocker: null,
-            disabled: false
-        }
     }
 
     onSelectColor(ev) {
@@ -111,8 +97,8 @@ class ColorPickerFormWidget extends oc.FoundationPlugin
         this.$customColor.spectrum({
             preferredFormat: this.config.showAlpha ? 'hex8' : 'hex',
             showInput: true,
-            showAlpha: this.config.showAlpha,
-            allowEmpty: this.config.allowEmpty,
+            showAlpha: !!this.config.showAlpha,
+            allowEmpty: !!this.config.allowEmpty,
             color: this.$customColor.data('hexColor'),
             chooseText: $.oc.lang.get('colorpicker.choose', 'OK'),
             cancelText: '⨯',
@@ -182,10 +168,4 @@ class ColorPickerFormWidget extends oc.FoundationPlugin
 
         return color.toHexString();
     }
-}
-
-addEventListener('render', function() {
-    document.querySelectorAll('[data-control=colorpicker]').forEach(function(el) {
-        ColorPickerFormWidget.getOrCreateInstance(el);
-    });
 });

@@ -43,9 +43,9 @@ class Filter extends WidgetBase implements FilterElement
     public $context;
 
     /**
-     * @var array|null extraData to pass with the filter requests.
+     * @var string customPageName will be reset when a filter is applied, shared with the list widget
      */
-    public $extraData;
+    public $customPageName = 'page';
 
     //
     // Object Properties
@@ -85,8 +85,12 @@ class Filter extends WidgetBase implements FilterElement
             'scopes',
             'model',
             'context',
-            'extraData',
+            'customPageName',
         ]);
+
+        if (!$this->customPageName) {
+            $this->customPageName = '_page';
+        }
 
         $this->initFilterWidgetsConcern();
     }
@@ -129,7 +133,7 @@ class Filter extends WidgetBase implements FilterElement
     {
         $this->vars['cssClasses'] = implode(' ', $this->cssClasses);
         $this->vars['scopes'] = $this->allScopes;
-        $this->vars['extraData'] = (array) $this->extraData;
+        $this->vars['pageName'] = $this->customPageName;
     }
 
     /**
@@ -165,8 +169,12 @@ class Filter extends WidgetBase implements FilterElement
             $this->scopes = [];
         }
 
-        $this->addScopes($this->scopes);
-        $this->addScopesFromModel();
+        if ($this->scopes) {
+            $this->addScopes($this->scopes);
+        }
+        else {
+            $this->addScopesFromModel();
+        }
 
         /**
          * @event backend.filter.extendScopes
@@ -195,6 +203,7 @@ class Filter extends WidgetBase implements FilterElement
         $this->processLegacyDefinitions($this->allScopes);
         $this->processScopeModels($this->allScopes);
         $this->processPermissionCheck($this->allScopes);
+        $this->processAutoOrder($this->allScopes);
         $this->processFilterWidgetScopes($this->allScopes);
         $this->processFieldOptionValues($this->allScopes);
 
@@ -392,10 +401,12 @@ class Filter extends WidgetBase implements FilterElement
         // Condition
         $sqlCondition = $scope->conditions;
         if (is_string($sqlCondition)) {
-            $query->whereRaw(DbDongle::parse(strtr($sqlCondition, [
-                ':filtered' => $scopeValue,
-                ':value' => $scopeValue,
-            ])));
+            // @deprecated adapt legacy format
+            $sqlCondition = str_replace(["':value'", "':filtered'", ':filtered'], ':value', $sqlCondition);
+
+            $query->whereRaw(DbDongle::parse($sqlCondition, [
+                'value' => $scopeValue
+            ]));
             return;
         }
 

@@ -3,23 +3,22 @@
 # ===================================
 
 tabs:
-    defaultTab: system::lang.log.default_tab
+    defaultTab: "Logging"
     fields:
-
         log_requests:
-            label: system::lang.log.log_requests
+            label: "Log Bad Requests"
             span: auto
             type: switch
-            comment: system::lang.log.log_requests_comment
+            comment: "Browser requests that may require attention, such as 404 errors."
 
         log_theme:
-            label: system::lang.log.log_theme
+            label: "Log Theme Changes"
             span: auto
             type: switch
-            comment: system::lang.log.log_theme_comment
+            comment: "When a change is made to the theme using the backend."
 
         log_events:
-            label: system::lang.log.log_events
+            label: "Log System Events"
             span: auto
             type: switch
-            comment: system::lang.log.log_events_comment
+            comment: "Store system events in the database in addition to the file-based log."

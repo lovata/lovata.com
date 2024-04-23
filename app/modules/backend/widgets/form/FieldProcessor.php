@@ -112,8 +112,10 @@ trait FieldProcessor
         }
 
         foreach ($fields as $field) {
-            $attrName = implode('.', HtmlHelper::nameToArray($field->fieldName));
-            $this->model->setValidationAttributeName($attrName, $field->label);
+            $this->model->setValidationAttributeName(
+                HtmlHelper::nameToDot($field->fieldName),
+                $field->label
+            );
         }
     }
 
@@ -166,8 +168,9 @@ trait FieldProcessor
                 continue;
             }
 
-            $attrName = implode('.', HtmlHelper::nameToArray($field->fieldName));
-            $field->required = $this->model->isAttributeRequired($attrName);
+            $field->required = $this->model->isAttributeRequired(
+                HtmlHelper::nameToDot($field->fieldName)
+            );
         }
     }
 
@@ -189,9 +192,8 @@ trait FieldProcessor
                 continue;
             }
 
-            $attrName = implode('.', HtmlHelper::nameToArray($field->fieldName));
-
             // Does not propagate therefore translatable
+            $attrName = HtmlHelper::nameToDot($field->fieldName);
             if (!$this->model->isAttributePropagatable($attrName)) {
                 $field->translatable = true;
             }

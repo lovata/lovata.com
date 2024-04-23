@@ -1,0 +1,18 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: Group Name
+        searchable: true
+
+    code:
+        label: Code
+        searchable: true
+
+    sites:
+        label: Sites
+        type: number
+        relation: sites
+        relationCount: true

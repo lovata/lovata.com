@@ -25,37 +25,35 @@ oc.Modules.register('backend.component.richeditor.document.connector', function 
                 type: Boolean,
                 default: false
             },
-            externalToolbarEventBus: String
+            externalToolbarAppState: String
         },
         data: function() {
-            const imageDropdownItems = [
-                {
-                    command: 'oc-upload-image',
-                    label: 'command_upload_from_computer'
-                }
-            ];
-            const fileDropdownItems = [
-                {
-                    command: 'oc-upload-file',
-                    label: 'command_upload_from_computer'
-                }
-            ];
+            const imageDropdownItems = [];
+            const fileDropdownItems = [];
+            const videoDropdownOptions = [];
+            const audioDropdownOptions = [];
 
-            const videoDropdownOptions = [
-                {
-                    command: 'oc-embed-video',
-                    label: 'embedding_code'
-                }
-            ];
+            videoDropdownOptions.push({
+                command: 'oc-embed-video',
+                label: 'embedding_code'
+            });
 
-            const audioDropdownOptions = [
-                {
-                    command: 'oc-embed-audio',
-                    label: 'embedding_code'
-                }
-            ];
+            audioDropdownOptions.push({
+                command: 'oc-embed-audio',
+                label: 'embedding_code'
+            });
 
             if (this.useMediaManager) {
+                imageDropdownItems.push({
+                    command: 'oc-upload-image',
+                    label: 'command_upload_from_computer'
+                });
+
+                fileDropdownItems.push({
+                    command: 'oc-upload-file',
+                    label: 'command_upload_from_computer'
+                });
+
                 imageDropdownItems.push({
                     command: 'oc-browse-image',
                     label: 'browse'
@@ -180,11 +178,11 @@ oc.Modules.register('backend.component.richeditor.document.connector', function 
                 },
                 nonModifyingCommands: ['insertSnippet', 'insertLink', 'insertPageLink'],
                 iconMap: {
-                    'undo': 'undo',
-                    'redo': 'redo',
-                    'bold': 'bold',
-                    'italic': 'italic',
-                    'underline': 'underline',
+                    'undo': 'text-undo',
+                    'redo': 'text-redo',
+                    'bold': 'text-bold',
+                    'italic': 'text-italic',
+                    'underline': 'text-underline',
                     'align-left': 'text-left',
                     'align-right': 'text-right',
                     'align-center': 'text-center',
@@ -199,9 +197,9 @@ oc.Modules.register('backend.component.richeditor.document.connector', function 
                     subscript: 'text-subscript',
                     superscript: 'text-superscript',
                     strikeThrough: 'text-strikethrough',
-                    insertSnippet: 'newspaper-o',
-                    insertLink: 'link',
-                    insertPageLink: 'link',
+                    insertSnippet: 'newspaper',
+                    insertLink: 'text-link',
+                    insertPageLink: 'text-link',
                     insertTable: 'text-insert-table',
                     outdent: 'text-decrease-indent',
                     indent: 'text-increase-indent',
@@ -210,7 +208,7 @@ oc.Modules.register('backend.component.richeditor.document.connector', function 
                     'icon-image': 'text-image',
                     'icon-video-camera': 'text-video',
                     'icon-volume-up': 'volume',
-                    'icon-file-o': 'attachment',
+                    'icon-file': 'attachment',
                     clearFormatting: 'text-clear-formatting',
                     selectAll: 'cursor-arrow',
                     html: 'edit-code'
@@ -268,18 +266,16 @@ oc.Modules.register('backend.component.richeditor.document.connector', function 
             },
 
             externalToolbarEventBusObj: function computeExternalToolbarEventBusObj() {
-                if (!this.externalToolbarEventBus) {
+                if (!this.externalToolbarAppState) {
                     return null;
                 }
 
-                // Expected format: tailor.app::eventBus
-                const parts = this.externalToolbarEventBus.split('::');
-                if (parts.length !== 2) {
-                    throw new Error('Invalid externalToolbarEventBus format. Expected format: module.name::stateElementName');
-                }
+                const point = $.oc.vueUtils.getToolbarExtensionPoint(
+                    this.externalToolbarAppState,
+                    this.$el
+                );
 
-                const module = oc.Modules.import(parts[0]);
-                return module.state[parts[1]];
+                return point ? point.bus : null;
             },
 
             hasExternalToolbar: function computeHasExternalToolbar() {

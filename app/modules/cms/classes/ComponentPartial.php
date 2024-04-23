@@ -37,11 +37,11 @@ class ComponentPartial extends Extendable implements CmsObjectContract
     public $content;
 
     /**
-     * @var int The maximum allowed path nesting level. The default value is 2,
+     * @var int The maximum allowed path nesting level. The default value is 5,
      * meaning that files can only exist in the root directory, or in a
      * subdirectory. Set to null if any level is allowed.
      */
-    protected $maxNesting = 2;
+    protected $maxNesting = 5;
 
     /**
      * @var array Allowable file extensions.

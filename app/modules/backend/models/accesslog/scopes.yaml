@@ -1,0 +1,15 @@
+# ===================================
+# Filter Scope Definitions
+# ===================================
+
+scopes:
+    created_at:
+        label: Date & Time
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'
+
+    user:
+        label: Login
+        modelClass: Backend\Models\User
+        conditions: user_id in (:filtered)
+        nameFrom: login

@@ -37,7 +37,9 @@ oc.Modules.register('backend.component.inspector', function () {
             }
 
             return {
-                liveObject: this.liveMode ? this.data.obj : $.oc.vueUtils.getCleanObject(this.data.obj)
+                liveObject: this.liveMode ? this.data.obj : $.oc.vueUtils.getCleanObject(this.data.obj),
+                originalData: this.liveMode ? $.oc.vueUtils.getCleanObject(this.data.obj) : null,
+                parentObject: this.data.parentObj ? this.data.parentObj : {}
             };
         },
         computed: {
@@ -55,6 +57,14 @@ oc.Modules.register('backend.component.inspector', function () {
 
             applyChanges: function applyChanges() {
                 $.oc.vueComponentHelpers.inspector.utils.deepCloneObject(this.getCleanObject(), this.data.obj);
+            },
+
+            revertChanges: function cancelChanges() {
+                if (!this.liveMode) {
+                    throw new Error('Changes can only be reverted in live mode.');
+                }
+
+                $.oc.vueComponentHelpers.inspector.utils.deepCloneObject(this.originalData, this.data.obj);
             },
 
             validate: function validate() {

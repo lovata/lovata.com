@@ -1,12 +1,33 @@
-import FoundationPlugin from '../../foundation.plugin';
+/*
+ * Custom Select
+ *
+ * Config:
+ * - animation: true
+ * - autohide: true
+ * - delay: 5000
+ */
 
-class Select extends FoundationPlugin
-{
-    constructor(element, config) {
-        super(element, config);
+oc.registerControl('custom-select', class extends oc.ControlBase {
+    init() {
+        this.$el = $(this.element);
+        this.initDefaults();
+    }
 
-        this.$el = $(element);
+    initDefaults() {
+        const defaults = {
+            animation: true,
+            autohide: true,
+            delay: 5000
+        };
 
+        for (const key in defaults) {
+            if (this.element.dataset[key] === undefined) {
+                this.element.dataset[key] = defaults[key];
+            }
+        }
+    }
+
+    connect() {
         // Internal Events
         this.formatSelectOption = function(state) {
             // Escape HTML
@@ -59,7 +80,19 @@ class Select extends FoundationPlugin
 
         this.bindCustomSelect();
         this.bindCustomSelectWorkaround();
-        this.markDisposable();
+    }
+
+    disconnect() {
+        this.clonePlaceholder();
+
+        this.$el.off('change', this.proxy(this.triggerNativeChange));
+        this.$el.off('disable', this.proxy(this.disableSelect));
+
+        this.$el.off('select2:open', this.select2OpenWorkaround);
+
+        if (this.$el.data('select2') != null) {
+            this.$el.select2('destroy');
+        }
     }
 
     bindCustomSelectWorkaround() {
@@ -77,18 +110,6 @@ class Select extends FoundationPlugin
         };
 
         this.$el.on('select2:open', this.select2OpenWorkaround);
-    }
-
-    dispose() {
-        this.clonePlaceholder();
-
-        this.$el.off('change', this.proxy(this.triggerNativeChange));
-        this.$el.off('disable', this.proxy(this.disableSelect));
-
-        this.$el.off('select2:open', this.select2OpenWorkaround);
-        this.$el.select2('destroy');
-
-        super.dispose();
     }
 
     destroyPlaceholder() {
@@ -260,12 +281,10 @@ class Select extends FoundationPlugin
             delay: 5000
         }
     }
-}
-
-addEventListener('render', function() {
-    document.querySelectorAll('select.custom-select').forEach(function(el) {
-        Select.getOrCreateInstance(el);
-    });
 });
 
-export default Select;
+addEventListener('render', function() {
+    document.querySelectorAll('select.custom-select:not([data-control~="custom-select"])').forEach(function(element) {
+        element.dataset.control = ((element.dataset.control || '') + ' custom-select').trim();
+    });
+});

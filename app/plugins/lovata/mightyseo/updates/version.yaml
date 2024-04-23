@@ -22,3 +22,5 @@
     - 'Fix errors for integration with v3. Thanks for contribution Nick Khaetsky.'
 1.2.3:
     - 'Fix errors for integration with v3.'
+1.2.4:
+    - 'Fix logic in SeoParamItem::setElementObject method'

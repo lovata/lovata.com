@@ -11,11 +11,13 @@ oc.registerControl('snippetlookup', class extends oc.ControlBase
     }
 
     connect() {
+        this.element.snippetLookupInstance = this;
         this.listen('click', '[data-snippet]', this.onClickSnippet)
         this.dispatch('ready');
     }
 
     disconnect() {
+        this.element.snippetLookupInstance = null;
         this.$popupElement = null;
         this.insertCallback = null;
     }

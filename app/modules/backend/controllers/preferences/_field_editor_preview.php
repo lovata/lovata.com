@@ -1,6 +1,6 @@
 <div
       id="editorpreferencesCodeeditor"
-      class="field-codeeditor size-large layout-relative"
+      class="field-codeeditor size-large position-relative h-100"
       data-control="codeeditor"
       data-font-size="<?= $model->editor_font_size ?>"
       data-word-wrap="<?= $model->editor_word_wrap ?>"

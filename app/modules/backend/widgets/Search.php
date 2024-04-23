@@ -81,18 +81,8 @@ class Search extends WidgetBase
         ]);
 
         if ($this->growable) {
-            $this->cssClasses[] = 'growable';
+            $this->cssClasses[] = 'is-growable';
         }
-    }
-
-    /**
-     * @inheritDoc
-     */
-    protected function loadAssets()
-    {
-        // @deprecated use controls\searchinput\searchinput.js
-        // update html to use searchinput instead of searchwidget
-        $this->addJs('js/october.search.js');
     }
 
     /**

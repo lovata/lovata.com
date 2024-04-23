@@ -70,7 +70,7 @@ div.multiselect {
                 }
 
                 &.multiselect__option--selected {
-                    font-weight: 500;
+                    font-weight: 600;
                 }
 
                 span {
@@ -130,6 +130,35 @@ div.multiselect {
     .multiselect-enter-active,
     .multiselect-leave-active {
         transition: none;
+    }
+
+    .option-with-icon {
+        display: flex;
+
+        .option-icon {
+            width: 26px;
+            font-size: 22px;
+            position: relative;
+
+            &:before {
+                top: 4px;
+                left: -4px;
+                position: absolute;
+            }
+        }
+    }
+
+    .option-with-color {
+        display: flex;
+
+        .option-color {
+            width: 18px;
+            height: 18px;
+            position: relative;
+            top: 5px;
+            border: 1px solid white;
+            margin-right: 5px;
+        }
     }
 }
 

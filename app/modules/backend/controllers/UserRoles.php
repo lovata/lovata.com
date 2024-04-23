@@ -35,7 +35,7 @@ class UserRoles extends SettingsController
     /**
      * @var array Permissions required to view this page.
      */
-    public $requiredPermissions = ['admins.manage.roles'];
+    public $requiredPermissions = ['admins.roles'];
 
     /**
      * @var string settingsItemCode determines the settings code

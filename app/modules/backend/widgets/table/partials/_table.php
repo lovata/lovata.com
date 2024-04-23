@@ -21,22 +21,22 @@
     <script type="text/template" data-table-toolbar>
         <div class="toolbar">
             <button type="button" class="backend-toolbar-button control-button add-table-row-below" data-cmd="record-add">
-                <i class="octo-icon-list-add"></i>
+                <i class="icon-list-add"></i>
                 <span class="button-label"><?= e($btnAddRowLabel) ?></span>
             </button>
 
             <button type="button" class="backend-toolbar-button control-button add-table-row-below" data-cmd="record-add-below">
-                <i class="octo-icon-add-below"></i>
+                <i class="icon-add-below"></i>
                 <?= e($btnAddRowBelowLabel) ?>
             </button>
 
             <button type="button" class="backend-toolbar-button control-button add-table-row-above" data-cmd="record-add-above">
-                <i class="octo-icon-add-above"></i>
+                <i class="icon-add-above"></i>
                 Add Row Above
             </button>
 
             <button type="button" class="backend-toolbar-button control-button delete-table-row" data-cmd="record-delete">
-                <i class="octo-icon-list-remove"></i>
+                <i class="icon-list-remove"></i>
                 <?= e($btnDeleteRowLabel) ?>
             </button>
         </div>

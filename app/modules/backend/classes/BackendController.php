@@ -98,6 +98,25 @@ class BackendController extends ControllerBase
             return $controllerObj->run($action, $controllerParams);
         }
 
+        // Look for Plugin controller using hint segment
+        $hint = $params[0] ?? null;
+        $namespace = PluginManager::instance()->getPluginHints()[$hint] ?? null;
+        if ($namespace && str_contains($namespace, '.')) {
+            [$author, $plugin] = explode('.', strtolower($namespace));
+            $controller = $params[1] ?? 'index';
+
+            self::$action = $action = isset($params[2]) ? $this->parseAction($params[2]) : 'index';
+            self::$params = $controllerParams = array_slice($params, 3);
+            $controllerClass = "{$author}\\{$plugin}\Controllers\\{$controller}";
+            if ($controllerObj = $this->findController(
+                $controllerClass,
+                $action,
+                plugins_path()
+            )) {
+                return $controllerObj->run($action, $controllerParams);
+            }
+        }
+
         // Look for a Plugin controller
         if (count($params) >= 2) {
             [$author, $plugin] = $params;
@@ -124,11 +143,13 @@ class BackendController extends ControllerBase
     }
 
     /**
-     * runPageNotFound display a CMS 404 page, if one is available
+     * runPageNotFound display a CMS 404 page, if one is available. For security reasons,
+     * the backend 404 page is not used unless an admin session is found, this prevents
+     * random discovery of the admin panel URL by crawlers or bots.
      */
     protected function runPageNotFound()
     {
-        if (System::hasModule('Cms')) {
+        if (System::hasModule('Cms') && !\BackendAuth::getUser()) {
             return \Cms::pageNotFound();
         }
 

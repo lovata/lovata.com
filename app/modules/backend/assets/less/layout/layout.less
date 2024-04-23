@@ -1,3 +1,15 @@
+:root, [data-bs-theme="light"] {
+    --oc-page-size-outer-bg: var(--bs-tertiary-bg);
+    --oc-page-size-inner-bg: var(--bs-body-bg);
+    --oc-page-size-border: var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] {
+    --oc-page-size-outer-bg: var(--bs-tertiary-bg);
+    --oc-page-size-inner-bg: var(--bs-body-bg);
+    --oc-page-size-border: var(--bs-border-color);
+}
+
 //
 // Common layout elements
 // --------------------------------------------------
@@ -39,84 +51,39 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+body.has-page-size {
+    background: var(--oc-page-size-outer-bg);
+    #layout-body {
+        background: var(--oc-page-size-inner-bg);
+    }
+    &.has-sidenav-tree {
+        #layout-body {
+            border-right: 1px solid var(--oc-page-size-border);
+        }
+    }
+}
+
 #layout-canvas {
     min-height: 100%;
     height: 100%;
 }
 
-//
-// Flexible layout system
-// --------------------------------------------------
+#layout-body {
+    // Stops content escaping the flex box
+    width: 0;
+}
 
-.layout {
-    .layout-cell() {
-        display: table-cell;
-        vertical-align: top;
-        height: 100%;
+.layout-container, .padded-container {
+    padding: @padding-standard @padding-standard 0 @padding-standard;
 
-        &.layout-container, .layout-container, &.padded-container, .padded-container {
-            padding: @padding-standard @padding-standard 0 @padding-standard;
-
-            // Container to sit flush to the element above
-            .container-flush {
-                padding-top: 0;
-            }
-
-            .compensate-container-padding-h {
-                margin-left: -@padding-standard;
-                margin-right: -@padding-standard;
-            }
-        }
-
-        .layout-relative {
-            position: relative;
-            height: 100%;
-        }
-
-        .layout-absolute {
-            position: absolute;
-            height: 100%;
-            width: 100%;
-        }
-
-        &.min-size {
-            width: 0;
-        }
-
-        &.min-height {
-            height: 0;
-        }
-
-        &.center {
-            text-align: center;
-        }
-
-        &.middle {
-            vertical-align: middle;
-        }
+    // Container to sit flush to the element above
+    .container-flush {
+        padding-top: 0;
     }
 
-    display: table;
-    table-layout: fixed;
-    height: 100%;
-    width: 100%;
-
-    > .layout-row {
-        display: table-row;
-        vertical-align: top;
-        height: 100%;
-
-        > .layout-cell {
-            .layout-cell();
-        }
-
-        &.min-size {
-            height: 0.1px;
-        }
-    }
-
-    > .layout-cell {
-        .layout-cell();
+    .compensate-container-padding-h {
+        margin-left: -@padding-standard;
+        margin-right: -@padding-standard;
     }
 }
 
@@ -151,50 +118,9 @@ body {
 //
 
 body.compact-container {
-    .layout {
-        &.layout-container, .layout-container { padding: 0 !important; }
-    }
+    .layout-container { padding: 0 !important; }
 }
 
 body.slim-container {
-    .layout {
-        &.layout-container, .layout-container { padding-left: 0 !important; padding-right: 0 !important; }
-    }
-}
-
-//
-// Screen specific
-//
-
-@media (max-width: @screen-sm) {
-    .layout {
-        .hide-on-small {
-            display: none;
-        }
-
-        //
-        // Layout with a responsive sidebar
-        //
-
-        &.responsive-sidebar {
-            > .layout-cell:first-child {
-                display: table-footer-group;
-                height: auto;
-
-                .control-breadcrumb {
-                    display: none;
-                }
-            }
-
-            > .layout-cell:last-child {
-                display: table-header-group;
-                width: auto;
-                height: auto;
-
-                .layout-absolute {
-                    position: static;
-                }
-            }
-        }
-    }
+    .layout-container { padding-left: 0 !important; padding-right: 0 !important; }
 }

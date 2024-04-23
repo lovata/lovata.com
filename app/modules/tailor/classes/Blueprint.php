@@ -593,11 +593,12 @@ class Blueprint extends Extendable
     }
 
     /**
-     * getMetaData
+     * getMetaData returns meta data for the content schema table
      */
-    public function getMetaData()
+    public function getMetaData(): array
     {
         return [
+            'blueprint_uuid' => $this->uuid,
             'blueprint_type' => $this->type
         ];
     }

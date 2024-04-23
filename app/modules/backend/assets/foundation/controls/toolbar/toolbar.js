@@ -50,11 +50,11 @@
             noOverScroll: this.options.vertical
         });
 
-        $('.form-control.growable', $toolbar).on('focus.toolbar', function(){
+        $('.form-control.is-growable', $toolbar).on('focus.toolbar', function(){
             update();
         });
 
-        $('.form-control.growable', $toolbar).on('blur.toolbar', function(){
+        $('.form-control.is-growable', $toolbar).on('blur.toolbar', function(){
             update();
         });
 
@@ -70,7 +70,7 @@
 
     Toolbar.prototype.dispose = function() {
         this.$el.off('dispose-control', this.proxy(this.dispose))
-        $('.form-control.growable', this.$toolbar).off('.toolbar')
+        $('.form-control.is-growable', this.$toolbar).off('.toolbar')
         this.$el.dragScroll('dispose')
         this.$el.removeData('oc.toolbar')
         this.$el = null
@@ -115,7 +115,7 @@
     // ===============
 
     $(document).on('render', function(){
-        $('[data-control=toolbar]').toolbar()
+        $('[data-control~=toolbar]').toolbar()
     })
 
 }(window.jQuery);

@@ -38,6 +38,21 @@ trait HasSiteContext
     }
 
     /**
+     * getSiteCodeFromContext
+     * @return string|null
+     */
+    public function getSiteCodeFromContext()
+    {
+        $site = $this->getSiteFromContext();
+
+        if (!$site || !$site->code) {
+            return null;
+        }
+
+        return (string) $site->code;
+    }
+
+    /**
      * getSiteFromContext
      * @return SiteDefinition
      */
@@ -84,13 +99,23 @@ trait HasSiteContext
     {
         $previous = $this->siteContext;
 
-        $this->siteContext = $this->getSiteFromId($siteId);
+        $site = $this->getSiteFromId($siteId);
+
+        if ($site) {
+            $this->broadcastSiteChange($site->id);
+        }
 
         try {
+            $this->siteContext = $site;
+
             return $callback();
         }
         finally {
             $this->siteContext = $previous;
+
+            if ($previousId = $this->getSiteIdFromContext()) {
+                $this->broadcastSiteChange($previousId);
+            }
         }
     }
 }

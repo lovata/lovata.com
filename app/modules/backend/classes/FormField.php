@@ -29,6 +29,8 @@ use Exception;
  * @method FormField trigger(array $trigger) Other field names this field can be triggered by, see the Trigger API documentation.
  * @method FormField preset(array $preset) Other field names text is converted in to a URL, slug or file name value in this field.
  * @method FormField permissions(array $permissions) permissions needed to view this field
+ * @method FormField commentTooltip(string $commentTooltip) commentTooltip allows a more verbose comment behind a tooltip, must be used in combination with a comment
+ * @method FormField valueTrans(bool $valueTrans) valueTrans determines if display values (model attributes) should be translated
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
@@ -76,7 +78,10 @@ class FormField extends FieldDefinition
     {
         parent::initDefaultValues();
 
-        $this->attributes([]);
+        $this
+            ->valueTrans(true)
+            ->attributes([])
+        ;
     }
 
     /**
@@ -301,6 +306,19 @@ class FormField extends FieldDefinition
     }
 
     /**
+     * getDisplayValue checks to see if display values (model attributes) should be translated,
+     * and also escapes the value
+     */
+    public function getDisplayValue($value)
+    {
+        if ($this->valueTrans) {
+            return e(__($value));
+        }
+
+        return e($value);
+    }
+
+    /**
      * getTranslatableMessage
      */
     public function getTranslatableMessage(): string
@@ -349,7 +367,7 @@ class FormField extends FieldDefinition
      *
      *     [$model, $attribute] = $this->resolveAttribute('person[phone]');
      *
-     * @param  string $attribute.
+     * @param  string $attribute
      * @return array
      */
     public function resolveModelAttribute($model, $attribute = null)
@@ -402,7 +420,8 @@ class FormField extends FieldDefinition
     }
 
     /**
-     * Internal method to extract the value of a field name from a data set.
+     * getFieldNameFromData is an internal method to extract the value of a field name
+     * from a data set.
      * @param string $fieldName
      * @param mixed $data
      * @param mixed $default
@@ -421,7 +440,7 @@ class FormField extends FieldDefinition
         foreach ($keyParts as $key) {
             if ($result instanceof Model && $result->hasRelation($key)) {
                 if ($key === $lastField) {
-                    $result = $result->getRelationValue($key) ?: $default;
+                    $result = $result->getRelationSimpleValue($key) ?: $default;
                 }
                 else {
                     $result = $result->{$key};

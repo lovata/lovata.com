@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="<?= Backend::url('backend/usergroups') ?>"><?= e(trans('backend::lang.user.group.menu_label')) ?></a></li>
+        <li class="breadcrumb-item"><a href="<?= Backend::url('backend/usergroups') ?>"><?= __("Manage Groups") ?></a></li>
         <li class="breadcrumb-item active" aria-current="page"><?= e(__($this->pageTitle)) ?></li>
     </ol>
 <?php Block::endPut() ?>

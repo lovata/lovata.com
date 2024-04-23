@@ -9,7 +9,7 @@ use October\Rain\Router\Router as RainRouter;
 /**
  * HasSites
  *
- * @package october\system
+ * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 trait HasSites

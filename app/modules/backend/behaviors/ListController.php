@@ -23,11 +23,14 @@ use ForbiddenException;
  * values as either a YAML file, located in the controller view directory,
  * or directly as a PHP array.
  *
+ * @see https://docs.octobercms.com/3.x/extend/lists/list-controller.html List Controller Documentation
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
 class ListController extends ControllerBehavior
 {
+    use \Backend\Behaviors\ListController\HasOverrides;
+
     /**
      * @var array listDefinitions are keys for alias and value for configuration.
      */
@@ -111,7 +114,7 @@ class ListController extends ControllerBehavior
     }
 
     /**
-     * Prepare the widgets used by this action
+     * makeList prepares the widgets used by this action
      * @return \Backend\Classes\WidgetBase
      */
     public function makeList($definition = null)
@@ -123,18 +126,15 @@ class ListController extends ControllerBehavior
         $listConfig = $this->config = $this->controller->listGetConfig($definition);
 
         // Create the model
-        //
         $model = $this->createModel();
         $model = $this->controller->listExtendModel($model, $definition);
 
         // Prepare the list widget
-        //
         $widgetConfig = $this->makeConfig($listConfig->list);
         $widgetConfig->model = $model;
         $widgetConfig->alias = $listConfig->widgetAlias ?? $definition;
 
         // Prepare the columns configuration
-        //
         $configFieldsToTransfer = [
             'recordUrl',
             'recordOnClick',
@@ -158,7 +158,6 @@ class ListController extends ControllerBehavior
         }
 
         // List Widget with extensibility
-        //
         $structureConfig = $this->makeListStructureConfig($widgetConfig, $listConfig);
         if ($structureConfig) {
             $widget = $this->makeWidget(\Backend\Widgets\ListStructure::class, $structureConfig);
@@ -177,6 +176,10 @@ class ListController extends ControllerBehavior
 
         $widget->bindEvent('list.extendQuery', function ($query) use ($definition) {
             $this->controller->listExtendQuery($query, $definition);
+        });
+
+        $widget->bindEvent('list.extendSortColumn', function ($query, $sortColumn, $sortDirection) use ($definition) {
+            $this->controller->listExtendSortColumn($query, $sortColumn, $sortDirection, $definition);
         });
 
         $widget->bindEvent('list.extendRecords', function ($records) use ($definition) {
@@ -210,13 +213,17 @@ class ListController extends ControllerBehavior
         $widget->bindToController();
 
         // Prepare the toolbar widget (optional)
-        //
         if (isset($listConfig->toolbar)) {
             $toolbarConfig = $this->makeConfig($listConfig->toolbar);
             $toolbarConfig->alias = $widget->alias . 'Toolbar';
             $toolbarWidget = $this->makeWidget(\Backend\Widgets\Toolbar::class, $toolbarConfig);
             $toolbarWidget->listWidgetId = $widget->getId();
             $toolbarWidget->cssClasses[] = 'list-header';
+
+            // Pass the list setup AJAX handler to the toolbar
+            if (isset($listConfig->showSetup) && $listConfig->showSetup) {
+                $toolbarWidget->setupHandler = $widget->getEventHandler('onLoadSetup');
+            }
 
             // Link the Search Widget to the List Widget
             if ($searchWidget = $toolbarWidget->getSearchWidget()) {
@@ -242,17 +249,17 @@ class ListController extends ControllerBehavior
         }
 
         // Prepare the filter widget (optional)
-        //
         if (isset($listConfig->filter)) {
             $widget->cssClasses[] = 'list-flush';
 
             $filterConfig = $this->makeConfig($listConfig->filter);
             $filterConfig->model = $model;
             $filterConfig->alias = $widget->alias . 'Filter';
+            $filterConfig->customPageName = $listConfig->customPageName ?? null;
             $filterWidget = $this->makeWidget(\Backend\Widgets\Filter::class, $filterConfig);
 
             // Filter the list when the scopes are changed
-            $filterWidget->bindEvent('filter.update', function() use ($widget, $filterWidget) {
+            $filterWidget->bindEvent('filter.update', function() use ($widget) {
                 return $widget->onFilter();
             });
 
@@ -330,7 +337,6 @@ class ListController extends ControllerBehavior
         }
 
         // Establish the list definition
-        //
         $definition = post('definition', $this->primaryDefinition);
 
         if (!isset($this->listDefinitions[$definition])) {
@@ -340,13 +346,11 @@ class ListController extends ControllerBehavior
         $this->config = $this->controller->listGetConfig($definition);
 
         // Check conditions for deletion
-        //
         if (!$this->listCanDeleteRecords()) {
             throw new ForbiddenException;
         }
 
         // Validate checked identifiers
-        //
         $checkedIds = post('checked');
 
         if (!$checkedIds || !is_array($checkedIds) || !count($checkedIds)) {
@@ -355,12 +359,10 @@ class ListController extends ControllerBehavior
         }
 
         // Create the model
-        //
         $model = $this->createModel();
         $model = $this->controller->listExtendModel($model, $definition);
 
         // Create the query
-        //
         $query = $model->newQuery();
         $this->controller->listExtendQueryBefore($query, $definition);
 
@@ -368,7 +370,6 @@ class ListController extends ControllerBehavior
         $this->controller->listExtendQuery($query, $definition);
 
         // Delete records
-        //
         $records = $query->get();
 
         if ($records->count()) {
@@ -540,7 +541,7 @@ class ListController extends ControllerBehavior
     /**
      * listGetConfig returns the configuration used by this behavior. You may override this
      * method in your controller as an alternative to defining a listConfig property.
-     * @return object
+     * @return object|null
      */
     public function listGetConfig($definition = null)
     {
@@ -560,133 +561,6 @@ class ListController extends ControllerBehavior
     //
     // Overrides
     //
-
-    /**
-     * listExtendColumns is called after the list columns are defined.
-     * @param \Backend\Widgets\List $host The hosting list widget
-     * @return void
-     */
-    public function listExtendColumns($host)
-    {
-    }
-
-    /**
-     * listFilterExtendScopes is called after the filter scopes are defined.
-     * @param \Backend\Widgets\Filter $host The hosting filter widget
-     * @return void
-     */
-    public function listFilterExtendScopes($host)
-    {
-    }
-
-    /**
-     * listExtendModel controller override: Extend supplied model
-     * @param Model $model
-     * @return Model
-     */
-    public function listExtendModel($model, $definition = null)
-    {
-        return $model;
-    }
-
-    /**
-     * listExtendQueryBefore controller override: Extend the query used for populating the list
-     * before the default query is processed.
-     * @param \October\Rain\Database\Builder $query
-     */
-    public function listExtendQueryBefore($query, $definition = null)
-    {
-    }
-
-    /**
-     * listExtendQuery controller override: Extend the query used for populating the list
-     * after the default query is processed.
-     * @param \October\Rain\Database\Builder $query
-     */
-    public function listExtendQuery($query, $definition = null)
-    {
-    }
-
-    /**
-     * listExtendRecords controller override: Extend the records used for populating the list
-     * after the query is processed.
-     * @param Illuminate\Contracts\Pagination\LengthAwarePaginator|Illuminate\Database\Eloquent\Collection $records
-     */
-    public function listExtendRecords($records, $definition = null)
-    {
-    }
-
-    /**
-     * listFilterExtendQuery controller override: Extend the query used for populating the filter
-     * options before the default query is processed.
-     * @param \October\Rain\Database\Builder $query
-     * @param array $scope
-     */
-    public function listFilterExtendQuery($query, $scope)
-    {
-    }
-
-    /**
-     * listInjectRowClass returns a CSS class name for a list row (<tr class="...">).
-     * @param  Model $record The populated model used for the column
-     * @param  string $definition List definition (optional)
-     * @return string CSS class name
-     */
-    public function listInjectRowClass($record, $definition = null)
-    {
-    }
-
-    /**
-     * listOverrideColumnValue replaces a table column value (<td>...</td>)
-     * @param  Model $record The populated model used for the column
-     * @param  string $columnName The column name to override
-     * @param  string $definition List definition (optional)
-     * @return string HTML view
-     */
-    public function listOverrideColumnValue($record, $columnName, $definition = null)
-    {
-    }
-
-    /**
-     * listOverrideHeaderValue replaces the entire table header contents (<th>...</th>) with custom HTML
-     * @param  string $columnName The column name to override
-     * @param  string $definition List definition (optional)
-     * @return string HTML view
-     */
-    public function listOverrideHeaderValue($columnName, $definition = null)
-    {
-    }
-
-    /**
-     * listOverrideRecordUrl overrides the record url for the given record
-     * @param \October\Rain\Database\Model $record
-     * @param string|null $definition List definition (optional)
-     * @return string|array|void New url or complex directive
-     */
-    public function listOverrideRecordUrl($record, $definition = null)
-    {
-    }
-
-    /**
-     * listAfterReorder is called after the list record structure is reordered
-     * @param \October\Rain\Database\Model $record
-     * @param string|null $definition List definition (optional)
-     */
-    public function listAfterReorder($record, $definition = null)
-    {
-    }
-
-    /**
-     * listExtendRefreshResults is called when the list is refreshed using AJAX,
-     * and should return an array of additional partial updates.
-     * @param Backend\Widgets\List $host
-     * @param array $result
-     * @param  string $definition List definition (optional)
-     * @return array
-     */
-    public function listExtendRefreshResults($host, $result, $definition = null)
-    {
-    }
 
     /**
      * extendListColumns is a static helper for extending list columns.

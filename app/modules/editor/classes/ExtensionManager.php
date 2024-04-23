@@ -1,33 +1,41 @@
 <?php namespace Editor\Classes;
 
+use App;
 use Event;
 use SystemException;
 
 /**
  * Manages Editor extensions.
  *
- * @method static ExtensionManager instance()
- *
  * @package october\editor
  * @author Alexey Bobkov, Samuel Georges
  */
 class ExtensionManager
 {
-    use \October\Rain\Support\Traits\Singleton;
-
     /**
      * @var array extensionClassNames is a collection of registered extensions
      */
     protected $extensionClassNames = [];
 
-    private $extensions = [];
+    /**
+     * @var array extensions registered by this class
+     */
+    protected $extensions = [];
 
     /**
-     * init initializes the extension manager
+     * __construct this class
      */
-    protected function init()
+    public function __construct()
     {
         $this->registerExtensions();
+    }
+
+    /**
+     * instance creates a new instance of this singleton
+     */
+    public static function instance(): static
+    {
+        return App::make('editor.extensions');
     }
 
     /**

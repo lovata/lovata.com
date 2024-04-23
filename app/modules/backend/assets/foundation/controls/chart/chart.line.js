@@ -15,7 +15,7 @@
  * JavaScript API:
  * $('.chart').chartLine({ resetZoomLink:'#reset-zoom' })
  *
- * Dependences:
+ * Dependencies:
  * - Flot (jquery.flot.js)
  * - Flot Tooltip (jquery.flot.tooltip.js)
  * - Flot Resize (jquery.flot.resize.js)

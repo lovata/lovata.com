@@ -34,8 +34,7 @@ class MediaFinderField extends FallbackField
         $config = $this->config;
 
         if (isset($config['span']) && $config['span'] === 'adaptive') {
-            $config['externalToolbarAppState'] = 'tailor.app::toolbarExtensionPoint';
-            $config['externalToolbarEventBus'] = 'tailor.app::eventBus';
+            $config['externalToolbarAppState'] = 'toolbarExtensionPoint';
         }
 
         $form->addFormField($this->fieldName, $this->label)->useConfig($config);

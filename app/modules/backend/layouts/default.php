@@ -8,87 +8,82 @@
         <?= $this->makeLayoutPartial('head') ?>
         <?= $this->fireViewEvent('backend.layout.extendHead', ['default']) ?>
     </head>
-    <body class="<?= $this->bodyClass ?> <?php if ($navbarMode === BrandSetting::MENU_LEFT): ?>main-menu-left<?php endif ?>">
+    <body class="<?= $this->bodyClass ?> <?= $navbarMode === BrandSetting::MENU_LEFT ? 'main-menu-left' : '' ?> <?= $this->pageSize ? "has-page-size" : '' ?>">
         <div id="layout-canvas">
-            <div class="layout">
-                <div class="layout-row">
-                    <div class="layout-cell left-side-menu-container">
-                        <div class="layout-mainmenu" id="layout-mainmenu-left">
-                            <?= $this->makeLayoutPartial('mainmenu', ['isVerticalMenu' => true]) ?>
-                        </div>
+
+            <div class="d-flex h-100">
+                <div class="left-side-menu-container flex-shrink-0">
+                    <div class="layout-mainmenu" id="layout-mainmenu-left">
+                        <?= $this->makeLayoutPartial('mainmenu', ['isVerticalMenu' => true]) ?>
                     </div>
+                </div>
 
-                    <div class="layout-cell">
-                        <div class="layout">
-                            <?php if ($bannerAreaContent = Block::placeholder('banner-area')): ?>
-                                <!-- Banner Area -->
-                                <div class="layout-row min-size" id="layout-banner-area">
-                                    <?= $bannerAreaContent ?>
-                                </div>
-                            <?php endif ?>
-
-                            <!-- Main Menu -->
-                            <?php if (!isset($hideMainMenu)): ?>
-                                <div class="layout-row min-size layout-mainmenu" id="layout-mainmenu">
-                                    <?= $this->makeLayoutPartial('mainmenu') ?>
-                                </div>
-                            <?php endif ?>
-
-                            <div class="layout-row min-size secondary-nav" id="layout-sidenav-responsive">
-                                <?= $this->makeLayoutPartial('sidenav-responsive') ?>
+                <div class="flex-grow-1">
+                    <div class="d-flex h-100 flex-column">
+                        <?php if ($bannerAreaContent = Block::placeholder('banner-area')): ?>
+                            <!-- Banner Area -->
+                            <div class="layout-banner-area" id="layout-banner-area">
+                                <?= $bannerAreaContent ?>
                             </div>
+                        <?php endif ?>
 
-                            <?php $flyoutContent = Block::placeholder('sidepanel-flyout') ?>
+                        <!-- Main Menu -->
+                        <?php if (!isset($hideMainMenu)): ?>
+                            <div class="layout-mainmenu" id="layout-mainmenu">
+                                <?= $this->makeLayoutPartial('mainmenu') ?>
+                            </div>
+                        <?php endif ?>
 
-                            <div class="layout-row">
-                                <div class="layout flyout-container"
-                                    <?php if ($flyoutContent): ?>
-                                        data-control="flyout"
-                                        data-flyout-width="400"
-                                        data-flyout-toggle="#layout-sidenav"
-                                    <?php endif ?>
-                                >
-                                    <?php if ($flyoutContent): ?>
-                                        <div class="layout-cell flyout"> <?= $flyoutContent ?></div>
-                                    <?php endif ?>
+                        <div class="secondary-nav" id="layout-sidenav-responsive">
+                            <?= $this->makeLayoutPartial('sidenav-responsive') ?>
+                        </div>
 
-                                    <!-- Side Navigation -->
-                                    <?= $this->makeLayoutPartial('sidenav') ?>
+                        <?php $flyoutContent = Block::placeholder('sidepanel-flyout') ?>
 
-                                    <!-- Side panel -->
-                                    <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
-                                        <div class="layout-cell w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
-                                            <?= $sidePanelContent ?>
-                                        </div>
-                                    <?php endif ?>
+                        <div class="flex-grow-1">
+                            <div class="d-flex h-100 flyout-container"
+                                <?php if ($flyoutContent): ?>
+                                    data-control="flyout"
+                                    data-flyout-width="400"
+                                    data-flyout-toggle="#layout-sidenav"
+                                <?php endif ?>
+                            >
+                                <?php if ($flyoutContent): ?>
+                                    <div class="flyout-content"> <?= $flyoutContent ?></div>
+                                <?php endif ?>
 
-                                    <!-- Content Body -->
-                                    <div class="layout-cell layout-container" id="layout-body">
-                                        <div class="layout-relative">
+                                <!-- Side Navigation -->
+                                <?= $this->makeLayoutPartial('sidenav') ?>
 
-                                            <div class="layout">
-                                                <?= Block::placeholder('layout-top-row') ?>
+                                <!-- Side panel -->
+                                <?php if ($sidePanelContent = Block::placeholder('sidepanel')): ?>
+                                    <div class="w-350 hide-on-small" id="layout-side-panel" data-control="layout-sidepanel">
+                                        <?= $sidePanelContent ?>
+                                    </div>
+                                <?php endif ?>
 
-                                                <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
-                                                    <!-- Breadcrumb -->
-                                                    <nav class="control-breadcrumb">
-                                                        <?= $breadcrumbContent ?>
-                                                    </nav>
-                                                <?php endif ?>
+                                <!-- Content Body -->
+                                <div id="layout-body" class="layout-container flex-grow-1 <?= $this->pageSize ? "mw-{$this->pageSize}" : '' ?>">
+                                    <div class="d-flex flex-column h-100">
+                                        <?= Block::placeholder('layout-top-row') ?>
 
-                                                <!-- Content -->
-                                                <div class="layout-row">
-                                                    <?= Block::placeholder('body') ?>
-                                                </div>
-                                            </div>
+                                        <?php if ($breadcrumbContent = Block::placeholder('breadcrumb')): ?>
+                                            <!-- Breadcrumb -->
+                                            <nav class="control-breadcrumb">
+                                                <?= $breadcrumbContent ?>
+                                            </nav>
+                                        <?php endif ?>
 
+                                        <!-- Content -->
+                                        <div class="flex-grow-1 position-relative">
+                                            <?= Block::placeholder('body') ?>
                                         </div>
                                     </div>
-
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>

@@ -9,7 +9,9 @@ oc.Modules.register('backend.component.inspector.control.dropdown', function () 
             return {
                 dynamicOptions: {},
                 selectedValue: null,
-                editorFocused: false
+                prevSelectedValue: null,
+                editorFocused: false,
+                unwatches: []
             };
         },
         computed: {
@@ -28,17 +30,35 @@ oc.Modules.register('backend.component.inspector.control.dropdown', function () 
                 return result;
             },
 
+            useValuesAsIcons: function computeUseValuesAsIcons() {
+                return !!this.control.useValuesAsIcons;
+            },
+
+            useValuesAsColors: function computeUseValuesAsColors() {
+                return !!this.control.useValuesAsColors;
+            },
+
             containerTabIndex: function computeContainerTabIndex() {
                 return this.editorFocused ? -1 : 0;
             }
         },
         methods: {
             focusControl: function focusControl() {
-                this.$refs.input.activate();
-                this.editorFocused = true;
+                if (this.$refs.input) {
+                    this.$refs.input.activate();
+                    this.editorFocused = true;
+                }
             },
 
             updateValue: function updateValue(option) {
+                if (option === null) {
+                    // Vue Multiselect deselects the selected value
+                    // if the user clicks it. It's not a desired
+                    // behavior for the Inspector dropdown control.
+                    this.selectedValue = this.prevSelectedValue;
+                    return;
+                }
+
                 var value = option ? option.code : null;
                 this.setManagedValue(value);
             },
@@ -55,9 +75,12 @@ oc.Modules.register('backend.component.inspector.control.dropdown', function () 
                 }
             },
 
+            refreshDisplayedValue: function refreshDisplayedValue() {
+                this.setInitialValue();
+            },
+
             setInitialValue: function () {
                 var value = this.value;
-
                 // TODO - make this conversion configurable.
                 // It works for CMS page layouts where we get null
                 // as an input value but want to return an empty string
@@ -98,11 +121,15 @@ oc.Modules.register('backend.component.inspector.control.dropdown', function () 
             },
 
             onInspectorLabelClick: function onInspectorLabelClick() {
-                this.$refs.input.activate();
+                if (this.$refs.input) {
+                    this.$refs.input.activate();
+                }
             },
 
             onContainerFocus: function onContainerFocus() {
-                this.$refs.input.activate();
+                if (this.$refs.input) {
+                    this.$refs.input.activate();
+                }
             }
         },
         mounted: function () {
@@ -111,6 +138,33 @@ oc.Modules.register('backend.component.inspector.control.dropdown', function () 
             }
             else {
                 this.setInitialValue();
+            }
+
+            if (Array.isArray(this.control.depends)) {
+                this.control.depends.forEach(dependsOn => {
+                    this.unwatches.push(
+                        this.$watch('obj.' + dependsOn, (newVal) => {
+                            const originalValue = this.value;
+                            this.loadDynamicOptions().then(() => {
+                                if (!this.findOptionByValue(originalValue)) {
+                                    this.setManagedValue(null);
+                                }
+                            })
+                        }, {
+                            deep: true
+                        })
+                    );
+                })
+            }
+        },
+        beforeDestroy: function () {
+            this.unwatches.forEach(unwatch => {
+                unwatch();
+            })
+        },
+        watch: {
+            selectedValue: function (newValue, oldValue) {
+                this.prevSelectedValue = newValue;
             }
         },
         template: '#backend_vuecomponents_inspector_control_dropdown'

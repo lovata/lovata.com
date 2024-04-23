@@ -296,7 +296,7 @@ class PageLookup extends WidgetBase
     protected function handleResolverRedirect()
     {
         $address = get('_lookup_link');
-        if (!$address || !is_string($address)) {
+        if (!$address || !is_string($address) || !str_starts_with($address, 'october://')) {
             return;
         }
 

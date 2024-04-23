@@ -22,22 +22,22 @@ class ControllerBehavior extends ExtensionBase
     }
 
     /**
-     * @var object Supplied configuration.
+     * @var object config supplied.
      */
     protected $config;
 
     /**
-     * @var \Backend\Classes\Controller Reference to the back end controller.
+     * @var \Backend\Classes\Controller controller reference.
      */
     protected $controller;
 
     /**
-     * @var array Properties that must exist in the controller using this behavior.
+     * @var array requiredProperties that must exist in the controller using this behavior.
      */
     protected $requiredProperties = [];
 
     /**
-     * @var array Visible actions in context of the controller. Only takes effect if it is an array
+     * @var array actions visible in context of the controller. Only takes effect if it is an array
      */
     protected $actions;
 

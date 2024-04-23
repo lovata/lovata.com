@@ -5,7 +5,7 @@
 +function ($) { "use strict";
     function ResponsiveMenu(closeCallback) {
         var $mainMenuElement = $('#layout-mainmenu .navbar ul.mainmenu-items'),
-            $menuContainer = $mainMenuElement.closest('.layout-row'),
+            $menuContainer = $('#layout-mainmenu'),
             $responsiveMenuContainer = $('#layout-mainmenu-responsive-container'),
             $responsiveMainMenuPane = $responsiveMenuContainer.find('.mainmenu-pane'),
             $responsiveSubMenuPane = $responsiveMenuContainer.find('.submenu-pane'),

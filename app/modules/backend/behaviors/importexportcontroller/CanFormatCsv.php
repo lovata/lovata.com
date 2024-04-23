@@ -1,8 +1,8 @@
 <?php namespace Backend\Behaviors\ImportExportController;
 
-use Lang;
 use League\Csv\Statement as CsvStatement;
 use League\Csv\Writer as CsvWriter;
+use League\Csv\CharsetConverter;
 use Backend\Behaviors\ImportExportController\TranscodeFilter;
 use League\Csv\Reader as CsvReader;
 use ApplicationException;
@@ -29,7 +29,7 @@ trait CanFormatCsv
 
         // Prevents unfriendly error to be thrown due to bad encoding at response time.
         if (json_encode($firstRow) === false) {
-            throw new ApplicationException(Lang::get('backend::lang.import_export.encoding_not_supported_error'));
+            throw new ApplicationException(__("Source file encoding is not recognized. Please select the custom file format option with the proper encoding to import your file."));
         }
 
         return $firstRow;
@@ -77,7 +77,10 @@ trait CanFormatCsv
             $reader->setEscape($options['escape']);
         }
 
-        if ($options['encoding'] !== null) {
+        if (
+            $options['encoding'] !== null &&
+            $reader->supportsStreamFilterOnRead()
+        ) {
             $reader->addStreamFilter(sprintf(
                 '%s%s:%s',
                 TranscodeFilter::FILTER_NAME,
@@ -101,11 +104,12 @@ trait CanFormatCsv
             'fileName' => 'export.csv',
             'delimiter' => null,
             'enclosure' => null,
-            'escape' => null
+            'escape' => null,
+            'encoding' => null
         ], $options);
 
         // Prepare CSV
-        $csv = CsvWriter::createFromFileObject(new SplTempFileObject);
+        $csv = CsvWriter::createFromString();
         $csv->setOutputBOM(CsvWriter::BOM_UTF8);
 
         if ($options['delimiter'] !== null) {
@@ -118,6 +122,13 @@ trait CanFormatCsv
 
         if ($options['escape'] !== null) {
             $csv->setEscape($options['escape']);
+        }
+
+        if (
+            $options['encoding'] !== null &&
+            $csv->supportsStreamFilterOnWrite()
+        ) {
+            CharsetConverter::addTo($csv, 'UTF-8', $options['encoding']);
         }
 
         // Locate columns from widget

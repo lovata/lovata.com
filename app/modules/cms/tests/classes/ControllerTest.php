@@ -118,7 +118,7 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-partials')->getContent();
-        $this->assertEquals('<div>LAYOUT PARTIAL<p>Hey PAGE PARTIAL Homer Simpson A partial</p></div>', $response);
+        $this->assertEquals('<div>LAYOUT PARTIAL<p>Hey PAGE PARTIAL Homer Simpson The body value is "foobar" A partial</p></div>', $response);
     }
 
     public function testContent()
@@ -134,7 +134,7 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-placeholder')->getContent();
-        $this->assertEquals("<div>LAYOUT CONTENT <span>BLOCK\n  DEFAULT</span> <p>Hey PAGE CONTENT</p></div>SECOND BLOCK", $response);
+        $this->assertEquals("<div>LAYOUT CONTENT <span>BLOCK\n  DEFAULT</span> <p>Hey PAGE CONTENT</p></div><p>SECOND BLOCK</p>THIRD VARIABLE", $response);
     }
 
     public function testLayoutInSubdirectory()
@@ -168,7 +168,7 @@ class ControllerTest extends TestCase
         $requestMock = $this
             ->getMockBuilder('Illuminate\Http\Request')
             ->disableOriginalConstructor()
-            ->setMethods(['ajax', 'method', 'header'])
+            ->onlyMethods(['ajax', 'method', 'header'])
             ->getMock();
 
         $map = [

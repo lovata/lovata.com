@@ -7,8 +7,8 @@
         $sideMenuItems = BackendMenu::listMainMenuSubItems();
     ?>
     <?php if ($sideMenuItems): ?>
-        <div class="layout-cell layout-sidenav-container">
-            <div class="layout-relative">
+        <div class="layout-sidenav-container">
+            <div class="layout-sidenav-spacer">
                 <nav
                     id="layout-sidenav"
                     class="layout-sidenav"

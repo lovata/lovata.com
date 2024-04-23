@@ -61,45 +61,47 @@
     </head>
     <body class="outer <?= $this->bodyClass ?> message-outer-layout">
         <div id="layout-canvas">
-            <div class="layout">
-                <div class="layout-row">
-                    <div class="layout-cell form-cell">
-                        <div class="outer-form-container">
-                            <h1>
-                                <?= e(Backend\Models\BrandSetting::get('app_name')) ?>
-                                <img src="<?= e($logo) ?>" style="max-width: 180px" alt="" />
-                            </h1>
 
-                            <?= Block::placeholder('body') ?>
-                        </div>
+            <div class="d-flex h-100">
+                <div class="outer-form-cell">
+                    <div class="outer-form-container">
+                        <h1>
+                            <?= e(Backend\Models\BrandSetting::get('app_name')) ?>
+                            <img src="<?= e($logo) ?>" style="max-width: 180px" alt="" />
+                        </h1>
+
+                        <?= Block::placeholder('body') ?>
                     </div>
+                </div>
 
-                    <div class="layout-cell theme-cell" <?php if ($loginBackgroundType === 'october_ai_images'): ?>style="<?= e($generatedImageData->background)  ?>"<?php endif?>>
-                        <?php if ($loginBackgroundType === 'october_ai_images'): ?>
+                <div class="outer-theme-cell flex-grow-1" <?php if ($loginBackgroundType === 'october_ai_images'): ?>style="<?= e($generatedImageData->background)  ?>"<?php endif?>>
+                    <div class="d-flex h-100 flex-column align-items-center justify-content-center">
+                    <?php if ($loginBackgroundType === 'october_ai_images'): ?>
+                        <img
+                            width="512"
+                            height="512"
+                            src="<?= Url::asset('/modules/backend/assets/images/october-login-ai-generated/'.$generatedImageData->img) ?>"
+                            alt=""
+                        />
+                    <?php else: ?>
+                        <?php if ($loginCustomization->loginImageType == 'autumn_images'): ?>
                             <img
-                                width="512"
-                                height="512"
-                                src="<?= Url::asset('/modules/backend/assets/images/october-login-ai-generated/'.$generatedImageData->img) ?>"
+                                src="<?= Url::asset('/modules/backend/assets/images/october-login-theme/'.$defaultImage1x) ?>"
+                                srcset="<?= Url::asset('/modules/backend/assets/images/october-login-theme/'.$defaultImage1x) ?>,
+                                <?= Url::asset('/modules/backend/assets/images/october-login-theme/'.$defaultImage2x) ?> 2x"
                                 alt=""
                             />
-                        <?php else: ?>
-                            <?php if ($loginCustomization->loginImageType == 'autumn_images'): ?>
-                                <img
-                                    src="<?= Url::asset('/modules/backend/assets/images/october-login-theme/'.$defaultImage1x) ?>"
-                                    srcset="<?= Url::asset('/modules/backend/assets/images/october-login-theme/'.$defaultImage1x) ?>,
-                                    <?= Url::asset('/modules/backend/assets/images/october-login-theme/'.$defaultImage2x) ?> 2x"
-                                    alt=""
-                                />
-                            <?php elseif ($loginCustomization->loginCustomImage): ?>
-                                <img
-                                    src="<?= e($loginCustomization->loginCustomImage) ?>"
-                                    alt=""
-                                />
-                            <?php endif ?>
+                        <?php elseif ($loginCustomization->loginCustomImage): ?>
+                            <img
+                                src="<?= e($loginCustomization->loginCustomImage) ?>"
+                                alt=""
+                            />
                         <?php endif ?>
+                    <?php endif ?>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Flash Messages -->

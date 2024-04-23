@@ -14,8 +14,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="icon" type="image/png" href="{{ 'assets/img/favicon-32x32.png'|theme }}" sizes="32x32">
     <link rel="icon" type="image/png" href="{{ 'assets/img/favicon-16x16.png'|theme }}" sizes="16x16">
-
-    <link rel="stylesheet" href="{{ vite_asset('assets/css/main.css') }}" />
+    {{ vite(['assets/css/main.css']) }}
+    {# Render metric code before /head tag #}
 
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#c7cbcc">
@@ -26,16 +26,17 @@
         document.documentElement.style.display = 'none';
         document.head.insertAdjacentHTML(
           'beforeend',
-          '<link rel="stylesheet" href="{{ vite_asset("assets/css/light.css") }}" onload="document.documentElement.style.display="">'
+          '{{ vite([{ path: 'assets/css/light.css', onload: "document.documentElement.style.display=" }]) }}'
         );
       }
     </script>
 
 
 
-    <link rel="stylesheet" href="{{ vite_asset('assets/css/light.css') }}" media="(prefers-color-scheme: light)">
-    <link rel="stylesheet" href="{{ vite_asset('assets/css/dark.css') }}" media="(prefers-color-scheme: dark)">
-    <script type="module" crossorigin src="{{ vite_asset('assets/js/common.js') }}"></script>
+    {{ vite([{ path: 'assets/css/pages/index.css' }]) }}
+    {{ vite([{ path: 'assets/css/light.css', media: "(prefers-color-scheme: light)" }]) }}
+    {{ vite([{ path: 'assets/css/dark.css', media: "(prefers-color-scheme: dark)" }]) }}
+    {{ vite([{ path: 'assets/js/common.js' }]) }}
     {{ SeoToolbox.getHeadEnd()|raw }}
 </head>
 <body class="flex h-full flex-col min-h-screen bg-white-black">
@@ -45,6 +46,6 @@
     </main>
 
     {% partial 'components/footer/footer' %}
-    <script type="module" crossorigin src="{{ vite_asset('assets/js/index.js') }}"></script>
+    {{ vite(['assets/js/index.js']) }}
 </body>
 </html>

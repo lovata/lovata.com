@@ -1,6 +1,6 @@
 <?= $this->makePartial('item-sidebar-preview') ?>
 
-<div class="panel oc-hide" data-control="sidebar-labels">
+<div class="media-panel oc-hide" data-control="sidebar-labels">
     <label><?= e(trans('backend::lang.media.title')) ?></label>
     <p data-label="title"></p>
 

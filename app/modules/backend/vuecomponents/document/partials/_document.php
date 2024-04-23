@@ -1,5 +1,5 @@
 <div
-    class="component-backend-document flex-layout-column" 
+    class="component-backend-document flex-layout-column"
     :class="cssClass"
 >
     <transition name="document-fade-in">
@@ -27,7 +27,7 @@
             <slot name="content"></slot>
 
             <transition name="processing-fade-in">
-                <backend-component-loading-indicator 
+                <backend-component-loading-indicator
                     v-if="processing"
                     indicator-style="stripe"
                     css-class="document-progress-indicator"
@@ -37,7 +37,7 @@
     </transition>
 
     <div v-if="loading" class="flex-layout-item justify-center">
-        <backend-component-loading-indicator 
+        <backend-component-loading-indicator
             size="small"
         ></backend-component-loading-indicator>
     </div>

@@ -14,7 +14,7 @@ fields:
             featurette:
                 name: Featurette
                 description: Large list of features with a screenshot
-                icon: octo-icon-diamond
+                icon: icon-diamond
                 fields:
                     _mixin:
                         type: mixin
@@ -23,7 +23,7 @@ fields:
             headline:
                 name: Big Headline
                 description: Shows a big headline with a link
-                icon: octo-icon-text-h1
+                icon: icon-text-h1
                 fields:
                     _mixin:
                         type: mixin
@@ -41,7 +41,7 @@ fields:
             call_to_action:
                 name: Call To Action
                 description: A block that requests the user do something
-                icon: octo-icon-comment
+                icon: icon-comment
                 fields:
                     _mixin:
                         type: mixin
@@ -50,7 +50,7 @@ fields:
             carousel:
                 name: Carousel
                 description: A gallery of images
-                icon: octo-icon-picture
+                icon: icon-picture
                 fields:
                     _mixin:
                         type: mixin

@@ -46,7 +46,7 @@
 
     Flyout.prototype.show = function() {
         var $cells = this.$el.find('> .layout-cell'),
-            $flyout = this.$el.find('> .flyout')
+            $flyout = this.$el.find('> .flyout-content')
 
         $('[data-control=layout-sidepanel]').sidePanelTab('hideSidePanel')
 
@@ -69,7 +69,7 @@
 
     Flyout.prototype.hide = function() {
         var $cells = this.$el.find('> .layout-cell'),
-            $flyout = this.$el.find('> .flyout')
+            $flyout = this.$el.find('> .flyout-content')
 
         for (var i = 0; i < $cells.length; i++) {
             var $cell = $($cells[i])
