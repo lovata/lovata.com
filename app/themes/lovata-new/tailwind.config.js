@@ -10,6 +10,9 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
+            zIndex: {
+                1: 1,
+            },
             colors: {
                 'black-white': "var(--black-white)",
                 'white-black': "var(--white-black)",
