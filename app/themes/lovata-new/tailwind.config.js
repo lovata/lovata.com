@@ -31,6 +31,9 @@ module.exports = {
                 blue: {
                     '600-400': "var(--blue-600-400)",
                 },
+                black: {
+                    DEFAULT: '#000000',
+                },
                 white: {
                     'black': "var(--white-black)",
                     'natural-900': "var(--white-natural-900)",
@@ -56,6 +59,7 @@ module.exports = {
 
                 },
                 neutral: {
+                    '700-gray-100': "var(--neutral-700-gray-100)",
                     '800-white': "var(--gray-800-white)",
                 },
             },

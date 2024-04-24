@@ -5,6 +5,7 @@
 @import '../../partials/components/footer/footer.css';
 @import '../../partials/extends/toggle-theme/toggle-theme.css';
 @import '../../partials/extends/language/language.css';
+@import '../../partials/elements/button/button.css';
 
 
 @tailwind base;
