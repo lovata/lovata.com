@@ -1,9 +1,8 @@
 @import '../../../partials/extends/static-text/static-text.css';
 @import '../../../partials/extends/short-nav/short-nav.css';
 .blog-post__inner {
-  @apply pt-7 pb-24
+  @apply pt-7 pb-16 md:pb-24 max-w-[1006px]
 }
-
 .blog-post__wrap {
   @apply mt-7
 }
@@ -14,5 +13,5 @@
   @apply text-lg md:text-2xl mt-4 text-gray-500-300 font-light
 }
 .blog-post__content {
-  @apply mt-6
+  @apply mt-5
 }
