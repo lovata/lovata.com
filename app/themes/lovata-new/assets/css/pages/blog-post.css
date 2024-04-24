@@ -1,0 +1,18 @@
+@import '../../../partials/extends/static-text/static-text.css';
+@import '../../../partials/extends/short-nav/short-nav.css';
+.blog-post__inner {
+  @apply pt-7 pb-24
+}
+
+.blog-post__wrap {
+  @apply mt-7
+}
+.blog-post__title {
+  @apply text-4xl	md:text-5xl text-black-white font-bold
+}
+.blog-post__time {
+  @apply text-lg md:text-2xl mt-4 text-gray-500-300 font-light
+}
+.blog-post__content {
+  @apply mt-6
+}

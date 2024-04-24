@@ -5,10 +5,5 @@
 @import '../../../partials/components/cases/cases.css';
 @import '../../../partials/components/reviews/reviews.css';
 @import '../../../partials/components/feedback/feedback.css';
-@import '../../../partials/components/footer/footer.css';
-@import '../../../partials/extends/toggle-theme/toggle-theme.css';
-@import '../../../partials/extends/language/language.css';
-@import '../../../partials/elements/input/input.css';
 @import '../../../partials/elements/input-file/input-file.css';
 @import '../../../partials/elements/checkbox/checkbox.css';
-@import '../../../partials/extends/static-text/static-text.css';

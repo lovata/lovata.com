@@ -32,14 +32,13 @@
     </script>
 
 
-
-    {{ vite([{ path: 'assets/css/pages/index.css' }]) }}
+    {% placeholder style %}
     {{ vite([{ path: 'assets/css/light.css', media: "(prefers-color-scheme: light)" }]) }}
     {{ vite([{ path: 'assets/css/dark.css', media: "(prefers-color-scheme: dark)" }]) }}
     {{ vite([{ path: 'assets/js/common.js' }]) }}
     {{ SeoToolbox.getHeadEnd()|raw }}
 </head>
-<body class="flex h-full flex-col min-h-screen bg-white-black">
+<body class="flex h-full flex-col min-h-screen text-gray-600-white bg-white-black">
     {% partial 'components/header/header' %}
     <main class="flex-grow">
         {% page %}

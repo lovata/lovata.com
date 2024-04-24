@@ -1,4 +1,4 @@
-url = "/"
+url = "/blog-page"
 layout = "main"
 title = "index"
 is_hidden = 0
@@ -9,16 +9,7 @@ meta_keywords = "software product development company, web application developme
 ==
 
 {% put style %}
-    {{ vite([{ path: 'assets/css/pages/index.css' }]) }}
+    {{ vite([{ path: 'assets/css/pages/blog-post.css' }]) }}
 {% endput %}
 
-
-{% partial 'head/cmspage-metadata' %}
-{% partial 'components/main/main' %}
-{% partial 'components/services/services' %}
-{% partial 'components/expertise/expertise' %}
-{% partial 'components/cases/cases' %}
-{% partial 'components/reviews/reviews' %}
-{% partial 'components/feedback/feedback' %}
-
-
+{% partial 'components/blog-post/blog-post' %}

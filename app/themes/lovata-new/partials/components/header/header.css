@@ -7,7 +7,7 @@
 }
 
 .header .header__navigation {
-  @apply mx-auto lg:max-w-7xl px-4  lg:px-8 top-0 fixed lg:static inset-0 transition-all
+  @apply top-0 fixed lg:static inset-0 transition-all
 }
 
 .header .header__navigation:not(.open) {
@@ -81,10 +81,6 @@
 
 .navigation .menu__submenu {
   @apply lg:absolute lg:inset-x-0 lg:top-[68px] lg:pt-9 lg:pb-10 lg:visible bg-white-black lg:hidden
-}
-
-.navigation .menu__container {
-  @apply lg:mx-auto lg:max-w-7xl lg:px-8
 }
 
 .navigation .menu__item.show .menu__submenu {
