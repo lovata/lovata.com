@@ -33,3 +33,7 @@
 .bullets__item.bullets__item--active .bullets__dot {
   @apply bg-blue-600
 }
+
+.title {
+  @apply text-4xl	md:text-5xl text-black-white font-bold
+}

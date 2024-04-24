@@ -5,5 +5,6 @@
 @import '../../../partials/components/cases/cases.css';
 @import '../../../partials/components/reviews/reviews.css';
 @import '../../../partials/components/feedback/feedback.css';
+@import '../../../partials/extends/feedback-form/feedback-form.css';
 @import '../../../partials/elements/input-file/input-file.css';
 @import '../../../partials/elements/checkbox/checkbox.css';

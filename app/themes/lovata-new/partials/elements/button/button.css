@@ -1,0 +1,59 @@
+/*There are many classes in the selector because there are problems with the specificity of tailwindcss*/
+button.button-black,
+[type='button'].button-black,
+[type='reset'].button-black,
+[type='submit'].button-black,
+.button-black {
+  @apply bg-black-white hover:bg-neutral-700-gray-100 hover:border-neutral-700-gray-100 text-white-black py-3 px-6 text-lg md:text-base
+}
+
+/*button.button-outline,*/
+/*[type='button'].button-outline,*/
+/*[type='reset'].button-outline,*/
+/*[type='submit'].button-outline,*/
+/*.button-outline {*/
+/*  @apply rounded font-medium text-primary border border-primary border-solid py-3 px-8 text-lg md:text-base hover:bg-primary-hover hover:border-primary-hover hover:text-white*/
+/*}*/
+
+button.button-state,
+[type='button'].button-state,
+[type='reset'].button-state,
+[type='submit'].button-state,
+.button-state {
+  @apply
+  focus:outline focus:outline-offset-1 focus:outline-blue-600-400 focus:outline-1 focus:border-blue-600-400 focus:text-white-black
+  focus-visible:outline focus-visible:outline-offset-1 focus-visible:outline-blue-600-400 focus-visible:outline-1 focus-visible:text-white-black
+  focus-within:outline focus-within:outline-offset-1 focus-within:outline-blue-600-400 focus-within:outline-1 focus-within:text-white-black
+}
+
+/*button.button-state:active:not([disabled]),*/
+/*[type='button']:active:not([disabled]),*/
+/*[type='reset'].button-state:active:not([disabled]),*/
+/*[type='submit'].button-state:active:not([disabled]),*/
+/*.button-state:active:not([disabled]){*/
+/*  @apply bg-on-primary-container text-white*/
+/*}*/
+
+/*button.button-state[disabled]:active,*/
+/*[type='button'].button-state[disabled]:active,*/
+/*[type='reset'].button-state[disabled]:active,*/
+/*[type='submit'].button-state[disabled]:active,*/
+/*.button-state[disabled]:active{*/
+/*  @apply bg-surface-dim text-on-surface border-0 outline-outline*/
+/*}*/
+
+button.link[disabled]:active,
+[type='button'].link[disabled]:active,
+[type='reset'].link[disabled]:active,
+[type='submit'].link[disabled]:active,
+.link {
+  @apply outline-current
+  focus:outline-dotted focus:outline-1
+  focus-visible:outline-dotted focus-visible:outline-1
+  focus-within:outline-dotted focus-within:outline-1
+  active:!text-blue-600-400 active:!bg-transparent
+}
+.link-black {
+  @apply inline-block text-black-white hover:text-blue-600-400
+}
+

@@ -1,0 +1,6 @@
+.form__wrap {
+  @apply space-y-12
+}
+.form__button {
+  @apply w-full md:w-auto mt-12
+}

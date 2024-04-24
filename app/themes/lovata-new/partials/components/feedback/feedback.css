@@ -12,7 +12,3 @@
 .feedback__subtitle {
   @apply text-2xl font-light text-gray-600-300 mt-7
 }
-
-.form__wrap {
-  @apply space-y-12
-}
