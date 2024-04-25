@@ -17,9 +17,6 @@
 .input-file__attachment:not(.hidden) {
   @apply flex items-center space-x-1.5
 }
-.input-file__attachment.hidden {
-  @apply !hidden
-}
 
 .input-file__name {
   @apply line-clamp-1 text-lg text-gray-600-500 mt-0.5
@@ -32,11 +29,28 @@
 .input-file__icon {
   @apply shrink-0
 }
-
+.input-file__title {
+  @apply text-gray-600-300 text-xl lg:text-2xl font-light transition-all ease-linear mb-2
+}
 .input-file__error {
   @apply text-red-500 mt-2.5 block text-sm
 }
 
 .input-file__error:first-letter {
   text-transform: capitalize !important;
+}
+
+
+.drop {
+  @apply cursor-pointer block md:flex md:items-center md:justify-center text-center md:text-left md:space-x-2.5 p-4 border border-dashed border-gray-400-500 text-lg
+}
+.drop__accent {
+  @apply text-blue-600-400
+}
+
+.drop__icon {
+  @apply mx-auto md:m-0 w-6 h-6 mb-4 md:mb-0
+}
+.input-file__info {
+  @apply md:flex md:items-center md:justify-between text-gray-400 mt-2.5
 }

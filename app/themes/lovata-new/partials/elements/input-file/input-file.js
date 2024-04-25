@@ -20,12 +20,22 @@ export default new class inputFile {
 
   handler () {
     this.eventChangeInput();
+    this.eventDropInput();
     this.eventCloseLoadedFile();
   }
 
   eventChangeInput () {
     const inputsFile = document.querySelectorAll(".js-input-file-input");
+    if (!inputsFile) return false;
     inputsFile.forEach(input => input.addEventListener("change", () => this.changeFile(input)));
+
+  }
+
+  eventDropInput () {
+    const dropBoxes = document.querySelectorAll(".js-input-dropbox");
+    if (!dropBoxes) return false;
+    dropBoxes.forEach(dropBox => dropBox.addEventListener("droped", (e) => this.dropFile(dropBox, e)));
+
   }
 
   eventCloseLoadedFile () {
@@ -41,6 +51,12 @@ export default new class inputFile {
     parentWrap.querySelector(".js-input-file-input").value = "";
     parentWrap.querySelector(".js-file-wrap ").classList.remove("hidden");
     this.hideFileName(attachmentWrap);
+  }
+
+  dropFile (dropBox, event) {
+    event.preventDefault();
+    const fileInput = dropBox.parentNode.querySelector("input");
+    fileInput.files = e.dataTransfer.files;
   }
 
   changeFile (element) {
@@ -62,8 +78,6 @@ export default new class inputFile {
     } else {
       return false;
     }
-
-
   }
 
   setError (element, errors) {
