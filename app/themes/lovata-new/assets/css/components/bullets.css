@@ -1,0 +1,20 @@
+.slider-bullet {
+  @apply flex justify-center space-x-4
+}
+.slider-bullet__bullet {
+  @apply justify-center block rounded-full p-1
+}
+
+.slider-bullet__dot {
+  @apply w-2.5 h-2.5 bg-gray-200-700 rounded-full block
+}
+
+.slider-bullet--active {
+  @apply bg-gray-200-700
+}
+
+.slider-bullet--active .slider-bullet__dot {
+  @apply bg-blue-600-400
+}
+
+

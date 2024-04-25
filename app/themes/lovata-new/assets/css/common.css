@@ -2,12 +2,31 @@
   color-scheme: light dark;
 }
 
+.inner {
+  @apply pt-12 md:pt-16 pb-16 md:pb-24
+}
+.wrapper {
+  @apply py-12 md:py-24
+}
+
+.wrapper-box {
+  @apply mt-12 md:mt-16
+}
+
 .title {
-  @apply font-bold text-4xl	md:text-6xl text-black-white
+  @apply font-bold text-4xl  md:text-6xl text-black-white
 }
 
 .sub-title {
   @apply text-gray-600-300 pt-7 max-w-3xl text-2xl
+}
+
+.title-large {
+  @apply md:text-6xl text-4xl text-black-white font-bold
+}
+
+.description {
+  @apply mt-6 prose-p:mb-4 -mb-4 prose-p:font-light md:prose-p:text-2xl prose-p:text-lg prose-a:font-semibold prose-a:text-blue-600-400 prose-a:underline hover:prose-a:no-underline
 }
 
 .bullets {
@@ -35,5 +54,5 @@
 }
 
 .title {
-  @apply text-4xl	md:text-5xl text-black-white font-bold
+  @apply text-4xl  md:text-5xl text-black-white font-bold
 }

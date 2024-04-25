@@ -1,0 +1,15 @@
+.featured-list__descr {
+  @apply prose-p:font-light prose-a:font-light prose-a:text-blue-600 prose-p:text-2xl
+}
+
+.featured-list__items {
+  @apply flex items-start space-x-3
+}
+
+.featured-list__icon {
+  @apply shrink-0
+}
+
+.featured-list__wrap {
+  @apply grid grid-cols-2 gap-x-8 gap-y-12
+}

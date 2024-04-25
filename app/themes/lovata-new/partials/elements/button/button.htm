@@ -32,8 +32,8 @@ Params:
 {#{% elseif buttonType == 'link' %}#}
 {#    {% set defaultClass = 'link link-blue underline hover:no-underline' %}#}
 {#{% endif %}#}
-{% if isGhost %}
-    {% set defaultClass = 'rounded button-state button-outline' %}
+{% if buttonType == 'outline' %}
+    {% set defaultClass = 'button-outline button-state' %}
 {% else %}
     {% set defaultClass = 'button-black button-state' %}
 {% endif %}

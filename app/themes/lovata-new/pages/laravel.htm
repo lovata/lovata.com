@@ -1,0 +1,34 @@
+url = "/laravel"
+layout = "main"
+title = "index"
+is_hidden = 0
+meta_title = "LOVATA: Software Product Development Services Company"
+meta_description = "LOVATA is an award-winning software product development company that provides custom web and mobile app development services based on open-source technologies."
+meta_keywords = "software product development company, web application development, web software development company, custom software development, mobile app development company, website and software development company, product software development, software product development, software development company, software development services, product development services, product development services companies, software product development services, software app development, app development, web development, software application development, app development companies, software companies, offshore software development, it outsourcing, software developer companies, software developer company, web design company, web apps, agile software development"
+
+==
+
+{% put style %}
+    {{ vite([{ path: 'assets/css/pages/laravel.css' }]) }}
+{% endput %}
+
+{% partial 'components/main-service/main-service'
+    sTitle='<p>LOVATA: a <strong>Laravel Development Company</strong> to tend to your business needs.</p>'
+    sDescr='LOVATA is the leading Laravel development company in the USA to help you boost your business with the top digital solutions. Laravel development services allow businesses of any scale and sphere to grow faster and more efficiently. If you are looking for ways to boost your online presence, Laravel may be your ultimate solution. This open-source PHP framework took the programming world by storm some time ago and maintains its leading position. With Laravel, the sky is your limit, as you will be able to develop custom web applications as per your needs.'
+    sButtonText='Learn more'
+    sButtonUrl='/'
+%}
+
+<div class="bg-white">
+    {% partial 'components/header-anchor/header-anchor' %}
+    {% partial 'components/rich-text/rich-text'
+        content='<p>Lovata is one of the <a>leading Laravel</a>   development companies in the USA, with a team of veteran Laravel developers that can boost the performance of your website or help you start a Laravel web application development. Our 15-year expertise puts us in the top range of Laravel development companies as we meticulously assist our clients in developing unparalleled digital solutions in the most cost-effective way.</p>'
+    %}
+{#    {% partial 'components/development-services/development-services' %}#}
+{#    {% partial 'components/our-work/our-work' %}#}
+    {% partial 'components/advantages/advantages' %}
+    {% partial 'components/portfolio/portfolio' %}
+
+
+
+</div>

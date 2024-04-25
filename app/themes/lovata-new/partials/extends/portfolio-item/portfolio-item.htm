@@ -1,0 +1,21 @@
+{% if size == 'medium' %}
+    {% set sizeType = 'portfolio-item__description--medium' %}
+{% else %}
+    {% set sizeType = 'portfolio-item__description--large' %}
+{% endif %}
+
+<div class="portfolio-item">
+    <picture>
+        <source srcset="{{ 'assets/img/rectangle.webp'|theme }}" type="image/webp">
+        <img class="portfolio-item__img" src="{{ 'assets/img/rectangle.jpg'|theme }}" width="592"  alt="">
+    </picture>
+    <dl class="portfolio-item__description {{ sizeType }}">
+        <dt class="portfolio-item__title">Woodlika</dt>
+        <dd class="portfolio-item__text">— Production of original wooden puzzles</dd>
+    </dl>
+    <ul class="portfolio-item__tags tag">
+        <li>#new</li>
+        <li>#e-commerce</li>
+        <li>#website</li>
+    </ul>
+</div>

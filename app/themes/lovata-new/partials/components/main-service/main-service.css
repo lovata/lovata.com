@@ -1,0 +1,21 @@
+.main-service {
+  @apply bg-red-500 border min-h-[calc(100vh-84px)] flex items-center justify-center py-12 md:py-24
+
+}
+
+.service__inner {
+  @apply min-h-[calc(100vh-84px)]
+}
+
+
+.main-service__descr {
+  @apply text-white text-center text-xl font-light mt-12 md:leading-8
+}
+
+.main-service__title {
+  @apply prose prose-p:m-0 prose-p:text-white prose-strong:font-bold prose-strong:text-yellow-200 text-[40px] md:text-7xl md:leading-[80px] font-bold text-center
+}
+
+.main-service__button {
+  @apply flex justify-center mt-12
+}

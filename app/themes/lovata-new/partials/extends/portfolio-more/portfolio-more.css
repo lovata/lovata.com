@@ -1,0 +1,11 @@
+.portfolio-more {
+  @apply bg-gray-100-natural-800 justify-center flex items-center
+}
+
+.portfolio-more:hover .portfolio-more__wrap  {
+  @apply border-transparent
+}
+
+.portfolio-more__wrap {
+  @apply text-black-white space-x-3 text-3xl border-b border-black-white inline-flex items-center
+}

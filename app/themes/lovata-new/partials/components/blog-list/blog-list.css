@@ -1,6 +1,6 @@
 .blog-list__inner {
-  @apply mt-12 md:mt-16 mb-16 md:mb-24
+  @apply max-w-[1006px]
 }
 .blog-list__wrap {
-  @apply space-y-12 md:space-y-16 mt-12 md:mt-16
+  @apply space-y-12
 }

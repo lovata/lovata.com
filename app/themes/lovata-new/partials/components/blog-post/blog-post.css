@@ -1,5 +1,5 @@
 .blog-post__inner {
-  @apply pt-7 pb-16 md:pb-24 max-w-[1006px]
+  @apply max-w-[1006px]
 }
 .blog-post__wrap {
   @apply mt-7

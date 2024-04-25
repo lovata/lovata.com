@@ -1,0 +1,6 @@
+.portfolio__wrap {
+  @apply grid gap-x-8 grid-cols-3 items-start
+}
+.portfolio__more {
+  @apply h-[220px] lg:h-[229px]  xl:h-[284px]
+}

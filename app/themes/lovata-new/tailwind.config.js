@@ -66,7 +66,8 @@ module.exports = {
             fontFamily: {
                 sans: [
                     'Circe, Arial, sans-serif',
-                ]
+                ],
+                arial: 'Arial, sans-serif',
             },
             padding: {
                 menucalc: 'calc(( 50% / 3) - 166px + 18vw)',

@@ -1,0 +1,27 @@
+.rich-text__wrap {
+  @apply
+  py-16 md:py-24
+  after:content-['']
+  after:w-[180px]
+  after:h-2
+  after:bg-red-100
+  after:block
+  after:mx-auto
+  after:mt-8
+  before:content-['']
+  before:w-[180px]
+  before:h-2
+  before:bg-red-100
+  before:block
+  before:mx-auto
+  before:mb-8
+}
+
+
+.rich-text__descr {
+  @apply
+  prose-p:text-center
+  prose-p:font-light
+  prose-p:text-2xl
+  prose-a:text-2xl
+}

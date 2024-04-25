@@ -3,7 +3,7 @@
 @import '../../../partials/elements/input-file/input-file.css';
 
 .careers-pages__inner {
-  @apply max-w-[1006px] pt-12 md:pt-16 pb-16 md:pb-24
+  @apply max-w-[1006px]
 }
 .careers-pages__header {
   @apply md:flex md:items-start md:justify-between mb-6 md:mb-8 space-y-6 md:space-y-0
@@ -11,9 +11,9 @@
 .careers-pages__text {
   @apply prose-p:font-light
 }
-.careers-pages__form {
-  @apply mt-16 md:mt-24
-}
-.careers__subtitle {
+.careers-pages__subtitle {
   @apply text-4xl font-bold mb-16 text-black-white
+}
+.careers-pages__picture {
+  @apply w-fit rounded-xl bg-white px-3.5 pt-0.5 pb-1.5
 }

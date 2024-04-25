@@ -1,0 +1,25 @@
+.multi-column__title {
+  @apply text-black font-bold text-2xl
+}
+
+.multi-column__descr {
+  @apply prose-p:font-light prose-p:p-0 mt-5
+}
+
+.multi-column__wrap {
+  @apply md:grid md:grid-cols-2 lg:grid-cols-3 border-l border-t
+}
+
+.multi-column__item {
+  @apply py-10 px-8 border-r border-b border-gray-200
+  lg:[&:nth-child(6n)]:bg-gray-50
+  lg:[&:nth-child(6n+5)]:bg-gray-50
+  lg:[&:nth-child(6n+4)]:bg-gray-50
+  lg:[&:nth-child(4n+3)]:bg-white
+  lg:[&:nth-child(4n+4)]:bg-white
+  md:[&:nth-child(4n+3)]:bg-gray-50
+  md:[&:nth-child(4n+4)]:bg-gray-50
+  [&:nth-child(6n)]:bg-gray-50
+  [&:nth-child(6n+5)]:bg-gray-50
+  [&:nth-child(6n+4)]:bg-gray-50
+}

@@ -1,0 +1,20 @@
+<section class="main-service">
+    <div class="main-service__inner">
+        <div class="main-service__wrap container">
+            <h1 class="main-service__title">{{ sTitle|raw }}</h1>
+            {% if sDescr is not empty %}
+                <p class="main-service__descr">{{ sDescr }}</p>
+            {% endif %}
+            {% if sButtonText is not empty %}
+                <div class="main-service__button">
+                    {% partial 'elements/button/button'
+                        text=sButtonText
+                        url=sButtonUrl
+                        buttonType='outline'
+                        wrapperClasses='w-full md:w-auto inline-block'
+                    %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

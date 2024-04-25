@@ -33,3 +33,6 @@
 .services__bullets {
   @apply mt-14 md:mt-7 md:hidden
 }
+.services__bullet {
+  @apply mt-16 md:mt-0 md:hidden
+}

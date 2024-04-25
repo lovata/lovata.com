@@ -7,13 +7,13 @@ button.button-black,
   @apply bg-black-white hover:bg-neutral-700-gray-100 hover:border-neutral-700-gray-100 text-white-black py-3 px-6 text-lg md:text-base
 }
 
-/*button.button-outline,*/
-/*[type='button'].button-outline,*/
-/*[type='reset'].button-outline,*/
-/*[type='submit'].button-outline,*/
-/*.button-outline {*/
-/*  @apply rounded font-medium text-primary border border-primary border-solid py-3 px-8 text-lg md:text-base hover:bg-primary-hover hover:border-primary-hover hover:text-white*/
-/*}*/
+button.button-outline,
+[type='button'].button-outline,
+[type='reset'].button-outline,
+[type='submit'].button-outline,
+.button-outline {
+  @apply font-medium text-white border border-white border-solid py-2.5 px-6 md:text-lg text-base hover:bg-white hover:border-white hover:text-black
+}
 
 button.button-state,
 [type='button'].button-state,
