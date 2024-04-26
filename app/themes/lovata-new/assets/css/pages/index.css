@@ -1,5 +1,6 @@
 @import '../../../partials/components/header/header.css';
 @import '../../../partials/components/main/main.css';
+@import '../../../partials/components/cluch/cluch.css';
 @import '../../../partials/components/services/services.css';
 @import '../../../partials/components/expertise/expertise.css';
 @import '../../../partials/components/cases/cases.css';
@@ -14,3 +15,12 @@
 @import "../../../node_modules/swiper/swiper.min.css";
 
 @import "../components/bullets.css";
+.index-wrapper__fakemain {
+  @apply h-[417px] md:h-[426px]
+}
+.index-wrapper__main {
+  @apply fixed top-[84px] inset-x-0 -z-[1]
+}
+.index-wrapper__container {
+  @apply bg-white-black
+}

@@ -1,9 +1,5 @@
-.services .services__inner {
-  @apply py-16 md:py-24
-}
-
 .services__wrap {
-  @apply pr-4 md:pr-0 mt-12 md:mt-16
+  @apply pr-4 md:pr-0
 }
 
 .services__slider {
