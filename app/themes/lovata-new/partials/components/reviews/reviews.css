@@ -3,6 +3,9 @@
   @apply pb-24 pt-[60px] md:py-24 relative
 }
 
+.reviews__title {
+  @apply sticky bg-white py-4 top-[160px] z-1 mt-2.5
+}
 .reviews__wrap {
   @apply  sm:space-x-6 lg:space-x-12 sm:flex
 }
@@ -12,7 +15,7 @@
 }
 
 .reviews__wrap {
-  @apply mt-7 sm:mt-[68px]
+  @apply mt-7 sm:mt-[50px]
 }
 
 .reviews__aside {
@@ -20,5 +23,5 @@
 }
 
 .reviews__img {
-  @apply sticky top-0 inset-x-0
+  @apply mx-auto sticky top-[255px] inset-x-0
 }
