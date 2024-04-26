@@ -8,7 +8,9 @@
 @import '../../../partials/extends/feedback-form/feedback-form.css';
 @import '../../../partials/elements/input-file/input-file.css';
 @import '../../../partials/elements/checkbox/checkbox.css';
-
+@import '../../../partials/extends/portfolio-item/portfolio-item.css';
+@import '../../../partials/extends/portfolio-more/portfolio-more.css';
+@import "../node_modules/swiper/swiper.min.css";
 .index-wrapper__fakemain {
   @apply h-[426px]
 }
