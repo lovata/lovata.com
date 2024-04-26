@@ -1,5 +1,5 @@
 .header {
-  @apply bg-white-black z-0 py-6 lg:py-4
+  @apply bg-white-black py-6 lg:py-4 sticky top-0 z-10
 }
 
 .header .header__wrap {
