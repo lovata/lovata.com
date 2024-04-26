@@ -13,6 +13,9 @@ module.exports = {
             container: {
                 center: true,
             },
+            zIndex: {
+                1: 1,
+            },
             colors: {
                 'black-white': "var(--black-white)",
 

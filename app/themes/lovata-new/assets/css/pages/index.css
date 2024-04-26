@@ -11,4 +11,13 @@
 @import '../../../partials/elements/input/input.css';
 @import '../../../partials/elements/input-file/input-file.css';
 @import '../../../partials/elements/checkbox/checkbox.css';
-@import '../../../partials/extends/static-text/static-text.css';
+
+.index-wrapper__fakemain {
+  @apply h-[426px]
+}
+.index-wrapper__main {
+  @apply fixed top-[84px] inset-x-0 -z-[1]
+}
+.index-wrapper__container {
+  @apply bg-white-black
+}

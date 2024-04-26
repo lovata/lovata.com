@@ -1,5 +1,5 @@
 .main .main__inner {
-  @apply pt-[68px] md:pt-28 pb-[68px] md:pb-[128px] overflow-hidden
+  @apply pt-[68px] md:pt-28 pb-[60px] md:pb-[74px] overflow-hidden
 }
 
 .main .main__header {
@@ -14,31 +14,30 @@
   @apply text-gray-400-500
 }
 
-.main  .main__contact {
-  @apply mt-[60px] md:mt-[74px]
+
+.deliver-top {
+  @apply bg-blue-600 sticky top-20 lg:top-[84px] z-10
+}
+.deliver-top__inner {
+  @apply mx-auto max-w-7xl
+}
+.deliver-top__wrap {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex py-4 md:py-5 space-x-4 items-center md:items-center
 }
 
-.main .contact {
-  @apply bg-blue-600
-}
-
-.main .contact__wrap {
-  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex py-4 md:py-5 space-x-4 items-start md:items-center
-}
-
-.main .contact__img {
+.deliver-top__img {
   @apply w-10 shrink-0
 }
 
-.main .contact__text {
-  @apply md:text-3xl text-white font-medium
+.deliver-top__text {
+  @apply lg:text-3xl text-white font-medium
 }
 
-.main .contact__text--accent  {
-  @apply text-yellow-300 border-b md:border-b-2 border-yellow-300 leading-3 md:leading-[22px]
+.deliver-top__text--accent  {
+  @apply text-yellow-300 border-b md:border-b-2 border-yellow-300 leading-3 lg:leading-[22px]
 }
 
-.main .contact__text--accent:hover  {
+.deliver-top__text--accent:hover  {
   @apply border-transparent
 }
 

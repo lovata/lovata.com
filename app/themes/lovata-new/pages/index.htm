@@ -8,16 +8,23 @@ meta_keywords = "software product development company, web application developme
 
 ==
 {% partial 'head/cmspage-metadata' %}
-{% partial 'components/main/main' %}
+<div class="index-wrapper">
+    <div class="index-wrapper__fakemain"></div>
+    <div class="index-wrapper__main">
+        {% partial 'components/main/main' %}
+    </div>
 
-<div class="container max-w-[976px]">
-    {% partial 'extends/static-text/static-text' %}
+
+    <div class="index-wrapper__container">
+        {% partial 'components/deliver-top/deliver-top' %}
+        {% partial 'components/cluch/cluch' %}
+        {% partial 'components/services/services' %}
+        {% partial 'components/expertise/expertise' %}
+        {% partial 'components/cases/cases' %}
+        {% partial 'components/reviews/reviews' %}
+        {% partial 'components/feedback/feedback' %}
+    </div>
 </div>
 
-{% partial 'components/services/services' %}
-{% partial 'components/expertise/expertise' %}
-{% partial 'components/cases/cases' %}
-{% partial 'components/reviews/reviews' %}
-{% partial 'components/feedback/feedback' %}
 
 
