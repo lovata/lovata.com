@@ -24,14 +24,14 @@ meta_keywords = "software product development company, web application developme
     {% partial 'components/rich-text/rich-text'
         content='<p>Lovata is one of the <a>leading Laravel</a>   development companies in the USA, with a team of veteran Laravel developers that can boost the performance of your website or help you start a Laravel web application development. Our 15-year expertise puts us in the top range of Laravel development companies as we meticulously assist our clients in developing unparalleled digital solutions in the most cost-effective way.</p>'
     %}
-{#    {% partial 'components/development-services/development-services' %}#}
-{#    {% partial 'components/our-work/our-work' %}#}
+    {% partial 'components/development-services/development-services' %}
+    {% partial 'components/our-work/our-work' %}
     {% partial 'components/advantages/advantages' %}
     {% partial 'components/portfolio/portfolio' %}
-
-
-
+    {% partial 'components/why-us/why-us' %}
+    {% partial 'components/support/support' %}
+    {% partial 'components/faq/faq' %}
 </div>
 {% put script %}
-    {{ vite([{ path: 'assets/js/pages/portfolio.js' }]) }}
+    {{ vite([{ path: 'assets/js/pages/laravel.js' }]) }}
 {% endput %}

@@ -1,3 +1,5 @@
+@import "../../../node_modules/swiper/swiper.min.css";
+@import "../components/bullets.css";
 @import '../../../partials/components/header/header.css';
 @import '../../../partials/components/main/main.css';
 @import '../../../partials/components/cluch/cluch.css';
@@ -12,9 +14,6 @@
 @import '../../../partials/extends/portfolio-item/portfolio-item.css';
 @import '../../../partials/extends/portfolio-more/portfolio-more.css';
 
-@import "../../../node_modules/swiper/swiper.min.css";
-
-@import "../components/bullets.css";
 .index-wrapper__fakemain {
   @apply h-[417px] md:h-[426px]
 }

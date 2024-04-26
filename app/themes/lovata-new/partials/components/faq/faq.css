@@ -1,0 +1,9 @@
+.faq__wrap {
+  @apply lg:flex lg:items-start lg:space-x-12 xl:space-x-16
+}
+.faq__aside {
+  @apply lg:w-1/3 xl:w-auto  xl:basis-[416px] shrink-0 mb-12 lg:mb-0
+}
+.faq__container {
+  @apply grow
+}
