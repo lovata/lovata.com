@@ -4,10 +4,14 @@
         <div class="description">
             <p>Here’s a list of projects where we chose to use Laravel as our developing tool:</p>
         </div>
-        <div class="wrapper-box portfolio__wrap">
-            {% partial 'extends/portfolio-item/portfolio-item' size='medium' %}
-            {% partial 'extends/portfolio-item/portfolio-item' size='medium' %}
-            {% partial 'extends/portfolio-more/portfolio-more' classParent="portfolio__more" %}
+        <div class="js-slider-port wrapper-box">
+            <ul class="swiper-wrapper portfolio__wrap">
+                <li class="swiper-slide">{% partial 'extends/portfolio-item/portfolio-item' size='medium' %}</li>
+                <li class="swiper-slide">{% partial 'extends/portfolio-item/portfolio-item' size='medium' %}</li>
+                <li class="swiper-slide">{% partial 'extends/portfolio-more/portfolio-more' classParent="portfolio__more" %}</li>
+            </ul>
+            <div class="portfolio__bullet js-slider-portfolio-bullets slider-bullet"></div>
+
         </div>
     </div>
 </div>

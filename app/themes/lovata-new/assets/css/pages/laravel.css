@@ -1,3 +1,7 @@
+
+@import "../../../node_modules/swiper/swiper.min.css";
+
+@import "../components/bullets.css";
 @import '../../../partials/components/main-service/main-service.css';
 @import '../../../partials/components/header-anchor/header-anchor.css';
 @import '../../../partials/components/rich-text/rich-text.css';

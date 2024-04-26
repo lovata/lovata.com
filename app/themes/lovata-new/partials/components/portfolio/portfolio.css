@@ -1,6 +1,16 @@
+.portfolio {
+  @apply  overflow-hidden
+}
 .portfolio__wrap {
-  @apply grid gap-x-8 grid-cols-3 items-start
+  @apply lg:grid lg:gap-x-8 lg:grid-cols-3 lg:items-start lg:space-x-8
+}
+.portfolio__bullet {
+  @apply mt-16 md:mt-0 md:!hidden
+}
+
+.portfolio .swiper-slide {
+  @apply lg:!m-0
 }
 .portfolio__more {
-  @apply h-[220px] lg:h-[229px]  xl:h-[284px]
+  @apply aspect-[15/11.2]
 }

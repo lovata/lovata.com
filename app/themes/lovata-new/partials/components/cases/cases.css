@@ -36,5 +36,5 @@
   @apply md:h-[300px] lg:h-[400px] aspect-[15/11.1] lg:aspect-auto
 }
 .cases__bullet {
-  @apply mt-16 md:mt-0 md:hidden
+  @apply mt-16 md:mt-0 md:!hidden
 }

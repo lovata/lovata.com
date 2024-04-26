@@ -34,7 +34,7 @@ export default new class inputFile {
   eventDropInput () {
     const dropBoxes = document.querySelectorAll(".js-input-dropbox");
     if (!dropBoxes) return false;
-    dropBoxes.forEach(dropBox => dropBox.addEventListener("droped", (e) => this.dropFile(dropBox, e)));
+    dropBoxes.forEach(dropBox => dropBox.addEventListener("ondrop", (e) => this.dropFile(dropBox, e)));
 
   }
 
@@ -61,6 +61,8 @@ export default new class inputFile {
 
   changeFile (element) {
     const file = element.files[0];
+    console.log("file")
+    console.log(file)
     this.setError(element);
     if (this.checkFileValidete(file, element)) return false;
     this.setAttachment(element, file);

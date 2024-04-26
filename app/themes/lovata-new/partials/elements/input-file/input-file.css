@@ -7,7 +7,7 @@
 }
 
 .input-file__input {
-  @apply sr-only
+  /*@apply sr-only*/
 }
 
 .input-file__input:focus + .input-file__label {
