@@ -61,8 +61,6 @@ export default new class inputFile {
 
   changeFile (element) {
     const file = element.files[0];
-    console.log("file")
-    console.log(file)
     this.setError(element);
     if (this.checkFileValidete(file, element)) return false;
     this.setAttachment(element, file);
