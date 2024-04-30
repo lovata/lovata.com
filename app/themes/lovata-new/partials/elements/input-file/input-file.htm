@@ -2,46 +2,67 @@
     <p class="input-file__title">{{ labelText }}</p>
     <div class="input-file__wrap js-file-wrap">
         <input
-                id="{{ sId }}"
-                class="input-file__input js-input-file-input"
-                type="file"
-                {% if multiple %}
-                    multiple
-                {% endif %}
+            id="{{ sId }}"
+            class="input-file__input js-input-file-input"
+            type="file"
+            {% if multiple %}
+                multiple
+            {% endif %}
+            {% if name %}
+                name="{{ name }}"
+            {% endif %}
+            {% if accept %}
+                accept="{{ accept }}"
+            {% endif %}
+                data-size="{{ size }}"
         >
         {% if multiple %}
-            <label for="{{ sId }}"  class="input-file__drop js-input-dropbox drop">
-                <svg class="drop__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19.5 14.25V11.625C19.5 9.76104 17.989 8.25 16.125 8.25H14.625C14.0037 8.25 13.5 7.74632 13.5 7.125V5.625C13.5 3.76104 11.989 2.25 10.125 2.25H8.25M15 14.25L12 11.25M12 11.25L9 14.25M12 11.25L12 17.25M10.5 2.25H5.625C5.00368 2.25 4.5 2.75368 4.5 3.375V20.625C4.5 21.2463 5.00368 21.75 5.625 21.75H18.375C18.9963 21.75 19.5 21.2463 19.5 20.625V11.25C19.5 6.27944 15.4706 2.25 10.5 2.25Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+            <label for="{{ sId }}" class="input-file__drop js-input-dropbox drop">
+                <svg class="drop__icon" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.5 14.25V11.625C19.5 9.76104 17.989 8.25 16.125 8.25H14.625C14.0037 8.25 13.5 7.74632 13.5 7.125V5.625C13.5 3.76104 11.989 2.25 10.125 2.25H8.25M15 14.25L12 11.25M12 11.25L9 14.25M12 11.25L12 17.25M10.5 2.25H5.625C5.00368 2.25 4.5 2.75368 4.5 3.375V20.625C4.5 21.2463 5.00368 21.75 5.625 21.75H18.375C18.9963 21.75 19.5 21.2463 19.5 20.625V11.25C19.5 6.27944 15.4706 2.25 10.5 2.25Z"
+                          stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 <p>Drag and Drop files here or <span class="drop__accent">choose file</span></p>
             </label>
-            <div class="input-file__info">
-                <p>Files Supported: Doc, PDF, Image, Scanner</p>
-                <p>Maximum size: 5MB</p>
-            </div>
 
         {% else %}
-        <label for="{{ sId }}"  class="input-file__label">
-            <svg class="input-file__clip" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M15.3125 10.6158L8.90165 17.0266C7.43718 18.4911 5.06282 18.4911 3.59835 17.0266C2.13388 15.5622 2.13388 13.1878 3.59835 11.7233L12.7144 2.60723C13.6907 1.63092 15.2736 1.63092 16.2499 2.60723C17.2262 3.58354 17.2262 5.16646 16.2499 6.14277L7.12632 15.2664M7.13388 15.2589C7.13137 15.2614 7.12885 15.2639 7.12632 15.2664M11.8749 6.98221L5.36612 13.4911C4.87796 13.9793 4.87796 14.7707 5.36612 15.2589C5.85176 15.7445 6.63759 15.747 7.12632 15.2664" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="input-file__text">{{ labelText }}</span>
-        </label>
+            <label for="{{ sId }}" class="input-file__label">
+                <svg class="input-file__clip" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                     viewBox="0 0 20 20" fill="none">
+                    <path d="M15.3125 10.6158L8.90165 17.0266C7.43718 18.4911 5.06282 18.4911 3.59835 17.0266C2.13388 15.5622 2.13388 13.1878 3.59835 11.7233L12.7144 2.60723C13.6907 1.63092 15.2736 1.63092 16.2499 2.60723C17.2262 3.58354 17.2262 5.16646 16.2499 6.14277L7.12632 15.2664M7.13388 15.2589C7.13137 15.2614 7.12885 15.2639 7.12632 15.2664M11.8749 6.98221L5.36612 13.4911C4.87796 13.9793 4.87796 14.7707 5.36612 15.2589C5.85176 15.7445 6.63759 15.747 7.12632 15.2664"
+                          stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="input-file__text">{{ labelText }}</span>
+            </label>
+        {% endif %}
+    </div>
+    <div class="input-file__info">
+        {% if acceptLabel %}
+            <p>Files Supported: {{ acceptLabel}} </p>
+        {% endif %}
+        {% if acceptLabel %}
+            <p>Maximum size: {{ size }}</p>
         {% endif %}
     </div>
     <span class="js-error-text input-file__error hidden"></span>
-    <div class="input-file__attachment js-input-attachment hidden">
-        <svg class="input-file__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="22" viewBox="0 0 16 22" fill="none">
-            <path d="M15.5 13.25V10.625C15.5 8.76104 13.989 7.25 12.125 7.25H10.625C10.0037 7.25 9.5 6.74632 9.5 6.125V4.625C9.5 2.76104 7.98896 1.25 6.125 1.25H4.25M6.5 1.25H1.625C1.00368 1.25 0.5 1.75368 0.5 2.375V19.625C0.5 20.2463 1.00368 20.75 1.625 20.75H14.375C14.9963 20.75 15.5 20.2463 15.5 19.625V10.25C15.5 5.27944 11.4706 1.25 6.5 1.25Z" stroke="#4B5563" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <span class="input-file__name js-name"></span>
-        <button type="button" class="js-file-close input-file__icon">
-            <svg class="input-file__close" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" fill="none">
-                <path d="M8 24L24 8M8 8L24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-    </div>
+    <ul class="input-file__list js-input-file-list"></ul>
 </div>
 
-
+{% put inputTemplate %}
+    <template id="input-file-template">
+        <li class="input-file__attachment">
+            <svg class="input-file__icon" xmlns="http://www.w3.org/2000/svg" width="16" height="22" viewBox="0 0 16 22" fill="none">
+                <path d="M15.5 13.25V10.625C15.5 8.76104 13.989 7.25 12.125 7.25H10.625C10.0037 7.25 9.5 6.74632 9.5 6.125V4.625C9.5 2.76104 7.98896 1.25 6.125 1.25H4.25M6.5 1.25H1.625C1.00368 1.25 0.5 1.75368 0.5 2.375V19.625C0.5 20.2463 1.00368 20.75 1.625 20.75H14.375C14.9963 20.75 15.5 20.2463 15.5 19.625V10.25C15.5 5.27944 11.4706 1.25 6.5 1.25Z" stroke="#4B5563" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="input-file__name">${title}</span>
+            <button data-name="${name}" data-id="${id}" type="button" class="js-file-close input-file__icon">
+                <svg class="input-file__close" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                     viewBox="0 0 32 32" fill="none">
+                    <path d="M8 24L24 8M8 8L24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </li>
+    </template>
+{% endput %}

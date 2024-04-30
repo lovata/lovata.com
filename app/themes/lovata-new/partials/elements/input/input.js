@@ -9,7 +9,7 @@ class FieldInput extends HTMLElement {
   }
   closeEventBody () {
     this.input.addEventListener('focusout', (event) => {
-      console.log("event")
+
       if(!this.input.value) this.lowerLabel()
       // const isClickedOutsideMenu = event.target.closest('.js-field-input') === null
       // if (isClickedOutsideMenu && this.input.value ) {

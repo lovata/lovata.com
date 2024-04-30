@@ -2,13 +2,15 @@
     <div class="careers-form__wrap">
         {% partial 'elements/input/input' name="name" label="Your name *" %}
         {% partial 'elements/input/input' name="email" label="Your email *" %}
-
-{#        {% partial 'elements/input-file/input-file' sId="inputfile" labelText="Attach file (up to 10 Mb)" %}#}
         {% partial 'elements/input-file/input-file'
             wrapperClasses='col-span-2'
             labelText="Resume"
             sId="inputfileMultiple"
             multiple=true
+            accept=".jpg, .jpeg, .png"
+            acceptLabel='Doc, PDF, Image, Scanner'
+            size=10
+            sizeLabel="5MB"
         %}
 
         {% partial 'elements/input/input'

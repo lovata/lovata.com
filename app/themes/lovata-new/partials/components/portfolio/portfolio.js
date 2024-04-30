@@ -11,7 +11,6 @@ export default new class portfolioSlider {
 
   init () {
     document.addEventListener("DOMContentLoaded", () => {
-      console.log(99999)
       this.setScreen();
       this.eventResize();
     });
