@@ -9,9 +9,8 @@ const pagesPath = join(__dirname, 'pages');
 let fileList= globSync(`${pagesPath}/**/*.+(js|css)`);
 
 const assetsPath = join(__dirname, 'assets');
-const assetCssFileList= globSync([`${assetsPath}/css/*.+(js|css)`, `${assetsPath}/css/**/*.+(js|css)`]);
-const assetJSFileList= globSync(`${assetsPath}/js/*.+(js|css)`);
-
+const assetCssFileList= globSync([`${assetsPath}/css/*.+(css)`, `${assetsPath}/css/**/*.+(css)`]);
+const assetJSFileList= globSync([`${assetsPath}/js/*.+(js)`, `${assetsPath}/js/**/*.+(js)`]);
 
 fileList = [...fileList, ...assetCssFileList, ...assetJSFileList];
 fileList.forEach((filePath) => {
