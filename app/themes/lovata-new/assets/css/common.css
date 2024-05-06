@@ -3,13 +3,9 @@
 }
 
 .inner {
-  @apply py-12 md:py-16
+  @apply py-16 md:py-24
 }
 .wrapper {
-  @apply py-12 md:py-24
-}
-
-.wrapper-box {
   @apply mt-12 md:mt-16
 }
 
@@ -44,30 +40,6 @@
   prose-h2:font-bold
   prose-h2:text-2xl
   prose-h2:mb-7
-}
-
-.bullets {
-  @apply flex items-center justify-center space-x-2.5
-}
-
-.bullets__item {
-  @apply border-[5px] border-transparent rounded-full flex items-center justify-center
-}
-
-.bullets__item.bullets__item--active {
-  @apply border-gray-100
-}
-
-.bullets__dot {
-  @apply w-2.5 h-2.5 block rounded-full bg-gray-200
-}
-
-.bullet__list {
-  @apply list-none
-}
-
-.bullets__item.bullets__item--active .bullets__dot {
-  @apply bg-blue-600
 }
 
 .title {

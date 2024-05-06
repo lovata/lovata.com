@@ -26,7 +26,7 @@
                 <p>Drag and Drop files here or <span class="drop__accent">choose file</span></p>
             </label>
         {% else %}
-            <label for="{{ sId }}" class="input-file__label">
+            <label for="{{ sId }}" class="input-file__label button-state button-black">
                 <svg class="input-file__clip" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                      viewBox="0 0 20 20" fill="none">
                     <path d="M15.3125 10.6158L8.90165 17.0266C7.43718 18.4911 5.06282 18.4911 3.59835 17.0266C2.13388 15.5622 2.13388 13.1878 3.59835 11.7233L12.7144 2.60723C13.6907 1.63092 15.2736 1.63092 16.2499 2.60723C17.2262 3.58354 17.2262 5.16646 16.2499 6.14277L7.12632 15.2664M7.13388 15.2589C7.13137 15.2614 7.12885 15.2639 7.12632 15.2664M11.8749 6.98221L5.36612 13.4911C4.87796 13.9793 4.87796 14.7707 5.36612 15.2589C5.85176 15.7445 6.63759 15.747 7.12632 15.2664"
@@ -36,6 +36,7 @@
             </label>
         {% endif %}
     </div>
+    {% if acceptLabel is not empty or size is not empty %}
     <div class="input-file__info">
         {% if acceptLabel %}
             <p>Files Supported: {{ acceptLabel }} </p>
@@ -44,6 +45,7 @@
             <p>Maximum size: {{ size }}</p>
         {% endif %}
     </div>
+    {% endif %}
     <span class="js-error-text input-file__error hidden"></span>
     <ul class="input-file__list js-input-file-list"></ul>
 </div>

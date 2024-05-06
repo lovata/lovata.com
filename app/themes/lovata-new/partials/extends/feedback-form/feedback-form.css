@@ -1,6 +1,6 @@
-.form__wrap {
-  @apply space-y-12
+.feedback .form__wrap {
+  @apply space-y-12 md:mt-3
 }
-.form__button {
+.feedback .form__button {
   @apply w-full md:w-auto mt-12
 }

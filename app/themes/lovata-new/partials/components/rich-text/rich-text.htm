@@ -5,7 +5,7 @@
 } %}
 {% set isHeading = sTitle is not empty or sText is not empty %}
 <section {% if sId is not empty %}id="{{ sId }}"{% endif %} class="rich-text {% if sColor is not empty %}{{ colorData[sColor] }}{% else %}rich-text--red{% endif %}">
-    <div class="container rich-text__inner wrapper">
+    <div class="container rich-text__inner inner">
         {% if sTitle is not empty %}
             <h2 class="title-large">{{ sTitle }}</h2>
         {% else %}

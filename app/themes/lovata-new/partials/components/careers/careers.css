@@ -1,5 +1,5 @@
 .careers__inner {
-  @apply max-w-[1006px]
+  @apply max-w-[1006px] my-12 md:mt-16 mb-24
 }
 .careers__wrap {
   @apply divide-y divide-gray-600 border-y border-gray-600
@@ -19,4 +19,8 @@
 
 .careers__subtitle {
   @apply text-4xl font-bold mb-16 text-black-white
+}
+
+.careers__form {
+  @apply mt-16 md:mt-24
 }

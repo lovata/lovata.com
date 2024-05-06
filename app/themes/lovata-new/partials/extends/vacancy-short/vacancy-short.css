@@ -14,9 +14,16 @@
 }
 
 .vacancy-short .icons {
-  @apply flex items-start space-x-2 font-light
+  @apply flex  font-light
 }
 
 .vacancy-short__icons {
-  @apply flex items-start space-x-6 mt-4 md:mt-5
+  @apply flex items-center mt-4 md:mt-[22px] pl-0.5 space-x-6
+}
+
+.vacancy-short .icons__text {
+  @apply text-lg
+}
+.vacancy-short__icon {
+  @apply space-x-3.5 items-center
 }

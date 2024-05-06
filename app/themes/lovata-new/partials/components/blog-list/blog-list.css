@@ -2,5 +2,5 @@
   @apply max-w-[1006px]
 }
 .blog-list__wrap {
-  @apply space-y-12
+  @apply space-y-12 mt-16
 }

@@ -12,7 +12,7 @@ button.button-outline,
 [type='reset'].button-outline,
 [type='submit'].button-outline,
 .button-outline {
-  @apply font-medium text-white border border-white border-solid py-2.5 px-6 hover:bg-white hover:border-white hover:text-black
+  @apply font-medium text-white border border-white py-2.5 px-6 hover:bg-white hover:border-white hover:text-black
 }
 
 button.button-black,
@@ -41,21 +41,21 @@ button.button-state,
   focus-within:outline focus-within:outline-offset-1 focus-within:outline-blue-600-400 focus-within:outline-1 focus-within:text-white-black
 }
 
-/*button.button-state:active:not([disabled]),*/
-/*[type='button']:active:not([disabled]),*/
-/*[type='reset'].button-state:active:not([disabled]),*/
-/*[type='submit'].button-state:active:not([disabled]),*/
-/*.button-state:active:not([disabled]){*/
-/*  @apply bg-on-primary-container text-white*/
-/*}*/
+button.button-state:active:not([disabled]),
+[type='button']:active:not([disabled]),
+[type='reset'].button-state:active:not([disabled]),
+[type='submit'].button-state:active:not([disabled]),
+.button-state:active:not([disabled]){
+  @apply bg-blue-600-400 text-white-black
+}
 
-/*button.button-state[disabled]:active,*/
-/*[type='button'].button-state[disabled]:active,*/
-/*[type='reset'].button-state[disabled]:active,*/
-/*[type='submit'].button-state[disabled]:active,*/
-/*.button-state[disabled]:active{*/
-/*  @apply bg-surface-dim text-on-surface border-0 outline-outline*/
-/*}*/
+button.button-state[disabled]:active,
+[type='button'].button-state[disabled]:active,
+[type='reset'].button-state[disabled]:active,
+[type='submit'].button-state[disabled]:active,
+.button-state[disabled]:active{
+  @apply text-black-white border-0
+}
 
 button.link[disabled]:active,
 [type='button'].link[disabled]:active,
@@ -63,12 +63,12 @@ button.link[disabled]:active,
 [type='submit'].link[disabled]:active,
 .link {
   @apply outline-current
-  focus:outline-dotted focus:outline-1
-  focus-visible:outline-dotted focus-visible:outline-1
-  focus-within:outline-dotted focus-within:outline-1
+  focus:outline-dashed focus:outline-1 focus:outline-blue-600-400
+  focus-visible:outline-dashed focus-visible:outline-1 focus-visible:outline-blue-600-400
+  focus-within:outline-dashed focus-within:outline-1 focus-within:outline-blue-600-400
   active:!text-blue-600-400 active:!bg-transparent
 }
 .link-black {
-  @apply inline-block text-black-white hover:text-blue-600-400
+  @apply inline-block text-black-white
 }
 

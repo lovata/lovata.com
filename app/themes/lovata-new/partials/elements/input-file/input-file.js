@@ -53,11 +53,15 @@ export default new class inputFile {
   changeFile (event, element) {
     event.preventDefault();
     const files = element.files;
-    this.setError(element);
     for (const file of files) {
-      if (this.checkFileValidete(file, element)) return false;
+      const errors = this.checkFileValidete(file, element);
+      if (errors.length > 0) {
+        this.setError(element, errors);
+        return false;
+      }
       this.setCollectionFiles(element, file);
     }
+
     element.files = this.collectionFiles[element.id].files;
     this.setListElements(element);
 
@@ -142,7 +146,7 @@ export default new class inputFile {
     const size = this.checkSize(file, element);
     if (format) errors.push(format);
     if (size) errors.push(size);
-    return errors.length > 0;
+    return errors;
   }
 
   setError (element, errors) {

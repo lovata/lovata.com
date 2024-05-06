@@ -14,6 +14,7 @@
 @import '../../../partials/elements/checkbox/checkbox.css';
 @import '../../../partials/extends/portfolio-item/portfolio-item.css';
 @import '../../../partials/extends/portfolio-more/portfolio-more.css';
+@import '../../../partials/extends/review/review.css';
 
 .index-wrapper__fakemain {
   @apply h-[417px] md:h-[426px]

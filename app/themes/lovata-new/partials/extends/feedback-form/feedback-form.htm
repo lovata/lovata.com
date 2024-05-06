@@ -4,8 +4,8 @@
         {% partial 'elements/input/input' name="email" label="Your email *" %}
         {% partial 'elements/input/input' name="number" label="Your phone number" %}
         {% partial 'elements/input/input' name="project" label="Brief description of your project *" %}
+        {% partial 'elements/input-file/input-file' sId="inputfile" battonText="Attach file (up to 10 Mb)" %}
         {% partial 'elements/checkbox/checkbox' sId="checkbox" sName="checkbox" labelText="I have read and agree to the Privacy Policy *" %}
-
         {% partial 'elements/button/button'
             text = 'Send'|_
             wrapperClasses='form__button'

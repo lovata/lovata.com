@@ -1,19 +1,5 @@
+@import '../../../partials/components/careers-pages/careers-pages.css';
 @import '../../../partials/extends/static-text/static-text.css';
 @import '../../../partials/extends/careers-form/careers-form.css';
 @import '../../../partials/elements/input-file/input-file.css';
 
-.careers-pages__inner {
-  @apply max-w-[1006px]
-}
-.careers-pages__header {
-  @apply md:flex md:items-start md:justify-between mb-6 md:mb-8 space-y-6 md:space-y-0
-}
-.careers-pages__text {
-  @apply prose-p:font-light
-}
-.careers-pages__subtitle {
-  @apply text-4xl font-bold mb-16 text-black-white
-}
-.careers-pages__picture {
-  @apply w-fit rounded-xl bg-white px-3.5 pt-0.5 pb-1.5
-}

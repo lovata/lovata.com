@@ -44,7 +44,7 @@
 ] %}
 
 <section class="development-services" {% if sId is not empty %}id="{{ sId }}"{% endif %}>
-    <div class="wrapper container">
+    <div class="inner container">
         {% if sTitle is not empty %}
             <h2 class="title-large">{{ sTitle }}</h2>
         {% endif %}
@@ -53,7 +53,7 @@
                 {{ sDescription|raw }}
             </div>
         {% endif %}
-        <div class="wrapper-box">
+        <div class="wrapper">
             {% partial 'extends/multi-column/multi-column'
                 obDataList=tempOlolo
                 tempItem=tempItem

@@ -42,7 +42,7 @@
   @apply text-gray-600-300 text-xl lg:text-2xl font-light transition-all ease-linear mb-2
 }
 
-.input-file__error {
+.input-file__error:not(.hidden) {
   @apply text-red-500 mt-2.5 block text-sm
 }
 

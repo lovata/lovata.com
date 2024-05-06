@@ -6,7 +6,7 @@
 }
 
 .cases__slider {
-  @apply md:gap-6 lg:gap-8 w-full md:!block md:columns-2 md:-mb-12 lg:-mb-[100px];
+  @apply md:gap-6 lg:gap-8 w-full md:!block md:columns-2 md:-mb-12 lg:-mb-8;
 }
 
 .cases__container {

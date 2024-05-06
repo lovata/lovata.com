@@ -6,6 +6,14 @@
   @apply z-10 flex rounded-full me-1 w-6 h-6 items-center justify-center
 }
 
+
+.toggle-theme__button {
+    @apply text-center
+    focus:outline-dashed focus:outline-offset-1 focus:outline-blue-600-400 focus:outline-1 focus:border-dashed focus:border-black-white focus:text-white-black
+    focus-visible:outline-dashed focus-visible:outline-offset-1 focus-visible:outline-blue-600-400 focus-visible:outline-1 focus-visible:text-white-black
+    focus-within:outline-dashed focus-within:outline-offset-1 focus-within:outline-blue-600-400 focus-within:outline-1 focus-within:text-white-black
+}
+
 .toggle-theme__toggle {
   @apply w-6 bg-white-black shadow absolute rounded-xl inset-1
 }

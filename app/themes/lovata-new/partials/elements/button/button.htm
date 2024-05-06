@@ -4,7 +4,9 @@
     {% set defaultClass = 'button-black button-state' %}
 {% endif %}
 
-{% if sSize == 'lg' %}
+{% if sSize == 'xl' %}
+    {% set sSizeClass = 'text-xl' %}
+{% elseif sSize == 'lg' %}
     {% set sSizeClass = 'text-lg' %}
 {% else %}
     {% set sSizeClass = '' %}

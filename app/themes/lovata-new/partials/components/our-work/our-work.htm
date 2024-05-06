@@ -1,5 +1,5 @@
 <section class="our-work" {% if sId is not empty %}id="{{ sId }}"{% endif %}>
-    <div class="container wrapper">
+    <div class="container inner">
         {% if sTitle is not empty %}
         <h2 class="title-large">{{ sTitle }}</h2>
         {% else %}
@@ -8,7 +8,7 @@
         <div class="description">
             {{ sText|raw }}
         </div>
-        <div class="wrapper-box our-work__wrap">
+        <div class="wrapper our-work__wrap">
             {% partial 'extends/image-with-text/image-with-text' %}
             {% partial 'extends/image-with-text/image-with-text' orientation="right" %}
         </div>
