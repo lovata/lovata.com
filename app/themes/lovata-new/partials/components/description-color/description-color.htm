@@ -5,7 +5,7 @@
 } %}
 
 
-<section class="description-color {% if sColor is not empty %} {{ colorData[sColor]}}{% else %}main-service--red{% endif %}">
+<section {% if sId is not empty %}id="{{ sId }}"{% endif %} class="description-color {% if sColor is not empty %}{{ colorData[sColor]}}{% else %}main-service--red{% endif %}">
     <div class="container">
         <div class="description-color__wrap">
             {% if sTitle is not empty %}

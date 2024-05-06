@@ -21,7 +21,40 @@ meta_keywords = "software product development company, web application developme
 %}
 
 <div class="bg-white-black">
-    {% partial 'components/header-anchor/header-anchor' %}
+    {% set nav = [
+        {
+            title:"Services",
+            href: "services"
+        },
+        {
+            title:"Areas of expertise",
+            href: "expertise"
+        },
+        {
+            title:"Why Laravel",
+            href: "why-laravel"
+        },
+        {
+            title:"Our latest cases",
+            href: "our-cases"
+        },
+        {
+            title:"Laravel experts",
+            href: "experts"
+        },
+        {
+            title:"Support & Maintenance",
+            href: "support"
+        },
+        {
+            title:"FAQ",
+            href: "faq"
+        }
+    ] %}
+
+    {% partial 'components/header-anchor/header-anchor'
+        obNavigation=nav
+    %}
     {% partial 'components/rich-text/rich-text'
         sColor='orange'
         sContent='<p>LOVATA is one of the <a>leading Laravel</a> development companies in the USA, with a team of veteran Laravel developers that can boost the performance of your website or help you start a Laravel web application development. Our 15-year expertise puts us in the top range of Laravel development companies as we meticulously assist our clients in developing unparalleled digital solutions in the most cost-effective way.</p>'
@@ -49,7 +82,7 @@ meta_keywords = "software product development company, web application developme
         tempItem='9'
         bottom=true
     %}
-    {# bottom=true for demo, remove #}
+    {# bottom=true and tempItem for demo, remove #}
 
     {% partial 'components/faq/faq' %}
     {% partial 'components/description-color/description-color'

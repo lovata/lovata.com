@@ -1,4 +1,4 @@
-<section class="advantages">
+<section class="advantages" {% if sId is not empty %}id="{{ sId }}"{% endif %}>
     <div class="container wrapper">
         {% if sTitle is not empty %}
         <h2 class="title-large">{{ sTitle }}</h2>

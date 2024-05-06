@@ -3,13 +3,9 @@
         <div class="header-anchor__descr">Headline</div>
         <nav class="header-anchor__nav nav">
             <ul class="nav__list">
-                <li class="nav__item">Services</li>
-                <li class="nav__item">Areas of expertise</li>
-                <li class="nav__item">Why Laravel</li>
-                <li class="nav__item">Our latest cases</li>
-                <li class="nav__item">Laravel experts</li>
-                <li class="nav__item">Support & Maintenance</li>
-                <li class="nav__item">FAQ</li>
+                {% for obItem in obNavigation %}
+                    <li class="nav__item"><a href="#{{ obItem.href }}">{{ obItem.title }}</a></li>
+                {% endfor %}
             </ul>
         </nav>
         <div class="header-anchor__action">

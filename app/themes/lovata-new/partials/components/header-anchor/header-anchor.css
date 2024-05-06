@@ -21,3 +21,8 @@
 .nav__item {
   @apply whitespace-nowrap
 }
+
+section {
+
+  scroll-margin-top: 160px;
+}
