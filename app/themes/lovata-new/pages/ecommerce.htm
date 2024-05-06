@@ -1,0 +1,74 @@
+url = "/ecommerce"
+layout = "main"
+title = "index"
+is_hidden = 0
+meta_title = "LOVATA: Software Product Development Services Company"
+meta_description = "LOVATA is an award-winning software product development company that provides custom web and mobile app development services based on open-source technologies."
+meta_keywords = "software product development company, web application development, web software development company, custom software development, mobile app development company, website and software development company, product software development, software product development, software development company, software development services, product development services, product development services companies, software product development services, software app development, app development, web development, software application development, app development companies, software companies, offshore software development, it outsourcing, software developer companies, software developer company, web design company, web apps, agile software development"
+
+==
+
+{% put style %}
+    {{ vite([{ path: 'assets/css/pages/ecommerce.css' }]) }}
+{% endput %}
+
+{% partial 'components/main-service/main-service'
+    sTitle='<p>Custom eCommerce Website Development Company</p>'
+    sSubTitle='LOVATA Company specializes in development of custom eCommerce solutions.'
+    sDescr='We provide all kinds of custom eCommerce website development services, starting from fine-tuning existing solutions to complete design and development of high-traffic eCommerce portals and marketplaces from the ground up.'
+    sButtonText='Learn more'
+    sButtonUrl='/'
+    sColor='blue'
+%}
+<div class="bg-white-black">
+    {% partial 'components/header-anchor/header-anchor' %}
+    {% partial 'components/advantages/advantages'
+        sTitle="Why We Choose Laravel Application Development For Our Projects"
+        sDescription="<p>Laravel is often called the best PHP-framework on the market - and there is enough action behind these words. PHP programming language does not cease to evolve, which means that any concerns that users face, are addressed and resolved. It also compliments user behavior and allows keeping up with the latest trends and market developments. With Laravel, your application or website will never be outdated or lack functionalities.</p><p>But the principal reasons why users fall in love with Laravel web development services are due to the enhanced performance, wide range of features, better security, and scalability.</p>"
+    %}
+    {% partial 'components/profit/profit'
+        sTitle="eCommerce Web Design Services"
+        sText="<p>UI/UX Design has a huge importance in developing a successful eCommerce web portal or mobile app. Thoughtful logic and fluid transitions, simple and clear user interaction, responsiveness and high performance, attractive presentation of products or services, easy payment flow and many other little but very important details have a massive influence on the dynamics of eCommerce company’s profits. That’s why you should always choose an experienced and well-trusted eCommerce website design and development company.</p>"
+        sImg='assets/img/temp/1.svg'
+        sDirection="left"
+    %}
+    {% partial 'components/profit/profit'
+        sTitle="Omni-Channel Development"
+        sText="<p>LOVATA’s approach towards building your eCommerce environment is to create an omni-channel solution to give clients a unified experience through multiple channels of your business: retail and online stores, email offers, social media, mobile devices, etc.</p>"
+        sImg='assets/img/temp/2.svg'
+        sDirection="right"
+    %}
+    {% partial 'components/profit/profit'
+        sTitle="Integration with CRM Systems"
+        sText="<p>Our custom eCommerce solutions are integrated out-of-the-box with the most popular, advanced and up-to-date CRM systems, including Salesforce, AmoCRM, Retail Rocket among others. We are capable of integrating your new solution with any CRM system that supports RESTful API. We are also fully equipped for design, development and deployment of custom CRM solutions that tackle your business’s individual needs.</p>"
+        sImg='assets/img/temp/3.svg'
+        sDirection="left"
+    %}
+    {% partial 'components/advantages/advantages'
+        sTitle="Our Development Process"
+        sDescription="<p><strong>We begin building projects with a thorough business and competitive environment analysis (if required) before moving on to the actual development process.</strong></p>"
+    %}
+    {% partial 'components/rich-text/rich-text'
+        sTitle="Experience Launching Our Own Products"
+        sText="<p>LOVATA software development company not only helps you with designing and developing your eCommerce solution, but also offers complete product development services (PDS). We have experience in launching our own products and know what it takes to successfully deliver products to the market.</p>"
+        sColor='blue'
+        sContent='<p><strong>We Stay With You Even When The Job is Done</strong><br/>We do not leave our clients behind and provide them with timely support from the moment we launch the product until our help is no longer needed. <br>Our team of professionals assists the client in every way possible through all hardships of deployment and market launch.</p>'
+    %}
+    {% partial 'components/benefit/benefit'
+        sTitle="When You Should Choose Laravel Development Services"
+    %}
+    {% partial 'components/achievements/achievements'
+        sTitle="6 Months to a Lifetime Warranty"
+        sDescription="<p>LOVATA offers a standard 6 month warranty on all products that we develop, with a possibility to receive lifetime warranty for some projects. The warranty covers all bugs that might arise. That’s why we always strive to deliver completely fine-tuned, bug-free software solutions on time and on budget.</p>"
+        sColor='blue'
+    %}
+    {% partial 'components/portfolio/portfolio' %}
+    {% partial 'components/description-color/description-color'
+        sColor='blue'
+        sTitle="<p>Choose LOVATA as your eCommerce expert</p>"
+    %}
+</div>
+
+{% put script %}
+    {{ vite([{ path: 'assets/js/pages/ecommerce.js' }]) }}
+{% endput %}

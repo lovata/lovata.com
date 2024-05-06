@@ -20,11 +20,17 @@
 
 .dark [data-activetheme="dark"] {
   transform: translateX(28px);
+}
+
+.a-moon {
   animation: moon 0.3s ease-in;
 }
 
 .light [data-activetheme="light"] {
   transform: translateX(0);
+}
+
+.a-light {
   animation: light 0.3s ease-in;
 }
 

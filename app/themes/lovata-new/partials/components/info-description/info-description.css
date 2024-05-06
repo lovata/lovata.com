@@ -1,0 +1,23 @@
+.info-description__logo {
+  @apply bg-red-600 px-5 py-6
+}
+
+.info-description__wrap {
+  @apply md:flex md:space-x-8
+}
+
+.info-description__logo {
+  @apply shrink-0 aspect-square flex items-center justify-center mb-7 md:mb-0
+}
+
+.info-description__img {
+@apply w-4/5
+}
+
+.info-description__container {
+  @apply grow prose-p:font-light prose-a:font-light prose-a:text-blue-600-400 prose-p:text-2xl
+}
+
+.info-description__inner {
+  @apply mb-16 md:mb-24
+}

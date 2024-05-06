@@ -1,0 +1,30 @@
+.description-color__title {
+  @apply prose-p:text-white prose-p:font-bold prose-p:text-2xl md:prose-p:text-3xl prose-p:text-center
+}
+
+.description-color__button {
+  @apply mt-7 md:mt-12
+}
+
+.description-color__wrap {
+  @apply max-w-[1040px] mx-auto flex flex-col items-center py-14 md:py-24
+}
+
+
+/*TODO: Remake*/
+.description-color {
+  @apply bg-no-repeat bg-cover
+}
+
+.description-color--red {
+  @apply bg-[url('/assets/img/temp/descr-red-768.jpg')] md:bg-[url('/assets/img/temp/descr-red-1024.jpg')] lg:bg-[url('/assets/img/temp/descr-red-xl.jpg')]
+}
+
+.description-color--blue {
+  @apply bg-[url('/assets/img/temp/descr-blue-768.jpg')] md:bg-[url('/assets/img/temp/descr-blue-1024.jpg')] lg:bg-[url('/assets/img/temp/descr-blue-xl.jpg')]
+}
+
+.description-color--orange {
+  @apply bg-[url('/assets/img/temp/descr-orange-768.jpg')] md:bg-[url('/assets/img/temp/descr-orange-1024.jpg')] lg:bg-[url('/assets/img/temp/descr-orange-xl.jpg')]
+}
+

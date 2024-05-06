@@ -1,0 +1,62 @@
+url = "/laravel-web"
+layout = "main"
+title = "index"
+is_hidden = 0
+meta_title = "LOVATA: Software Product Development Services Company"
+meta_description = "LOVATA is an award-winning software product development company that provides custom web and mobile app development services based on open-source technologies."
+meta_keywords = "software product development company, web application development, web software development company, custom software development, mobile app development company, website and software development company, product software development, software product development, software development company, software development services, product development services, product development services companies, software product development services, software app development, app development, web development, software application development, app development companies, software companies, offshore software development, it outsourcing, software developer companies, software developer company, web design company, web apps, agile software development"
+
+==
+
+{% put style %}
+    {{ vite([{ path: 'assets/css/pages/laravel-web.css' }]) }}
+{% endput %}
+
+{% partial 'components/main-service/main-service'
+    sTitle='<p>LOVATA: a <strong>Laravel Development Company</strong> and your trusted partner</p>'
+    sDescr='LOVATA is the leading Laravel development company in the USA to help you boost your business with the top digital solutions. Laravel development services allow businesses of any scale and sphere to grow faster and more efficiently. If you are looking for ways to boost your online presence, Laravel may be your ultimate solution. This open-source PHP framework took the programming world by storm some time ago and maintains its leading position. With Laravel, the sky is your limit, as you will be able to develop custom web applications as per your needs.'
+    sButtonText='Learn more'
+    sButtonUrl='/'
+    sColor='orange'
+%}
+
+<div class="bg-white-black">
+    {% partial 'components/header-anchor/header-anchor' %}
+    {% partial 'components/rich-text/rich-text'
+        sColor='orange'
+        sContent='<p>LOVATA is one of the <a>leading Laravel</a> development companies in the USA, with a team of veteran Laravel developers that can boost the performance of your website or help you start a Laravel web application development. Our 15-year expertise puts us in the top range of Laravel development companies as we meticulously assist our clients in developing unparalleled digital solutions in the most cost-effective way.</p>'
+    %}
+    {% partial 'components/advantages/advantages'
+        sTitle="Why We Choose Laravel Application Development For Our Projects"
+        sDescription="<p>Laravel is often called the best PHP-framework on the market - and there is enough action behind these words. PHP programming language does not cease to evolve, which means that any concerns that users face, are addressed and resolved. It also compliments user behavior and allows keeping up with the latest trends and market developments. With Laravel, your application or website will never be outdated or lack functionalities.</p><p>But the principal reasons why users fall in love with Laravel web development services are due to the enhanced performance, wide range of features, better security, and scalability.</p>"
+    %}
+    {% partial 'components/info-description/info-description'
+        sContent="<p>As you probably can see by now, Laravel can provide any business with immense tools that would eventually help enhance performance of the website or application through responsive design, robust functionality and comprehensive navigation. At the same time, it will not compromise on security. Laravel development services will not limit your creativity or freedom in any way, and will help to bring to life your business vision without losing time or money.</p>"
+    %}
+    {% partial 'components/benefit/benefit'
+        sTitle="When You Should Choose Laravel Development Services"
+        sDescription="<p>Whether you need to build an online shop, a B2B or B2C e-commerce website or a marketplace, just hire Laravel developers. Our experience spans over 15 years in software development and design with more than 100 happy clients across the globe.</p>"
+    %}
+    {% partial 'components/portfolio/portfolio' %}
+    {% partial 'components/rich-text/rich-text'
+        sColor='orange'
+        sContent='<p>So now everything you need is a Laravel web development agency with solid experience and expertise.<br>Congratulations!<br>You are in the right place - at LOVATA we have all what you have been looking for.</p>'
+    %}
+    {% partial 'components/support/support' %}
+    {% partial 'components/development-services/development-services'
+        sTitle="Why We Choose Laravel Application Development For Our Projects"
+        sDescription="<p>Our expertise is versatile. Our knowledge is deep. Our service is impeccable. We use cutting edge Laravel development practices to build high-quality websites, robust web apps & mobile apps, user-friendly interfaces and secure web solutions. Our team of developers is very skilled in the Laravel framework and has the expertise you need when creating a successful business application or a website. Irrespective of whether you wish to create an e-commerce store or a web application using Laravel technology we have the resources for you to accomplish your objectives.</p>"
+        tempItem='9'
+        bottom=true
+    %}
+    {# bottom=true for demo, remove #}
+
+    {% partial 'components/faq/faq' %}
+    {% partial 'components/description-color/description-color'
+        sColor='orange'
+        sTitle="<p>If you have made uo your mind and wish to use Laravel for your next project, please do contact us and we will be glad to help</p>"
+    %}
+</div>
+{% put script %}
+    {{ vite([{ path: 'assets/js/pages/laravel-web.js' }]) }}
+{% endput %}

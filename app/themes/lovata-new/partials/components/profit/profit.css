@@ -1,0 +1,19 @@
+
+.profit__wrap {
+  @apply md:flex md:items-center
+}
+.profit__icon {
+  @apply md:shrink-0 mb-12 md:mb-0
+}
+.profit__container {
+  @apply space-y-7
+}
+.profit__text {
+  @apply prose-p:font-light prose-a:font-light prose-a:text-blue-600-400 prose-p:text-2xl
+}
+.profit__container--right {
+  @apply md:-order-1 md:mr-16
+}
+.profit__container--left {
+  @apply md:ml-16
+}

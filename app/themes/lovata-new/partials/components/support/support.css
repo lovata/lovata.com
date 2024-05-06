@@ -5,7 +5,7 @@
   @apply mb-16 md:mb-0 md:flex md:items-start lg:items-center md:space-x-8 lg:space-x-12 xl:space-x-14
 }
 .support__title {
-  @apply text-4xl md:text-5xl	lg:text-6xl text-black text-left font-bold
+  @apply text-4xl md:text-5xl	lg:text-6xl text-black-white text-left font-bold
 }
 .support__descr {
   @apply prose-p:font-light prose-p:p-0 mt-3 md:mt-7 -my-3

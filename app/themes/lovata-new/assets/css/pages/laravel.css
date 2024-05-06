@@ -7,6 +7,7 @@
 @import '../../../partials/components/portfolio/portfolio.css';
 @import '../../../partials/components/faq/faq.css';
 @import '../../../partials/components/support/support.css';
+@import '../../../partials/components/description-color/description-color.css';
 @import '../../../partials/extends/static-text/static-text.css';
 @import '../../../partials/extends/multi-column/multi-column.css';
 @import '../../../partials/extends/image-with-text/image-with-text.css';
@@ -14,4 +15,3 @@
 @import '../../../partials/extends/portfolio-item/portfolio-item.css';
 @import '../../../partials/extends/portfolio-more/portfolio-more.css';
 @import '../../../partials/extends/accordion/accordion.css';
-

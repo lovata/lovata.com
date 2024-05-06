@@ -1,0 +1,19 @@
+<section class="benefit">
+    <div class="benefit__inner inner">
+        <div class="benefit__wrap container">
+            {% if sTitle is not empty %}
+                <h2 class="title-large">{{ sTitle }}</h2>
+            {% else %}
+                <h2 class="sr-only">benefit</h2>
+            {% endif %}
+            <div class="benefit__list">
+                {% partial 'extends/icon-list/icon-list' %}
+            </div>
+            {% if sDescription is not empty %}
+                <div class="description">
+                    {{ sDescription|raw }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

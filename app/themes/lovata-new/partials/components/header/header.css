@@ -15,7 +15,7 @@
 }
 
 .header .header__navigation.open {
-  @apply left-0
+  @apply left-0 mr-0
 }
 
 .header .header__logo {

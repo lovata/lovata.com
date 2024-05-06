@@ -1,5 +1,5 @@
 .portfolio {
-  @apply  overflow-hidden
+  @apply overflow-hidden
 }
 .portfolio__wrap {
   @apply lg:grid lg:gap-x-8 lg:grid-cols-3 lg:items-start lg:space-x-8

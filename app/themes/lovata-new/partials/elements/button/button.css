@@ -12,15 +12,30 @@ button.button-outline,
 [type='reset'].button-outline,
 [type='submit'].button-outline,
 .button-outline {
-  @apply font-medium text-white border border-white border-solid py-2.5 px-6 md:text-lg text-base hover:bg-white hover:border-white hover:text-black
+  @apply font-medium text-white border border-white border-solid py-2.5 px-6 hover:bg-white hover:border-white hover:text-black
 }
+
+button.button-black,
+[type='button'].button-black,
+[type='reset'].button-black,
+[type='submit'].button-black,
+.button-black,
+button:not(.size),
+[type='button'].button-outline,
+[type='reset'].button-outline,
+[type='submit'].button-outline,
+.button-outline {
+  @apply text-base md:text-lg
+}
+
+
 
 button.button-state,
 [type='button'].button-state,
 [type='reset'].button-state,
 [type='submit'].button-state,
 .button-state {
-  @apply
+  @apply text-center
   focus:outline focus:outline-offset-1 focus:outline-blue-600-400 focus:outline-1 focus:border-blue-600-400 focus:text-white-black
   focus-visible:outline focus-visible:outline-offset-1 focus-visible:outline-blue-600-400 focus-visible:outline-1 focus-visible:text-white-black
   focus-within:outline focus-within:outline-offset-1 focus-within:outline-blue-600-400 focus-within:outline-1 focus-within:text-white-black

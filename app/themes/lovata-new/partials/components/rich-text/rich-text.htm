@@ -1,7 +1,25 @@
-<div class="rich-text">
-    <div class="container rich-text__wrap">
-        <div class="rich-text__descr">
-        {{ content|raw }}
+{% set colorData = {
+    "red": "rich-text--red",
+    "blue": "rich-text--blue",
+    "orange": "rich-text--orange",
+} %}
+{% set isHeading = sTitle is not empty or sText is not empty %}
+<section class="rich-text {% if sColor is not empty %}{{ colorData[sColor] }}{% else %}rich-text--red{% endif %}">
+    <div class="container rich-text__inner wrapper">
+        {% if sTitle is not empty %}
+            <h2 class="title-large">{{ sTitle }}</h2>
+        {% else %}
+            <h2 class="sr-only">rich-text</h2>
+        {% endif %}
+        {% if sText is not empty %}
+            <div class="description">
+                {{ sText|raw }}
+            </div>
+        {% endif %}
+        <div class="rich-text__wrap{% if isHeading %} rich-text__wrap--space {% else %} rich-text__wrap--nospace{% endif %}">
+            <div class="rich-text__descr">
+                {{ sContent|raw }}
+            </div>
         </div>
     </div>
-</div>
+</section>

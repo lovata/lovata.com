@@ -1,11 +1,15 @@
-<div class="advantages">
+<section class="advantages">
     <div class="container wrapper">
-        <h1 class="title">Why should I choose Laravel development for my business needs?</h1>
+        {% if sTitle is not empty %}
+        <h2 class="title-large">{{ sTitle }}</h2>
+        {% endif %}
+        {% if sDescription is not empty %}
         <div class="description">
-            <p>Here is a quick list of compelling reasons why Laravel is the best solution for business:</p>
+            {{ sDescription|raw }}
         </div>
+        {% endif %}
         <div class="wrapper-box">
             {% partial 'extends/featured-list/featured-list' %}
         </div>
     </div>
-</div>
+</section>

@@ -1,0 +1,25 @@
+{% set colorData = {
+    "red": "achievements--red",
+    "blue": "achievements--blue",
+    "orange": "achievements--orange",
+} %}
+
+<section class="achievements {% if sColor is not empty %} {{ colorData[sColor]}}{% else %}achievements--red{% endif %}">
+    <div class="achievements__inner">
+        <div class="achievements__wrap container">
+            <img class="achievements__icon"  src="{{ 'assets/img/temp/warranty.svg' | theme }}" alt="">
+            <div class="achievements__container">
+                {% if sTitle is not empty %}
+                    <h2 class="achievements__title">
+                        {{ sTitle|raw }}
+                    </h2>
+                {% else %}
+                    <h2 class="sr-only">achievements</h2>
+                {% endif %}
+                {% if sDescription is not empty %}
+                <div class="achievements__descr">{{ sDescription|raw }}</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

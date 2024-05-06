@@ -14,30 +14,3 @@
   @apply text-gray-400-500
 }
 
-
-.deliver-top {
-  @apply bg-blue-600 sticky top-20 lg:top-[84px] z-10
-}
-.deliver-top__inner {
-  @apply mx-auto max-w-7xl
-}
-.deliver-top__wrap {
-  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex py-4 md:py-5 space-x-4 items-center md:items-center
-}
-
-.deliver-top__img {
-  @apply w-10 shrink-0
-}
-
-.deliver-top__text {
-  @apply lg:text-3xl text-white font-medium
-}
-
-.deliver-top__text--accent  {
-  @apply text-yellow-300 border-b md:border-b-2 border-yellow-300 leading-3 lg:leading-[22px]
-}
-
-.deliver-top__text--accent:hover  {
-  @apply border-transparent
-}
-

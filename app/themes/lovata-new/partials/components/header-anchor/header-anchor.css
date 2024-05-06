@@ -1,17 +1,21 @@
-.header-anchor{
-  @apply sticky top-20 lg:top-[84px] bg-white z-10
+.header-anchor {
+  @apply sticky top-20 lg:top-[84px] bg-white-black z-10
 }
+
 .header-anchor__wrap {
   @apply flex items-center justify-between space-x-9 py-4 overflow-x-auto
 }
+
 .header-anchor__nav {
   @apply grow
 }
+
 .nav__list {
   @apply flex items-center justify-end space-x-9
 }
+
 .header-anchor__descr {
-  @apply font-medium text-2xl font-arial text-black
+  @apply font-medium text-2xl font-arial text-black-white
 }
 
 .nav__item {

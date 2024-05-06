@@ -5,7 +5,7 @@
   @apply grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 items-start lg:items-center
 }
 .image-with-text__title {
-  @apply text-3xl	md:text-4xl text-black
+  @apply text-3xl	md:text-4xl text-black-white
 }
 .image-with-text__descr {
   @apply prose-p:font-light prose-p:p-0 mt-3 md:mt-7

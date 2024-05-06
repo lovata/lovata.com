@@ -1,21 +1,42 @@
 .main-service {
-  @apply bg-red-500 border min-h-[calc(100vh-84px)] flex items-center justify-center py-12 md:py-24
-
+  @apply min-h-[calc(100vh-84px)] flex items-center justify-center py-12 md:py-24
 }
 
 .service__inner {
   @apply min-h-[calc(100vh-84px)]
 }
 
-
 .main-service__descr {
   @apply text-white text-center text-xl font-light mt-12 md:leading-8
 }
 
+.main-service__subtitle  {
+  @apply text-white text-center text-2xl font-bold mt-12 md:leading-8
+}
+
 .main-service__title {
-  @apply prose prose-p:m-0 prose-p:text-white prose-strong:font-bold prose-strong:text-yellow-200 text-[40px] md:text-7xl md:leading-[80px] font-bold text-center
+  @apply prose prose-p:m-0 prose-p:text-white prose-strong:font-bold prose-strong:text-yellow-200 text-[40px] md:text-7xl leading-[48px]	md:leading-[80px] font-bold text-center
 }
 
 .main-service__button {
-  @apply flex justify-center mt-12
+  @apply text-2xl flex justify-center mt-12
 }
+
+
+
+/*TODO: Remake*/
+.main-service {
+  @apply bg-no-repeat bg-cover
+}
+.main-service--red {
+  @apply bg-[url('/assets/img/temp/red-768.jpg')] md:bg-[url('/assets/img/temp/red-1024.jpg')] lg:bg-[url('/assets/img/temp/red-xl.jpg')]
+}
+
+.main-service--blue {
+  @apply bg-[url('/assets/img/temp/blue-768.jpg')] md:bg-[url('/assets/img/temp/blue-1024.jpg')] lg:bg-[url('/assets/img/temp/blue-xl.jpg')]
+}
+
+.main-service--orange {
+  @apply bg-[url('/assets/img/temp/orange-768.jpg')] md:bg-[url('/assets/img/temp/orange-1024.jpg')] lg:bg-[url('/assets/img/temp/orange-xl.jpg')]
+}
+
