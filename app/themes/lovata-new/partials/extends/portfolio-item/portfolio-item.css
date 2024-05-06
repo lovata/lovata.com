@@ -1,0 +1,28 @@
+.portfolio-item__img {
+  @apply w-full max-w-none
+}
+
+.portfolio-item__description {
+  @apply text-black mt-6 font-bold
+}
+.portfolio-item__description--medium {
+  @apply text-2xl
+}
+.portfolio-item__description--large {
+  @apply text-3xl	md:text-4xl
+}
+
+.portfolio-item__title {
+  @apply underline inline uppercase text-black-white
+}
+.portfolio-item__text {
+  @apply inline text-black-white
+}
+
+.portfolio-item .portfolio-item__tags {
+  @apply flex space-x-3 text-gray-600-300 mt-4
+}
+
+.portfolio-item .tag__item {
+  @apply text-gray-600-300
+}

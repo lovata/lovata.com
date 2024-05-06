@@ -1,12 +1,12 @@
 .cases .cases__inner {
-  @apply pb-24 pt-[60px] md:py-24 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-hidden
+  @apply overflow-hidden
 }
 .cases__wrap {
   @apply pt-12 md:pt-[68px] mr-4 md:mr-0
 }
 
 .cases__slider {
-  @apply md:gap-6 lg:gap-8 w-full md:!block md:columns-2 md:-mb-12 lg:-mb-[100px];
+  @apply md:gap-6 lg:gap-8 w-full md:!block md:columns-2 md:-mb-12 lg:-mb-8;
 }
 
 .cases__container {
@@ -14,30 +14,6 @@
 }
 .cases__subtitle {
   @apply text-gray-600-300 text-2xl lg:text-3xl font-light md:absolute md:top-0 md:w-1/2 md:pr-8 pt-7 md:pt-[68px]
-}
-
-.cases__description {
-  @apply text-black text-3xl lg:text-4xl mt-6 font-bold
-}
-
-.cases__img {
-  @apply w-full max-w-none
-}
-
-.cases__title {
-  @apply underline inline uppercase text-black-white
-}
-
-.cases__text {
-  @apply inline text-black-white
-}
-
-.cases .cases__tags {
-  @apply flex space-x-3 text-gray-600-300 mt-4
-}
-
-.cases .tag__item {
-  @apply text-gray-600-300
 }
 
 .cases__bullets {
@@ -51,19 +27,14 @@
 .cases__item.cases__item--first {
   @apply md:h-[335px] lg:h-[435px] hidden md:block
 }
+
 .cases__item--last {
   @apply hidden md:block
 }
 
-.more {
-  @apply bg-gray-100-natural-800 justify-center flex items-center md:h-[300px] lg:h-[400px]
+.cases__more {
+  @apply md:h-[300px] lg:h-[400px] aspect-[15/11.1] lg:aspect-auto
 }
-
-.more:hover .more__wrap  {
-  @apply border-transparent
+.cases__bullet {
+  @apply mt-16 md:mt-0 md:!hidden
 }
-
-.more__wrap {
-  @apply text-black-white space-x-3 text-3xl border-b border-black-white inline-flex items-center
-}
-

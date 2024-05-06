@@ -1,0 +1,12 @@
+<div class="multi-column">
+    <ul class="multi-column__wrap">
+        {% for obItem in obDataList %}
+            {% if  loop.index <= tempItem  %} {# for demo, remove #}
+                <li class="multi-column__item">
+                    <p class="multi-column__title">{{ obItem.title }}</p>
+                    <div class="multi-column__descr static-text">{{ obItem.descr|raw }}</div>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>

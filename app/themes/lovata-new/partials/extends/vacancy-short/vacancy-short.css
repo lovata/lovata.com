@@ -1,0 +1,29 @@
+.vacancy-short__inner {
+  @apply py-12 md:py-10
+}
+.vacancy-short__wrap {
+  @apply md:flex md:items-start md:justify-between
+}
+
+.vacancy-short__title {
+  @apply text-3xl font-bold text-black-white
+}
+
+.vacancy-short__descr {
+  @apply text-lg md:text-2xl font-light mt-2 md:mt-4
+}
+
+.vacancy-short .icons {
+  @apply flex  font-light
+}
+
+.vacancy-short__icons {
+  @apply flex items-center mt-4 md:mt-[22px] pl-0.5 space-x-6
+}
+
+.vacancy-short .icons__text {
+  @apply text-lg
+}
+.vacancy-short__icon {
+  @apply space-x-3.5 items-center
+}

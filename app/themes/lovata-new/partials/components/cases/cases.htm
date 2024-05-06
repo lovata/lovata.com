@@ -1,127 +1,34 @@
 <section class="cases">
-    <div class="cases__inner">
-        <h2 class="title">Our latest cases</h2>
+    <div class="inner cases__inner inner container">
+        <h2 class="title-large">Our latest cases</h2>
         <div class="cases__container">
             <p class="cases__subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur justo lacus, pulvinar id finibus eget, scelerisque quis velit. Fusce in tincidunt neque.</p>
             <div class="js-slider-cases cases__wrap">
                 <ul class="swiper-wrapper cases__slider">
-                    <li class="cases__item cases__item--first"></li>
-                    <li class="cases__item">
-                        <div class="">
-                            <picture>
-                                <source srcset="{{ 'assets/img/rectangle.webp'|theme }}" type="image/webp">
-                                <img class="contact__img" src="{{ 'assets/img/rectangle.jpg'|theme }}" width="592"  alt="">
-                            </picture>
-                            <dl class="cases__description">
-                                <dt class="cases__title">HostForWeb</dt>
-                                <dd class="cases__text">— Scalable hosting with hands-on support and comprehensive pricing</dd>
-                            </dl>
-                            <ul class="cases__tags tag">
-                                <li>#new</li>
-                                <li>#e-commerce</li>
-                                <li>#website</li>
-                            </ul>
-                        </div>
+                    <li class="swiper-slide cases__item cases__item--first"></li>
+                    <li class="swiper-slide cases__item">
+                        {% partial 'extends/portfolio-item/portfolio-item' %}
                     </li>
-                    <li class="cases__item">
-                        <div class="">
-                            <picture>
-                                <source srcset="{{ 'assets/img/rectangle.webp'|theme }}" type="image/webp">
-                                <img class="contact__img" src="{{ 'assets/img/rectangle.jpg'|theme }}" width="592"  alt="">
-                            </picture>
-                            <dl class="cases__description">
-                                <dt class="cases__title">Artizan</dt>
-                                <dd class="cases__text">— AI-based predictions for artwork prices</dd>
-                            </dl>
-                            <ul class="cases__tags tag">
-                                <li>#new</li>
-                                <li>#e-commerce</li>
-                                <li>#website</li>
-                            </ul>
-                        </div>
+                    <li class="swiper-slide cases__item">
+                        {% partial 'extends/portfolio-item/portfolio-item' %}
                     </li>
-                    <li class="cases__item">
-                        <div class="">
-                            <picture>
-                                <source srcset="{{ 'assets/img/rectangle.webp'|theme }}" type="image/webp">
-                                <img class="contact__img" src="{{ 'assets/img/rectangle.jpg'|theme }}" width="592"  alt="">
-                            </picture>
-                            <dl class="cases__description">
-                                <dt class="cases__title">Wine & spirits</dt>
-                                <dd class="cases__text">— World of stylish atmospheric beverage stores</dd>
-                            </dl>
-                            <ul class="cases__tags tag">
-                                <li>#new</li>
-                                <li>#e-commerce</li>
-                                <li>#website</li>
-                            </ul>
-                        </div>
+                    <li class="swiper-slide cases__item">
+                        {% partial 'extends/portfolio-item/portfolio-item' %}
                     </li>
-                    <li class="cases__item">
-                        <div class="">
-                            <picture>
-                                <source srcset="{{ 'assets/img/rectangle.webp'|theme }}" type="image/webp">
-                                <img class="contact__img" src="{{ 'assets/img/rectangle.jpg'|theme }}" width="592"  alt="">
-                            </picture>
-                            <dl class="cases__description">
-                                <dt class="cases__title">Artizan</dt>
-                                <dd class="cases__text">— AI-based predictions for artwork prices</dd>
-                            </dl>
-                            <ul class="cases__tags tag">
-                                <li>#new</li>
-                                <li>#e-commerce</li>
-                                <li>#website</li>
-                            </ul>
-                        </div>
+                    <li class="swiper-slide cases__item">
+                        {% partial 'extends/portfolio-item/portfolio-item' %}
                     </li>
-                    <li class="cases__item">
-                        <div class="">
-                            <picture>
-                                <source srcset="{{ 'assets/img/rectangle.webp'|theme }}" type="image/webp">
-                                <img class="contact__img" src="{{ 'assets/img/rectangle.jpg'|theme }}" width="592"  alt="">
-                            </picture>
-                            <dl class="cases__description">
-                                <dt class="cases__title">Artizan</dt>
-                                <dd class="cases__text">— AI-based predictions for artwork prices</dd>
-                            </dl>
-                            <ul class="cases__tags tag">
-                                <li>#new</li>
-                                <li>#e-commerce</li>
-                                <li>#website</li>
-                            </ul>
-                        </div>
+                    <li class="swiper-slide cases__item">
+                        {% partial 'extends/portfolio-item/portfolio-item' %}
                     </li>
-                    <li class="cases__item">
-                        <div class="">
-                            <picture>
-                                <source srcset="{{ 'assets/img/rectangle.webp'|theme }}" type="image/webp">
-                                <img class="contact__img" src="{{ 'assets/img/rectangle.jpg'|theme }}" width="592"  alt="">
-                            </picture>
-
-                            <dl class="cases__description">
-                                <dt class="cases__title">Artizan</dt>
-                                <dd class="cases__text">— AI-based predictions for artwork prices</dd>
-                            </dl>
-                            <ul class="cases__tags tag">
-                                <li>#new</li>
-                                <li>#e-commerce</li>
-                                <li>#website</li>
-                            </ul>
-                        </div>
+                    <li class="swiper-slide cases__item">
+                        {% partial 'extends/portfolio-item/portfolio-item' %}
                     </li>
-                    <li class="cases__item--last">
-                        <a href="/" class="cases__more more">
-                            <span class="more__wrap">
-                                <span class="more__text">More projects</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="14" viewBox="0 0 30 14" fill="none">
-                                    <path d="M22.875 1.375L28.5 7M28.5 7L22.875 12.625M28.5 7H1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </span>
-                        </a>
+                    <li class="swiper-slide cases__item--last">
+                        {% partial 'extends/portfolio-more/portfolio-more' classParent="cases__more" %}
                     </li>
                 </ul>
-                <ul class="js-slider-cases-bullets cases__bullets bullets"></ul>
-            </div>
+                <div class="cases__bullet js-slider-cases-bullets slider-bullet"></div>
         </div>
     </div>
 </section>

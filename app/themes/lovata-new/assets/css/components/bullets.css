@@ -1,0 +1,44 @@
+.slider-bullet {
+  @apply flex justify-center space-x-4
+}
+.slider-bullet__bullet {
+  @apply justify-center block rounded-full p-1
+}
+
+.slider-bullet__dot {
+  @apply w-2.5 h-2.5 bg-gray-200-700 rounded-full block
+}
+
+.slider-bullet--active {
+  @apply bg-gray-200-700
+}
+
+.slider-bullet--active .slider-bullet__dot {
+  @apply bg-blue-600-400
+}
+
+
+
+.bullets {
+  @apply flex items-center justify-center space-x-2.5
+}
+
+.bullets__item {
+  @apply border-[5px] border-transparent rounded-full flex items-center justify-center
+}
+
+.bullets__item.bullets__item--active {
+  @apply border-gray-100
+}
+
+.bullets__dot {
+  @apply w-2.5 h-2.5 block rounded-full bg-gray-200
+}
+
+.bullet__list {
+  @apply list-none
+}
+
+.bullets__item.bullets__item--active .bullets__dot {
+  @apply bg-blue-600
+}

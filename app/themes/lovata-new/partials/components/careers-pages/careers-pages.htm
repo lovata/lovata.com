@@ -1,0 +1,36 @@
+<div class="careers-pages">
+    <div class="careers-pages__inner container">
+        <div class="careers-pages__header">
+            <h1 class="title">Data Scientist</h1>
+            <div class="careers-pages__picture">
+                <img width="122" height="48" src="{{ 'assets/img/glassdoor.png'|theme }}" alt="">
+            </div>
+        </div>
+        <div class="careers-pages__wrap">
+            {% partial
+                'extends/static-text/static-text'
+                classParent='blog-post__content'
+                content='<p>Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.</p>
+            <p>Faucibus commodo massa rhoncus, volutpat. <strong>Dignissim</strong> sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim.
+                <a href="/">Mattis mauris semper</a> sed amet vitae sed turpis id.</p>
+
+            <ul>
+                <li>Quis elit egestas venenatis mattis dignissim.</li>
+                <li>Quis elit egestas venenatis mattis dignissim.</li>
+                <li>
+                    Quis elit egestas venenatis mattis dignissim.
+                    <ul>
+                        <li>Orci in sit morbi dignissim metus diam arcu pretium.</li>
+                        <li>Orci in sit morbi dignissim metus diam arcu pretium.</li>
+                        <li>Orci in sit morbi dignissim metus diam arcu pretium.</li>
+                    </ul>
+                </li>
+            </ul>
+        ' %}
+        </div>
+        <div class="careers-pages__bottom">
+            <h2 class="careers-pages__subtitle">Apply to this vacancy</h2>
+            {% partial 'extends/careers-form/careers-form' %}
+        </div>
+    </div>
+</div>

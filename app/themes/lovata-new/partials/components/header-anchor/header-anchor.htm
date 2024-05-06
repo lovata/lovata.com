@@ -1,0 +1,19 @@
+<div class="header-anchor">
+    <div class="header-anchor__wrap container">
+        <div class="header-anchor__descr">Headline</div>
+        <nav class="header-anchor__nav nav">
+            <ul class="nav__list">
+                {% for obItem in obNavigation %}
+                    <li class="nav__item"><a href="#{{ obItem.href }}">{{ obItem.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+        <div class="header-anchor__action">
+            {% partial 'elements/button/button'
+                text="Get in touch"
+                url=sButtonUrl
+                wrapperClasses='!py-2 !px-4 whitespace-nowrap'
+            %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<section class="advantages" {% if sId is not empty %}id="{{ sId }}"{% endif %}>
+    <div class="container inner">
+        {% if sTitle is not empty %}
+        <h2 class="title-large">{{ sTitle }}</h2>
+        {% endif %}
+        {% if sDescription is not empty %}
+        <div class="description">
+            {{ sDescription|raw }}
+        </div>
+        {% endif %}
+        <div class="wrapper">
+            {% partial 'extends/featured-list/featured-list' %}
+        </div>
+    </div>
+</section>

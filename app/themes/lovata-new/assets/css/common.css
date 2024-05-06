@@ -2,34 +2,46 @@
   color-scheme: light dark;
 }
 
+.inner {
+  @apply py-16 md:py-24
+}
+.wrapper {
+  @apply mt-12 md:mt-16
+}
+
 .title {
-  @apply font-bold text-4xl	md:text-6xl text-black-white
+  @apply font-bold text-4xl  md:text-6xl text-black-white
 }
 
 .sub-title {
   @apply text-gray-600-300 pt-7 max-w-3xl text-2xl
 }
 
-.bullets {
-  @apply flex items-center justify-center space-x-2.5
+.title-large {
+  @apply md:text-6xl text-4xl text-black-white font-bold
 }
 
-.bullets__item {
-  @apply border-[5px] border-transparent rounded-full flex items-center justify-center
+.description {
+  @apply
+  mt-6
+  prose-p:mb-4
+  last:prose-p:mb-0
+  prose-strong:font-bold
+  prose-strong:text-black-white
+  prose-p:font-light
+  md:prose-p:text-2xl
+  prose-p:text-lg
+  prose-a:font-semibold
+  prose-a:text-blue-600-400
+  prose-a:underline
+  hover:prose-a:no-underline
+
+  prose-h2:text-black-white
+  prose-h2:font-bold
+  prose-h2:text-2xl
+  prose-h2:mb-7
 }
 
-.bullets__item.bullets__item--active {
-  @apply border-gray-100
-}
-
-.bullets__dot {
-  @apply w-2.5 h-2.5 block rounded-full bg-gray-200
-}
-
-.bullet__list {
-  @apply list-none
-}
-
-.bullets__item.bullets__item--active .bullets__dot {
-  @apply bg-blue-600
+.title {
+  @apply text-4xl  md:text-5xl text-black-white font-bold
 }

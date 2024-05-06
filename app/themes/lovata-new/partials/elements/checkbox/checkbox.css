@@ -4,10 +4,17 @@
 
 .checkbox__input {
   @apply border h-4 w-4 border-gray-600-500 text-black rounded-none opacity-0 absolute z-0
+  ring-0 focus:ring-0 focus:outline-offset-2
+  focus:border-blue-600-400 focus:outline-1 focus:outline-blue-600-400 focus:shadow-none
+  focus-visible:border-blue-600-400 focus-visible:outline-1 focus-visible:outline-blue-600-400 focus-visible:shadow-none focus-visible:ring-0 focus-visible:outline-offset-1
+  focus-within:border-blue-600-400 focus-within:outline-[3px] focus-within:outline-blue-600-400 focus-within:shadow-none focus-within:ring-0 focus-within:outline-offset-1
+
+
 }
 
 .checkbox__label {
   @apply text-lg flex items-start space-x-2 cursor-pointer text-gray-600-300
+
 }
 
 .checkbox__box {

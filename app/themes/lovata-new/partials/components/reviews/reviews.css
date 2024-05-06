@@ -1,21 +1,16 @@
-@import '../../extends/review/review.css';
 .reviews .reviews__inner {
-  @apply pb-24 pt-[60px] md:py-24 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative
+  @apply pb-24 pt-[60px] md:py-24 relative
 }
 
 .reviews__title {
-  @apply sticky bg-white py-4 top-[160px] z-1 mt-2.5
+  @apply sticky bg-white py-4 -mt-4 top-[152px] md:top-[160px] z-1
 }
 .reviews__wrap {
-  @apply  sm:space-x-6 lg:space-x-12 sm:flex
+  @apply sm:space-x-6 lg:space-x-12 sm:flex
 }
 
 .reviews__main {
   @apply grow space-y-12 lg:space-y-[68px]
-}
-
-.reviews__wrap {
-  @apply mt-7 sm:mt-[50px]
 }
 
 .reviews__aside {

@@ -1,0 +1,19 @@
+<section class="profit">
+    <div class="profit__inner inner">
+        <div class="profit__wrap container">
+            <div class="profit__icon">
+                <img src="{{ sImg | theme }}">
+            </div>
+            <div class="profit__container{% if sDirection == "right" %} profit__container--right {% else %} profit__container--left{% endif %}">
+                {% if sTitle is not empty %}
+                    <h2 class="profit__title title-large">{{ sTitle }}</h2>
+                {% endif %}
+                {% if sText is not empty %}
+                    <div class="profit__text">
+                        {{ sText|raw }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,25 @@
+{% set colorData = {
+    "red": "description-color--red",
+    "blue": "description-color--blue",
+    "orange": "description-color--orange",
+} %}
+
+
+<section {% if sId is not empty %}id="{{ sId }}"{% endif %} class="description-color {% if sColor is not empty %}{{ colorData[sColor]}}{% else %}main-service--red{% endif %}">
+    <div class="container">
+        <div class="description-color__wrap">
+            {% if sTitle is not empty %}
+            <h2 class="description-color__title">
+                {{ sTitle|raw }}
+            </h2>
+            {% else %}
+                <h2 class="sr-only">description</h2>
+            {% endif %}
+            {% partial 'elements/button/button'
+                text = 'Contact us today'|_
+                wrapperClasses='description-color__button'
+                buttonType='outline'
+            %}
+        </div>
+    </div>
+</section>

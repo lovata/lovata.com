@@ -1,0 +1,16 @@
+.cluch .cluch__wrap {
+  @apply -mr-16 flex items-center mt-[60px] md:mt-[152px] space-x-4 pb-20 md:pb-[138px]
+}
+
+
+.cluch .cluch__list {
+  @apply flex divide-x divide-slate-200 border-l border-gray-200 -mx-3 overflow-x-auto xl:overflow-hidden pb-3 xl:pb-0 -mb-3
+}
+
+.cluch .cluch__item {
+  @apply uppercase text-gray-500-white leading-snug text-xs px-3
+}
+
+.cluch__icon {
+  @apply text-neutral-800-white shrink-0 h-[26px]
+}

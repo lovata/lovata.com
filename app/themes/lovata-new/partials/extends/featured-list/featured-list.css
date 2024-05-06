@@ -1,0 +1,19 @@
+.featured-list__descr {
+  @apply prose-p:font-light prose-a:font-light prose-a:text-blue-600-400 prose-p:text-2xl prose-strong:font-bold prose-strong:text-black-white
+}
+
+.featured-list__items {
+  @apply flex items-start space-x-3
+}
+
+.featured-list__icon {
+  @apply shrink-0 text-black-white
+}
+
+.featured-list__wrap {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12
+}
+
+.featured-list__bottom {
+  @apply mt-16
+}

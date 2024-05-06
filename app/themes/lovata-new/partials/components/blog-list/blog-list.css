@@ -1,0 +1,6 @@
+.blog-list__inner {
+  @apply max-w-[1006px]
+}
+.blog-list__wrap {
+  @apply space-y-12 mt-16
+}

@@ -1,19 +1,23 @@
+@import "../../../node_modules/swiper/swiper.min.css";
+@import "../components/bullets.css";
 @import '../../../partials/components/header/header.css';
 @import '../../../partials/components/main/main.css';
+@import '../../../partials/components/deliver-top/deliver-top.css';
+@import '../../../partials/components/cluch/cluch.css';
 @import '../../../partials/components/services/services.css';
 @import '../../../partials/components/expertise/expertise.css';
 @import '../../../partials/components/cases/cases.css';
 @import '../../../partials/components/reviews/reviews.css';
 @import '../../../partials/components/feedback/feedback.css';
-@import '../../../partials/components/footer/footer.css';
-@import '../../../partials/extends/toggle-theme/toggle-theme.css';
-@import '../../../partials/extends/language/language.css';
-@import '../../../partials/elements/input/input.css';
+@import '../../../partials/extends/feedback-form/feedback-form.css';
 @import '../../../partials/elements/input-file/input-file.css';
 @import '../../../partials/elements/checkbox/checkbox.css';
+@import '../../../partials/extends/portfolio-item/portfolio-item.css';
+@import '../../../partials/extends/portfolio-more/portfolio-more.css';
+@import '../../../partials/extends/review/review.css';
 
 .index-wrapper__fakemain {
-  @apply h-[426px]
+  @apply h-[417px] md:h-[426px]
 }
 .index-wrapper__main {
   @apply fixed top-[84px] inset-x-0 -z-[1]

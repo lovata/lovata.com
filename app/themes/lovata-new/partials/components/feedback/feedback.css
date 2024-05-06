@@ -1,5 +1,5 @@
 .feedback .feedback__wrap {
-  @apply pb-24 pt-[60px] md:py-24 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 lg:flex lg:space-x-[68px]
+  @apply pb-24 pt-[60px] md:py-24 px-4 sm:px-6 lg:px-8 lg:flex lg:space-x-[68px]
 }
 
 .feedback__left {
@@ -11,8 +11,4 @@
 }
 .feedback__subtitle {
   @apply text-2xl font-light text-gray-600-300 mt-7
-}
-
-.form__wrap {
-  @apply space-y-12
 }

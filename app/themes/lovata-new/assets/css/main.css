@@ -1,5 +1,13 @@
 @import "./fonts.css";
 @import "./common.css";
+@import '../../partials/components/header/header.css';
+@import '../../partials/elements/input/input.css';
+@import '../../partials/components/footer/footer.css';
+@import '../../partials/extends/toggle-theme/toggle-theme.css';
+@import '../../partials/extends/language/language.css';
+@import '../../partials/elements/button/button.css';
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

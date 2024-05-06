@@ -1,0 +1,49 @@
+.rich-text__wrap {
+  @apply
+  after:content-['']
+  after:w-[180px]
+  after:h-2
+
+  after:block
+  after:mx-auto
+  after:mt-8
+  before:content-['']
+  before:w-[180px]
+  before:h-2
+
+  before:block
+  before:mx-auto
+  before:mb-8
+}
+
+
+.rich-text__descr {
+  @apply
+  prose-p:text-center
+  prose-p:font-light
+  prose-p:text-2xl
+  prose-a:text-2xl
+  prose-strong:text-2xl
+  prose-strong:inline-block
+  prose-strong:pb-7
+  prose-strong:text-black-white
+  prose-strong:font-bold
+}
+
+.rich-text--red .rich-text__wrap{
+  @apply after:bg-red-100 before:bg-red-100
+}
+.rich-text--orange .rich-text__wrap{
+  @apply after:bg-orange-100 before:bg-orange-100
+}
+.rich-text--blue .rich-text__wrap{
+  @apply after:bg-indigo-100 before:bg-indigo-100
+}
+
+.rich-text__wrap--space {
+  @apply pt-12 md:pt-16
+}
+.rich-text__wrap--nospace {
+  /*@apply py-16 md:py-24*/
+}
+

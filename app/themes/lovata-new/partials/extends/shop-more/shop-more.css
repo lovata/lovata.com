@@ -1,0 +1,3 @@
+.shop-more {
+  @apply p-3 flex-col-reverse md:flex-row flex items-center justify-center w-full text-lg space-x-4 mt-12 md:mt-16
+}

@@ -1,0 +1,12 @@
+<div class="info-description" {% if sId is not empty %}id="{{ sId }}"{% endif %}>
+    <div class="info-description__inner container">
+        <div class="info-description__wrap">
+            <div class="info-description__logo">
+                <img class="info-description__img" src="{{ 'assets/img/temp/laravel-logo.svg' | theme }}" alt="">
+            </div>
+            <div class="info-description__container">
+                {{ sContent|raw }}
+            </div>
+        </div>
+    </div>
+</div>

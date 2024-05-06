@@ -1,0 +1,23 @@
+<div class="careers">
+    <div class="careers__inner container">
+        <h1 class="title">Would like to join our team? Take a look at open positions!</h1>
+        <div class="description">
+            <p>If you didn't find a suitable vacancy, just <a href="/">drop us a line</a> and we’ll be glad to talk.</p>
+        </div>
+        <div class="careers__header">
+            <a class="careers__mail" href="mailto:hr@lovata.com">hr@lovata.com</a>
+            <div class="careers__picture">
+                <img width="122" height="48" src="{{ 'assets/img/glassdoor.png'|theme }}" alt="">
+            </div>
+        </div>
+        <ul class="careers__wrap wrapper">
+            <li>{% partial 'extends/vacancy-short/vacancy-short' %}</li>
+            <li>{% partial 'extends/vacancy-short/vacancy-short' %}</li>
+            <li>{% partial 'extends/vacancy-short/vacancy-short' %}</li>
+        </ul>
+        <div class="careers__form">
+            <h2 class="careers__subtitle">Send your CV</h2>
+            {% partial 'extends/careers-form/careers-form' %}
+        </div>
+    </div>
+</div>
