@@ -1,0 +1,79 @@
+.static-text {
+  @apply prose
+  max-w-none
+  prose-a:font-semibold
+  prose-a:text-blue-600-400
+  prose-a:underline
+
+  hover:prose-a:no-underline
+  prose-p:text-gray-600-300
+  md:prose-p:text-2xl
+  prose-p:text-lg
+  prose-p:m-0
+  prose-p:py-3
+  prose-strong:text-black-white
+
+  prose-h2:mt-[44px]
+  prose-h2:mb-5
+  prose-h2:text-gray-600-300
+  md:prose-h2:text-3xl
+  prose-h2:text-2xl
+  prose-h3:text-2xl
+  prose-h3:pb-2
+  prose-h3:mt-12
+  prose-h3:font-bold
+
+  prose-ul:py-1.5
+  prose-ul:pl-5
+  prose-ul:m-0
+  prose-ol:py-2
+  prose-ol:pl-5
+  prose-ol:m-0
+  prose-li:m-0
+  prose-li:py-1.5
+  prose-li:px-3
+  md:prose-li:text-2xl
+  prose-li:text-lg
+  prose-li:text-gray-600-300
+  prose-li:marker:text-gray-600-300
+
+  prose-blockquote:text-black-white
+  md:prose-blockquote:text-2xl
+  prose-blockquote:text-lg
+  prose-blockquote:my-5
+  prose-blockquote:px-4
+  /*prose-blockquote:font-medium*/
+
+  prose-img:max-w-full
+  prose-img:my-0
+  prose-img:pt-5
+
+  prose-table:w-full
+  prose-table:block
+  prose-table:md:table
+  prose-table:overflow-x-auto
+  prose-table:my-3
+  prose-tr:border-0
+  prose-th:text-lg
+  md:prose-th:text-2xl
+  prose-th:font-medium
+  prose-th:border-b
+  prose-th:border-gray-200-natural-800
+  prose-th:text-left
+  prose-th:tracking-[0.6px]
+  prose-th:text-gray-500-white
+  prose-th:uppercase
+  prose-th:px-6
+  prose-th:py-3
+  prose-th:bg-gray-50-natural-900
+  prose-td:px-6
+  prose-td:py-4
+  prose-td:text-gray-500-white
+  prose-td:text-2xl
+  md:prose-td:text-2xl
+  even:prose-tr:bg-white-natural-800
+  odd:prose-tr:bg-gray-50-natural-900
+}
+
+
+

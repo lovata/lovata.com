@@ -33,6 +33,7 @@
         "vite-plugin-minify": "^1.5.2"
     },
     "dependencies": {
+        "@tailwindcss/typography": "^0.5.12",
         "glob": "^10.3.12"
     }
 }

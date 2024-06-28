@@ -10,18 +10,28 @@ module.exports = {
     darkMode: 'class',
     theme: {
         extend: {
+            container: {
+                center: true,
+            },
             zIndex: {
                 1: 1,
             },
             colors: {
                 'black-white': "var(--black-white)",
-                'white-black': "var(--white-black)",
-                'white-natural-900': "var(--white-natural-900)",
+
+
                 blue: {
                     '600-400': "var(--blue-600-400)",
                 },
+                white: {
+                    'black': "var(--white-black)",
+                    'natural-900': "var(--white-natural-900)",
+                    'natural-800': "var(--white-natural-800)",
+                    DEFAULT: '#ffffff',
+                },
                 gray: {
                     '50-natural-900': "var(--gray-50-natural-900)",
+                    '200-natural-800': "var(--gray-200-natural-800)",
                     '100-natural-800': "var(--gray-100-natural-800)",
                     '200-700': "var(--gray-200-700)",
                     '300-white': "var(--gray-300-white)",
@@ -35,6 +45,7 @@ module.exports = {
                     '600-white': "var(--gray-600-white)",
                     '600-300': "var(--gray-600-300)",
                     '600-500': "var(--gray-600-500)",
+
                 },
                 neutral: {
                     '800-white': "var(--gray-800-white)",
@@ -53,7 +64,9 @@ module.exports = {
             },
         }
     },
-    plugins: [],
+    plugins: [
+        require('@tailwindcss/typography'),
+    ],
 }
 
 
