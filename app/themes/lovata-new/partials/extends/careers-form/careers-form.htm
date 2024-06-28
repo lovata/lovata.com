@@ -1,0 +1,26 @@
+<form class="careers-form">
+    <div class="careers-form__wrap">
+        {% partial 'elements/input/input' name="name" label="Your name *" %}
+        {% partial 'elements/input/input' name="email" label="Your email *" %}
+
+{#        {% partial 'elements/input-file/input-file' sId="inputfile" labelText="Attach file (up to 10 Mb)" %}#}
+        {% partial 'elements/input-file/input-file'
+            wrapperClasses='col-span-2'
+            labelText="Resume"
+            sId="inputfileMultiple"
+            multiple=true
+        %}
+
+        {% partial 'elements/input/input'
+            name="cover"
+            label="Cover letter"
+            wrapperClasses='col-span-2'
+        %}
+        <div class="careers-form__button">
+            {% partial 'elements/button/button'
+                text = 'Send'|_
+                wrapperClasses='w-full md:w-auto'
+            %}
+        </div>
+    </div>
+</form>

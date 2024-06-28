@@ -1,0 +1,30 @@
+.careers__inner {
+  @apply max-w-[1006px] pt-12 md:pt-16 pb-16 md:pb-24
+}
+.careers__wrap {
+  @apply divide-y divide-gray-600 border-y border-gray-600 mt-12 md:mt-16
+}
+
+.careers__header {
+  @apply md:flex md:items-center md:justify-between mt-6 md:mt-8 space-y-6 md:space-y-0
+}
+
+.careers__text {
+  @apply prose-p:font-light
+}
+
+.careers__mail {
+  @apply text-4xl	md:text-5xl text-black-white font-light border-b-2 border-black-white hover:border-transparent
+}
+
+.careers__picture {
+  @apply w-fit rounded-xl bg-white px-3.5 pt-0.5 pb-1.5
+}
+
+.careers__form {
+  @apply mt-16 md:mt-24
+}
+
+.careers__subtitle {
+  @apply text-4xl font-bold mb-16 text-black-white
+}

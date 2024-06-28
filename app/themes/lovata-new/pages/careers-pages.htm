@@ -1,0 +1,50 @@
+url = "/careers-pages"
+layout = "main"
+title = "index"
+is_hidden = 0
+meta_title = "LOVATA: Software Product Development Services Company"
+meta_description = "LOVATA is an award-winning software product development company that provides custom web and mobile app development services based on open-source technologies."
+meta_keywords = "software product development company, web application development, web software development company, custom software development, mobile app development company, website and software development company, product software development, software product development, software development company, software development services, product development services, product development services companies, software product development services, software app development, app development, web development, software application development, app development companies, software companies, offshore software development, it outsourcing, software developer companies, software developer company, web design company, web apps, agile software development"
+
+==
+
+{% put style %}
+    {{ vite([{ path: 'assets/css/pages/careers-pages.css' }]) }}
+{% endput %}
+
+<div class="careers-pages">
+    <div class="careers-pages__inner container">
+        <div class="careers-pages__header">
+            <h1 class="title">Data Scientist</h1>
+            <div class="careers-pages__picture">
+                <img width="122" height="48" src="{{ 'assets/img/glassdoor.png'|theme }}" alt="">
+            </div>
+        </div>
+        <div class="careers-pages__wrap">
+            {% partial
+                'extends/static-text/static-text'
+                classParent='blog-post__content'
+                content='<p>Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.</p>
+            <p>Faucibus commodo massa rhoncus, volutpat. <strong>Dignissim</strong> sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim.
+                <a href="/">Mattis mauris semper</a> sed amet vitae sed turpis id.</p>
+
+            <ul>
+                <li>Quis elit egestas venenatis mattis dignissim.</li>
+                <li>Quis elit egestas venenatis mattis dignissim.</li>
+                <li>
+                    Quis elit egestas venenatis mattis dignissim.
+                    <ul>
+                        <li>Orci in sit morbi dignissim metus diam arcu pretium.</li>
+                        <li>Orci in sit morbi dignissim metus diam arcu pretium.</li>
+                        <li>Orci in sit morbi dignissim metus diam arcu pretium.</li>
+                    </ul>
+                </li>
+            </ul>
+        ' %}
+        </div>
+        <div class="careers-pages__form">
+            <h2 class="careers__subtitle">Apply to this vacancy</h2>
+            {% partial 'extends/careers-form/careers-form' %}
+        </div>
+    </div>
+</div>
