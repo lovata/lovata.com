@@ -1,0 +1,3 @@
+.short-nav {
+  @apply flex items-center space-x-2.5 text-blue-600-400 text-2xl font-medium
+}

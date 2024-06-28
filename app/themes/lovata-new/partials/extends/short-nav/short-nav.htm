@@ -1,0 +1,15 @@
+<a href="{{ href }}" class="short-nav">
+    {% if nav == 'left' %}
+
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M20.4648 8.36827C20.9242 8.846 20.9093 9.60565 20.4315 10.065L14.1311 16L20.4315 21.935C20.9093 22.3944 20.9242 23.154 20.4648 23.6317C20.0055 24.1095 19.2458 24.1244 18.7681 23.665L11.5681 16.865C11.3328 16.6388 11.1998 16.3264 11.1998 16C11.1998 15.6736 11.3328 15.3612 11.5681 15.135L18.7681 8.335C19.2458 7.87565 20.0055 7.89054 20.4648 8.36827Z" fill="currentColor"/>
+        </svg>
+
+    {% endif %}
+    <span>{{ text }}</span>
+    {% if nav == 'right' %}
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+    {% endif %}
+</a>
